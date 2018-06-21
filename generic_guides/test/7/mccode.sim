@@ -1,0 +1,59 @@
+McStas simulation description file for generic_half_elliptic_nose.
+Date:    Thu Jun 21 17:59:38 2018
+Program: McStas 2.4.1 - Jun. 26, 2017
+
+begin instrument: generic_half_elliptic_nose
+  File: /home/konik/PIK_neutron_guide_system/generic_guides/test/7/mccode
+  Source: generic_parabolic_nose.instr
+  Parameters:  guide_length(double) nose_length(double) m_side(double) m_top(double) focal_dist(double) R0(double) alpha(double) sample_height(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /home/konik/PIK_neutron_guide_system/generic_guides/test/7
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.4.1 - Jun. 26, 2017
+  Instrument: generic_parabolic_nose.instr
+  Ncount: 100000
+  Trace: no
+  Gravitation: no
+  Seed: 1529609311
+  Directory: /home/konik/PIK_neutron_guide_system/generic_guides/test/7
+  Param: guide_length=100
+  Param: nose_length=8
+  Param: m_side=2
+  Param: m_top=6
+  Param: focal_dist=0.5
+  Param: R0=2
+  Param: alpha=3.3
+  Param: sample_height=0.01
+  Param: guide_start_width=0.03
+  Param: guide_start_height=0.03
+  Param: source_lambda_min=0.1
+  Param: source_lambda_max=20
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Thu Jun 21 17:59:42 2018 (1529593182)
+  type: array_2d(100, 100)
+  Source: generic_half_elliptic_nose (generic_parabolic_nose.instr)
+  component: Sample
+  position: 0 0 102.32
+  title:  Intensity Position Position Monitor (Square) per bin
+  Ncount: 100000
+  filename: Sample_1529593178.x_y
+  statistics: X0=0.00131458; dX=0.0112842; Y0=-0.00427088; dY=0.000417248;
+  signal: Min=0; Max=2.23918e+48; Mean=5.02678e+44;
+  values: 5.02678e+48 2.94299e+48 2854
+  xvar: x 
+  yvar: y 
+  xlabel: x [m]
+  ylabel: y [m]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: -0.015 0.015 -0.005 0.005
+  variables: I I_err N
+end data

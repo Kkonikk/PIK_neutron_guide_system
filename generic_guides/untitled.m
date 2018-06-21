@@ -1,0 +1,2 @@
+[p1,m]=mcstas('generic_parabolic_nose',struct('guide_length',100,'nose_length',1:1:20,'m_side',2,'m_top',6,'focal_dist',0.5,'R0',2,'alpha',3.3,'sample_height',0.01),struct('ncount',1e5,'compile','yes','dir','/home/konik/PIK_neutron_guide_system/generic_guides/test','overwrite',1, 'mpi',1));
+plot(p1.signal)
