@@ -1,10 +1,10 @@
 /* Automatically generated file. Do not edit. 
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
- * Instrument: generic_parabolic_nose.instr (generic_parabolic_nose)
- * Date:       Fri Jun 22 12:20:31 2018
- * File:       ./generic_parabolic_nose.c
- * Compile:    cc -o generic_parabolic_nose.out ./generic_parabolic_nose.c 
+ * Instrument: generic_half_elliptic_nose.instr (generic_half_elliptic_nose)
+ * Date:       Fri Jun 22 13:50:28 2018
+ * File:       ./generic_half_elliptic_nose.c
+ * Compile:    cc -o generic_half_elliptic_nose.out ./generic_half_elliptic_nose.c 
  * CFLAGS=
  */
 
@@ -688,7 +688,7 @@ NXhandle nxhandle;
 #endif /* MCCODE_R_H */
 /* End of file "mccode-r.h". */
 
-#line 691 "./generic_parabolic_nose.c"
+#line 691 "./generic_half_elliptic_nose.c"
 
 #line 1 "mcstas-r.h"
 /*******************************************************************************
@@ -921,7 +921,7 @@ void mcsetstate(double x, double y, double z, double vx, double vy, double vz,
 #endif /* MCSTAS_R_H */
 /* End of file "mcstas-r.h". */
 
-#line 924 "./generic_parabolic_nose.c"
+#line 924 "./generic_half_elliptic_nose.c"
 
 #line 1 "mccode-r.c"
 /*******************************************************************************
@@ -4853,7 +4853,7 @@ void neutronics_main_(float *inx, float *iny, float *inz, float *invx, float *in
 /* End of file "mccode-r.c". */
 /* End of file "mccode-r.c". */
 
-#line 4856 "./generic_parabolic_nose.c"
+#line 4856 "./generic_half_elliptic_nose.c"
 
 #line 1 "mcstas-r.c"
 /*******************************************************************************
@@ -5213,7 +5213,7 @@ plane_intersect(double *t, double x, double y, double z,
 #endif /* !MCSTAS_H */
 /* End of file "mcstas-r.c". */
 
-#line 5216 "./generic_parabolic_nose.c"
+#line 5216 "./generic_half_elliptic_nose.c"
 #ifdef MC_TRACE_ENABLED
 int mctraceenabled = 1;
 #else
@@ -5221,8 +5221,8 @@ int mctraceenabled = 0;
 #endif
 #define MCSTAS "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../"
 int mcdefaultmain = 1;
-char mcinstrument_name[] = "generic_parabolic_nose";
-char mcinstrument_source[] = "generic_parabolic_nose.instr";
+char mcinstrument_name[] = "generic_half_elliptic_nose";
+char mcinstrument_source[] = "generic_half_elliptic_nose.instr";
 char *mcinstrument_exe=NULL; /* will be set to argv[0] in main */
 int main(int argc, char *argv[]){return mccode_main(argc, argv);}
 void mcinit(void);
@@ -6701,7 +6701,7 @@ char *str_dup_numeric(char *orig)
   }
 #endif
 
-#line 6704 "./generic_parabolic_nose.c"
+#line 6704 "./generic_half_elliptic_nose.c"
 
 /* Shared user declarations for all components 'Guide_gravity'. */
 #line 124 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
@@ -7057,12 +7057,12 @@ void TableReflecFunc(double mc_pol_q, t_Table *mc_pol_par, double *mc_pol_r) {
 
 
 #endif
-#line 7060 "./generic_parabolic_nose.c"
+#line 7060 "./generic_half_elliptic_nose.c"
 
 /* Shared user declarations for all components 'Guide_tapering'. */
 #line 91 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
 
-#line 7065 "./generic_parabolic_nose.c"
+#line 7065 "./generic_half_elliptic_nose.c"
 
 /* Shared user declarations for all components 'Monitor_nD'. */
 #line 212 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
@@ -9975,7 +9975,7 @@ void off_display(off_struct data)
 
 /* end of interoff-lib.c */
 
-#line 9978 "./generic_parabolic_nose.c"
+#line 9978 "./generic_half_elliptic_nose.c"
 
 /* Instrument parameters. */
 MCNUM mcipguide_length;
@@ -10012,10 +10012,10 @@ struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
 };
 
 /* User declarations from instrument definition. */
-#define mccompcurname  generic_parabolic_nose
+#define mccompcurname  generic_half_elliptic_nose
 #define mccompcurtype  INSTRUMENT
 #define mccompcurindex 0
-#define mcposageneric_parabolic_nose coords_set(0,0,0)
+#define mcposageneric_half_elliptic_nose coords_set(0,0,0)
 #define guide_length mcipguide_length
 #define nose_length mcipnose_length
 #define m_side mcipm_side
@@ -10045,7 +10045,7 @@ double source_no_I1 = 7.05e12;
 
 //Distance to neutron guides
 double guide_start_dist = 1.82;
-#line 10048 "./generic_parabolic_nose.c"
+#line 10048 "./generic_half_elliptic_nose.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -10059,7 +10059,7 @@ double guide_start_dist = 1.82;
 #undef m_side
 #undef nose_length
 #undef guide_length
-#undef mcposageneric_parabolic_nose
+#undef mcposageneric_half_elliptic_nose
 #undef mccompcurindex
 #undef mccompcurtype
 #undef mccompcurname
@@ -10229,7 +10229,7 @@ double IntermediateCnts;
 time_t StartTime;
 time_t EndTime;
 time_t CurrentTime;
-#line 10232 "./generic_parabolic_nose.c"
+#line 10232 "./generic_half_elliptic_nose.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -10313,7 +10313,7 @@ time_t CurrentTime;
   double pTable_dymin;
   double pTable_dymax;
 
-#line 10316 "./generic_parabolic_nose.c"
+#line 10316 "./generic_half_elliptic_nose.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -10416,7 +10416,7 @@ time_t CurrentTime;
 #line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 10419 "./generic_parabolic_nose.c"
+#line 10419 "./generic_half_elliptic_nose.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -10536,7 +10536,7 @@ char file_name[1024];
 char *ep;
 FILE *num;
 double rotation_h, rotation_v;
-#line 10539 "./generic_parabolic_nose.c"
+#line 10539 "./generic_half_elliptic_nose.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -10635,7 +10635,7 @@ double rotation_h, rotation_v;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 10638 "./generic_parabolic_nose.c"
+#line 10638 "./generic_half_elliptic_nose.c"
 #undef username3
 #undef username2
 #undef username1
@@ -10685,10 +10685,10 @@ MCNUM mcnx, mcny, mcnz, mcnvx, mcnvy, mcnvz, mcnt, mcnsx, mcnsy, mcnsz, mcnp;
 /* end declare */
 
 void mcinit(void) {
-#define mccompcurname  generic_parabolic_nose
+#define mccompcurname  generic_half_elliptic_nose
 #define mccompcurtype  INSTRUMENT
 #define mccompcurindex 0
-#define mcposageneric_parabolic_nose coords_set(0,0,0)
+#define mcposageneric_half_elliptic_nose coords_set(0,0,0)
 #define guide_length mcipguide_length
 #define nose_length mcipnose_length
 #define m_side mcipm_side
@@ -10718,7 +10718,7 @@ if (cold_regime==-1){
 	source_I2 = 0;
 	source_I3 = 0;};	
 }
-#line 10721 "./generic_parabolic_nose.c"
+#line 10721 "./generic_half_elliptic_nose.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -10732,7 +10732,7 @@ if (cold_regime==-1){
 #undef m_side
 #undef nose_length
 #undef guide_length
-#undef mcposageneric_parabolic_nose
+#undef mcposageneric_half_elliptic_nose
 #undef mccompcurindex
 #undef mccompcurtype
 #undef mccompcurname
@@ -10749,31 +10749,31 @@ if (cold_regime==-1){
     /* Component Origin. */
   /* Setting parameters for component Origin. */
   SIG_MESSAGE("Origin (Init:SetPar)");
-#line 39 "generic_parabolic_nose.instr"
+#line 39 "generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccOrigin_profile, "NULL" ? "NULL" : "", 16384); else mccOrigin_profile[0]='\0';
-#line 39 "generic_parabolic_nose.instr"
+#line 39 "generic_half_elliptic_nose.instr"
   mccOrigin_percent = 10;
-#line 39 "generic_parabolic_nose.instr"
+#line 39 "generic_half_elliptic_nose.instr"
   mccOrigin_flag_save = 0;
-#line 39 "generic_parabolic_nose.instr"
+#line 39 "generic_half_elliptic_nose.instr"
   mccOrigin_minutes = 0;
-#line 10760 "./generic_parabolic_nose.c"
+#line 10760 "./generic_half_elliptic_nose.c"
 
   SIG_MESSAGE("Origin (Init:Place/Rotate)");
   rot_set_rotation(mcrotaOrigin,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10767 "./generic_parabolic_nose.c"
+#line 10767 "./generic_half_elliptic_nose.c"
   rot_copy(mcrotrOrigin, mcrotaOrigin);
   mcposaOrigin = coords_set(
-#line 66 "generic_parabolic_nose.instr"
+#line 66 "generic_half_elliptic_nose.instr"
     0,
-#line 66 "generic_parabolic_nose.instr"
+#line 66 "generic_half_elliptic_nose.instr"
     0,
-#line 66 "generic_parabolic_nose.instr"
+#line 66 "generic_half_elliptic_nose.instr"
     0);
-#line 10776 "./generic_parabolic_nose.c"
+#line 10776 "./generic_half_elliptic_nose.c"
   mctc1 = coords_neg(mcposaOrigin);
   mcposrOrigin = rot_apply(mcrotaOrigin, mctc1);
   mcDEBUG_COMPONENT("Origin", mcposaOrigin, mcrotaOrigin)
@@ -10784,85 +10784,85 @@ if (cold_regime==-1){
     /* Component H3. */
   /* Setting parameters for component H3. */
   SIG_MESSAGE("H3 (Init:SetPar)");
-#line 129 "generic_parabolic_nose.instr"
+#line 129 "generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccH3_flux_file, "NULL" ? "NULL" : "", 16384); else mccH3_flux_file[0]='\0';
-#line 129 "generic_parabolic_nose.instr"
+#line 129 "generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccH3_xdiv_file, "NULL" ? "NULL" : "", 16384); else mccH3_xdiv_file[0]='\0';
-#line 129 "generic_parabolic_nose.instr"
+#line 129 "generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccH3_ydiv_file, "NULL" ? "NULL" : "", 16384); else mccH3_ydiv_file[0]='\0';
-#line 130 "generic_parabolic_nose.instr"
+#line 130 "generic_half_elliptic_nose.instr"
   mccH3_radius = 0.0;
-#line 70 "generic_parabolic_nose.instr"
+#line 70 "generic_half_elliptic_nose.instr"
   mccH3_dist = guide_start_dist;
-#line 70 "generic_parabolic_nose.instr"
+#line 70 "generic_half_elliptic_nose.instr"
   mccH3_focus_xw = mcipguide_start_width;
-#line 71 "generic_parabolic_nose.instr"
+#line 71 "generic_half_elliptic_nose.instr"
   mccH3_focus_yh = mcipguide_start_height;
-#line 130 "generic_parabolic_nose.instr"
+#line 130 "generic_half_elliptic_nose.instr"
   mccH3_focus_aw = 0;
-#line 130 "generic_parabolic_nose.instr"
+#line 130 "generic_half_elliptic_nose.instr"
   mccH3_focus_ah = 0;
-#line 131 "generic_parabolic_nose.instr"
+#line 131 "generic_half_elliptic_nose.instr"
   mccH3_E0 = 0;
-#line 131 "generic_parabolic_nose.instr"
+#line 131 "generic_half_elliptic_nose.instr"
   mccH3_dE = 0;
-#line 131 "generic_parabolic_nose.instr"
+#line 131 "generic_half_elliptic_nose.instr"
   mccH3_lambda0 = 0;
-#line 131 "generic_parabolic_nose.instr"
+#line 131 "generic_half_elliptic_nose.instr"
   mccH3_dlambda = 0;
-#line 71 "generic_parabolic_nose.instr"
+#line 71 "generic_half_elliptic_nose.instr"
   mccH3_I1 = source_I1;
-#line 71 "generic_parabolic_nose.instr"
+#line 71 "generic_half_elliptic_nose.instr"
   mccH3_yheight = source_height;
-#line 72 "generic_parabolic_nose.instr"
+#line 72 "generic_half_elliptic_nose.instr"
   mccH3_xwidth = source_width;
-#line 132 "generic_parabolic_nose.instr"
+#line 132 "generic_half_elliptic_nose.instr"
   mccH3_verbose = 0;
-#line 72 "generic_parabolic_nose.instr"
+#line 72 "generic_half_elliptic_nose.instr"
   mccH3_T1 = source_T1;
-#line 133 "generic_parabolic_nose.instr"
+#line 133 "generic_half_elliptic_nose.instr"
   mccH3_flux_file_perAA = 0;
-#line 133 "generic_parabolic_nose.instr"
+#line 133 "generic_half_elliptic_nose.instr"
   mccH3_flux_file_log = 0;
-#line 72 "generic_parabolic_nose.instr"
+#line 72 "generic_half_elliptic_nose.instr"
   mccH3_Lmin = mcipsource_lambda_min;
-#line 73 "generic_parabolic_nose.instr"
+#line 73 "generic_half_elliptic_nose.instr"
   mccH3_Lmax = mcipsource_lambda_max;
-#line 134 "generic_parabolic_nose.instr"
+#line 134 "generic_half_elliptic_nose.instr"
   mccH3_Emin = 0;
-#line 134 "generic_parabolic_nose.instr"
+#line 134 "generic_half_elliptic_nose.instr"
   mccH3_Emax = 0;
-#line 73 "generic_parabolic_nose.instr"
+#line 73 "generic_half_elliptic_nose.instr"
   mccH3_T2 = source_T2;
-#line 73 "generic_parabolic_nose.instr"
+#line 73 "generic_half_elliptic_nose.instr"
   mccH3_I2 = source_I2;
-#line 73 "generic_parabolic_nose.instr"
+#line 73 "generic_half_elliptic_nose.instr"
   mccH3_T3 = source_T3;
-#line 74 "generic_parabolic_nose.instr"
+#line 74 "generic_half_elliptic_nose.instr"
   mccH3_I3 = source_I3;
-#line 134 "generic_parabolic_nose.instr"
+#line 134 "generic_half_elliptic_nose.instr"
   mccH3_zdepth = 0;
-#line 134 "generic_parabolic_nose.instr"
+#line 134 "generic_half_elliptic_nose.instr"
   mccH3_target_index = + 1;
-#line 10847 "./generic_parabolic_nose.c"
+#line 10847 "./generic_half_elliptic_nose.c"
 
   SIG_MESSAGE("H3 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10854 "./generic_parabolic_nose.c"
+#line 10854 "./generic_half_elliptic_nose.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaH3);
   rot_transpose(mcrotaOrigin, mctr1);
   rot_mul(mcrotaH3, mctr1, mcrotrH3);
   mctc1 = coords_set(
-#line 75 "generic_parabolic_nose.instr"
+#line 75 "generic_half_elliptic_nose.instr"
     0,
-#line 75 "generic_parabolic_nose.instr"
+#line 75 "generic_half_elliptic_nose.instr"
     0,
-#line 75 "generic_parabolic_nose.instr"
+#line 75 "generic_half_elliptic_nose.instr"
     0);
-#line 10865 "./generic_parabolic_nose.c"
+#line 10865 "./generic_half_elliptic_nose.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaH3 = coords_add(mcposaOrigin, mctc2);
@@ -10882,18 +10882,18 @@ if (cold_regime==-1){
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10885 "./generic_parabolic_nose.c"
+#line 10885 "./generic_half_elliptic_nose.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaGuide_start_arm);
   rot_transpose(mcrotaH3, mctr1);
   rot_mul(mcrotaGuide_start_arm, mctr1, mcrotrGuide_start_arm);
   mctc1 = coords_set(
-#line 79 "generic_parabolic_nose.instr"
+#line 79 "generic_half_elliptic_nose.instr"
     0,
-#line 79 "generic_parabolic_nose.instr"
+#line 79 "generic_half_elliptic_nose.instr"
     0,
-#line 79 "generic_parabolic_nose.instr"
+#line 79 "generic_half_elliptic_nose.instr"
     guide_start_dist);
-#line 10896 "./generic_parabolic_nose.c"
+#line 10896 "./generic_half_elliptic_nose.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_start_arm = coords_add(mcposaOrigin, mctc2);
@@ -10907,93 +10907,93 @@ if (cold_regime==-1){
     /* Component Main_guide. */
   /* Setting parameters for component Main_guide. */
   SIG_MESSAGE("Main_guide (Init:SetPar)");
-#line 48 "generic_parabolic_nose.instr"
+#line 48 "generic_half_elliptic_nose.instr"
   mccMain_guide_w1 = mcipguide_start_width;
-#line 49 "generic_parabolic_nose.instr"
+#line 49 "generic_half_elliptic_nose.instr"
   mccMain_guide_h1 = mcipguide_start_height;
-#line 113 "generic_parabolic_nose.instr"
+#line 113 "generic_half_elliptic_nose.instr"
   mccMain_guide_w2 = 0;
-#line 113 "generic_parabolic_nose.instr"
+#line 113 "generic_half_elliptic_nose.instr"
   mccMain_guide_h2 = 0;
-#line 50 "generic_parabolic_nose.instr"
+#line 50 "generic_half_elliptic_nose.instr"
   mccMain_guide_l = mcipguide_length - mcipnose_length;
-#line 51 "generic_parabolic_nose.instr"
+#line 51 "generic_half_elliptic_nose.instr"
   mccMain_guide_R0 = mcipR0;
-#line 114 "generic_parabolic_nose.instr"
+#line 114 "generic_half_elliptic_nose.instr"
   mccMain_guide_Qc = 0.0218;
-#line 52 "generic_parabolic_nose.instr"
+#line 52 "generic_half_elliptic_nose.instr"
   mccMain_guide_alpha = mcipalpha;
-#line 114 "generic_parabolic_nose.instr"
+#line 114 "generic_half_elliptic_nose.instr"
   mccMain_guide_m = 1.0;
-#line 114 "generic_parabolic_nose.instr"
+#line 114 "generic_half_elliptic_nose.instr"
   mccMain_guide_W = 0.003;
-#line 114 "generic_parabolic_nose.instr"
+#line 114 "generic_half_elliptic_nose.instr"
   mccMain_guide_nslit = 1;
-#line 114 "generic_parabolic_nose.instr"
+#line 114 "generic_half_elliptic_nose.instr"
   mccMain_guide_d = 0.0005;
-#line 53 "generic_parabolic_nose.instr"
+#line 53 "generic_half_elliptic_nose.instr"
   mccMain_guide_mleft = mcipm_side;
-#line 54 "generic_parabolic_nose.instr"
+#line 54 "generic_half_elliptic_nose.instr"
   mccMain_guide_mright = mcipm_side;
-#line 55 "generic_parabolic_nose.instr"
+#line 55 "generic_half_elliptic_nose.instr"
   mccMain_guide_mtop = mcipm_top;
-#line 56 "generic_parabolic_nose.instr"
+#line 56 "generic_half_elliptic_nose.instr"
   mccMain_guide_mbottom = mcipm_top;
-#line 115 "generic_parabolic_nose.instr"
+#line 115 "generic_half_elliptic_nose.instr"
   mccMain_guide_nhslit = 1;
-#line 57 "generic_parabolic_nose.instr"
+#line 57 "generic_half_elliptic_nose.instr"
   mccMain_guide_G = -9.81;
-#line 116 "generic_parabolic_nose.instr"
+#line 116 "generic_half_elliptic_nose.instr"
   mccMain_guide_aleft = -1;
-#line 116 "generic_parabolic_nose.instr"
+#line 116 "generic_half_elliptic_nose.instr"
   mccMain_guide_aright = -1;
-#line 116 "generic_parabolic_nose.instr"
+#line 116 "generic_half_elliptic_nose.instr"
   mccMain_guide_atop = -1;
-#line 116 "generic_parabolic_nose.instr"
+#line 116 "generic_half_elliptic_nose.instr"
   mccMain_guide_abottom = -1;
-#line 117 "generic_parabolic_nose.instr"
+#line 117 "generic_half_elliptic_nose.instr"
   mccMain_guide_wavy = 0;
-#line 117 "generic_parabolic_nose.instr"
+#line 117 "generic_half_elliptic_nose.instr"
   mccMain_guide_wavy_z = 0;
-#line 117 "generic_parabolic_nose.instr"
+#line 117 "generic_half_elliptic_nose.instr"
   mccMain_guide_wavy_tb = 0;
-#line 117 "generic_parabolic_nose.instr"
+#line 117 "generic_half_elliptic_nose.instr"
   mccMain_guide_wavy_lr = 0;
-#line 118 "generic_parabolic_nose.instr"
+#line 118 "generic_half_elliptic_nose.instr"
   mccMain_guide_chamfers = 0;
-#line 118 "generic_parabolic_nose.instr"
+#line 118 "generic_half_elliptic_nose.instr"
   mccMain_guide_chamfers_z = 0;
-#line 118 "generic_parabolic_nose.instr"
+#line 118 "generic_half_elliptic_nose.instr"
   mccMain_guide_chamfers_lr = 0;
-#line 118 "generic_parabolic_nose.instr"
+#line 118 "generic_half_elliptic_nose.instr"
   mccMain_guide_chamfers_tb = 0;
-#line 118 "generic_parabolic_nose.instr"
+#line 118 "generic_half_elliptic_nose.instr"
   mccMain_guide_nelements = 1;
-#line 119 "generic_parabolic_nose.instr"
+#line 119 "generic_half_elliptic_nose.instr"
   mccMain_guide_nu = 0;
-#line 119 "generic_parabolic_nose.instr"
+#line 119 "generic_half_elliptic_nose.instr"
   mccMain_guide_phase = 0;
-#line 119 "generic_parabolic_nose.instr"
+#line 119 "generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccMain_guide_reflect, "NULL" ? "NULL" : "", 16384); else mccMain_guide_reflect[0]='\0';
-#line 10978 "./generic_parabolic_nose.c"
+#line 10978 "./generic_half_elliptic_nose.c"
 
   SIG_MESSAGE("Main_guide (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10985 "./generic_parabolic_nose.c"
+#line 10985 "./generic_half_elliptic_nose.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaMain_guide);
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   rot_mul(mcrotaMain_guide, mctr1, mcrotrMain_guide);
   mctc1 = coords_set(
-#line 58 "generic_parabolic_nose.instr"
+#line 58 "generic_half_elliptic_nose.instr"
     0,
-#line 58 "generic_parabolic_nose.instr"
+#line 58 "generic_half_elliptic_nose.instr"
     0,
-#line 58 "generic_parabolic_nose.instr"
+#line 58 "generic_half_elliptic_nose.instr"
     0);
-#line 10996 "./generic_parabolic_nose.c"
+#line 10996 "./generic_half_elliptic_nose.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMain_guide = coords_add(mcposaGuide_start_arm, mctc2);
@@ -11007,63 +11007,63 @@ if (cold_regime==-1){
     /* Component Nose_guide. */
   /* Setting parameters for component Nose_guide. */
   SIG_MESSAGE("Nose_guide (Init:SetPar)");
-#line 61 "generic_parabolic_nose.instr"
-  if("parabolical") strncpy(mccNose_guide_option, "parabolical" ? "parabolical" : "", 16384); else mccNose_guide_option[0]='\0';
-#line 62 "generic_parabolic_nose.instr"
+#line 61 "generic_half_elliptic_nose.instr"
+  if("elliptical") strncpy(mccNose_guide_option, "elliptical" ? "elliptical" : "", 16384); else mccNose_guide_option[0]='\0';
+#line 62 "generic_half_elliptic_nose.instr"
   mccNose_guide_w1 = mcipguide_start_width;
-#line 63 "generic_parabolic_nose.instr"
+#line 63 "generic_half_elliptic_nose.instr"
   mccNose_guide_h1 = mcipguide_start_height;
-#line 64 "generic_parabolic_nose.instr"
+#line 64 "generic_half_elliptic_nose.instr"
   mccNose_guide_l = mcipnose_length;
-#line 81 "generic_parabolic_nose.instr"
+#line 81 "generic_half_elliptic_nose.instr"
   mccNose_guide_linw = 0;
-#line 81 "generic_parabolic_nose.instr"
+#line 81 "generic_half_elliptic_nose.instr"
   mccNose_guide_loutw = 0;
-#line 81 "generic_parabolic_nose.instr"
-  mccNose_guide_linh = 0;
-#line 65 "generic_parabolic_nose.instr"
+#line 65 "generic_half_elliptic_nose.instr"
+  mccNose_guide_linh = mcipnose_length + mcipfocal_dist;
+#line 66 "generic_half_elliptic_nose.instr"
   mccNose_guide_louth = mcipfocal_dist;
-#line 66 "generic_parabolic_nose.instr"
+#line 67 "generic_half_elliptic_nose.instr"
   mccNose_guide_R0 = mcipR0;
-#line 82 "generic_parabolic_nose.instr"
+#line 82 "generic_half_elliptic_nose.instr"
   mccNose_guide_Qcx = 0.021;
-#line 82 "generic_parabolic_nose.instr"
+#line 82 "generic_half_elliptic_nose.instr"
   mccNose_guide_Qcy = 0.021;
-#line 67 "generic_parabolic_nose.instr"
+#line 68 "generic_half_elliptic_nose.instr"
   mccNose_guide_alphax = mcipalpha;
-#line 68 "generic_parabolic_nose.instr"
+#line 69 "generic_half_elliptic_nose.instr"
   mccNose_guide_alphay = mcipalpha;
-#line 82 "generic_parabolic_nose.instr"
+#line 82 "generic_half_elliptic_nose.instr"
   mccNose_guide_W = 0.003;
-#line 69 "generic_parabolic_nose.instr"
+#line 70 "generic_half_elliptic_nose.instr"
   mccNose_guide_mx = mcipm_side;
-#line 70 "generic_parabolic_nose.instr"
+#line 71 "generic_half_elliptic_nose.instr"
   mccNose_guide_my = mcipm_top;
-#line 83 "generic_parabolic_nose.instr"
+#line 83 "generic_half_elliptic_nose.instr"
   mccNose_guide_segno = 800;
-#line 83 "generic_parabolic_nose.instr"
+#line 83 "generic_half_elliptic_nose.instr"
   mccNose_guide_curvature = 0;
-#line 83 "generic_parabolic_nose.instr"
+#line 83 "generic_half_elliptic_nose.instr"
   mccNose_guide_curvature_v = 0;
-#line 11048 "./generic_parabolic_nose.c"
+#line 11048 "./generic_half_elliptic_nose.c"
 
   SIG_MESSAGE("Nose_guide (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11055 "./generic_parabolic_nose.c"
+#line 11055 "./generic_half_elliptic_nose.c"
   rot_mul(mctr1, mcrotaMain_guide, mcrotaNose_guide);
   rot_transpose(mcrotaMain_guide, mctr1);
   rot_mul(mcrotaNose_guide, mctr1, mcrotrNose_guide);
   mctc1 = coords_set(
-#line 71 "generic_parabolic_nose.instr"
+#line 72 "generic_half_elliptic_nose.instr"
     0,
-#line 71 "generic_parabolic_nose.instr"
+#line 72 "generic_half_elliptic_nose.instr"
     0,
-#line 71 "generic_parabolic_nose.instr"
+#line 72 "generic_half_elliptic_nose.instr"
     mcipguide_length - mcipnose_length);
-#line 11066 "./generic_parabolic_nose.c"
+#line 11066 "./generic_half_elliptic_nose.c"
   rot_transpose(mcrotaMain_guide, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaNose_guide = coords_add(mcposaMain_guide, mctc2);
@@ -11077,65 +11077,65 @@ if (cold_regime==-1){
     /* Component Sample. */
   /* Setting parameters for component Sample. */
   SIG_MESSAGE("Sample (Init:SetPar)");
-#line 74 "generic_parabolic_nose.instr"
+#line 75 "generic_half_elliptic_nose.instr"
   mccSample_xwidth = mcipguide_start_width;
-#line 75 "generic_parabolic_nose.instr"
+#line 76 "generic_half_elliptic_nose.instr"
   mccSample_yheight = mcipsample_height;
-#line 200 "generic_parabolic_nose.instr"
+#line 200 "generic_half_elliptic_nose.instr"
   mccSample_zdepth = 0;
-#line 201 "generic_parabolic_nose.instr"
+#line 201 "generic_half_elliptic_nose.instr"
   mccSample_xmin = 0;
-#line 201 "generic_parabolic_nose.instr"
+#line 201 "generic_half_elliptic_nose.instr"
   mccSample_xmax = 0;
-#line 201 "generic_parabolic_nose.instr"
+#line 201 "generic_half_elliptic_nose.instr"
   mccSample_ymin = 0;
-#line 201 "generic_parabolic_nose.instr"
+#line 201 "generic_half_elliptic_nose.instr"
   mccSample_ymax = 0;
-#line 201 "generic_parabolic_nose.instr"
+#line 201 "generic_half_elliptic_nose.instr"
   mccSample_zmin = 0;
-#line 201 "generic_parabolic_nose.instr"
+#line 201 "generic_half_elliptic_nose.instr"
   mccSample_zmax = 0;
-#line 76 "generic_parabolic_nose.instr"
+#line 77 "generic_half_elliptic_nose.instr"
   mccSample_bins = 100;
-#line 202 "generic_parabolic_nose.instr"
+#line 202 "generic_half_elliptic_nose.instr"
   mccSample_min = -1e40;
-#line 202 "generic_parabolic_nose.instr"
+#line 202 "generic_half_elliptic_nose.instr"
   mccSample_max = 1e40;
-#line 202 "generic_parabolic_nose.instr"
+#line 202 "generic_half_elliptic_nose.instr"
   mccSample_restore_neutron = 0;
-#line 202 "generic_parabolic_nose.instr"
+#line 202 "generic_half_elliptic_nose.instr"
   mccSample_radius = 0;
-#line 77 "generic_parabolic_nose.instr"
+#line 78 "generic_half_elliptic_nose.instr"
   if("x") strncpy(mccSample_options, "x" ? "x" : "", 16384); else mccSample_options[0]='\0';
-#line 203 "generic_parabolic_nose.instr"
+#line 203 "generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccSample_filename, "NULL" ? "NULL" : "", 16384); else mccSample_filename[0]='\0';
-#line 203 "generic_parabolic_nose.instr"
+#line 203 "generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccSample_geometry, "NULL" ? "NULL" : "", 16384); else mccSample_geometry[0]='\0';
-#line 204 "generic_parabolic_nose.instr"
+#line 204 "generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccSample_username1, "NULL" ? "NULL" : "", 16384); else mccSample_username1[0]='\0';
-#line 204 "generic_parabolic_nose.instr"
+#line 204 "generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccSample_username2, "NULL" ? "NULL" : "", 16384); else mccSample_username2[0]='\0';
-#line 204 "generic_parabolic_nose.instr"
+#line 204 "generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccSample_username3, "NULL" ? "NULL" : "", 16384); else mccSample_username3[0]='\0';
-#line 11120 "./generic_parabolic_nose.c"
+#line 11120 "./generic_half_elliptic_nose.c"
 
   SIG_MESSAGE("Sample (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11127 "./generic_parabolic_nose.c"
+#line 11127 "./generic_half_elliptic_nose.c"
   rot_mul(mctr1, mcrotaNose_guide, mcrotaSample);
   rot_transpose(mcrotaNose_guide, mctr1);
   rot_mul(mcrotaSample, mctr1, mcrotrSample);
   mctc1 = coords_set(
-#line 78 "generic_parabolic_nose.instr"
+#line 79 "generic_half_elliptic_nose.instr"
     0,
-#line 78 "generic_parabolic_nose.instr"
+#line 79 "generic_half_elliptic_nose.instr"
     0,
-#line 78 "generic_parabolic_nose.instr"
+#line 79 "generic_half_elliptic_nose.instr"
     mcipnose_length + mcipfocal_dist);
-#line 11138 "./generic_parabolic_nose.c"
+#line 11138 "./generic_half_elliptic_nose.c"
   rot_transpose(mcrotaNose_guide, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaSample = coords_add(mcposaNose_guide, mctc2);
@@ -11172,7 +11172,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
     percent=1e5*100.0/mcget_ncount();
   }
 }
-#line 11175 "./generic_parabolic_nose.c"
+#line 11175 "./generic_half_elliptic_nose.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -11509,7 +11509,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
       printf("Source_gen: component %s unactivated", NAME_CURRENT_COMP);
   );
 }
-#line 11512 "./generic_parabolic_nose.c"
+#line 11512 "./generic_half_elliptic_nose.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -11657,7 +11657,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 11660 "./generic_parabolic_nose.c"
+#line 11660 "./generic_half_elliptic_nose.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12097,7 +12097,7 @@ w1c = (double*)malloc(sizeof(double)*segno);
   if (curvature && l && segno)   rotation_h = l/curvature/segno;
   if (curvature_v && l && segno) rotation_v = l/curvature_v/segno;
 }
-#line 12100 "./generic_parabolic_nose.c"
+#line 12100 "./generic_half_elliptic_nose.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -12271,7 +12271,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 12274 "./generic_parabolic_nose.c"
+#line 12274 "./generic_half_elliptic_nose.c"
 #undef username3
 #undef username2
 #undef username1
@@ -12456,7 +12456,7 @@ MCNUM minutes = mccOrigin_minutes;
     if (flag_save) mcsave(NULL);
   }
 }
-#line 12459 "./generic_parabolic_nose.c"
+#line 12459 "./generic_half_elliptic_nose.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -12704,7 +12704,7 @@ int target_index = mccH3_target_index;
     SCATTER;
   }
 }
-#line 12707 "./generic_parabolic_nose.c"
+#line 12707 "./generic_half_elliptic_nose.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -13135,7 +13135,7 @@ char* reflect = mccMain_guide_reflect;
 
   } /* if l */
 }
-#line 13138 "./generic_parabolic_nose.c"
+#line 13138 "./generic_half_elliptic_nose.c"
 }   /* End of Main_guide=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -13456,7 +13456,7 @@ MCNUM curvature_v = mccNose_guide_curvature_v;
   } /* loop on segments */
 
 }
-#line 13459 "./generic_parabolic_nose.c"
+#line 13459 "./generic_half_elliptic_nose.c"
 }   /* End of Nose_guide=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -13797,7 +13797,7 @@ char* username3 = mccSample_username3;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 13800 "./generic_parabolic_nose.c"
+#line 13800 "./generic_half_elliptic_nose.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -13913,7 +13913,7 @@ MCNUM minutes = mccOrigin_minutes;
 
   }
 }
-#line 13916 "./generic_parabolic_nose.c"
+#line 13916 "./generic_half_elliptic_nose.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -13961,7 +13961,7 @@ char* username3 = mccSample_username3;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 13964 "./generic_parabolic_nose.c"
+#line 13964 "./generic_half_elliptic_nose.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -14008,7 +14008,7 @@ MCNUM minutes = mccOrigin_minutes;
     fprintf(stdout, "%g [min] ", difftime(NowTime,StartTime)/60.0);
   fprintf(stdout, "\n");
 }
-#line 14011 "./generic_parabolic_nose.c"
+#line 14011 "./generic_half_elliptic_nose.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -14080,7 +14080,7 @@ int target_index = mccH3_target_index;
   Table_Free(&pTable_x);
   Table_Free(&pTable_y);
 }
-#line 14082 "./generic_parabolic_nose.c"
+#line 14082 "./generic_half_elliptic_nose.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -14158,7 +14158,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 14158 "./generic_parabolic_nose.c"
+#line 14158 "./generic_half_elliptic_nose.c"
 }   /* End of Main_guide=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -14248,7 +14248,7 @@ MCNUM curvature_v = mccNose_guide_curvature_v;
   free(w1_in);
   free(w2_out);
 }
-#line 14247 "./generic_parabolic_nose.c"
+#line 14247 "./generic_half_elliptic_nose.c"
 }   /* End of Nose_guide=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -14334,7 +14334,7 @@ char* username3 = mccSample_username3;
   /* free pointers */
   Monitor_nD_Finally(&DEFS, &Vars);
 }
-#line 14332 "./generic_parabolic_nose.c"
+#line 14332 "./generic_half_elliptic_nose.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -14382,7 +14382,7 @@ MCNUM minutes = mccOrigin_minutes;
 {
   magnify("");
 }
-#line 14379 "./generic_parabolic_nose.c"
+#line 14379 "./generic_half_elliptic_nose.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -14495,7 +14495,7 @@ int target_index = mccH3_target_index;
     dashed_line(0,0,0, -focus_xw/2, focus_yh/2,dist, 4);
   }
 }
-#line 14492 "./generic_parabolic_nose.c"
+#line 14492 "./generic_half_elliptic_nose.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -14532,7 +14532,7 @@ int target_index = mccH3_target_index;
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 14529 "./generic_parabolic_nose.c"
+#line 14529 "./generic_half_elliptic_nose.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -14643,7 +14643,7 @@ char* reflect = mccMain_guide_reflect;
   }
 
 }
-#line 14640 "./generic_parabolic_nose.c"
+#line 14640 "./generic_half_elliptic_nose.c"
 }   /* End of Main_guide=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -14749,7 +14749,7 @@ MCNUM curvature_v = mccNose_guide_curvature_v;
   }
 
 }
-#line 14746 "./generic_parabolic_nose.c"
+#line 14746 "./generic_half_elliptic_nose.c"
 }   /* End of Nose_guide=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -14837,7 +14837,7 @@ char* username3 = mccSample_username3;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 14834 "./generic_parabolic_nose.c"
+#line 14834 "./generic_half_elliptic_nose.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -14859,4 +14859,4 @@ char* username3 = mccSample_username3;
 #undef rectangle
 #undef box
 #undef circle
-/* end of generated C code ./generic_parabolic_nose.c */
+/* end of generated C code ./generic_half_elliptic_nose.c */

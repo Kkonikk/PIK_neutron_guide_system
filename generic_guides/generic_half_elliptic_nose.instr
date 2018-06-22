@@ -75,7 +75,7 @@ COMPONENT Sample = Monitor_nD(
     xwidth=guide_start_width, 
     yheight=sample_height, 
     bins=100, 
-    options="x y")
+    options="x")
 AT (0, 0, nose_length + focal_dist) RELATIVE PREVIOUS
 
 FINALLY

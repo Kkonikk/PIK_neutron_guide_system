@@ -14,4 +14,4 @@ plot(p3.signal,'.','LineWidth',3)
 title('Скан по длине носа');
 legend('2 АА', '5 АА', '10 АА');
 xlabel('Длина носа');
-ylabel('Интенсивность');
+ylabel('Интенс');

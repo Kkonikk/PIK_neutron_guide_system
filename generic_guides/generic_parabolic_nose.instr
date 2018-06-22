@@ -30,7 +30,7 @@
 *
 * %End
 *******************************************************************************/
-DEFINE INSTRUMENT generic_half_elliptic_nose(guide_length = 10, nose_length = 3, m_side = 2, m_top = 6, focal_dist = 0.5, R0=0.99, alpha = 3.3, sample_height = 0.01)
+DEFINE INSTRUMENT generic_parabolic_nose(guide_length = 10, nose_length = 3, m_side = 2, m_top = 6, focal_dist = 0.5, R0=0.99, alpha = 3.3, sample_height = 0.01)
 
 DECLARE
 %{
@@ -74,7 +74,7 @@ COMPONENT Sample = Monitor_nD(
     xwidth=guide_start_width, 
     yheight=sample_height, 
     bins=100, 
-    options="x y")
+    options="x")
 AT (0, 0, nose_length + focal_dist) RELATIVE PREVIOUS
 
 FINALLY
