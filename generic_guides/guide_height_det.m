@@ -8,15 +8,13 @@
    R0=0.99;
    alpha = 3.3;
    
-   
+   instr_name = 'SONATA';
    guide_length = 58;
    focal_dist = 0.4;
    sample_height = 0.01; 
    
    model = 'generic_parabolic_nose';
    
-    instr_name = 'SONATA';
-
     if strcmp(model, 'generic_parabolic_nose')==1
         model_name = 'par';
     else
