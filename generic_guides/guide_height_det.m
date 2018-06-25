@@ -8,12 +8,12 @@
    R0=0.99;
    alpha = 3.3;
    
-   instr_name = 'SONATA';
-   guide_length = 58;
-   focal_dist = 0.4;
+   instr_name = 'TOF_150';
+   guide_length = 107;
+   focal_dist = 0.15;
    sample_height = 0.01; 
    
-   model = 'generic_parabolic_nose';
+   model = 'generic_half_elliptic_nose';
    
     if strcmp(model, 'generic_parabolic_nose')==1
         model_name = 'par';
@@ -22,12 +22,12 @@
     end
    
    
-   ncount=1e4;
-   lambda_min = 20;
-   lambda_max = 20.1;
+   ncount=1e5;
+   lambda_min = 12;
+   lambda_max = 12.1;
   
-   guide_h = [0.16:0.02:0.2];
-   nose_length = [0.5:0.5:15];
+   guide_h = [0.1:0.02:0.2];
+   nose_length = [0.5:0.5:7];
    
    p = struct;
 
@@ -35,9 +35,8 @@
    tic
 for i=1:length(guide_h)
          [p.(['p' num2str(i)]),m]=mcstas(model,struct('guide_length',guide_length,'nose_length',nose_length,'m_side',m_side,'m_top',m_top,'focal_dist',focal_dist,'R0',R0,'alpha',alpha,'sample_height',sample_height, 'guide_start_width', 0.03, 'guide_start_height', guide_h(i), 'source_lambda_min', lambda_min, 'source_lambda_max', lambda_max, 'cold_regime',1),struct('ncount',ncount,'compile','yes'));
-        %p.(['p' num2str(i)]).signal = nose_length;
-        
-        plot(nose_length, p.(['p' num2str(i)]).signal,'.','MarkerSize',20);
+              
+        plot(nose_length, p.(['p' num2str(i)]).signal,'-','Linewidth',3);
         for_legend{i} = num2str(guide_h(i));
         
         a(i) = max(p.(['p' num2str(i)]).signal);
@@ -59,7 +58,7 @@ max_a = max(a);
 a = a./max_a;
 
 fig = figure; 
-plot(guide_h, a);
+plot(guide_h, a,'-','Linewidth',3);
 title('Скан по высоте');
 xlabel('высота нв');
 ylabel('Отн. эффективность');
