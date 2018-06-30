@@ -1,4 +1,7 @@
-   close all ; clear all; clc;
+addpath(genpath('../../ifit-1.10'));
+addpath(genpath('../../PIK_neutron_guide_system'));
+
+close all ; clear all; clc;
    set(0,'DefaultTextInterpreter', 'latex');
    set(0,'DefaultAxesFontSize',12);
    set(0,'DefaultTextFontSize',12);
@@ -26,7 +29,7 @@
    lambda_min = 12;
    lambda_max = 12.1;
   
-   guide_h = [0.1:0.02:0.2];
+   guide_h = [0.18:0.02:0.2];
    nose_length = [0.5:0.5:7];
    
    p = struct;
@@ -54,15 +57,19 @@ figname = ['figs/' instr_name '_' model_name '_lenght_scan_' num2str(lambda_min)
 matlabfrag(figname,'epspad',[10,10,10,10]);
 saveas(fig, [figname '.fig']);
 
-max_a = max(a);
-a = a./max_a;
-
-fig = figure; 
-plot(guide_h, a,'-','Linewidth',3);
-title('Скан по высоте');
-xlabel('высота нв');
-ylabel('Отн. эффективность');
-
-figname = ['figs/' instr_name '_' model_name '_height_scan_' num2str(lambda_min) 'AA' ];
-matlabfrag(figname,'epspad',[10,10,10,10]);
-saveas(fig, [figname '.fig']);
+matlab2tikz('my.tex', 'width', '\textwidth');
+% 
+% max_a = max(a);
+% a = a./max_a;
+% 
+% fig = figure; 
+% plot(guide_h, a,'-','Linewidth',3);
+% title('Скан по высоте');
+% xlabel('высота нв');
+% ylabel('Отн. эффективность');
+% 
+% figname = ['figs/' instr_name '_' model_name '_height_scan_' num2str(lambda_min) 'AA' ];
+% matlabfrag(figname,'epspad',[10,10,10,10]);
+% saveas(fig, [figname '.fig']);
+% 
+% matlab2tikz('my1.tex');

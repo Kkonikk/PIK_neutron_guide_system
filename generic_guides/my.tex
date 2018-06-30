@@ -1,0 +1,71 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\textwidth,
+height=0.75\textwidth,
+at={(0\textwidth,0\textwidth)},
+scale only axis,
+xmin=0,
+xmax=7,
+xlabel style={font=\color{white!15!black}},
+xlabel={Длина носа},
+ymin=0,
+ymax=250000000,
+ylabel style={font=\color{white!15!black}},
+ylabel={Интенсивность},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Скан по длине носа},
+axis x line*=bottom,
+axis y line*=left,
+legend style={at={(0.732,0.798)}, anchor=south west, legend cell align=left, align=left, draw=white!15!black}
+]
+\addplot [color=mycolor1, line width=3.0pt]
+  table[row sep=crcr]{%
+0.5	48063027.5912\\
+1	82919320.2959001\\
+1.5	173444001.4927\\
+2	221428446.724\\
+2.5	243772333.555\\
+3	239860409.756\\
+3.5	234872591.75\\
+4	227985768.61\\
+4.5	222830601.534\\
+5	219323288.7287\\
+5.5	210865363.9704\\
+6	206196008.2868\\
+6.5	198984234.3346\\
+7	192425041.02\\
+};
+\addlegendentry{0.18}
+
+\addplot [color=mycolor2, line width=3.0pt]
+  table[row sep=crcr]{%
+0.5	45973673.4993\\
+1	63241280.7372\\
+1.5	148358568.6731\\
+2	212304321.816\\
+2.5	239086081.202\\
+3	241440632.069\\
+3.5	245430212.845\\
+4	243202802.545\\
+4.5	231775128.756\\
+5	226532520.161\\
+5.5	217654078.5243\\
+6	216197046.632\\
+6.5	214259156.4306\\
+7	204842846.2034\\
+};
+\addlegendentry{0.2}
+
+\end{axis}
+\end{tikzpicture}%
