@@ -1,41 +1,37 @@
-% Generated using matlabfrag
-% Version: v0.7.0devb04
-% Version Date: 30-May-2013
-% Author: Zebb Prime
+% This file was created by matlab2tikz.
 %
-\providecommand\matlabfragNegTickNoWidth{\makebox[0pt][r]{\ensuremath{-}}}%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
 %
-%% <text>
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
 %
-\providecommand\matlabtextA{\color[rgb]{0.150,0.150,0.150}\fontsize{13.20}{13.20}\selectfont\strut}%
-\psfrag{014}[tc][tc]{\matlabtextA высота нв}%
-\psfrag{015}[bc][bc]{\matlabtextA Отн. эффективность}%
-%
-\providecommand\matlabtextB{\color[rgb]{0.000,0.000,0.000}\fontsize{13.20}{13.20}\bfseries\boldmath\selectfont\strut}%
-\psfrag{013}[bc][bc]{\matlabtextB Скан по высоте}%
-%
-%% </text>
-%
-%% <xtick>
-%
-\providecommand\matlabtextC{\color[rgb]{0.150,0.150,0.150}\fontsize{12.00}{12.00}\selectfont\strut}%
-\psfrag{000}[ct][ct]{\matlabtextC $0.1$}%
-\psfrag{001}[ct][ct]{\matlabtextC $0.12$}%
-\psfrag{002}[ct][ct]{\matlabtextC $0.14$}%
-\psfrag{003}[ct][ct]{\matlabtextC $0.16$}%
-\psfrag{004}[ct][ct]{\matlabtextC $0.18$}%
-\psfrag{005}[ct][ct]{\matlabtextC $0.2$}%
-%
-%% </xtick>
-%
-%% <ytick>
-%
-\psfrag{006}[rc][rc]{\matlabtextC $0.7$}%
-\psfrag{007}[rc][rc]{\matlabtextC $0.75$}%
-\psfrag{008}[rc][rc]{\matlabtextC $0.8$}%
-\psfrag{009}[rc][rc]{\matlabtextC $0.85$}%
-\psfrag{010}[rc][rc]{\matlabtextC $0.9$}%
-\psfrag{011}[rc][rc]{\matlabtextC $0.95$}%
-\psfrag{012}[rc][rc]{\matlabtextC $1$}%
-%
-%% </ytick>
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\textwidth,
+height=0.75\textwidth,
+at={(0\textwidth,0\textwidth)},
+scale only axis,
+xmin=0.18,
+xmax=0.205,
+xlabel style={font=\color{white!15!black}},
+xlabel={высота нв},
+ymin=0.97,
+ymax=1,
+ylabel style={font=\color{white!15!black}},
+ylabel={Отн. эффективность},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Скан по высоте},
+legend style={legend cell align=left, align=left, draw=white!15!black}
+]
+\addplot [color=mycolor1, line width=3.0pt]
+  table[row sep=crcr]{%
+0.18	0.974526080930365\\
+0.2	1\\
+};
+\addlegendentry{data1}
+
+\end{axis}
+\end{tikzpicture}%
