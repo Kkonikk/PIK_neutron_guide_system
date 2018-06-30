@@ -45,7 +45,7 @@ for i=1:length(guide_h)
         a(i) = max(p.(['p' num2str(i)]).signal);
 end
    
-legend(for_legend);
+legend(for_legend, 'Location','southeast');
 
 title('Скан по длине носа');
 xlabel('Длина носа');
@@ -55,13 +55,12 @@ figname = ['figs/' instr_name '_' model_name '_length_scan_' num2str(lambda_min)
 matlab2tikz([figname '.tex'] , 'width', '\textwidth');
 saveas(fig, [figname '.fig']);
 
-
-
 max_a = max(a);
 a = a./max_a;
 
 fig = figure; box on;
 plot(guide_h, a,'-','Linewidth',3);
+legend('hide');
 title('Скан по высоте');
 xlabel('высота нв');
 ylabel('Отн. эффективность');
