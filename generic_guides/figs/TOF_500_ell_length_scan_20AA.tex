@@ -1,0 +1,125 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+\definecolor{mycolor3}{rgb}{0.92900,0.69400,0.12500}%
+\definecolor{mycolor4}{rgb}{0.49400,0.18400,0.55600}%
+\definecolor{mycolor5}{rgb}{0.46600,0.67400,0.18800}%
+\definecolor{mycolor6}{rgb}{0.30100,0.74500,0.93300}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.808\textwidth,
+height=0.603\textwidth,
+at={(0\textwidth,0\textwidth)},
+scale only axis,
+xmin=0,
+xmax=5,
+xlabel style={font=\color{white!15!black}},
+xlabel={Длина носа, м},
+ymin=5000000,
+ymax=14000000,
+ylabel style={font=\color{white!15!black}},
+ylabel={Интенсивность, отн. ед.},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Скан по длине носа},
+legend style={at={(0.97,0.03)}, anchor=south east, legend cell align=left, align=left, draw=white!15!black}
+]
+\addplot [color=mycolor1, line width=3.0pt]
+  table[row sep=crcr]{%
+0.5	7891112.09298\\
+1	9827447.76985\\
+1.5	9320672.11493\\
+2	8857231.83068\\
+2.5	8372963.64224\\
+3	7750891.9349\\
+3.5	7518770.05763\\
+4	7214879.84842\\
+4.5	6785489.04431\\
+5	6450343.56306\\
+};
+\addlegendentry{0.1}
+
+\addplot [color=mycolor2, line width=3.0pt]
+  table[row sep=crcr]{%
+0.5	7112515.12801\\
+1	10970786.74569\\
+1.5	11127793.38189\\
+2	10488050.08898\\
+2.5	10033640.5509\\
+3	9388379.94712\\
+3.5	8820149.19353\\
+4	8550967.88881\\
+4.5	8351434.60368\\
+5	7684897.26571\\
+};
+\addlegendentry{0.12}
+
+\addplot [color=mycolor3, line width=3.0pt]
+  table[row sep=crcr]{%
+0.5	6737471.6123\\
+1	11145007.60095\\
+1.5	12152289.02689\\
+2	12023158.07423\\
+2.5	11329732.85012\\
+3	11016012.95393\\
+3.5	10430992.37409\\
+4	10065365.89894\\
+4.5	9640776.87067\\
+5	9106110.64451999\\
+};
+\addlegendentry{0.14}
+
+\addplot [color=mycolor4, line width=3.0pt]
+  table[row sep=crcr]{%
+0.5	6218666.0483\\
+1	10612146.55641\\
+1.5	12763050.95043\\
+2	12860219.10652\\
+2.5	12678461.66524\\
+3	12045337.20122\\
+3.5	11585181.5059\\
+4	11250896.66682\\
+4.5	10678868.38103\\
+5	10602463.3635\\
+};
+\addlegendentry{0.16}
+
+\addplot [color=mycolor5, line width=3.0pt]
+  table[row sep=crcr]{%
+0.5	6054149.8285\\
+1	10273998.47749\\
+1.5	12669939.2461\\
+2	13383661.36381\\
+2.5	13282573.07064\\
+3	12639739.9832\\
+3.5	12560507.51686\\
+4	12458212.6028\\
+4.5	11672930.2412\\
+5	11533234.94927\\
+};
+\addlegendentry{0.18}
+
+\addplot [color=mycolor6, line width=3.0pt]
+  table[row sep=crcr]{%
+0.5	5788799.57354\\
+1	9567461.64112\\
+1.5	12912311.80621\\
+2	13768056.54817\\
+2.5	13921963.57442\\
+3	13809657.96641\\
+3.5	13201389.41998\\
+4	12861382.9742\\
+4.5	12508277.21544\\
+5	12161427.88097\\
+};
+\addlegendentry{0.2}
+
+\end{axis}
+\end{tikzpicture}%

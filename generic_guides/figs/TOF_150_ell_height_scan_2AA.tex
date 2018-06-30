@@ -9,15 +9,15 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=0.951\textwidth,
-height=0.75\textwidth,
+width=0.808\textwidth,
+height=0.637\textwidth,
 at={(0\textwidth,0\textwidth)},
 scale only axis,
-xmin=0.18,
-xmax=0.205,
+xmin=0.1,
+xmax=0.2,
 xlabel style={font=\color{white!15!black}},
-xlabel={высота нв},
-ymin=0.975,
+xlabel={Высота нейтроновода, м},
+ymin=0.88,
 ymax=1,
 ylabel style={font=\color{white!15!black}},
 ylabel={Отн. эффективность},
@@ -27,8 +27,12 @@ title={Скан по высоте}
 ]
 \addplot [color=mycolor1, line width=3.0pt, forget plot]
   table[row sep=crcr]{%
-0.18	0.977839131475724\\
-0.2	1\\
+0.1	0.882987369856787\\
+0.12	0.922117433460276\\
+0.14	0.96279923987144\\
+0.16	0.98505388326676\\
+0.18	1\\
+0.2	0.972270564203071\\
 };
 \end{axis}
 \end{tikzpicture}%

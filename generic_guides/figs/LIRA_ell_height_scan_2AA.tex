@@ -1,0 +1,41 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.808\textwidth,
+height=0.637\textwidth,
+at={(0\textwidth,0\textwidth)},
+scale only axis,
+xmin=0,
+xmax=0.2,
+xlabel style={font=\color{white!15!black}},
+xlabel={Высота нейтроновода, м},
+ymin=0.2,
+ymax=1,
+ylabel style={font=\color{white!15!black}},
+ylabel={Отн. эффективность},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Скан по высоте}
+]
+\addplot [color=mycolor1, line width=3.0pt, forget plot]
+  table[row sep=crcr]{%
+0.04	0.232822644072512\\
+0.06	0.371213048636195\\
+0.08	0.501084252966416\\
+0.1	0.623395960956714\\
+0.12	0.736157114223762\\
+0.14	0.830671686110761\\
+0.16	0.921597357604837\\
+0.18	0.97920307743926\\
+0.2	1\\
+};
+\end{axis}
+\end{tikzpicture}%

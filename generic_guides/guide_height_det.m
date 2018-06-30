@@ -16,7 +16,7 @@ close all ; clear all; clc;
    focal_dist = 0.15;
    sample_height = 0.01; 
    
-   model = 'generic_half_elliptic_nose';
+   model = 'generic_parabolic_nose';
    
     if strcmp(model, 'generic_parabolic_nose')==1
         model_name = 'par';
@@ -26,11 +26,11 @@ close all ; clear all; clc;
    
    
    ncount=1e5;
-   lambda_min = 12;
-   lambda_max = 12.1;
+   lambda_min = 20;
+   lambda_max = 20.1;
   
-   guide_h = [0.18:0.02:0.2];
-   nose_length = [0.5:0.5:7];
+   guide_h = [0.1:0.02:0.2];
+   nose_length = [0.5:0.5:5];
    
    p = struct;
 
@@ -48,11 +48,11 @@ end
 legend(for_legend, 'Location','southeast');
 
 title('Скан по длине носа');
-xlabel('Длина носа');
-ylabel('Интенсивность');
+xlabel('Длина носа, м');
+ylabel('Интенсивность, отн. ед.');
 
 figname = ['figs/' instr_name '_' model_name '_length_scan_' num2str(lambda_min) 'AA'];
-matlab2tikz([figname '.tex'] , 'width', '\textwidth');
+matlab2tikz([figname '.tex'] , 'width', '0.85\textwidth');
 saveas(fig, [figname '.fig']);
 
 max_a = max(a);
@@ -62,9 +62,9 @@ fig = figure; box on;
 plot(guide_h, a,'-','Linewidth',3);
 legend('hide');
 title('Скан по высоте');
-xlabel('высота нв');
+xlabel('Высота нейтроновода, м');
 ylabel('Отн. эффективность');
 
 figname = ['figs/' instr_name '_' model_name '_height_scan_' num2str(lambda_min) 'AA' ];
-matlab2tikz([figname '.tex'], 'width', '\textwidth');
+matlab2tikz([figname '.tex'], 'width', '0.85\textwidth');
 saveas(fig, [figname '.fig']);
