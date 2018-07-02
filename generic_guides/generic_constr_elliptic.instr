@@ -1,0 +1,92 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: PIK H3 beamtube 
+*
+* %Identification
+* Written by: P. Konik
+* Date: 16.02.17
+* Origin: PNPI
+* Release: McStas 2.3
+* Version: 2.0
+*
+* PIK reactor beamtube H3 facing cold neutron source. Handles additionaly the thermal regime of CNS and no CNS at all situation.
+*
+* %Parameters
+* guide_start_width: [m] Initial width of guide (where to focus neutrons from source)
+* guide_start_height: [m]  Initial height of guide (where to focus neutrons from source)
+* source_lambda_min: [AA] Minimal wavelength to create
+* source_lambda_max: [AA] Maximal wavelength to create
+* cold_regime: [num] 1 corresponds to normal operation, 0 corresponds to thermal regime, -1 corresponds to no container situation
+*
+* %End
+*******************************************************************************/
+
+DEFINE INSTRUMENT Constr_ellipse(left_foc=1, right_foc=0.5, straight_height=0.3, total_guide_length=40, m_side=2, m_top=6, sample_height=0.01)
+
+DECLARE
+%{
+double c,x_0, y_0, a_sqr, b_sqr, c_sqr, x0_sqr, y0_sqr;
+double ell1_length, ell2_length;
+%}
+
+INITIALIZE
+%{
+//defining elliptic properties
+
+c = (total_guide_length+left_foc+right_foc)/2; //focal parameter
+
+//solve system: a^2=b^2+c^2 and ellipse equation
+
+x_0= c - left_foc;
+y_0=guide_start_height/2;
+
+x0_sqr = x_0*x_0;
+y0_sqr = y_0*y_0;
+c_sqr = c*c;
+
+b_sqr = (x0_sqr+y0_sqr-c_sqr+sqrt((x0_sqr+y0_sqr-c_sqr)*(x0_sqr+y0_sqr-c_sqr)+4*y0_sqr*c_sqr))/2;
+a_sqr = b_sqr+c_sqr;
+
+y_0 = straight_height/2;
+y0_sqr = y_0*y_0;
+
+x_0 = sqrt((1 - y0_sqr/b_sqr)*a_sqr);
+
+ell1_length = c-left_foc-x_0;
+
+ell2_length = c-right_foc-x_0;
+	
+%}
+
+TRACE
+
+%include "../H3.instr"
+
+COMPONENT Guide_ell_1 = Guide_tapering(
+    option = "elliptical", w1 = guide_start_width, h1 = guide_start_height, l = ell1_length,
+    linh = left_foc, louth = total_guide_length-ell1_length+right_foc, mx = m_side, my = m_top)
+  AT (0, 0, 0) RELATIVE Guide_start_arm
+
+COMPONENT Guide_straight = Guide_gravity(
+    w1 = guide_start_width, h1 = straight_height, l =total_guide_length-ell1_length-ell2_length,
+    mleft = m_side, mright = m_side, mtop = m_top, mbottom = m_top)
+  AT (0, 0, ell1_length) RELATIVE Guide_start_arm
+
+
+ COMPONENT Guide_ell_2 = Guide_tapering(
+     option = "elliptical", w1 = guide_start_width, h1 = straight_height, l = ell2_length,
+     linh = total_guide_length-ell2_length+left_foc, louth = right_foc, mx = m_side, my = m_top)
+  AT (0, 0, total_guide_length-ell2_length) RELATIVE Guide_start_arm
+
+
+COMPONENT Sample = Monitor_nD(
+    xwidth = guide_start_width*2, yheight = sample_height, options = "y")
+  AT (0, 0, total_guide_length + right_foc) RELATIVE Guide_start_arm
+
+
+FINALLY
+%{
+%}
+
+END
