@@ -22,7 +22,7 @@
 * %End
 *******************************************************************************/
 
-DEFINE INSTRUMENT Constr_ellipse(left_foc=1, right_foc=0.5, straight_height=0.3, total_guide_length=40, m_side=2, m_top=6, sample_height=0.01)
+DEFINE INSTRUMENT Constr_ellipse(left_foc=1, right_foc=0.5, straight_height=0.3, total_guide_length=40, m_side=2, m_top=6, sample_height=0.01, R0=0.99, alpha = 3.3)
 
 DECLARE
 %{
@@ -65,18 +65,18 @@ TRACE
 
 COMPONENT Guide_ell_1 = Guide_tapering(
     option = "elliptical", w1 = guide_start_width, h1 = guide_start_height, l = ell1_length,
-    linh = left_foc, louth = total_guide_length-ell1_length+right_foc, mx = m_side, my = m_top)
+    linh = left_foc, louth = total_guide_length-ell1_length+right_foc, mx = m_side, my = m_top, R0 = R0, alphax=alpha, alphay=alpha)
   AT (0, 0, 0) RELATIVE Guide_start_arm
 
 COMPONENT Guide_straight = Guide_gravity(
     w1 = guide_start_width, h1 = straight_height, l =total_guide_length-ell1_length-ell2_length,
-    mleft = m_side, mright = m_side, mtop = m_top, mbottom = m_top)
+    mleft = m_side, mright = m_side, mtop = m_top, mbottom = m_top, R0 = R0, alpha=alpha)
   AT (0, 0, ell1_length) RELATIVE Guide_start_arm
 
 
  COMPONENT Guide_ell_2 = Guide_tapering(
      option = "elliptical", w1 = guide_start_width, h1 = straight_height, l = ell2_length,
-     linh = total_guide_length-ell2_length+left_foc, louth = right_foc, mx = m_side, my = m_top)
+     linh = total_guide_length-ell2_length+left_foc, louth = right_foc, mx = m_side, my = m_top, R0 = R0, alphax=alpha, alphay=alpha)
   AT (0, 0, total_guide_length-ell2_length) RELATIVE Guide_start_arm
 
 

@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: generic_constr_elliptic.instr (Constr_ellipse)
- * Date:       Mon Jul  2 17:59:18 2018
+ * Date:       Mon Jul  2 18:06:17 2018
  * File:       ./generic_constr_elliptic.c
  * Compile:    cc -o Constr_ellipse.out ./generic_constr_elliptic.c 
  * CFLAGS=
@@ -9985,14 +9985,16 @@ MCNUM mciptotal_guide_length;
 MCNUM mcipm_side;
 MCNUM mcipm_top;
 MCNUM mcipsample_height;
+MCNUM mcipR0;
+MCNUM mcipalpha;
 MCNUM mcipguide_start_width;
 MCNUM mcipguide_start_height;
 MCNUM mcipsource_lambda_min;
 MCNUM mcipsource_lambda_max;
 MCNUM mcipcold_regime;
 
-#define mcNUMIPAR 12
-int mcnumipar = 12;
+#define mcNUMIPAR 14
+int mcnumipar = 14;
 struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
   "left_foc", &mcipleft_foc, instr_type_double, "1", 
   "right_foc", &mcipright_foc, instr_type_double, "0.5", 
@@ -10001,6 +10003,8 @@ struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
   "m_side", &mcipm_side, instr_type_double, "2", 
   "m_top", &mcipm_top, instr_type_double, "6", 
   "sample_height", &mcipsample_height, instr_type_double, "0.01", 
+  "R0", &mcipR0, instr_type_double, "0.99", 
+  "alpha", &mcipalpha, instr_type_double, "3.3", 
   "guide_start_width", &mcipguide_start_width, instr_type_double, "0.03", 
   "guide_start_height", &mcipguide_start_height, instr_type_double, "0.03", 
   "source_lambda_min", &mcipsource_lambda_min, instr_type_double, "0.1", 
@@ -10021,6 +10025,8 @@ struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
 #define m_side mcipm_side
 #define m_top mcipm_top
 #define sample_height mcipsample_height
+#define R0 mcipR0
+#define alpha mcipalpha
 #define guide_start_width mcipguide_start_width
 #define guide_start_height mcipguide_start_height
 #define source_lambda_min mcipsource_lambda_min
@@ -10044,12 +10050,14 @@ double source_no_I1 = 7.05e12;
 double guide_start_dist = 1.82;
 double c,x_0, y_0, a_sqr, b_sqr, c_sqr, x0_sqr, y0_sqr;
 double ell1_length, ell2_length;
-#line 10047 "./generic_constr_elliptic.c"
+#line 10053 "./generic_constr_elliptic.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
 #undef guide_start_height
 #undef guide_start_width
+#undef alpha
+#undef R0
 #undef sample_height
 #undef m_top
 #undef m_side
@@ -10248,7 +10256,7 @@ double IntermediateCnts;
 time_t StartTime;
 time_t EndTime;
 time_t CurrentTime;
-#line 10251 "./generic_constr_elliptic.c"
+#line 10259 "./generic_constr_elliptic.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -10332,7 +10340,7 @@ time_t CurrentTime;
   double pTable_dymin;
   double pTable_dymax;
 
-#line 10335 "./generic_constr_elliptic.c"
+#line 10343 "./generic_constr_elliptic.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -10471,7 +10479,7 @@ char file_name[1024];
 char *ep;
 FILE *num;
 double rotation_h, rotation_v;
-#line 10474 "./generic_constr_elliptic.c"
+#line 10482 "./generic_constr_elliptic.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -10577,7 +10585,7 @@ double rotation_h, rotation_v;
 #line 335 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 10580 "./generic_constr_elliptic.c"
+#line 10588 "./generic_constr_elliptic.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -10697,7 +10705,7 @@ char file_name[1024];
 char *ep;
 FILE *num;
 double rotation_h, rotation_v;
-#line 10700 "./generic_constr_elliptic.c"
+#line 10708 "./generic_constr_elliptic.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -10796,7 +10804,7 @@ double rotation_h, rotation_v;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 10799 "./generic_constr_elliptic.c"
+#line 10807 "./generic_constr_elliptic.c"
 #undef username3
 #undef username2
 #undef username1
@@ -10859,6 +10867,8 @@ void mcinit(void) {
 #define m_side mcipm_side
 #define m_top mcipm_top
 #define sample_height mcipsample_height
+#define R0 mcipR0
+#define alpha mcipalpha
 #define guide_start_width mcipguide_start_width
 #define guide_start_height mcipguide_start_height
 #define source_lambda_min mcipsource_lambda_min
@@ -10905,12 +10915,14 @@ ell1_length = c-left_foc-x_0;
 ell2_length = c-right_foc-x_0;
 	
 }
-#line 10908 "./generic_constr_elliptic.c"
+#line 10918 "./generic_constr_elliptic.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
 #undef guide_start_height
 #undef guide_start_width
+#undef alpha
+#undef R0
 #undef sample_height
 #undef m_top
 #undef m_side
@@ -10943,14 +10955,14 @@ ell2_length = c-right_foc-x_0;
   mccOrigin_flag_save = 0;
 #line 39 "generic_constr_elliptic.instr"
   mccOrigin_minutes = 0;
-#line 10946 "./generic_constr_elliptic.c"
+#line 10958 "./generic_constr_elliptic.c"
 
   SIG_MESSAGE("Origin (Init:Place/Rotate)");
   rot_set_rotation(mcrotaOrigin,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10953 "./generic_constr_elliptic.c"
+#line 10965 "./generic_constr_elliptic.c"
   rot_copy(mcrotrOrigin, mcrotaOrigin);
   mcposaOrigin = coords_set(
 #line 66 "generic_constr_elliptic.instr"
@@ -10959,7 +10971,7 @@ ell2_length = c-right_foc-x_0;
     0,
 #line 66 "generic_constr_elliptic.instr"
     0);
-#line 10962 "./generic_constr_elliptic.c"
+#line 10974 "./generic_constr_elliptic.c"
   mctc1 = coords_neg(mcposaOrigin);
   mcposrOrigin = rot_apply(mcrotaOrigin, mctc1);
   mcDEBUG_COMPONENT("Origin", mcposaOrigin, mcrotaOrigin)
@@ -11030,14 +11042,14 @@ ell2_length = c-right_foc-x_0;
   mccH3_zdepth = 0;
 #line 134 "generic_constr_elliptic.instr"
   mccH3_target_index = + 1;
-#line 11033 "./generic_constr_elliptic.c"
+#line 11045 "./generic_constr_elliptic.c"
 
   SIG_MESSAGE("H3 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11040 "./generic_constr_elliptic.c"
+#line 11052 "./generic_constr_elliptic.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaH3);
   rot_transpose(mcrotaOrigin, mctr1);
   rot_mul(mcrotaH3, mctr1, mcrotrH3);
@@ -11048,7 +11060,7 @@ ell2_length = c-right_foc-x_0;
     0,
 #line 75 "generic_constr_elliptic.instr"
     0);
-#line 11051 "./generic_constr_elliptic.c"
+#line 11063 "./generic_constr_elliptic.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaH3 = coords_add(mcposaOrigin, mctc2);
@@ -11068,7 +11080,7 @@ ell2_length = c-right_foc-x_0;
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11071 "./generic_constr_elliptic.c"
+#line 11083 "./generic_constr_elliptic.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaGuide_start_arm);
   rot_transpose(mcrotaH3, mctr1);
   rot_mul(mcrotaGuide_start_arm, mctr1, mcrotrGuide_start_arm);
@@ -11079,7 +11091,7 @@ ell2_length = c-right_foc-x_0;
     0,
 #line 79 "generic_constr_elliptic.instr"
     guide_start_dist);
-#line 11082 "./generic_constr_elliptic.c"
+#line 11094 "./generic_constr_elliptic.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_start_arm = coords_add(mcposaOrigin, mctc2);
@@ -11109,16 +11121,16 @@ ell2_length = c-right_foc-x_0;
   mccGuide_ell_1_linh = mcipleft_foc;
 #line 68 "generic_constr_elliptic.instr"
   mccGuide_ell_1_louth = mciptotal_guide_length - ell1_length + mcipright_foc;
-#line 81 "generic_constr_elliptic.instr"
-  mccGuide_ell_1_R0 = 0.99;
+#line 68 "generic_constr_elliptic.instr"
+  mccGuide_ell_1_R0 = mcipR0;
 #line 82 "generic_constr_elliptic.instr"
   mccGuide_ell_1_Qcx = 0.021;
 #line 82 "generic_constr_elliptic.instr"
   mccGuide_ell_1_Qcy = 0.021;
-#line 82 "generic_constr_elliptic.instr"
-  mccGuide_ell_1_alphax = 6.07;
-#line 82 "generic_constr_elliptic.instr"
-  mccGuide_ell_1_alphay = 6.07;
+#line 68 "generic_constr_elliptic.instr"
+  mccGuide_ell_1_alphax = mcipalpha;
+#line 68 "generic_constr_elliptic.instr"
+  mccGuide_ell_1_alphay = mcipalpha;
 #line 82 "generic_constr_elliptic.instr"
   mccGuide_ell_1_W = 0.003;
 #line 68 "generic_constr_elliptic.instr"
@@ -11131,14 +11143,14 @@ ell2_length = c-right_foc-x_0;
   mccGuide_ell_1_curvature = 0;
 #line 83 "generic_constr_elliptic.instr"
   mccGuide_ell_1_curvature_v = 0;
-#line 11134 "./generic_constr_elliptic.c"
+#line 11146 "./generic_constr_elliptic.c"
 
   SIG_MESSAGE("Guide_ell_1 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11141 "./generic_constr_elliptic.c"
+#line 11153 "./generic_constr_elliptic.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaGuide_ell_1);
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   rot_mul(mcrotaGuide_ell_1, mctr1, mcrotrGuide_ell_1);
@@ -11149,7 +11161,7 @@ ell2_length = c-right_foc-x_0;
     0,
 #line 69 "generic_constr_elliptic.instr"
     0);
-#line 11152 "./generic_constr_elliptic.c"
+#line 11164 "./generic_constr_elliptic.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_ell_1 = coords_add(mcposaGuide_start_arm, mctc2);
@@ -11173,12 +11185,12 @@ ell2_length = c-right_foc-x_0;
   mccGuide_straight_h2 = 0;
 #line 72 "generic_constr_elliptic.instr"
   mccGuide_straight_l = mciptotal_guide_length - ell1_length - ell2_length;
-#line 114 "generic_constr_elliptic.instr"
-  mccGuide_straight_R0 = 0.995;
+#line 73 "generic_constr_elliptic.instr"
+  mccGuide_straight_R0 = mcipR0;
 #line 114 "generic_constr_elliptic.instr"
   mccGuide_straight_Qc = 0.0218;
-#line 114 "generic_constr_elliptic.instr"
-  mccGuide_straight_alpha = 4.38;
+#line 73 "generic_constr_elliptic.instr"
+  mccGuide_straight_alpha = mcipalpha;
 #line 114 "generic_constr_elliptic.instr"
   mccGuide_straight_m = 1.0;
 #line 114 "generic_constr_elliptic.instr"
@@ -11231,14 +11243,14 @@ ell2_length = c-right_foc-x_0;
   mccGuide_straight_phase = 0;
 #line 119 "generic_constr_elliptic.instr"
   if("NULL") strncpy(mccGuide_straight_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_straight_reflect[0]='\0';
-#line 11234 "./generic_constr_elliptic.c"
+#line 11246 "./generic_constr_elliptic.c"
 
   SIG_MESSAGE("Guide_straight (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11241 "./generic_constr_elliptic.c"
+#line 11253 "./generic_constr_elliptic.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaGuide_straight);
   rot_transpose(mcrotaGuide_ell_1, mctr1);
   rot_mul(mcrotaGuide_straight, mctr1, mcrotrGuide_straight);
@@ -11249,7 +11261,7 @@ ell2_length = c-right_foc-x_0;
     0,
 #line 74 "generic_constr_elliptic.instr"
     ell1_length);
-#line 11252 "./generic_constr_elliptic.c"
+#line 11264 "./generic_constr_elliptic.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_straight = coords_add(mcposaGuide_start_arm, mctc2);
@@ -11279,16 +11291,16 @@ ell2_length = c-right_foc-x_0;
   mccGuide_ell_2_linh = mciptotal_guide_length - ell2_length + mcipleft_foc;
 #line 79 "generic_constr_elliptic.instr"
   mccGuide_ell_2_louth = mcipright_foc;
-#line 81 "generic_constr_elliptic.instr"
-  mccGuide_ell_2_R0 = 0.99;
+#line 79 "generic_constr_elliptic.instr"
+  mccGuide_ell_2_R0 = mcipR0;
 #line 82 "generic_constr_elliptic.instr"
   mccGuide_ell_2_Qcx = 0.021;
 #line 82 "generic_constr_elliptic.instr"
   mccGuide_ell_2_Qcy = 0.021;
-#line 82 "generic_constr_elliptic.instr"
-  mccGuide_ell_2_alphax = 6.07;
-#line 82 "generic_constr_elliptic.instr"
-  mccGuide_ell_2_alphay = 6.07;
+#line 79 "generic_constr_elliptic.instr"
+  mccGuide_ell_2_alphax = mcipalpha;
+#line 79 "generic_constr_elliptic.instr"
+  mccGuide_ell_2_alphay = mcipalpha;
 #line 82 "generic_constr_elliptic.instr"
   mccGuide_ell_2_W = 0.003;
 #line 79 "generic_constr_elliptic.instr"
@@ -11301,14 +11313,14 @@ ell2_length = c-right_foc-x_0;
   mccGuide_ell_2_curvature = 0;
 #line 83 "generic_constr_elliptic.instr"
   mccGuide_ell_2_curvature_v = 0;
-#line 11304 "./generic_constr_elliptic.c"
+#line 11316 "./generic_constr_elliptic.c"
 
   SIG_MESSAGE("Guide_ell_2 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11311 "./generic_constr_elliptic.c"
+#line 11323 "./generic_constr_elliptic.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaGuide_ell_2);
   rot_transpose(mcrotaGuide_straight, mctr1);
   rot_mul(mcrotaGuide_ell_2, mctr1, mcrotrGuide_ell_2);
@@ -11319,7 +11331,7 @@ ell2_length = c-right_foc-x_0;
     0,
 #line 80 "generic_constr_elliptic.instr"
     mciptotal_guide_length - ell2_length);
-#line 11322 "./generic_constr_elliptic.c"
+#line 11334 "./generic_constr_elliptic.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_ell_2 = coords_add(mcposaGuide_start_arm, mctc2);
@@ -11373,14 +11385,14 @@ ell2_length = c-right_foc-x_0;
   if("NULL") strncpy(mccSample_username2, "NULL" ? "NULL" : "", 16384); else mccSample_username2[0]='\0';
 #line 204 "generic_constr_elliptic.instr"
   if("NULL") strncpy(mccSample_username3, "NULL" ? "NULL" : "", 16384); else mccSample_username3[0]='\0';
-#line 11376 "./generic_constr_elliptic.c"
+#line 11388 "./generic_constr_elliptic.c"
 
   SIG_MESSAGE("Sample (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11383 "./generic_constr_elliptic.c"
+#line 11395 "./generic_constr_elliptic.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaSample);
   rot_transpose(mcrotaGuide_ell_2, mctr1);
   rot_mul(mcrotaSample, mctr1, mcrotrSample);
@@ -11391,7 +11403,7 @@ ell2_length = c-right_foc-x_0;
     0,
 #line 85 "generic_constr_elliptic.instr"
     mciptotal_guide_length + mcipright_foc);
-#line 11394 "./generic_constr_elliptic.c"
+#line 11406 "./generic_constr_elliptic.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaSample = coords_add(mcposaGuide_start_arm, mctc2);
@@ -11428,7 +11440,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
     percent=1e5*100.0/mcget_ncount();
   }
 }
-#line 11431 "./generic_constr_elliptic.c"
+#line 11443 "./generic_constr_elliptic.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -11765,7 +11777,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
       printf("Source_gen: component %s unactivated", NAME_CURRENT_COMP);
   );
 }
-#line 11768 "./generic_constr_elliptic.c"
+#line 11780 "./generic_constr_elliptic.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -12219,7 +12231,7 @@ w1c = (double*)malloc(sizeof(double)*segno);
   if (curvature && l && segno)   rotation_h = l/curvature/segno;
   if (curvature_v && l && segno) rotation_v = l/curvature_v/segno;
 }
-#line 12222 "./generic_constr_elliptic.c"
+#line 12234 "./generic_constr_elliptic.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -12375,7 +12387,7 @@ w1c = (double*)malloc(sizeof(double)*segno);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 12378 "./generic_constr_elliptic.c"
+#line 12390 "./generic_constr_elliptic.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12815,7 +12827,7 @@ w1c = (double*)malloc(sizeof(double)*segno);
   if (curvature && l && segno)   rotation_h = l/curvature/segno;
   if (curvature_v && l && segno) rotation_v = l/curvature_v/segno;
 }
-#line 12818 "./generic_constr_elliptic.c"
+#line 12830 "./generic_constr_elliptic.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -12989,7 +13001,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 12992 "./generic_constr_elliptic.c"
+#line 13004 "./generic_constr_elliptic.c"
 #undef username3
 #undef username2
 #undef username1
@@ -13174,7 +13186,7 @@ MCNUM minutes = mccOrigin_minutes;
     if (flag_save) mcsave(NULL);
   }
 }
-#line 13177 "./generic_constr_elliptic.c"
+#line 13189 "./generic_constr_elliptic.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -13422,7 +13434,7 @@ int target_index = mccH3_target_index;
     SCATTER;
   }
 }
-#line 13425 "./generic_constr_elliptic.c"
+#line 13437 "./generic_constr_elliptic.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -13861,7 +13873,7 @@ MCNUM curvature_v = mccGuide_ell_1_curvature_v;
   } /* loop on segments */
 
 }
-#line 13864 "./generic_constr_elliptic.c"
+#line 13876 "./generic_constr_elliptic.c"
 }   /* End of Guide_ell_1=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -14211,7 +14223,7 @@ char* reflect = mccGuide_straight_reflect;
 
   } /* if l */
 }
-#line 14214 "./generic_constr_elliptic.c"
+#line 14226 "./generic_constr_elliptic.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -14532,7 +14544,7 @@ MCNUM curvature_v = mccGuide_ell_2_curvature_v;
   } /* loop on segments */
 
 }
-#line 14535 "./generic_constr_elliptic.c"
+#line 14547 "./generic_constr_elliptic.c"
 }   /* End of Guide_ell_2=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -14873,7 +14885,7 @@ char* username3 = mccSample_username3;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 14876 "./generic_constr_elliptic.c"
+#line 14888 "./generic_constr_elliptic.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -14989,7 +15001,7 @@ MCNUM minutes = mccOrigin_minutes;
 
   }
 }
-#line 14992 "./generic_constr_elliptic.c"
+#line 15004 "./generic_constr_elliptic.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -15037,7 +15049,7 @@ char* username3 = mccSample_username3;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 15040 "./generic_constr_elliptic.c"
+#line 15052 "./generic_constr_elliptic.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -15084,7 +15096,7 @@ MCNUM minutes = mccOrigin_minutes;
     fprintf(stdout, "%g [min] ", difftime(NowTime,StartTime)/60.0);
   fprintf(stdout, "\n");
 }
-#line 15087 "./generic_constr_elliptic.c"
+#line 15099 "./generic_constr_elliptic.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -15156,7 +15168,7 @@ int target_index = mccH3_target_index;
   Table_Free(&pTable_x);
   Table_Free(&pTable_y);
 }
-#line 15158 "./generic_constr_elliptic.c"
+#line 15170 "./generic_constr_elliptic.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -15264,7 +15276,7 @@ MCNUM curvature_v = mccGuide_ell_1_curvature_v;
   free(w1_in);
   free(w2_out);
 }
-#line 15264 "./generic_constr_elliptic.c"
+#line 15276 "./generic_constr_elliptic.c"
 }   /* End of Guide_ell_1=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -15361,7 +15373,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 15360 "./generic_constr_elliptic.c"
+#line 15372 "./generic_constr_elliptic.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -15451,7 +15463,7 @@ MCNUM curvature_v = mccGuide_ell_2_curvature_v;
   free(w1_in);
   free(w2_out);
 }
-#line 15449 "./generic_constr_elliptic.c"
+#line 15461 "./generic_constr_elliptic.c"
 }   /* End of Guide_ell_2=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -15537,7 +15549,7 @@ char* username3 = mccSample_username3;
   /* free pointers */
   Monitor_nD_Finally(&DEFS, &Vars);
 }
-#line 15534 "./generic_constr_elliptic.c"
+#line 15546 "./generic_constr_elliptic.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -15585,7 +15597,7 @@ MCNUM minutes = mccOrigin_minutes;
 {
   magnify("");
 }
-#line 15581 "./generic_constr_elliptic.c"
+#line 15593 "./generic_constr_elliptic.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -15698,7 +15710,7 @@ int target_index = mccH3_target_index;
     dashed_line(0,0,0, -focus_xw/2, focus_yh/2,dist, 4);
   }
 }
-#line 15694 "./generic_constr_elliptic.c"
+#line 15706 "./generic_constr_elliptic.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -15735,7 +15747,7 @@ int target_index = mccH3_target_index;
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 15731 "./generic_constr_elliptic.c"
+#line 15743 "./generic_constr_elliptic.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -15838,7 +15850,7 @@ MCNUM curvature_v = mccGuide_ell_1_curvature_v;
   }
 
 }
-#line 15834 "./generic_constr_elliptic.c"
+#line 15846 "./generic_constr_elliptic.c"
 }   /* End of Guide_ell_1=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -15989,7 +16001,7 @@ char* reflect = mccGuide_straight_reflect;
   }
 
 }
-#line 15985 "./generic_constr_elliptic.c"
+#line 15997 "./generic_constr_elliptic.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -16095,7 +16107,7 @@ MCNUM curvature_v = mccGuide_ell_2_curvature_v;
   }
 
 }
-#line 16091 "./generic_constr_elliptic.c"
+#line 16103 "./generic_constr_elliptic.c"
 }   /* End of Guide_ell_2=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -16183,7 +16195,7 @@ char* username3 = mccSample_username3;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 16179 "./generic_constr_elliptic.c"
+#line 16191 "./generic_constr_elliptic.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector

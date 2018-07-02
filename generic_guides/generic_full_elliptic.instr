@@ -22,7 +22,7 @@
 * %End
 *******************************************************************************/
 
-DEFINE INSTRUMENT Full_ellipse(guide_length=100, left_foc=1, right_foc=0.5, m_side=2, m_top=6, sample_height=0.01)
+DEFINE INSTRUMENT Full_ellipse(guide_length=100, left_foc=1, right_foc=0.5, m_side=2, m_top=6, sample_height=0.01, R0=0.99, alpha = 3.3)
 
 DECLARE
 %{
@@ -40,7 +40,7 @@ TRACE
 
 COMPONENT Guide_ell = Guide_tapering(
     option = "elliptical", w1 = guide_start_width, h1 = guide_start_height, l = guide_length,
-    linh = left_foc, louth = right_foc, mx = m_side, my = m_top)
+    linh = left_foc, louth = right_foc, mx = m_side, my = m_top, R0 = R0, alphax = alpha, alphay=alpha)
   AT (0, 0, 0) RELATIVE Guide_start_arm
 
 COMPONENT Sample = Monitor_nD(
