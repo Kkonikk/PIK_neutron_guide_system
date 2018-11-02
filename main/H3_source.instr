@@ -41,6 +41,9 @@ double source_no_I1 = 7.05e12;
 
 //Distance to neutron guides
 double guide_start_dist = 1.82;
+
+//Reflection parameters
+double R0 = 0.99, alpha = 3.3;
 %}
 
 INITIALIZE

@@ -30,7 +30,7 @@
 *
 * %End
 *******************************************************************************/
-DEFINE INSTRUMENT generic_parabolic_nose(guide_length = 10, m_side = 2, m_top = 6, R0=0.99, alpha = 3.3, sample_height = 0.01)
+DEFINE INSTRUMENT generic_straight(guide_length = 10, m_side = 2, m_top = 6, sample_height = 0.01, sample_width = 0.01)
 
 DECLARE
 %{
@@ -42,7 +42,7 @@ INITIALIZE
 
 TRACE
 
-%include "../H3.instr"
+%include "../main/H3_source.instr"
 
 COMPONENT Main_guide = Guide_gravity(
     w1=guide_start_width, 
@@ -58,7 +58,7 @@ COMPONENT Main_guide = Guide_gravity(
 AT (0, 0, 0) RELATIVE Guide_start_arm
 
 COMPONENT Sample = Monitor_nD(
-    xwidth=guide_start_width, 
+    xwidth=sample_width, 
     yheight=sample_height, 
     bins=100, 
     options="dx limits = [-1 1] dy limits = [-1 1]")
