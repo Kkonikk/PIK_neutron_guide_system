@@ -30,7 +30,7 @@
 *
 * %End
 *******************************************************************************/
-DEFINE INSTRUMENT generic_half_elliptic_nose(guide_length = 10, nose_length = 3, m_side = 2, m_top = 6, linh = 10.5, louth = 0.5, linw = 10.5, loutw = 0.5, R0=0.99, alpha = 3.3, sample_height = 0.01)
+DEFINE INSTRUMENT generic_half_elliptic_nose(guide_length = 10, nose_length = 3, m_side = 2, m_top = 6, linh = 10.5, louth = 0.5, linw = 10.5, loutw = 0.5, sample_height = 0.01, sample_dist=0.5)
 
 DECLARE
 %{
@@ -42,14 +42,12 @@ INITIALIZE
 
 TRACE
 
-%include "../main/H3.instr"
+%include "../main/H3_source.instr"
 
 COMPONENT Main_guide = Guide_gravity(
     w1=guide_start_width, 
     h1=guide_start_height, 
-    l=guide_length - nose_length, 
-    R0=R0, 
-    alpha=alpha, 
+    l=guide_length - nose_length,  
     mleft=m_side, 
     mright=m_side, 
     mtop=m_top, 
@@ -66,9 +64,6 @@ COMPONENT Nose_guide = Guide_tapering(
     louth = louth,
     linw = linw,
     loutw = loutw,
-    R0=R0, 
-    alphax=alpha, 
-    alphay = alpha,
     mx=m_side,
     my=m_top)
 AT (0, 0, guide_length - nose_length) RELATIVE PREVIOUS
@@ -78,7 +73,7 @@ COMPONENT Sample = Monitor_nD(
     yheight=sample_height, 
     bins=100, 
     options="x")
-AT (0, 0, nose_length + focal_dist) RELATIVE PREVIOUS
+AT (0, 0, nose_length + sample_dist) RELATIVE PREVIOUS
 
 FINALLY
 %{
