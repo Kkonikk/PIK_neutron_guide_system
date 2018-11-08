@@ -1,4 +1,4 @@
-m_min = 1; m_step = 1; m_max = 6;
+m_min = 1; m_step = 0.2; m_max = 6;
 model = mccode('generic_straight.instr');
 name = 'H3-0-DEDM';
 parameters.guide_length=12;
@@ -22,13 +22,14 @@ parameters.m_top = m_min:m_step:m_max;
 results_top = iData(model,parameters);
 sum_top = sum(results_top, 0);
 
-fig=figure;
+figure;
 plot(m_min:m_step:m_max,sum_side,m_min:m_step:m_max,sum_top,'LineWidth',2);
-title([name ' scan m'])
+title([name 'scan m'])
 grid on
 xlabel('m')
 ylabel('I, arb.u.')
 legend('side','top')
-print(gcf,[name 'm_scan'],'-dpng','-r300')
-%matlab2tikz([name 'm_scan.tex'], 'width', '0.85\textwidth');
-saveas(fig,[name 'm_scan.fig']);
+print(gcf,strjoin({[name 'm_scan'],'-dpng','-r300')
+figname = ['figs/' instr_name '_' model_name '_height_scan_' num2str(lambda_min) 'AA' ];
+matlab2tikz([figname '.tex'], 'width', '0.85\textwidth');
+saveas(fig, [figname '.fig']);

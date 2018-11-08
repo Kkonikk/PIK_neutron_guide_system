@@ -1,8 +1,7 @@
-d = 'D:\JOB\github\PIK_neutron_guide_system\temp';
-files = dir(fullfile(d, '*.instr'));
+d = '/media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/temp';
+files = dir(fullfile(d, '*t.instr'));
 filenames = {files.name};
 for i = 1: length(filenames)
-    [p,m]=mcstas(filenames{i},struct(),struct('ncount',1e7));
     j = 1;
     name = [];
     while strcmp(filenames{i}(j),'.') ~= 1
@@ -11,20 +10,22 @@ for i = 1: length(filenames)
     end
     model = mccode(name);
     fix(model, 'all');
-    model.par = 'free'; model.par = [1 1 1];
+    model.m_side = 'free'; model.m_side = [1 2.5 6];
+    model.m_top = 'free'; model.m_top = [1 2.5 6];
     [parameters, fval, status, output]=fmax(model,[], ...
   'optimizer=fminpso; OutputFcn=fminplot;TolFun =5%;TolX=5%;ncount=1e5;MaxFunEvals=100', nan);
 
-    model(parameters, nan);  % evaluate the best solution
-    figure; subplot(model.UserData.monitors)
+    a = {name {model.Parameters'; parameters}};
+%     model(parameters, nan);  % evaluate the best solution
+%     figure; subplot(model.UserData.monitors)
     
-    result = iData(model, parameters, nan);	% return raw monitor as an iData object.
-    result.x
-    result.Signal
-    result.E
-	plot(result);
-	plot(model.UserData.monitors)
-    a(i) = [name parameters];
+%     result = iData(model, parameters, nan);	% return raw monitor as an iData object.
+%     result.x
+%     result.Signal
+%     result.E
+% 	plot(result);
+% 	plot(model.UserData.monitors)
+%     a(i) = [name parameters];
 end
 
 

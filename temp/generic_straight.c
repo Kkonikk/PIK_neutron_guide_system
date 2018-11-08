@@ -1,10 +1,10 @@
 /* Automatically generated file. Do not edit. 
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
- * Instrument: generic_straight.instr (generic_straight)
- * Date:       Fri Nov 02 16:06:28 2018
- * File:       generic_straight.c
- * Compile:    cc -o generic_straight.exe generic_straight.c 
+ * Instrument: ./generic_straight.instr (generic_straight)
+ * Date:       Thu Nov  8 12:51:52 2018
+ * File:       ./generic_straight.c
+ * Compile:    cc -o generic_straight.out ./generic_straight.c 
  * CFLAGS=
  */
 
@@ -688,7 +688,7 @@ NXhandle nxhandle;
 #endif /* MCCODE_R_H */
 /* End of file "mccode-r.h". */
 
-#line 691 "generic_straight.c"
+#line 691 "./generic_straight.c"
 
 #line 1 "mcstas-r.h"
 /*******************************************************************************
@@ -921,7 +921,7 @@ void mcsetstate(double x, double y, double z, double vx, double vy, double vz,
 #endif /* MCSTAS_R_H */
 /* End of file "mcstas-r.h". */
 
-#line 924 "generic_straight.c"
+#line 924 "./generic_straight.c"
 
 #line 1 "mccode-r.c"
 /*******************************************************************************
@@ -4853,7 +4853,7 @@ void neutronics_main_(float *inx, float *iny, float *inz, float *invx, float *in
 /* End of file "mccode-r.c". */
 /* End of file "mccode-r.c". */
 
-#line 4856 "generic_straight.c"
+#line 4856 "./generic_straight.c"
 
 #line 1 "mcstas-r.c"
 /*******************************************************************************
@@ -5213,16 +5213,16 @@ plane_intersect(double *t, double x, double y, double z,
 #endif /* !MCSTAS_H */
 /* End of file "mcstas-r.c". */
 
-#line 5216 "generic_straight.c"
+#line 5216 "./generic_straight.c"
 #ifdef MC_TRACE_ENABLED
 int mctraceenabled = 1;
 #else
 int mctraceenabled = 0;
 #endif
-#define MCSTAS "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\"
+#define MCSTAS "/usr/share/mcstas/2.4.1/"
 int mcdefaultmain = 1;
 char mcinstrument_name[] = "generic_straight";
-char mcinstrument_source[] = "generic_straight.instr";
+char mcinstrument_source[] = "./generic_straight.instr";
 char *mcinstrument_exe=NULL; /* will be set to argv[0] in main */
 int main(int argc, char *argv[]){return mccode_main(argc, argv);}
 void mcinit(void);
@@ -5232,7 +5232,7 @@ void mcfinally(void);
 void mcdisplay(void);
 
 /* Shared user declarations for all components 'Source_gen'. */
-#line 140 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 140 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -6701,10 +6701,10 @@ char *str_dup_numeric(char *orig)
   }
 #endif
 
-#line 6704 "generic_straight.c"
+#line 6704 "./generic_straight.c"
 
 /* Shared user declarations for all components 'Guide_gravity'. */
-#line 124 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 124 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 /*****************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -7057,10 +7057,10 @@ void TableReflecFunc(double mc_pol_q, t_Table *mc_pol_par, double *mc_pol_r) {
 
 
 #endif
-#line 7060 "generic_straight.c"
+#line 7060 "./generic_straight.c"
 
 /* Shared user declarations for all components 'Monitor_nD'. */
-#line 212 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 212 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -9970,7 +9970,7 @@ void off_display(off_struct data)
 
 /* end of interoff-lib.c */
 
-#line 9973 "generic_straight.c"
+#line 9973 "./generic_straight.c"
 
 /* Instrument parameters. */
 MCNUM mcipguide_length;
@@ -10034,7 +10034,7 @@ double guide_start_dist = 1.82;
 
 //Reflection parameters
 double R0 = 0.99, alpha = 3.3;
-#line 10037 "generic_straight.c"
+#line 10037 "./generic_straight.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -10183,7 +10183,7 @@ char mccSample_username3[16384];
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 44 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 44 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 #ifndef PROGRESS_BAR
 #define PROGRESS_BAR
 #else
@@ -10194,7 +10194,7 @@ double IntermediateCnts;
 time_t StartTime;
 time_t EndTime;
 time_t CurrentTime;
-#line 10197 "generic_straight.c"
+#line 10197 "./generic_straight.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -10258,7 +10258,7 @@ time_t CurrentTime;
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 184 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 184 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 
   double p_in;
   double lambda1;  /* first Maxwellian source */
@@ -10278,7 +10278,7 @@ time_t CurrentTime;
   double pTable_dymin;
   double pTable_dymax;
 
-#line 10281 "generic_straight.c"
+#line 10281 "./generic_straight.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -10378,10 +10378,10 @@ time_t CurrentTime;
 #define nu mccMain_guide_nu
 #define phase mccMain_guide_phase
 #define reflect mccMain_guide_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 10384 "generic_straight.c"
+#line 10384 "./generic_straight.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -10453,12 +10453,12 @@ time_t CurrentTime;
 #define username1 mccSample_username1
 #define username2 mccSample_username2
 #define username3 mccSample_username3
-#line 220 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 220 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 10461 "generic_straight.c"
+#line 10461 "./generic_straight.c"
 #undef username3
 #undef username2
 #undef username1
@@ -10536,7 +10536,7 @@ if (cold_regime==-1){
 	source_I2 = 0;
 	source_I3 = 0;};	
 }
-#line 10539 "generic_straight.c"
+#line 10539 "./generic_straight.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -10564,31 +10564,31 @@ if (cold_regime==-1){
     /* Component Origin. */
   /* Setting parameters for component Origin. */
   SIG_MESSAGE("Origin (Init:SetPar)");
-#line 39 "generic_straight.instr"
+#line 39 "./generic_straight.instr"
   if("NULL") strncpy(mccOrigin_profile, "NULL" ? "NULL" : "", 16384); else mccOrigin_profile[0]='\0';
-#line 39 "generic_straight.instr"
+#line 39 "./generic_straight.instr"
   mccOrigin_percent = 10;
-#line 39 "generic_straight.instr"
+#line 39 "./generic_straight.instr"
   mccOrigin_flag_save = 0;
-#line 39 "generic_straight.instr"
+#line 39 "./generic_straight.instr"
   mccOrigin_minutes = 0;
-#line 10575 "generic_straight.c"
+#line 10575 "./generic_straight.c"
 
   SIG_MESSAGE("Origin (Init:Place/Rotate)");
   rot_set_rotation(mcrotaOrigin,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10582 "generic_straight.c"
+#line 10582 "./generic_straight.c"
   rot_copy(mcrotrOrigin, mcrotaOrigin);
   mcposaOrigin = coords_set(
-#line 69 "generic_straight.instr"
+#line 69 "./generic_straight.instr"
     0,
-#line 69 "generic_straight.instr"
+#line 69 "./generic_straight.instr"
     0,
-#line 69 "generic_straight.instr"
+#line 69 "./generic_straight.instr"
     0);
-#line 10591 "generic_straight.c"
+#line 10591 "./generic_straight.c"
   mctc1 = coords_neg(mcposaOrigin);
   mcposrOrigin = rot_apply(mcrotaOrigin, mctc1);
   mcDEBUG_COMPONENT("Origin", mcposaOrigin, mcrotaOrigin)
@@ -10599,85 +10599,85 @@ if (cold_regime==-1){
     /* Component H3. */
   /* Setting parameters for component H3. */
   SIG_MESSAGE("H3 (Init:SetPar)");
-#line 129 "generic_straight.instr"
+#line 129 "./generic_straight.instr"
   if("NULL") strncpy(mccH3_flux_file, "NULL" ? "NULL" : "", 16384); else mccH3_flux_file[0]='\0';
-#line 129 "generic_straight.instr"
+#line 129 "./generic_straight.instr"
   if("NULL") strncpy(mccH3_xdiv_file, "NULL" ? "NULL" : "", 16384); else mccH3_xdiv_file[0]='\0';
-#line 129 "generic_straight.instr"
+#line 129 "./generic_straight.instr"
   if("NULL") strncpy(mccH3_ydiv_file, "NULL" ? "NULL" : "", 16384); else mccH3_ydiv_file[0]='\0';
-#line 130 "generic_straight.instr"
+#line 130 "./generic_straight.instr"
   mccH3_radius = 0.0;
-#line 73 "generic_straight.instr"
+#line 73 "./generic_straight.instr"
   mccH3_dist = guide_start_dist;
-#line 73 "generic_straight.instr"
+#line 73 "./generic_straight.instr"
   mccH3_focus_xw = mcipguide_start_width;
-#line 74 "generic_straight.instr"
+#line 74 "./generic_straight.instr"
   mccH3_focus_yh = mcipguide_start_height;
-#line 130 "generic_straight.instr"
+#line 130 "./generic_straight.instr"
   mccH3_focus_aw = 0;
-#line 130 "generic_straight.instr"
+#line 130 "./generic_straight.instr"
   mccH3_focus_ah = 0;
-#line 131 "generic_straight.instr"
+#line 131 "./generic_straight.instr"
   mccH3_E0 = 0;
-#line 131 "generic_straight.instr"
+#line 131 "./generic_straight.instr"
   mccH3_dE = 0;
-#line 131 "generic_straight.instr"
+#line 131 "./generic_straight.instr"
   mccH3_lambda0 = 0;
-#line 131 "generic_straight.instr"
+#line 131 "./generic_straight.instr"
   mccH3_dlambda = 0;
-#line 74 "generic_straight.instr"
+#line 74 "./generic_straight.instr"
   mccH3_I1 = source_I1;
-#line 74 "generic_straight.instr"
+#line 74 "./generic_straight.instr"
   mccH3_yheight = source_height;
-#line 75 "generic_straight.instr"
+#line 75 "./generic_straight.instr"
   mccH3_xwidth = source_width;
-#line 132 "generic_straight.instr"
+#line 132 "./generic_straight.instr"
   mccH3_verbose = 0;
-#line 75 "generic_straight.instr"
+#line 75 "./generic_straight.instr"
   mccH3_T1 = source_T1;
-#line 133 "generic_straight.instr"
+#line 133 "./generic_straight.instr"
   mccH3_flux_file_perAA = 0;
-#line 133 "generic_straight.instr"
+#line 133 "./generic_straight.instr"
   mccH3_flux_file_log = 0;
-#line 75 "generic_straight.instr"
+#line 75 "./generic_straight.instr"
   mccH3_Lmin = mcipsource_lambda_min;
-#line 76 "generic_straight.instr"
+#line 76 "./generic_straight.instr"
   mccH3_Lmax = mcipsource_lambda_max;
-#line 134 "generic_straight.instr"
+#line 134 "./generic_straight.instr"
   mccH3_Emin = 0;
-#line 134 "generic_straight.instr"
+#line 134 "./generic_straight.instr"
   mccH3_Emax = 0;
-#line 76 "generic_straight.instr"
+#line 76 "./generic_straight.instr"
   mccH3_T2 = source_T2;
-#line 76 "generic_straight.instr"
+#line 76 "./generic_straight.instr"
   mccH3_I2 = source_I2;
-#line 76 "generic_straight.instr"
+#line 76 "./generic_straight.instr"
   mccH3_T3 = source_T3;
-#line 77 "generic_straight.instr"
+#line 77 "./generic_straight.instr"
   mccH3_I3 = source_I3;
-#line 134 "generic_straight.instr"
+#line 134 "./generic_straight.instr"
   mccH3_zdepth = 0;
-#line 134 "generic_straight.instr"
+#line 134 "./generic_straight.instr"
   mccH3_target_index = + 1;
-#line 10662 "generic_straight.c"
+#line 10662 "./generic_straight.c"
 
   SIG_MESSAGE("H3 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10669 "generic_straight.c"
+#line 10669 "./generic_straight.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaH3);
   rot_transpose(mcrotaOrigin, mctr1);
   rot_mul(mcrotaH3, mctr1, mcrotrH3);
   mctc1 = coords_set(
-#line 78 "generic_straight.instr"
+#line 78 "./generic_straight.instr"
     0,
-#line 78 "generic_straight.instr"
+#line 78 "./generic_straight.instr"
     0,
-#line 78 "generic_straight.instr"
+#line 78 "./generic_straight.instr"
     0);
-#line 10680 "generic_straight.c"
+#line 10680 "./generic_straight.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaH3 = coords_add(mcposaOrigin, mctc2);
@@ -10697,18 +10697,18 @@ if (cold_regime==-1){
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10700 "generic_straight.c"
+#line 10700 "./generic_straight.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaGuide_start_arm);
   rot_transpose(mcrotaH3, mctr1);
   rot_mul(mcrotaGuide_start_arm, mctr1, mcrotrGuide_start_arm);
   mctc1 = coords_set(
-#line 82 "generic_straight.instr"
+#line 82 "./generic_straight.instr"
     0,
-#line 82 "generic_straight.instr"
+#line 82 "./generic_straight.instr"
     0,
-#line 82 "generic_straight.instr"
+#line 82 "./generic_straight.instr"
     guide_start_dist);
-#line 10711 "generic_straight.c"
+#line 10711 "./generic_straight.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_start_arm = coords_add(mcposaOrigin, mctc2);
@@ -10722,93 +10722,93 @@ if (cold_regime==-1){
     /* Component Main_guide. */
   /* Setting parameters for component Main_guide. */
   SIG_MESSAGE("Main_guide (Init:SetPar)");
-#line 48 "generic_straight.instr"
+#line 48 "./generic_straight.instr"
   mccMain_guide_w1 = mcipguide_start_width;
-#line 49 "generic_straight.instr"
+#line 49 "./generic_straight.instr"
   mccMain_guide_h1 = mcipguide_start_height;
-#line 113 "generic_straight.instr"
+#line 113 "./generic_straight.instr"
   mccMain_guide_w2 = 0;
-#line 113 "generic_straight.instr"
+#line 113 "./generic_straight.instr"
   mccMain_guide_h2 = 0;
-#line 50 "generic_straight.instr"
+#line 50 "./generic_straight.instr"
   mccMain_guide_l = mcipguide_length;
-#line 51 "generic_straight.instr"
+#line 51 "./generic_straight.instr"
   mccMain_guide_R0 = R0;
-#line 114 "generic_straight.instr"
+#line 114 "./generic_straight.instr"
   mccMain_guide_Qc = 0.0218;
-#line 52 "generic_straight.instr"
+#line 52 "./generic_straight.instr"
   mccMain_guide_alpha = alpha;
-#line 114 "generic_straight.instr"
+#line 114 "./generic_straight.instr"
   mccMain_guide_m = 1.0;
-#line 114 "generic_straight.instr"
+#line 114 "./generic_straight.instr"
   mccMain_guide_W = 0.003;
-#line 114 "generic_straight.instr"
+#line 114 "./generic_straight.instr"
   mccMain_guide_nslit = 1;
-#line 114 "generic_straight.instr"
+#line 114 "./generic_straight.instr"
   mccMain_guide_d = 0.0005;
-#line 53 "generic_straight.instr"
+#line 53 "./generic_straight.instr"
   mccMain_guide_mleft = mcipm_side;
-#line 54 "generic_straight.instr"
+#line 54 "./generic_straight.instr"
   mccMain_guide_mright = mcipm_side;
-#line 55 "generic_straight.instr"
+#line 55 "./generic_straight.instr"
   mccMain_guide_mtop = mcipm_top;
-#line 56 "generic_straight.instr"
+#line 56 "./generic_straight.instr"
   mccMain_guide_mbottom = mcipm_top;
-#line 115 "generic_straight.instr"
+#line 115 "./generic_straight.instr"
   mccMain_guide_nhslit = 1;
-#line 57 "generic_straight.instr"
+#line 57 "./generic_straight.instr"
   mccMain_guide_G = -9.81;
-#line 116 "generic_straight.instr"
+#line 116 "./generic_straight.instr"
   mccMain_guide_aleft = -1;
-#line 116 "generic_straight.instr"
+#line 116 "./generic_straight.instr"
   mccMain_guide_aright = -1;
-#line 116 "generic_straight.instr"
+#line 116 "./generic_straight.instr"
   mccMain_guide_atop = -1;
-#line 116 "generic_straight.instr"
+#line 116 "./generic_straight.instr"
   mccMain_guide_abottom = -1;
-#line 117 "generic_straight.instr"
+#line 117 "./generic_straight.instr"
   mccMain_guide_wavy = 0;
-#line 117 "generic_straight.instr"
+#line 117 "./generic_straight.instr"
   mccMain_guide_wavy_z = 0;
-#line 117 "generic_straight.instr"
+#line 117 "./generic_straight.instr"
   mccMain_guide_wavy_tb = 0;
-#line 117 "generic_straight.instr"
+#line 117 "./generic_straight.instr"
   mccMain_guide_wavy_lr = 0;
-#line 118 "generic_straight.instr"
+#line 118 "./generic_straight.instr"
   mccMain_guide_chamfers = 0;
-#line 118 "generic_straight.instr"
+#line 118 "./generic_straight.instr"
   mccMain_guide_chamfers_z = 0;
-#line 118 "generic_straight.instr"
+#line 118 "./generic_straight.instr"
   mccMain_guide_chamfers_lr = 0;
-#line 118 "generic_straight.instr"
+#line 118 "./generic_straight.instr"
   mccMain_guide_chamfers_tb = 0;
-#line 118 "generic_straight.instr"
+#line 118 "./generic_straight.instr"
   mccMain_guide_nelements = 1;
-#line 119 "generic_straight.instr"
+#line 119 "./generic_straight.instr"
   mccMain_guide_nu = 0;
-#line 119 "generic_straight.instr"
+#line 119 "./generic_straight.instr"
   mccMain_guide_phase = 0;
-#line 119 "generic_straight.instr"
+#line 119 "./generic_straight.instr"
   if("NULL") strncpy(mccMain_guide_reflect, "NULL" ? "NULL" : "", 16384); else mccMain_guide_reflect[0]='\0';
-#line 10793 "generic_straight.c"
+#line 10793 "./generic_straight.c"
 
   SIG_MESSAGE("Main_guide (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10800 "generic_straight.c"
+#line 10800 "./generic_straight.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaMain_guide);
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   rot_mul(mcrotaMain_guide, mctr1, mcrotrMain_guide);
   mctc1 = coords_set(
-#line 58 "generic_straight.instr"
+#line 58 "./generic_straight.instr"
     0,
-#line 58 "generic_straight.instr"
+#line 58 "./generic_straight.instr"
     0,
-#line 58 "generic_straight.instr"
+#line 58 "./generic_straight.instr"
     0);
-#line 10811 "generic_straight.c"
+#line 10811 "./generic_straight.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMain_guide = coords_add(mcposaGuide_start_arm, mctc2);
@@ -10822,65 +10822,65 @@ if (cold_regime==-1){
     /* Component Sample. */
   /* Setting parameters for component Sample. */
   SIG_MESSAGE("Sample (Init:SetPar)");
-#line 61 "generic_straight.instr"
+#line 61 "./generic_straight.instr"
   mccSample_xwidth = mcipsample_width;
-#line 62 "generic_straight.instr"
+#line 62 "./generic_straight.instr"
   mccSample_yheight = mcipsample_height;
-#line 200 "generic_straight.instr"
+#line 200 "./generic_straight.instr"
   mccSample_zdepth = 0;
-#line 201 "generic_straight.instr"
+#line 201 "./generic_straight.instr"
   mccSample_xmin = 0;
-#line 201 "generic_straight.instr"
+#line 201 "./generic_straight.instr"
   mccSample_xmax = 0;
-#line 201 "generic_straight.instr"
+#line 201 "./generic_straight.instr"
   mccSample_ymin = 0;
-#line 201 "generic_straight.instr"
+#line 201 "./generic_straight.instr"
   mccSample_ymax = 0;
-#line 201 "generic_straight.instr"
+#line 201 "./generic_straight.instr"
   mccSample_zmin = 0;
-#line 201 "generic_straight.instr"
+#line 201 "./generic_straight.instr"
   mccSample_zmax = 0;
-#line 63 "generic_straight.instr"
+#line 63 "./generic_straight.instr"
   mccSample_bins = 100;
-#line 202 "generic_straight.instr"
+#line 202 "./generic_straight.instr"
   mccSample_min = -1e40;
-#line 202 "generic_straight.instr"
+#line 202 "./generic_straight.instr"
   mccSample_max = 1e40;
-#line 202 "generic_straight.instr"
+#line 202 "./generic_straight.instr"
   mccSample_restore_neutron = 0;
-#line 202 "generic_straight.instr"
+#line 202 "./generic_straight.instr"
   mccSample_radius = 0;
-#line 64 "generic_straight.instr"
+#line 64 "./generic_straight.instr"
   if("dx limits = [-1 1] dy limits = [-1 1]") strncpy(mccSample_options, "dx limits = [-1 1] dy limits = [-1 1]" ? "dx limits = [-1 1] dy limits = [-1 1]" : "", 16384); else mccSample_options[0]='\0';
-#line 203 "generic_straight.instr"
+#line 203 "./generic_straight.instr"
   if("NULL") strncpy(mccSample_filename, "NULL" ? "NULL" : "", 16384); else mccSample_filename[0]='\0';
-#line 203 "generic_straight.instr"
+#line 203 "./generic_straight.instr"
   if("NULL") strncpy(mccSample_geometry, "NULL" ? "NULL" : "", 16384); else mccSample_geometry[0]='\0';
-#line 204 "generic_straight.instr"
+#line 204 "./generic_straight.instr"
   if("NULL") strncpy(mccSample_username1, "NULL" ? "NULL" : "", 16384); else mccSample_username1[0]='\0';
-#line 204 "generic_straight.instr"
+#line 204 "./generic_straight.instr"
   if("NULL") strncpy(mccSample_username2, "NULL" ? "NULL" : "", 16384); else mccSample_username2[0]='\0';
-#line 204 "generic_straight.instr"
+#line 204 "./generic_straight.instr"
   if("NULL") strncpy(mccSample_username3, "NULL" ? "NULL" : "", 16384); else mccSample_username3[0]='\0';
-#line 10865 "generic_straight.c"
+#line 10865 "./generic_straight.c"
 
   SIG_MESSAGE("Sample (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10872 "generic_straight.c"
+#line 10872 "./generic_straight.c"
   rot_mul(mctr1, mcrotaMain_guide, mcrotaSample);
   rot_transpose(mcrotaMain_guide, mctr1);
   rot_mul(mcrotaSample, mctr1, mcrotrSample);
   mctc1 = coords_set(
-#line 65 "generic_straight.instr"
+#line 65 "./generic_straight.instr"
     0,
-#line 65 "generic_straight.instr"
+#line 65 "./generic_straight.instr"
     0,
-#line 65 "generic_straight.instr"
+#line 65 "./generic_straight.instr"
     mcipguide_length + 0.01);
-#line 10883 "generic_straight.c"
+#line 10883 "./generic_straight.c"
   rot_transpose(mcrotaMain_guide, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaSample = coords_add(mcposaMain_guide, mctc2);
@@ -10905,7 +10905,7 @@ if (cold_regime==-1){
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 57 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 57 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
 IntermediateCnts=0;
 StartTime=0;
@@ -10917,7 +10917,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
     percent=1e5*100.0/mcget_ncount();
   }
 }
-#line 10920 "generic_straight.c"
+#line 10920 "./generic_straight.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -10982,7 +10982,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 206 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 206 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   pTable_xsum=0;
   pTable_ysum=0;
@@ -11254,7 +11254,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
       printf("Source_gen: component %s unactivated", NAME_CURRENT_COMP);
   );
 }
-#line 11257 "generic_straight.c"
+#line 11257 "./generic_straight.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -11350,7 +11350,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccMain_guide_nu
 #define phase mccMain_guide_phase
 #define reflect mccMain_guide_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -11402,7 +11402,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 11405 "generic_straight.c"
+#line 11405 "./generic_straight.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -11475,7 +11475,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define username1 mccSample_username1
 #define username2 mccSample_username2
 #define username3 mccSample_username3
-#line 227 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 227 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -11554,7 +11554,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 11557 "generic_straight.c"
+#line 11557 "./generic_straight.c"
 #undef username3
 #undef username2
 #undef username1
@@ -11695,7 +11695,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 70 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 70 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   double ncount;
   ncount = mcget_run_num();
@@ -11739,7 +11739,7 @@ MCNUM minutes = mccOrigin_minutes;
     if (flag_save) mcsave(NULL);
   }
 }
-#line 11742 "generic_straight.c"
+#line 11742 "./generic_straight.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -11896,7 +11896,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 479 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 479 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   double dx=0,dy=0,xf,yf,rf,pdir,chi,v,r, lambda;
   double Maxwell;
@@ -11987,7 +11987,7 @@ int target_index = mccH3_target_index;
     SCATTER;
   }
 }
-#line 11990 "generic_straight.c"
+#line 11990 "./generic_straight.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -12249,7 +12249,7 @@ MCNUM nelements = mccMain_guide_nelements;
 MCNUM nu = mccMain_guide_nu;
 MCNUM phase = mccMain_guide_phase;
 char* reflect = mccMain_guide_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -12418,7 +12418,7 @@ char* reflect = mccMain_guide_reflect;
 
   } /* if l */
 }
-#line 12421 "generic_straight.c"
+#line 12421 "./generic_straight.c"
 }   /* End of Main_guide=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -12553,7 +12553,7 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 307 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 307 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -12722,7 +12722,7 @@ char* username3 = mccSample_username3;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 12725 "generic_straight.c"
+#line 12725 "./generic_straight.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -12821,7 +12821,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 115 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 115 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   MPI_MASTER(fprintf(stdout, "\nSave [%s]\n", mcinstrument_name););
   if (profile && strlen(profile) && strcmp(profile,"NULL") && strcmp(profile,"0")) {
@@ -12838,7 +12838,7 @@ MCNUM minutes = mccOrigin_minutes;
 
   }
 }
-#line 12841 "generic_straight.c"
+#line 12841 "./generic_straight.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -12881,12 +12881,12 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 477 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 477 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 12889 "generic_straight.c"
+#line 12889 "./generic_straight.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -12920,7 +12920,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 133 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 133 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   time_t NowTime;
   time(&NowTime);
@@ -12933,7 +12933,7 @@ MCNUM minutes = mccOrigin_minutes;
     fprintf(stdout, "%g [min] ", difftime(NowTime,StartTime)/60.0);
   fprintf(stdout, "\n");
 }
-#line 12936 "generic_straight.c"
+#line 12936 "./generic_straight.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -12999,13 +12999,13 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 571 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   Table_Free(&pTable);
   Table_Free(&pTable_x);
   Table_Free(&pTable_y);
 }
-#line 13007 "generic_straight.c"
+#line 13007 "./generic_straight.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -13076,14 +13076,14 @@ MCNUM nelements = mccMain_guide_nelements;
 MCNUM nu = mccMain_guide_nu;
 MCNUM phase = mccMain_guide_phase;
 char* reflect = mccMain_guide_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 13083 "generic_straight.c"
+#line 13083 "./generic_straight.c"
 }   /* End of Main_guide=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -13127,12 +13127,12 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 483 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 483 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   /* free pointers */
   Monitor_nD_Finally(&DEFS, &Vars);
 }
-#line 13131 "generic_straight.c"
+#line 13131 "./generic_straight.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -13176,11 +13176,11 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 147 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 147 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   magnify("");
 }
-#line 13178 "generic_straight.c"
+#line 13178 "./generic_straight.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -13244,7 +13244,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 578 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 578 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   double xmin;
   double xmax;
@@ -13293,7 +13293,7 @@ int target_index = mccH3_target_index;
     dashed_line(0,0,0, -focus_xw/2, focus_yh/2,dist, 4);
   }
 }
-#line 13291 "generic_straight.c"
+#line 13291 "./generic_straight.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -13322,7 +13322,7 @@ int target_index = mccH3_target_index;
 #define mccompcurname  Guide_start_arm
 #define mccompcurtype  Arm
 #define mccompcurindex 3
-#line 40 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Arm.comp"
+#line 40 "/usr/share/mcstas/2.4.1/optics/Arm.comp"
 {
   /* A bit ugly; hard-coded dimensions. */
   magnify("");
@@ -13330,7 +13330,7 @@ int target_index = mccH3_target_index;
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 13328 "generic_straight.c"
+#line 13328 "./generic_straight.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -13378,7 +13378,7 @@ MCNUM nelements = mccMain_guide_nelements;
 MCNUM nu = mccMain_guide_nu;
 MCNUM phase = mccMain_guide_phase;
 char* reflect = mccMain_guide_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -13441,7 +13441,7 @@ char* reflect = mccMain_guide_reflect;
   }
 
 }
-#line 13439 "generic_straight.c"
+#line 13439 "./generic_straight.c"
 }   /* End of Main_guide=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -13483,7 +13483,7 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 489 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 489 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
@@ -13492,7 +13492,7 @@ char* username3 = mccSample_username3;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 13490 "generic_straight.c"
+#line 13490 "./generic_straight.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -13514,4 +13514,4 @@ char* username3 = mccSample_username3;
 #undef rectangle
 #undef box
 #undef circle
-/* end of generated C code generic_straight.c */
+/* end of generated C code ./generic_straight.c */

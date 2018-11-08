@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: generic_straight.instr (generic_straight)
- * Date:       Fri Nov  2 15:37:38 2018
+ * Date:       Thu Nov  8 12:51:32 2018
  * File:       ./generic_straight.c
  * Compile:    cc -o generic_straight.out ./generic_straight.c 
  * CFLAGS=
