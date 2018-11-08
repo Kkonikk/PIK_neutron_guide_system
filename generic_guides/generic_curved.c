@@ -1,10 +1,10 @@
 /* Automatically generated file. Do not edit. 
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
- * Instrument: generic_curved.instr (generic_curved)
- * Date:       Thu Nov  8 15:09:28 2018
- * File:       ./generic_curved.c
- * Compile:    cc -o generic_curved.out ./generic_curved.c 
+ * Instrument: ../generic_guides/generic_curved.instr (generic_curved)
+ * Date:       Thu Nov  8 15:33:30 2018
+ * File:       ../generic_guides/generic_curved.c
+ * Compile:    cc -o generic_curved.out ../generic_guides/generic_curved.c 
  * CFLAGS=
  */
 
@@ -688,7 +688,7 @@ NXhandle nxhandle;
 #endif /* MCCODE_R_H */
 /* End of file "mccode-r.h". */
 
-#line 691 "./generic_curved.c"
+#line 691 "../generic_guides/generic_curved.c"
 
 #line 1 "mcstas-r.h"
 /*******************************************************************************
@@ -921,7 +921,7 @@ void mcsetstate(double x, double y, double z, double vx, double vy, double vz,
 #endif /* MCSTAS_R_H */
 /* End of file "mcstas-r.h". */
 
-#line 924 "./generic_curved.c"
+#line 924 "../generic_guides/generic_curved.c"
 
 #line 1 "mccode-r.c"
 /*******************************************************************************
@@ -4853,7 +4853,7 @@ void neutronics_main_(float *inx, float *iny, float *inz, float *invx, float *in
 /* End of file "mccode-r.c". */
 /* End of file "mccode-r.c". */
 
-#line 4856 "./generic_curved.c"
+#line 4856 "../generic_guides/generic_curved.c"
 
 #line 1 "mcstas-r.c"
 /*******************************************************************************
@@ -5213,16 +5213,16 @@ plane_intersect(double *t, double x, double y, double z,
 #endif /* !MCSTAS_H */
 /* End of file "mcstas-r.c". */
 
-#line 5216 "./generic_curved.c"
+#line 5216 "../generic_guides/generic_curved.c"
 #ifdef MC_TRACE_ENABLED
 int mctraceenabled = 1;
 #else
 int mctraceenabled = 0;
 #endif
-#define MCSTAS "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../"
+#define MCSTAS "/usr/share/mcstas/2.4.1/"
 int mcdefaultmain = 1;
 char mcinstrument_name[] = "generic_curved";
-char mcinstrument_source[] = "generic_curved.instr";
+char mcinstrument_source[] = "../generic_guides/generic_curved.instr";
 char *mcinstrument_exe=NULL; /* will be set to argv[0] in main */
 int main(int argc, char *argv[]){return mccode_main(argc, argv);}
 void mcinit(void);
@@ -5232,7 +5232,7 @@ void mcfinally(void);
 void mcdisplay(void);
 
 /* Shared user declarations for all components 'Source_gen'. */
-#line 140 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 140 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -6701,10 +6701,10 @@ char *str_dup_numeric(char *orig)
   }
 #endif
 
-#line 6704 "./generic_curved.c"
+#line 6704 "../generic_guides/generic_curved.c"
 
 /* Shared user declarations for all components 'Guide_gravity'. */
-#line 124 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 124 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 /*****************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -7057,10 +7057,10 @@ void TableReflecFunc(double mc_pol_q, t_Table *mc_pol_par, double *mc_pol_r) {
 
 
 #endif
-#line 7060 "./generic_curved.c"
+#line 7060 "../generic_guides/generic_curved.c"
 
 /* Shared user declarations for all components 'Monitor_nD'. */
-#line 212 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 212 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -9970,7 +9970,7 @@ void off_display(off_struct data)
 
 /* end of interoff-lib.c */
 
-#line 9973 "./generic_curved.c"
+#line 9973 "../generic_guides/generic_curved.c"
 
 /* Instrument parameters. */
 MCNUM mcipm_out;
@@ -10039,7 +10039,7 @@ double guide_start_dist = 1.82;
 double R0 = 0.99, alpha = 3.3;
 //rotation of one guide element
 double rot;
-#line 10042 "./generic_curved.c"
+#line 10042 "../generic_guides/generic_curved.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -11017,7 +11017,7 @@ char mccSample_username3[16384];
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 44 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 44 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 #ifndef PROGRESS_BAR
 #define PROGRESS_BAR
 #else
@@ -11028,7 +11028,7 @@ double IntermediateCnts;
 time_t StartTime;
 time_t EndTime;
 time_t CurrentTime;
-#line 11031 "./generic_curved.c"
+#line 11031 "../generic_guides/generic_curved.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -11092,7 +11092,7 @@ time_t CurrentTime;
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 184 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 184 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 
   double p_in;
   double lambda1;  /* first Maxwellian source */
@@ -11112,7 +11112,7 @@ time_t CurrentTime;
   double pTable_dymin;
   double pTable_dymax;
 
-#line 11115 "./generic_curved.c"
+#line 11115 "../generic_guides/generic_curved.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -11212,10 +11212,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_nu
 #define phase mccGuide_curved_phase
 #define reflect mccGuide_curved_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 11218 "./generic_curved.c"
+#line 11218 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -11296,10 +11296,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_5_nu
 #define phase mccGuide_curved_5_phase
 #define reflect mccGuide_curved_5_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 11302 "./generic_curved.c"
+#line 11302 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -11380,10 +11380,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_6_nu
 #define phase mccGuide_curved_6_phase
 #define reflect mccGuide_curved_6_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 11386 "./generic_curved.c"
+#line 11386 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -11464,10 +11464,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_7_nu
 #define phase mccGuide_curved_7_phase
 #define reflect mccGuide_curved_7_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 11470 "./generic_curved.c"
+#line 11470 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -11548,10 +11548,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_8_nu
 #define phase mccGuide_curved_8_phase
 #define reflect mccGuide_curved_8_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 11554 "./generic_curved.c"
+#line 11554 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -11632,10 +11632,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_9_nu
 #define phase mccGuide_curved_9_phase
 #define reflect mccGuide_curved_9_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 11638 "./generic_curved.c"
+#line 11638 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -11716,10 +11716,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_10_nu
 #define phase mccGuide_curved_10_phase
 #define reflect mccGuide_curved_10_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 11722 "./generic_curved.c"
+#line 11722 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -11800,10 +11800,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_11_nu
 #define phase mccGuide_curved_11_phase
 #define reflect mccGuide_curved_11_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 11806 "./generic_curved.c"
+#line 11806 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -11884,10 +11884,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_12_nu
 #define phase mccGuide_curved_12_phase
 #define reflect mccGuide_curved_12_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 11890 "./generic_curved.c"
+#line 11890 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -11968,10 +11968,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_13_nu
 #define phase mccGuide_curved_13_phase
 #define reflect mccGuide_curved_13_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 11974 "./generic_curved.c"
+#line 11974 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12052,10 +12052,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_14_nu
 #define phase mccGuide_curved_14_phase
 #define reflect mccGuide_curved_14_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12058 "./generic_curved.c"
+#line 12058 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12136,10 +12136,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_15_nu
 #define phase mccGuide_curved_15_phase
 #define reflect mccGuide_curved_15_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12142 "./generic_curved.c"
+#line 12142 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12220,10 +12220,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_16_nu
 #define phase mccGuide_curved_16_phase
 #define reflect mccGuide_curved_16_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12226 "./generic_curved.c"
+#line 12226 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12304,10 +12304,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_17_nu
 #define phase mccGuide_curved_17_phase
 #define reflect mccGuide_curved_17_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12310 "./generic_curved.c"
+#line 12310 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12388,10 +12388,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_18_nu
 #define phase mccGuide_curved_18_phase
 #define reflect mccGuide_curved_18_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12394 "./generic_curved.c"
+#line 12394 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12472,10 +12472,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_19_nu
 #define phase mccGuide_curved_19_phase
 #define reflect mccGuide_curved_19_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12478 "./generic_curved.c"
+#line 12478 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12556,10 +12556,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_20_nu
 #define phase mccGuide_curved_20_phase
 #define reflect mccGuide_curved_20_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12562 "./generic_curved.c"
+#line 12562 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12640,10 +12640,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_21_nu
 #define phase mccGuide_curved_21_phase
 #define reflect mccGuide_curved_21_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12646 "./generic_curved.c"
+#line 12646 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12724,10 +12724,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_22_nu
 #define phase mccGuide_curved_22_phase
 #define reflect mccGuide_curved_22_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12730 "./generic_curved.c"
+#line 12730 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12808,10 +12808,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_23_nu
 #define phase mccGuide_curved_23_phase
 #define reflect mccGuide_curved_23_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12814 "./generic_curved.c"
+#line 12814 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12892,10 +12892,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_24_nu
 #define phase mccGuide_curved_24_phase
 #define reflect mccGuide_curved_24_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12898 "./generic_curved.c"
+#line 12898 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12976,10 +12976,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_25_nu
 #define phase mccGuide_curved_25_phase
 #define reflect mccGuide_curved_25_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12982 "./generic_curved.c"
+#line 12982 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13060,10 +13060,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_26_nu
 #define phase mccGuide_curved_26_phase
 #define reflect mccGuide_curved_26_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13066 "./generic_curved.c"
+#line 13066 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13144,10 +13144,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_27_nu
 #define phase mccGuide_curved_27_phase
 #define reflect mccGuide_curved_27_reflect
-#line 334 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13150 "./generic_curved.c"
+#line 13150 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13219,12 +13219,12 @@ time_t CurrentTime;
 #define username1 mccSample_username1
 #define username2 mccSample_username2
 #define username3 mccSample_username3
-#line 220 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 220 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 13227 "./generic_curved.c"
+#line 13227 "../generic_guides/generic_curved.c"
 #undef username3
 #undef username2
 #undef username1
@@ -13354,7 +13354,7 @@ if (cold_regime==-1){
 rot = 0.5/R_curv*RAD2DEG;
 	
 }
-#line 13357 "./generic_curved.c"
+#line 13357 "../generic_guides/generic_curved.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -13383,31 +13383,31 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Origin. */
   /* Setting parameters for component Origin. */
   SIG_MESSAGE("Origin (Init:SetPar)");
-#line 39 "generic_curved.instr"
+#line 39 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccOrigin_profile, "NULL" ? "NULL" : "", 16384); else mccOrigin_profile[0]='\0';
-#line 39 "generic_curved.instr"
+#line 39 "../generic_guides/generic_curved.instr"
   mccOrigin_percent = 10;
-#line 39 "generic_curved.instr"
+#line 39 "../generic_guides/generic_curved.instr"
   mccOrigin_flag_save = 0;
-#line 39 "generic_curved.instr"
+#line 39 "../generic_guides/generic_curved.instr"
   mccOrigin_minutes = 0;
-#line 13394 "./generic_curved.c"
+#line 13394 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Origin (Init:Place/Rotate)");
   rot_set_rotation(mcrotaOrigin,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 13401 "./generic_curved.c"
+#line 13401 "../generic_guides/generic_curved.c"
   rot_copy(mcrotrOrigin, mcrotaOrigin);
   mcposaOrigin = coords_set(
-#line 69 "generic_curved.instr"
+#line 69 "../generic_guides/generic_curved.instr"
     0,
-#line 69 "generic_curved.instr"
+#line 69 "../generic_guides/generic_curved.instr"
     0,
-#line 69 "generic_curved.instr"
+#line 69 "../generic_guides/generic_curved.instr"
     0);
-#line 13410 "./generic_curved.c"
+#line 13410 "../generic_guides/generic_curved.c"
   mctc1 = coords_neg(mcposaOrigin);
   mcposrOrigin = rot_apply(mcrotaOrigin, mctc1);
   mcDEBUG_COMPONENT("Origin", mcposaOrigin, mcrotaOrigin)
@@ -13418,85 +13418,85 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component H3. */
   /* Setting parameters for component H3. */
   SIG_MESSAGE("H3 (Init:SetPar)");
-#line 129 "generic_curved.instr"
+#line 129 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccH3_flux_file, "NULL" ? "NULL" : "", 16384); else mccH3_flux_file[0]='\0';
-#line 129 "generic_curved.instr"
+#line 129 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccH3_xdiv_file, "NULL" ? "NULL" : "", 16384); else mccH3_xdiv_file[0]='\0';
-#line 129 "generic_curved.instr"
+#line 129 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccH3_ydiv_file, "NULL" ? "NULL" : "", 16384); else mccH3_ydiv_file[0]='\0';
-#line 130 "generic_curved.instr"
+#line 130 "../generic_guides/generic_curved.instr"
   mccH3_radius = 0.0;
-#line 73 "generic_curved.instr"
+#line 73 "../generic_guides/generic_curved.instr"
   mccH3_dist = guide_start_dist;
-#line 73 "generic_curved.instr"
+#line 73 "../generic_guides/generic_curved.instr"
   mccH3_focus_xw = mcipguide_start_width;
-#line 74 "generic_curved.instr"
+#line 74 "../generic_guides/generic_curved.instr"
   mccH3_focus_yh = mcipguide_start_height;
-#line 130 "generic_curved.instr"
+#line 130 "../generic_guides/generic_curved.instr"
   mccH3_focus_aw = 0;
-#line 130 "generic_curved.instr"
+#line 130 "../generic_guides/generic_curved.instr"
   mccH3_focus_ah = 0;
-#line 131 "generic_curved.instr"
+#line 131 "../generic_guides/generic_curved.instr"
   mccH3_E0 = 0;
-#line 131 "generic_curved.instr"
+#line 131 "../generic_guides/generic_curved.instr"
   mccH3_dE = 0;
-#line 131 "generic_curved.instr"
+#line 131 "../generic_guides/generic_curved.instr"
   mccH3_lambda0 = 0;
-#line 131 "generic_curved.instr"
+#line 131 "../generic_guides/generic_curved.instr"
   mccH3_dlambda = 0;
-#line 74 "generic_curved.instr"
+#line 74 "../generic_guides/generic_curved.instr"
   mccH3_I1 = source_I1;
-#line 74 "generic_curved.instr"
+#line 74 "../generic_guides/generic_curved.instr"
   mccH3_yheight = source_height;
-#line 75 "generic_curved.instr"
+#line 75 "../generic_guides/generic_curved.instr"
   mccH3_xwidth = source_width;
-#line 132 "generic_curved.instr"
+#line 132 "../generic_guides/generic_curved.instr"
   mccH3_verbose = 0;
-#line 75 "generic_curved.instr"
+#line 75 "../generic_guides/generic_curved.instr"
   mccH3_T1 = source_T1;
-#line 133 "generic_curved.instr"
+#line 133 "../generic_guides/generic_curved.instr"
   mccH3_flux_file_perAA = 0;
-#line 133 "generic_curved.instr"
+#line 133 "../generic_guides/generic_curved.instr"
   mccH3_flux_file_log = 0;
-#line 75 "generic_curved.instr"
+#line 75 "../generic_guides/generic_curved.instr"
   mccH3_Lmin = mcipsource_lambda_min;
-#line 76 "generic_curved.instr"
+#line 76 "../generic_guides/generic_curved.instr"
   mccH3_Lmax = mcipsource_lambda_max;
-#line 134 "generic_curved.instr"
+#line 134 "../generic_guides/generic_curved.instr"
   mccH3_Emin = 0;
-#line 134 "generic_curved.instr"
+#line 134 "../generic_guides/generic_curved.instr"
   mccH3_Emax = 0;
-#line 76 "generic_curved.instr"
+#line 76 "../generic_guides/generic_curved.instr"
   mccH3_T2 = source_T2;
-#line 76 "generic_curved.instr"
+#line 76 "../generic_guides/generic_curved.instr"
   mccH3_I2 = source_I2;
-#line 76 "generic_curved.instr"
+#line 76 "../generic_guides/generic_curved.instr"
   mccH3_T3 = source_T3;
-#line 77 "generic_curved.instr"
+#line 77 "../generic_guides/generic_curved.instr"
   mccH3_I3 = source_I3;
-#line 134 "generic_curved.instr"
+#line 134 "../generic_guides/generic_curved.instr"
   mccH3_zdepth = 0;
-#line 134 "generic_curved.instr"
+#line 134 "../generic_guides/generic_curved.instr"
   mccH3_target_index = + 1;
-#line 13481 "./generic_curved.c"
+#line 13481 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("H3 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 13488 "./generic_curved.c"
+#line 13488 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaH3);
   rot_transpose(mcrotaOrigin, mctr1);
   rot_mul(mcrotaH3, mctr1, mcrotrH3);
   mctc1 = coords_set(
-#line 78 "generic_curved.instr"
+#line 78 "../generic_guides/generic_curved.instr"
     0,
-#line 78 "generic_curved.instr"
+#line 78 "../generic_guides/generic_curved.instr"
     0,
-#line 78 "generic_curved.instr"
+#line 78 "../generic_guides/generic_curved.instr"
     0);
-#line 13499 "./generic_curved.c"
+#line 13499 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaH3 = coords_add(mcposaOrigin, mctc2);
@@ -13516,18 +13516,18 @@ rot = 0.5/R_curv*RAD2DEG;
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 13519 "./generic_curved.c"
+#line 13519 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaGuide_start_arm);
   rot_transpose(mcrotaH3, mctr1);
   rot_mul(mcrotaGuide_start_arm, mctr1, mcrotrGuide_start_arm);
   mctc1 = coords_set(
-#line 82 "generic_curved.instr"
+#line 82 "../generic_guides/generic_curved.instr"
     0,
-#line 82 "generic_curved.instr"
+#line 82 "../generic_guides/generic_curved.instr"
     0,
-#line 82 "generic_curved.instr"
+#line 82 "../generic_guides/generic_curved.instr"
     guide_start_dist);
-#line 13530 "./generic_curved.c"
+#line 13530 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_start_arm = coords_add(mcposaOrigin, mctc2);
@@ -13541,93 +13541,93 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved. */
   /* Setting parameters for component Guide_curved. */
   SIG_MESSAGE("Guide_curved (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_reflect[0]='\0';
-#line 13612 "./generic_curved.c"
+#line 13612 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 13619 "./generic_curved.c"
+#line 13619 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaGuide_curved);
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   rot_mul(mcrotaGuide_curved, mctr1, mcrotrGuide_curved);
   mctc1 = coords_set(
-#line 50 "generic_curved.instr"
+#line 50 "../generic_guides/generic_curved.instr"
     0,
-#line 50 "generic_curved.instr"
+#line 50 "../generic_guides/generic_curved.instr"
     0,
-#line 50 "generic_curved.instr"
+#line 50 "../generic_guides/generic_curved.instr"
     0);
-#line 13630 "./generic_curved.c"
+#line 13630 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved = coords_add(mcposaGuide_start_arm, mctc2);
@@ -13641,96 +13641,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_5. */
   /* Setting parameters for component Guide_curved_5. */
   SIG_MESSAGE("Guide_curved_5 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_5_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_5_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_5_reflect[0]='\0';
-#line 13712 "./generic_curved.c"
+#line 13712 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_5 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 54 "generic_curved.instr"
+#line 54 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 54 "generic_curved.instr"
+#line 54 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 54 "generic_curved.instr"
+#line 54 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 13722 "./generic_curved.c"
+#line 13722 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved, mcrotaGuide_curved_5);
   rot_transpose(mcrotaGuide_curved, mctr1);
   rot_mul(mcrotaGuide_curved_5, mctr1, mcrotrGuide_curved_5);
   mctc1 = coords_set(
-#line 53 "generic_curved.instr"
+#line 53 "../generic_guides/generic_curved.instr"
     0,
-#line 53 "generic_curved.instr"
+#line 53 "../generic_guides/generic_curved.instr"
     0,
-#line 53 "generic_curved.instr"
+#line 53 "../generic_guides/generic_curved.instr"
     0.5);
-#line 13733 "./generic_curved.c"
+#line 13733 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_5 = coords_add(mcposaGuide_curved, mctc2);
@@ -13744,96 +13744,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_6. */
   /* Setting parameters for component Guide_curved_6. */
   SIG_MESSAGE("Guide_curved_6 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_6_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_6_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_6_reflect[0]='\0';
-#line 13815 "./generic_curved.c"
+#line 13815 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_6 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 58 "generic_curved.instr"
+#line 58 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 58 "generic_curved.instr"
+#line 58 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 58 "generic_curved.instr"
+#line 58 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 13825 "./generic_curved.c"
+#line 13825 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_5, mcrotaGuide_curved_6);
   rot_transpose(mcrotaGuide_curved_5, mctr1);
   rot_mul(mcrotaGuide_curved_6, mctr1, mcrotrGuide_curved_6);
   mctc1 = coords_set(
-#line 57 "generic_curved.instr"
+#line 57 "../generic_guides/generic_curved.instr"
     0,
-#line 57 "generic_curved.instr"
+#line 57 "../generic_guides/generic_curved.instr"
     0,
-#line 57 "generic_curved.instr"
+#line 57 "../generic_guides/generic_curved.instr"
     0.5);
-#line 13836 "./generic_curved.c"
+#line 13836 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_5, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_6 = coords_add(mcposaGuide_curved_5, mctc2);
@@ -13847,96 +13847,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_7. */
   /* Setting parameters for component Guide_curved_7. */
   SIG_MESSAGE("Guide_curved_7 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_7_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_7_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_7_reflect[0]='\0';
-#line 13918 "./generic_curved.c"
+#line 13918 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_7 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 62 "generic_curved.instr"
+#line 62 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 62 "generic_curved.instr"
+#line 62 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 62 "generic_curved.instr"
+#line 62 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 13928 "./generic_curved.c"
+#line 13928 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_6, mcrotaGuide_curved_7);
   rot_transpose(mcrotaGuide_curved_6, mctr1);
   rot_mul(mcrotaGuide_curved_7, mctr1, mcrotrGuide_curved_7);
   mctc1 = coords_set(
-#line 61 "generic_curved.instr"
+#line 61 "../generic_guides/generic_curved.instr"
     0,
-#line 61 "generic_curved.instr"
+#line 61 "../generic_guides/generic_curved.instr"
     0,
-#line 61 "generic_curved.instr"
+#line 61 "../generic_guides/generic_curved.instr"
     0.5);
-#line 13939 "./generic_curved.c"
+#line 13939 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_6, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_7 = coords_add(mcposaGuide_curved_6, mctc2);
@@ -13950,96 +13950,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_8. */
   /* Setting parameters for component Guide_curved_8. */
   SIG_MESSAGE("Guide_curved_8 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_8_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_8_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_8_reflect[0]='\0';
-#line 14021 "./generic_curved.c"
+#line 14021 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_8 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 66 "generic_curved.instr"
+#line 66 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 66 "generic_curved.instr"
+#line 66 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 66 "generic_curved.instr"
+#line 66 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 14031 "./generic_curved.c"
+#line 14031 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_7, mcrotaGuide_curved_8);
   rot_transpose(mcrotaGuide_curved_7, mctr1);
   rot_mul(mcrotaGuide_curved_8, mctr1, mcrotrGuide_curved_8);
   mctc1 = coords_set(
-#line 65 "generic_curved.instr"
+#line 65 "../generic_guides/generic_curved.instr"
     0,
-#line 65 "generic_curved.instr"
+#line 65 "../generic_guides/generic_curved.instr"
     0,
-#line 65 "generic_curved.instr"
+#line 65 "../generic_guides/generic_curved.instr"
     0.5);
-#line 14042 "./generic_curved.c"
+#line 14042 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_7, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_8 = coords_add(mcposaGuide_curved_7, mctc2);
@@ -14053,96 +14053,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_9. */
   /* Setting parameters for component Guide_curved_9. */
   SIG_MESSAGE("Guide_curved_9 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_9_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_9_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_9_reflect[0]='\0';
-#line 14124 "./generic_curved.c"
+#line 14124 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_9 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 70 "generic_curved.instr"
+#line 70 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 70 "generic_curved.instr"
+#line 70 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 70 "generic_curved.instr"
+#line 70 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 14134 "./generic_curved.c"
+#line 14134 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_8, mcrotaGuide_curved_9);
   rot_transpose(mcrotaGuide_curved_8, mctr1);
   rot_mul(mcrotaGuide_curved_9, mctr1, mcrotrGuide_curved_9);
   mctc1 = coords_set(
-#line 69 "generic_curved.instr"
+#line 69 "../generic_guides/generic_curved.instr"
     0,
-#line 69 "generic_curved.instr"
+#line 69 "../generic_guides/generic_curved.instr"
     0,
-#line 69 "generic_curved.instr"
+#line 69 "../generic_guides/generic_curved.instr"
     0.5);
-#line 14145 "./generic_curved.c"
+#line 14145 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_8, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_9 = coords_add(mcposaGuide_curved_8, mctc2);
@@ -14156,96 +14156,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_10. */
   /* Setting parameters for component Guide_curved_10. */
   SIG_MESSAGE("Guide_curved_10 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_10_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_10_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_10_reflect[0]='\0';
-#line 14227 "./generic_curved.c"
+#line 14227 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_10 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 74 "generic_curved.instr"
+#line 74 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 74 "generic_curved.instr"
+#line 74 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 74 "generic_curved.instr"
+#line 74 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 14237 "./generic_curved.c"
+#line 14237 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_9, mcrotaGuide_curved_10);
   rot_transpose(mcrotaGuide_curved_9, mctr1);
   rot_mul(mcrotaGuide_curved_10, mctr1, mcrotrGuide_curved_10);
   mctc1 = coords_set(
-#line 73 "generic_curved.instr"
+#line 73 "../generic_guides/generic_curved.instr"
     0,
-#line 73 "generic_curved.instr"
+#line 73 "../generic_guides/generic_curved.instr"
     0,
-#line 73 "generic_curved.instr"
+#line 73 "../generic_guides/generic_curved.instr"
     0.5);
-#line 14248 "./generic_curved.c"
+#line 14248 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_9, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_10 = coords_add(mcposaGuide_curved_9, mctc2);
@@ -14259,96 +14259,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_11. */
   /* Setting parameters for component Guide_curved_11. */
   SIG_MESSAGE("Guide_curved_11 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_11_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_11_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_11_reflect[0]='\0';
-#line 14330 "./generic_curved.c"
+#line 14330 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_11 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 78 "generic_curved.instr"
+#line 78 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 78 "generic_curved.instr"
+#line 78 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 78 "generic_curved.instr"
+#line 78 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 14340 "./generic_curved.c"
+#line 14340 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_10, mcrotaGuide_curved_11);
   rot_transpose(mcrotaGuide_curved_10, mctr1);
   rot_mul(mcrotaGuide_curved_11, mctr1, mcrotrGuide_curved_11);
   mctc1 = coords_set(
-#line 77 "generic_curved.instr"
+#line 77 "../generic_guides/generic_curved.instr"
     0,
-#line 77 "generic_curved.instr"
+#line 77 "../generic_guides/generic_curved.instr"
     0,
-#line 77 "generic_curved.instr"
+#line 77 "../generic_guides/generic_curved.instr"
     0.5);
-#line 14351 "./generic_curved.c"
+#line 14351 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_10, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_11 = coords_add(mcposaGuide_curved_10, mctc2);
@@ -14362,96 +14362,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_12. */
   /* Setting parameters for component Guide_curved_12. */
   SIG_MESSAGE("Guide_curved_12 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_12_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_12_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_12_reflect[0]='\0';
-#line 14433 "./generic_curved.c"
+#line 14433 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_12 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 82 "generic_curved.instr"
+#line 82 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 82 "generic_curved.instr"
+#line 82 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 82 "generic_curved.instr"
+#line 82 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 14443 "./generic_curved.c"
+#line 14443 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_11, mcrotaGuide_curved_12);
   rot_transpose(mcrotaGuide_curved_11, mctr1);
   rot_mul(mcrotaGuide_curved_12, mctr1, mcrotrGuide_curved_12);
   mctc1 = coords_set(
-#line 81 "generic_curved.instr"
+#line 81 "../generic_guides/generic_curved.instr"
     0,
-#line 81 "generic_curved.instr"
+#line 81 "../generic_guides/generic_curved.instr"
     0,
-#line 81 "generic_curved.instr"
+#line 81 "../generic_guides/generic_curved.instr"
     0.5);
-#line 14454 "./generic_curved.c"
+#line 14454 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_11, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_12 = coords_add(mcposaGuide_curved_11, mctc2);
@@ -14465,96 +14465,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_13. */
   /* Setting parameters for component Guide_curved_13. */
   SIG_MESSAGE("Guide_curved_13 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_13_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_13_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_13_reflect[0]='\0';
-#line 14536 "./generic_curved.c"
+#line 14536 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_13 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 86 "generic_curved.instr"
+#line 86 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 86 "generic_curved.instr"
+#line 86 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 86 "generic_curved.instr"
+#line 86 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 14546 "./generic_curved.c"
+#line 14546 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_12, mcrotaGuide_curved_13);
   rot_transpose(mcrotaGuide_curved_12, mctr1);
   rot_mul(mcrotaGuide_curved_13, mctr1, mcrotrGuide_curved_13);
   mctc1 = coords_set(
-#line 85 "generic_curved.instr"
+#line 85 "../generic_guides/generic_curved.instr"
     0,
-#line 85 "generic_curved.instr"
+#line 85 "../generic_guides/generic_curved.instr"
     0,
-#line 85 "generic_curved.instr"
+#line 85 "../generic_guides/generic_curved.instr"
     0.5);
-#line 14557 "./generic_curved.c"
+#line 14557 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_12, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_13 = coords_add(mcposaGuide_curved_12, mctc2);
@@ -14568,96 +14568,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_14. */
   /* Setting parameters for component Guide_curved_14. */
   SIG_MESSAGE("Guide_curved_14 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_14_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_14_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_14_reflect[0]='\0';
-#line 14639 "./generic_curved.c"
+#line 14639 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_14 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 90 "generic_curved.instr"
+#line 90 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 90 "generic_curved.instr"
+#line 90 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 90 "generic_curved.instr"
+#line 90 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 14649 "./generic_curved.c"
+#line 14649 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_13, mcrotaGuide_curved_14);
   rot_transpose(mcrotaGuide_curved_13, mctr1);
   rot_mul(mcrotaGuide_curved_14, mctr1, mcrotrGuide_curved_14);
   mctc1 = coords_set(
-#line 89 "generic_curved.instr"
+#line 89 "../generic_guides/generic_curved.instr"
     0,
-#line 89 "generic_curved.instr"
+#line 89 "../generic_guides/generic_curved.instr"
     0,
-#line 89 "generic_curved.instr"
+#line 89 "../generic_guides/generic_curved.instr"
     0.5);
-#line 14660 "./generic_curved.c"
+#line 14660 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_13, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_14 = coords_add(mcposaGuide_curved_13, mctc2);
@@ -14671,96 +14671,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_15. */
   /* Setting parameters for component Guide_curved_15. */
   SIG_MESSAGE("Guide_curved_15 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_15_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_15_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_15_reflect[0]='\0';
-#line 14742 "./generic_curved.c"
+#line 14742 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_15 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 94 "generic_curved.instr"
+#line 94 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 94 "generic_curved.instr"
+#line 94 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 94 "generic_curved.instr"
+#line 94 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 14752 "./generic_curved.c"
+#line 14752 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_14, mcrotaGuide_curved_15);
   rot_transpose(mcrotaGuide_curved_14, mctr1);
   rot_mul(mcrotaGuide_curved_15, mctr1, mcrotrGuide_curved_15);
   mctc1 = coords_set(
-#line 93 "generic_curved.instr"
+#line 93 "../generic_guides/generic_curved.instr"
     0,
-#line 93 "generic_curved.instr"
+#line 93 "../generic_guides/generic_curved.instr"
     0,
-#line 93 "generic_curved.instr"
+#line 93 "../generic_guides/generic_curved.instr"
     0.5);
-#line 14763 "./generic_curved.c"
+#line 14763 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_14, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_15 = coords_add(mcposaGuide_curved_14, mctc2);
@@ -14774,96 +14774,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_16. */
   /* Setting parameters for component Guide_curved_16. */
   SIG_MESSAGE("Guide_curved_16 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_16_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_16_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_16_reflect[0]='\0';
-#line 14845 "./generic_curved.c"
+#line 14845 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_16 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 98 "generic_curved.instr"
+#line 98 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 98 "generic_curved.instr"
+#line 98 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 98 "generic_curved.instr"
+#line 98 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 14855 "./generic_curved.c"
+#line 14855 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_15, mcrotaGuide_curved_16);
   rot_transpose(mcrotaGuide_curved_15, mctr1);
   rot_mul(mcrotaGuide_curved_16, mctr1, mcrotrGuide_curved_16);
   mctc1 = coords_set(
-#line 97 "generic_curved.instr"
+#line 97 "../generic_guides/generic_curved.instr"
     0,
-#line 97 "generic_curved.instr"
+#line 97 "../generic_guides/generic_curved.instr"
     0,
-#line 97 "generic_curved.instr"
+#line 97 "../generic_guides/generic_curved.instr"
     0.5);
-#line 14866 "./generic_curved.c"
+#line 14866 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_15, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_16 = coords_add(mcposaGuide_curved_15, mctc2);
@@ -14877,96 +14877,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_17. */
   /* Setting parameters for component Guide_curved_17. */
   SIG_MESSAGE("Guide_curved_17 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_17_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_17_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_17_reflect[0]='\0';
-#line 14948 "./generic_curved.c"
+#line 14948 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_17 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 102 "generic_curved.instr"
+#line 102 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 102 "generic_curved.instr"
+#line 102 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 102 "generic_curved.instr"
+#line 102 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 14958 "./generic_curved.c"
+#line 14958 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_16, mcrotaGuide_curved_17);
   rot_transpose(mcrotaGuide_curved_16, mctr1);
   rot_mul(mcrotaGuide_curved_17, mctr1, mcrotrGuide_curved_17);
   mctc1 = coords_set(
-#line 101 "generic_curved.instr"
+#line 101 "../generic_guides/generic_curved.instr"
     0,
-#line 101 "generic_curved.instr"
+#line 101 "../generic_guides/generic_curved.instr"
     0,
-#line 101 "generic_curved.instr"
+#line 101 "../generic_guides/generic_curved.instr"
     0.5);
-#line 14969 "./generic_curved.c"
+#line 14969 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_16, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_17 = coords_add(mcposaGuide_curved_16, mctc2);
@@ -14980,96 +14980,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_18. */
   /* Setting parameters for component Guide_curved_18. */
   SIG_MESSAGE("Guide_curved_18 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_18_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_18_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_18_reflect[0]='\0';
-#line 15051 "./generic_curved.c"
+#line 15051 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_18 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 106 "generic_curved.instr"
+#line 106 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 106 "generic_curved.instr"
+#line 106 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 106 "generic_curved.instr"
+#line 106 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 15061 "./generic_curved.c"
+#line 15061 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_17, mcrotaGuide_curved_18);
   rot_transpose(mcrotaGuide_curved_17, mctr1);
   rot_mul(mcrotaGuide_curved_18, mctr1, mcrotrGuide_curved_18);
   mctc1 = coords_set(
-#line 105 "generic_curved.instr"
+#line 105 "../generic_guides/generic_curved.instr"
     0,
-#line 105 "generic_curved.instr"
+#line 105 "../generic_guides/generic_curved.instr"
     0,
-#line 105 "generic_curved.instr"
+#line 105 "../generic_guides/generic_curved.instr"
     0.5);
-#line 15072 "./generic_curved.c"
+#line 15072 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_17, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_18 = coords_add(mcposaGuide_curved_17, mctc2);
@@ -15083,96 +15083,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_19. */
   /* Setting parameters for component Guide_curved_19. */
   SIG_MESSAGE("Guide_curved_19 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_19_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_19_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_19_reflect[0]='\0';
-#line 15154 "./generic_curved.c"
+#line 15154 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_19 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 110 "generic_curved.instr"
+#line 110 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 110 "generic_curved.instr"
+#line 110 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 110 "generic_curved.instr"
+#line 110 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 15164 "./generic_curved.c"
+#line 15164 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_18, mcrotaGuide_curved_19);
   rot_transpose(mcrotaGuide_curved_18, mctr1);
   rot_mul(mcrotaGuide_curved_19, mctr1, mcrotrGuide_curved_19);
   mctc1 = coords_set(
-#line 109 "generic_curved.instr"
+#line 109 "../generic_guides/generic_curved.instr"
     0,
-#line 109 "generic_curved.instr"
+#line 109 "../generic_guides/generic_curved.instr"
     0,
-#line 109 "generic_curved.instr"
+#line 109 "../generic_guides/generic_curved.instr"
     0.5);
-#line 15175 "./generic_curved.c"
+#line 15175 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_18, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_19 = coords_add(mcposaGuide_curved_18, mctc2);
@@ -15186,96 +15186,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_20. */
   /* Setting parameters for component Guide_curved_20. */
   SIG_MESSAGE("Guide_curved_20 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_20_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_20_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_20_reflect[0]='\0';
-#line 15257 "./generic_curved.c"
+#line 15257 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_20 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 15267 "./generic_curved.c"
+#line 15267 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_19, mcrotaGuide_curved_20);
   rot_transpose(mcrotaGuide_curved_19, mctr1);
   rot_mul(mcrotaGuide_curved_20, mctr1, mcrotrGuide_curved_20);
   mctc1 = coords_set(
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
     0,
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
     0,
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
     0.5);
-#line 15278 "./generic_curved.c"
+#line 15278 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_19, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_20 = coords_add(mcposaGuide_curved_19, mctc2);
@@ -15289,96 +15289,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_21. */
   /* Setting parameters for component Guide_curved_21. */
   SIG_MESSAGE("Guide_curved_21 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_21_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_21_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_21_reflect[0]='\0';
-#line 15360 "./generic_curved.c"
+#line 15360 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_21 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 15370 "./generic_curved.c"
+#line 15370 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_20, mcrotaGuide_curved_21);
   rot_transpose(mcrotaGuide_curved_20, mctr1);
   rot_mul(mcrotaGuide_curved_21, mctr1, mcrotrGuide_curved_21);
   mctc1 = coords_set(
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
     0,
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
     0,
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
     0.5);
-#line 15381 "./generic_curved.c"
+#line 15381 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_20, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_21 = coords_add(mcposaGuide_curved_20, mctc2);
@@ -15392,96 +15392,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_22. */
   /* Setting parameters for component Guide_curved_22. */
   SIG_MESSAGE("Guide_curved_22 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_22_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_22_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_22_reflect[0]='\0';
-#line 15463 "./generic_curved.c"
+#line 15463 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_22 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 122 "generic_curved.instr"
+#line 122 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 122 "generic_curved.instr"
+#line 122 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 122 "generic_curved.instr"
+#line 122 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 15473 "./generic_curved.c"
+#line 15473 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_21, mcrotaGuide_curved_22);
   rot_transpose(mcrotaGuide_curved_21, mctr1);
   rot_mul(mcrotaGuide_curved_22, mctr1, mcrotrGuide_curved_22);
   mctc1 = coords_set(
-#line 121 "generic_curved.instr"
+#line 121 "../generic_guides/generic_curved.instr"
     0,
-#line 121 "generic_curved.instr"
+#line 121 "../generic_guides/generic_curved.instr"
     0,
-#line 121 "generic_curved.instr"
+#line 121 "../generic_guides/generic_curved.instr"
     0.5);
-#line 15484 "./generic_curved.c"
+#line 15484 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_21, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_22 = coords_add(mcposaGuide_curved_21, mctc2);
@@ -15495,96 +15495,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_23. */
   /* Setting parameters for component Guide_curved_23. */
   SIG_MESSAGE("Guide_curved_23 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_23_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_23_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_23_reflect[0]='\0';
-#line 15566 "./generic_curved.c"
+#line 15566 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_23 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 126 "generic_curved.instr"
+#line 126 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 126 "generic_curved.instr"
+#line 126 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 126 "generic_curved.instr"
+#line 126 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 15576 "./generic_curved.c"
+#line 15576 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_22, mcrotaGuide_curved_23);
   rot_transpose(mcrotaGuide_curved_22, mctr1);
   rot_mul(mcrotaGuide_curved_23, mctr1, mcrotrGuide_curved_23);
   mctc1 = coords_set(
-#line 125 "generic_curved.instr"
+#line 125 "../generic_guides/generic_curved.instr"
     0,
-#line 125 "generic_curved.instr"
+#line 125 "../generic_guides/generic_curved.instr"
     0,
-#line 125 "generic_curved.instr"
+#line 125 "../generic_guides/generic_curved.instr"
     0.5);
-#line 15587 "./generic_curved.c"
+#line 15587 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_22, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_23 = coords_add(mcposaGuide_curved_22, mctc2);
@@ -15598,96 +15598,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_24. */
   /* Setting parameters for component Guide_curved_24. */
   SIG_MESSAGE("Guide_curved_24 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_24_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_24_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_24_reflect[0]='\0';
-#line 15669 "./generic_curved.c"
+#line 15669 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_24 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 130 "generic_curved.instr"
+#line 130 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 130 "generic_curved.instr"
+#line 130 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 130 "generic_curved.instr"
+#line 130 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 15679 "./generic_curved.c"
+#line 15679 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_23, mcrotaGuide_curved_24);
   rot_transpose(mcrotaGuide_curved_23, mctr1);
   rot_mul(mcrotaGuide_curved_24, mctr1, mcrotrGuide_curved_24);
   mctc1 = coords_set(
-#line 129 "generic_curved.instr"
+#line 129 "../generic_guides/generic_curved.instr"
     0,
-#line 129 "generic_curved.instr"
+#line 129 "../generic_guides/generic_curved.instr"
     0,
-#line 129 "generic_curved.instr"
+#line 129 "../generic_guides/generic_curved.instr"
     0.5);
-#line 15690 "./generic_curved.c"
+#line 15690 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_23, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_24 = coords_add(mcposaGuide_curved_23, mctc2);
@@ -15701,96 +15701,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_25. */
   /* Setting parameters for component Guide_curved_25. */
   SIG_MESSAGE("Guide_curved_25 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_25_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_25_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_25_reflect[0]='\0';
-#line 15772 "./generic_curved.c"
+#line 15772 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_25 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 134 "generic_curved.instr"
+#line 134 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 134 "generic_curved.instr"
+#line 134 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 134 "generic_curved.instr"
+#line 134 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 15782 "./generic_curved.c"
+#line 15782 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_24, mcrotaGuide_curved_25);
   rot_transpose(mcrotaGuide_curved_24, mctr1);
   rot_mul(mcrotaGuide_curved_25, mctr1, mcrotrGuide_curved_25);
   mctc1 = coords_set(
-#line 133 "generic_curved.instr"
+#line 133 "../generic_guides/generic_curved.instr"
     0,
-#line 133 "generic_curved.instr"
+#line 133 "../generic_guides/generic_curved.instr"
     0,
-#line 133 "generic_curved.instr"
+#line 133 "../generic_guides/generic_curved.instr"
     0.5);
-#line 15793 "./generic_curved.c"
+#line 15793 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_24, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_25 = coords_add(mcposaGuide_curved_24, mctc2);
@@ -15804,96 +15804,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_26. */
   /* Setting parameters for component Guide_curved_26. */
   SIG_MESSAGE("Guide_curved_26 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_26_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_26_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_26_reflect[0]='\0';
-#line 15875 "./generic_curved.c"
+#line 15875 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_26 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 138 "generic_curved.instr"
+#line 138 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 138 "generic_curved.instr"
+#line 138 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 138 "generic_curved.instr"
+#line 138 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 15885 "./generic_curved.c"
+#line 15885 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_25, mcrotaGuide_curved_26);
   rot_transpose(mcrotaGuide_curved_25, mctr1);
   rot_mul(mcrotaGuide_curved_26, mctr1, mcrotrGuide_curved_26);
   mctc1 = coords_set(
-#line 137 "generic_curved.instr"
+#line 137 "../generic_guides/generic_curved.instr"
     0,
-#line 137 "generic_curved.instr"
+#line 137 "../generic_guides/generic_curved.instr"
     0,
-#line 137 "generic_curved.instr"
+#line 137 "../generic_guides/generic_curved.instr"
     0.5);
-#line 15896 "./generic_curved.c"
+#line 15896 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_25, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_26 = coords_add(mcposaGuide_curved_25, mctc2);
@@ -15907,96 +15907,96 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_27. */
   /* Setting parameters for component Guide_curved_27. */
   SIG_MESSAGE("Guide_curved_27 (Init:SetPar)");
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_w1 = mcipguide_start_width;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_h1 = mcipguide_start_height;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_w2 = 0;
-#line 113 "generic_curved.instr"
+#line 113 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_h2 = 0;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_l = 0.5;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_R0 = 0.995;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_Qc = 0.0218;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_alpha = 4.38;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_m = 1.0;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_W = 0.003;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_nslit = mcipn_chan;
-#line 114 "generic_curved.instr"
+#line 114 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_d = 0.0005;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_mleft = mcipm;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_mright = mcipm_out;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_mtop = 1;
-#line 49 "generic_curved.instr"
+#line 49 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_mbottom = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_nhslit = 1;
-#line 115 "generic_curved.instr"
+#line 115 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_G = 0;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_aleft = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_aright = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_atop = -1;
-#line 116 "generic_curved.instr"
+#line 116 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_abottom = -1;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_wavy = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_wavy_z = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_wavy_tb = 0;
-#line 117 "generic_curved.instr"
+#line 117 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_wavy_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_chamfers = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_chamfers_z = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_chamfers_lr = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_chamfers_tb = 0;
-#line 118 "generic_curved.instr"
+#line 118 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_nelements = 1;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_nu = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   mccGuide_curved_27_phase = 0;
-#line 119 "generic_curved.instr"
+#line 119 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_27_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_27_reflect[0]='\0';
-#line 15978 "./generic_curved.c"
+#line 15978 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_27 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 142 "generic_curved.instr"
+#line 142 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD,
-#line 142 "generic_curved.instr"
+#line 142 "../generic_guides/generic_curved.instr"
     (rot)*DEG2RAD,
-#line 142 "generic_curved.instr"
+#line 142 "../generic_guides/generic_curved.instr"
     (0)*DEG2RAD);
-#line 15988 "./generic_curved.c"
+#line 15988 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_26, mcrotaGuide_curved_27);
   rot_transpose(mcrotaGuide_curved_26, mctr1);
   rot_mul(mcrotaGuide_curved_27, mctr1, mcrotrGuide_curved_27);
   mctc1 = coords_set(
-#line 141 "generic_curved.instr"
+#line 141 "../generic_guides/generic_curved.instr"
     0,
-#line 141 "generic_curved.instr"
+#line 141 "../generic_guides/generic_curved.instr"
     0,
-#line 141 "generic_curved.instr"
+#line 141 "../generic_guides/generic_curved.instr"
     0.5);
-#line 15999 "./generic_curved.c"
+#line 15999 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_26, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_27 = coords_add(mcposaGuide_curved_26, mctc2);
@@ -16010,65 +16010,65 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Sample. */
   /* Setting parameters for component Sample. */
   SIG_MESSAGE("Sample (Init:SetPar)");
-#line 252 "generic_curved.instr"
+#line 252 "../generic_guides/generic_curved.instr"
   mccSample_xwidth = mcipsample_width;
-#line 253 "generic_curved.instr"
+#line 253 "../generic_guides/generic_curved.instr"
   mccSample_yheight = mcipsample_height;
-#line 200 "generic_curved.instr"
+#line 200 "../generic_guides/generic_curved.instr"
   mccSample_zdepth = 0;
-#line 201 "generic_curved.instr"
+#line 201 "../generic_guides/generic_curved.instr"
   mccSample_xmin = 0;
-#line 201 "generic_curved.instr"
+#line 201 "../generic_guides/generic_curved.instr"
   mccSample_xmax = 0;
-#line 201 "generic_curved.instr"
+#line 201 "../generic_guides/generic_curved.instr"
   mccSample_ymin = 0;
-#line 201 "generic_curved.instr"
+#line 201 "../generic_guides/generic_curved.instr"
   mccSample_ymax = 0;
-#line 201 "generic_curved.instr"
+#line 201 "../generic_guides/generic_curved.instr"
   mccSample_zmin = 0;
-#line 201 "generic_curved.instr"
+#line 201 "../generic_guides/generic_curved.instr"
   mccSample_zmax = 0;
-#line 254 "generic_curved.instr"
+#line 254 "../generic_guides/generic_curved.instr"
   mccSample_bins = 100;
-#line 202 "generic_curved.instr"
+#line 202 "../generic_guides/generic_curved.instr"
   mccSample_min = -1e40;
-#line 202 "generic_curved.instr"
+#line 202 "../generic_guides/generic_curved.instr"
   mccSample_max = 1e40;
-#line 202 "generic_curved.instr"
+#line 202 "../generic_guides/generic_curved.instr"
   mccSample_restore_neutron = 0;
-#line 202 "generic_curved.instr"
+#line 202 "../generic_guides/generic_curved.instr"
   mccSample_radius = 0;
-#line 255 "generic_curved.instr"
+#line 255 "../generic_guides/generic_curved.instr"
   if("dx limits = [-1 1] dy limits = [-1 1]") strncpy(mccSample_options, "dx limits = [-1 1] dy limits = [-1 1]" ? "dx limits = [-1 1] dy limits = [-1 1]" : "", 16384); else mccSample_options[0]='\0';
-#line 203 "generic_curved.instr"
+#line 203 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccSample_filename, "NULL" ? "NULL" : "", 16384); else mccSample_filename[0]='\0';
-#line 203 "generic_curved.instr"
+#line 203 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccSample_geometry, "NULL" ? "NULL" : "", 16384); else mccSample_geometry[0]='\0';
-#line 204 "generic_curved.instr"
+#line 204 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccSample_username1, "NULL" ? "NULL" : "", 16384); else mccSample_username1[0]='\0';
-#line 204 "generic_curved.instr"
+#line 204 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccSample_username2, "NULL" ? "NULL" : "", 16384); else mccSample_username2[0]='\0';
-#line 204 "generic_curved.instr"
+#line 204 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccSample_username3, "NULL" ? "NULL" : "", 16384); else mccSample_username3[0]='\0';
-#line 16053 "./generic_curved.c"
+#line 16053 "../generic_guides/generic_curved.c"
 
   SIG_MESSAGE("Sample (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 16060 "./generic_curved.c"
+#line 16060 "../generic_guides/generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_27, mcrotaSample);
   rot_transpose(mcrotaGuide_curved_27, mctr1);
   rot_mul(mcrotaSample, mctr1, mcrotrSample);
   mctc1 = coords_set(
-#line 256 "generic_curved.instr"
+#line 256 "../generic_guides/generic_curved.instr"
     0,
-#line 256 "generic_curved.instr"
+#line 256 "../generic_guides/generic_curved.instr"
     0,
-#line 256 "generic_curved.instr"
+#line 256 "../generic_guides/generic_curved.instr"
     0.501);
-#line 16071 "./generic_curved.c"
+#line 16071 "../generic_guides/generic_curved.c"
   rot_transpose(mcrotaGuide_curved_27, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaSample = coords_add(mcposaGuide_curved_27, mctc2);
@@ -16093,7 +16093,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 57 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 57 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
 IntermediateCnts=0;
 StartTime=0;
@@ -16105,7 +16105,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
     percent=1e5*100.0/mcget_ncount();
   }
 }
-#line 16108 "./generic_curved.c"
+#line 16108 "../generic_guides/generic_curved.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -16170,7 +16170,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 206 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 206 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   pTable_xsum=0;
   pTable_ysum=0;
@@ -16442,7 +16442,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
       printf("Source_gen: component %s unactivated", NAME_CURRENT_COMP);
   );
 }
-#line 16445 "./generic_curved.c"
+#line 16445 "../generic_guides/generic_curved.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -16538,7 +16538,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_nu
 #define phase mccGuide_curved_phase
 #define reflect mccGuide_curved_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -16590,7 +16590,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 16593 "./generic_curved.c"
+#line 16593 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16672,7 +16672,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_5_nu
 #define phase mccGuide_curved_5_phase
 #define reflect mccGuide_curved_5_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -16724,7 +16724,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 16727 "./generic_curved.c"
+#line 16727 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16806,7 +16806,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_6_nu
 #define phase mccGuide_curved_6_phase
 #define reflect mccGuide_curved_6_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -16858,7 +16858,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 16861 "./generic_curved.c"
+#line 16861 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16940,7 +16940,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_7_nu
 #define phase mccGuide_curved_7_phase
 #define reflect mccGuide_curved_7_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -16992,7 +16992,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 16995 "./generic_curved.c"
+#line 16995 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17074,7 +17074,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_8_nu
 #define phase mccGuide_curved_8_phase
 #define reflect mccGuide_curved_8_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -17126,7 +17126,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 17129 "./generic_curved.c"
+#line 17129 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17208,7 +17208,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_9_nu
 #define phase mccGuide_curved_9_phase
 #define reflect mccGuide_curved_9_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -17260,7 +17260,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 17263 "./generic_curved.c"
+#line 17263 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17342,7 +17342,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_10_nu
 #define phase mccGuide_curved_10_phase
 #define reflect mccGuide_curved_10_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -17394,7 +17394,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 17397 "./generic_curved.c"
+#line 17397 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17476,7 +17476,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_11_nu
 #define phase mccGuide_curved_11_phase
 #define reflect mccGuide_curved_11_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -17528,7 +17528,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 17531 "./generic_curved.c"
+#line 17531 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17610,7 +17610,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_12_nu
 #define phase mccGuide_curved_12_phase
 #define reflect mccGuide_curved_12_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -17662,7 +17662,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 17665 "./generic_curved.c"
+#line 17665 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17744,7 +17744,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_13_nu
 #define phase mccGuide_curved_13_phase
 #define reflect mccGuide_curved_13_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -17796,7 +17796,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 17799 "./generic_curved.c"
+#line 17799 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17878,7 +17878,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_14_nu
 #define phase mccGuide_curved_14_phase
 #define reflect mccGuide_curved_14_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -17930,7 +17930,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 17933 "./generic_curved.c"
+#line 17933 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18012,7 +18012,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_15_nu
 #define phase mccGuide_curved_15_phase
 #define reflect mccGuide_curved_15_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -18064,7 +18064,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 18067 "./generic_curved.c"
+#line 18067 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18146,7 +18146,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_16_nu
 #define phase mccGuide_curved_16_phase
 #define reflect mccGuide_curved_16_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -18198,7 +18198,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 18201 "./generic_curved.c"
+#line 18201 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18280,7 +18280,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_17_nu
 #define phase mccGuide_curved_17_phase
 #define reflect mccGuide_curved_17_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -18332,7 +18332,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 18335 "./generic_curved.c"
+#line 18335 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18414,7 +18414,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_18_nu
 #define phase mccGuide_curved_18_phase
 #define reflect mccGuide_curved_18_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -18466,7 +18466,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 18469 "./generic_curved.c"
+#line 18469 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18548,7 +18548,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_19_nu
 #define phase mccGuide_curved_19_phase
 #define reflect mccGuide_curved_19_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -18600,7 +18600,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 18603 "./generic_curved.c"
+#line 18603 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18682,7 +18682,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_20_nu
 #define phase mccGuide_curved_20_phase
 #define reflect mccGuide_curved_20_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -18734,7 +18734,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 18737 "./generic_curved.c"
+#line 18737 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18816,7 +18816,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_21_nu
 #define phase mccGuide_curved_21_phase
 #define reflect mccGuide_curved_21_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -18868,7 +18868,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 18871 "./generic_curved.c"
+#line 18871 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18950,7 +18950,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_22_nu
 #define phase mccGuide_curved_22_phase
 #define reflect mccGuide_curved_22_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -19002,7 +19002,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 19005 "./generic_curved.c"
+#line 19005 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19084,7 +19084,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_23_nu
 #define phase mccGuide_curved_23_phase
 #define reflect mccGuide_curved_23_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -19136,7 +19136,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 19139 "./generic_curved.c"
+#line 19139 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19218,7 +19218,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_24_nu
 #define phase mccGuide_curved_24_phase
 #define reflect mccGuide_curved_24_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -19270,7 +19270,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 19273 "./generic_curved.c"
+#line 19273 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19352,7 +19352,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_25_nu
 #define phase mccGuide_curved_25_phase
 #define reflect mccGuide_curved_25_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -19404,7 +19404,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 19407 "./generic_curved.c"
+#line 19407 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19486,7 +19486,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_26_nu
 #define phase mccGuide_curved_26_phase
 #define reflect mccGuide_curved_26_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -19538,7 +19538,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 19541 "./generic_curved.c"
+#line 19541 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19620,7 +19620,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_27_nu
 #define phase mccGuide_curved_27_phase
 #define reflect mccGuide_curved_27_reflect
-#line 339 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -19672,7 +19672,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 19675 "./generic_curved.c"
+#line 19675 "../generic_guides/generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19745,7 +19745,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define username1 mccSample_username1
 #define username2 mccSample_username2
 #define username3 mccSample_username3
-#line 227 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 227 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -19824,7 +19824,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 19827 "./generic_curved.c"
+#line 19827 "../generic_guides/generic_curved.c"
 #undef username3
 #undef username2
 #undef username1
@@ -19965,7 +19965,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 70 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 70 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   double ncount;
   ncount = mcget_run_num();
@@ -20009,7 +20009,7 @@ MCNUM minutes = mccOrigin_minutes;
     if (flag_save) mcsave(NULL);
   }
 }
-#line 20012 "./generic_curved.c"
+#line 20012 "../generic_guides/generic_curved.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -20166,7 +20166,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 479 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 479 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   double dx=0,dy=0,xf,yf,rf,pdir,chi,v,r, lambda;
   double Maxwell;
@@ -20257,7 +20257,7 @@ int target_index = mccH3_target_index;
     SCATTER;
   }
 }
-#line 20260 "./generic_curved.c"
+#line 20260 "../generic_guides/generic_curved.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -20519,7 +20519,7 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -20688,7 +20688,7 @@ char* reflect = mccGuide_curved_reflect;
 
   } /* if l */
 }
-#line 20691 "./generic_curved.c"
+#line 20691 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -20832,7 +20832,7 @@ MCNUM nelements = mccGuide_curved_5_nelements;
 MCNUM nu = mccGuide_curved_5_nu;
 MCNUM phase = mccGuide_curved_5_phase;
 char* reflect = mccGuide_curved_5_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -21001,7 +21001,7 @@ char* reflect = mccGuide_curved_5_reflect;
 
   } /* if l */
 }
-#line 21004 "./generic_curved.c"
+#line 21004 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_5=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -21145,7 +21145,7 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -21314,7 +21314,7 @@ char* reflect = mccGuide_curved_6_reflect;
 
   } /* if l */
 }
-#line 21317 "./generic_curved.c"
+#line 21317 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -21458,7 +21458,7 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -21627,7 +21627,7 @@ char* reflect = mccGuide_curved_7_reflect;
 
   } /* if l */
 }
-#line 21630 "./generic_curved.c"
+#line 21630 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -21771,7 +21771,7 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -21940,7 +21940,7 @@ char* reflect = mccGuide_curved_8_reflect;
 
   } /* if l */
 }
-#line 21943 "./generic_curved.c"
+#line 21943 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -22084,7 +22084,7 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -22253,7 +22253,7 @@ char* reflect = mccGuide_curved_9_reflect;
 
   } /* if l */
 }
-#line 22256 "./generic_curved.c"
+#line 22256 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -22397,7 +22397,7 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -22566,7 +22566,7 @@ char* reflect = mccGuide_curved_10_reflect;
 
   } /* if l */
 }
-#line 22569 "./generic_curved.c"
+#line 22569 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -22710,7 +22710,7 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -22879,7 +22879,7 @@ char* reflect = mccGuide_curved_11_reflect;
 
   } /* if l */
 }
-#line 22882 "./generic_curved.c"
+#line 22882 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -23023,7 +23023,7 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -23192,7 +23192,7 @@ char* reflect = mccGuide_curved_12_reflect;
 
   } /* if l */
 }
-#line 23195 "./generic_curved.c"
+#line 23195 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -23336,7 +23336,7 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -23505,7 +23505,7 @@ char* reflect = mccGuide_curved_13_reflect;
 
   } /* if l */
 }
-#line 23508 "./generic_curved.c"
+#line 23508 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -23649,7 +23649,7 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -23818,7 +23818,7 @@ char* reflect = mccGuide_curved_14_reflect;
 
   } /* if l */
 }
-#line 23821 "./generic_curved.c"
+#line 23821 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -23962,7 +23962,7 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -24131,7 +24131,7 @@ char* reflect = mccGuide_curved_15_reflect;
 
   } /* if l */
 }
-#line 24134 "./generic_curved.c"
+#line 24134 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -24275,7 +24275,7 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -24444,7 +24444,7 @@ char* reflect = mccGuide_curved_16_reflect;
 
   } /* if l */
 }
-#line 24447 "./generic_curved.c"
+#line 24447 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -24588,7 +24588,7 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -24757,7 +24757,7 @@ char* reflect = mccGuide_curved_17_reflect;
 
   } /* if l */
 }
-#line 24760 "./generic_curved.c"
+#line 24760 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -24901,7 +24901,7 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -25070,7 +25070,7 @@ char* reflect = mccGuide_curved_18_reflect;
 
   } /* if l */
 }
-#line 25073 "./generic_curved.c"
+#line 25073 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -25214,7 +25214,7 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -25383,7 +25383,7 @@ char* reflect = mccGuide_curved_19_reflect;
 
   } /* if l */
 }
-#line 25386 "./generic_curved.c"
+#line 25386 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -25527,7 +25527,7 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -25696,7 +25696,7 @@ char* reflect = mccGuide_curved_20_reflect;
 
   } /* if l */
 }
-#line 25699 "./generic_curved.c"
+#line 25699 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -25840,7 +25840,7 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -26009,7 +26009,7 @@ char* reflect = mccGuide_curved_21_reflect;
 
   } /* if l */
 }
-#line 26012 "./generic_curved.c"
+#line 26012 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -26153,7 +26153,7 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -26322,7 +26322,7 @@ char* reflect = mccGuide_curved_22_reflect;
 
   } /* if l */
 }
-#line 26325 "./generic_curved.c"
+#line 26325 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -26466,7 +26466,7 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -26635,7 +26635,7 @@ char* reflect = mccGuide_curved_23_reflect;
 
   } /* if l */
 }
-#line 26638 "./generic_curved.c"
+#line 26638 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -26779,7 +26779,7 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -26948,7 +26948,7 @@ char* reflect = mccGuide_curved_24_reflect;
 
   } /* if l */
 }
-#line 26951 "./generic_curved.c"
+#line 26951 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -27092,7 +27092,7 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -27261,7 +27261,7 @@ char* reflect = mccGuide_curved_25_reflect;
 
   } /* if l */
 }
-#line 27264 "./generic_curved.c"
+#line 27264 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -27405,7 +27405,7 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -27574,7 +27574,7 @@ char* reflect = mccGuide_curved_26_reflect;
 
   } /* if l */
 }
-#line 27577 "./generic_curved.c"
+#line 27577 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -27718,7 +27718,7 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 392 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -27887,7 +27887,7 @@ char* reflect = mccGuide_curved_27_reflect;
 
   } /* if l */
 }
-#line 27890 "./generic_curved.c"
+#line 27890 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -28022,7 +28022,7 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 307 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 307 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -28191,7 +28191,7 @@ char* username3 = mccSample_username3;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 28194 "./generic_curved.c"
+#line 28194 "../generic_guides/generic_curved.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -28290,7 +28290,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 115 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 115 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   MPI_MASTER(fprintf(stdout, "\nSave [%s]\n", mcinstrument_name););
   if (profile && strlen(profile) && strcmp(profile,"NULL") && strcmp(profile,"0")) {
@@ -28307,7 +28307,7 @@ MCNUM minutes = mccOrigin_minutes;
 
   }
 }
-#line 28310 "./generic_curved.c"
+#line 28310 "../generic_guides/generic_curved.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -28350,12 +28350,12 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 477 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 477 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 28358 "./generic_curved.c"
+#line 28358 "../generic_guides/generic_curved.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -28389,7 +28389,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 133 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 133 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   time_t NowTime;
   time(&NowTime);
@@ -28402,7 +28402,7 @@ MCNUM minutes = mccOrigin_minutes;
     fprintf(stdout, "%g [min] ", difftime(NowTime,StartTime)/60.0);
   fprintf(stdout, "\n");
 }
-#line 28405 "./generic_curved.c"
+#line 28405 "../generic_guides/generic_curved.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -28468,13 +28468,13 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 571 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   Table_Free(&pTable);
   Table_Free(&pTable_x);
   Table_Free(&pTable_y);
 }
-#line 28476 "./generic_curved.c"
+#line 28476 "../generic_guides/generic_curved.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -28545,14 +28545,14 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 28552 "./generic_curved.c"
+#line 28552 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -28605,14 +28605,14 @@ MCNUM nelements = mccGuide_curved_5_nelements;
 MCNUM nu = mccGuide_curved_5_nu;
 MCNUM phase = mccGuide_curved_5_phase;
 char* reflect = mccGuide_curved_5_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 28611 "./generic_curved.c"
+#line 28611 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_5=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -28665,14 +28665,14 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 28670 "./generic_curved.c"
+#line 28670 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -28725,14 +28725,14 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 28729 "./generic_curved.c"
+#line 28729 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -28785,14 +28785,14 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 28788 "./generic_curved.c"
+#line 28788 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -28845,14 +28845,14 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 28847 "./generic_curved.c"
+#line 28847 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -28905,14 +28905,14 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 28906 "./generic_curved.c"
+#line 28906 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -28965,14 +28965,14 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 28965 "./generic_curved.c"
+#line 28965 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29025,14 +29025,14 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29024 "./generic_curved.c"
+#line 29024 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29085,14 +29085,14 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29083 "./generic_curved.c"
+#line 29083 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29145,14 +29145,14 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29142 "./generic_curved.c"
+#line 29142 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29205,14 +29205,14 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29201 "./generic_curved.c"
+#line 29201 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29265,14 +29265,14 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29260 "./generic_curved.c"
+#line 29260 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29325,14 +29325,14 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29319 "./generic_curved.c"
+#line 29319 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29385,14 +29385,14 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29378 "./generic_curved.c"
+#line 29378 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29445,14 +29445,14 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29437 "./generic_curved.c"
+#line 29437 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29505,14 +29505,14 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29496 "./generic_curved.c"
+#line 29496 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29565,14 +29565,14 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29555 "./generic_curved.c"
+#line 29555 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29625,14 +29625,14 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29614 "./generic_curved.c"
+#line 29614 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29685,14 +29685,14 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29673 "./generic_curved.c"
+#line 29673 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29745,14 +29745,14 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29732 "./generic_curved.c"
+#line 29732 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29805,14 +29805,14 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29791 "./generic_curved.c"
+#line 29791 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29865,14 +29865,14 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29850 "./generic_curved.c"
+#line 29850 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29925,14 +29925,14 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 562 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 29909 "./generic_curved.c"
+#line 29909 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -29976,12 +29976,12 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 483 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 483 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   /* free pointers */
   Monitor_nD_Finally(&DEFS, &Vars);
 }
-#line 29957 "./generic_curved.c"
+#line 29957 "../generic_guides/generic_curved.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -30025,11 +30025,11 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 147 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 147 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   magnify("");
 }
-#line 30004 "./generic_curved.c"
+#line 30004 "../generic_guides/generic_curved.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -30093,7 +30093,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 578 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 578 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   double xmin;
   double xmax;
@@ -30142,7 +30142,7 @@ int target_index = mccH3_target_index;
     dashed_line(0,0,0, -focus_xw/2, focus_yh/2,dist, 4);
   }
 }
-#line 30117 "./generic_curved.c"
+#line 30117 "../generic_guides/generic_curved.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -30171,7 +30171,7 @@ int target_index = mccH3_target_index;
 #define mccompcurname  Guide_start_arm
 #define mccompcurtype  Arm
 #define mccompcurindex 3
-#line 40 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Arm.comp"
+#line 40 "/usr/share/mcstas/2.4.1/optics/Arm.comp"
 {
   /* A bit ugly; hard-coded dimensions. */
   magnify("");
@@ -30179,7 +30179,7 @@ int target_index = mccH3_target_index;
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 30154 "./generic_curved.c"
+#line 30154 "../generic_guides/generic_curved.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -30227,7 +30227,7 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -30290,7 +30290,7 @@ char* reflect = mccGuide_curved_reflect;
   }
 
 }
-#line 30265 "./generic_curved.c"
+#line 30265 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -30341,7 +30341,7 @@ MCNUM nelements = mccGuide_curved_5_nelements;
 MCNUM nu = mccGuide_curved_5_nu;
 MCNUM phase = mccGuide_curved_5_phase;
 char* reflect = mccGuide_curved_5_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -30404,7 +30404,7 @@ char* reflect = mccGuide_curved_5_reflect;
   }
 
 }
-#line 30379 "./generic_curved.c"
+#line 30379 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_5=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -30455,7 +30455,7 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -30518,7 +30518,7 @@ char* reflect = mccGuide_curved_6_reflect;
   }
 
 }
-#line 30493 "./generic_curved.c"
+#line 30493 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -30569,7 +30569,7 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -30632,7 +30632,7 @@ char* reflect = mccGuide_curved_7_reflect;
   }
 
 }
-#line 30607 "./generic_curved.c"
+#line 30607 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -30683,7 +30683,7 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -30746,7 +30746,7 @@ char* reflect = mccGuide_curved_8_reflect;
   }
 
 }
-#line 30721 "./generic_curved.c"
+#line 30721 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -30797,7 +30797,7 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -30860,7 +30860,7 @@ char* reflect = mccGuide_curved_9_reflect;
   }
 
 }
-#line 30835 "./generic_curved.c"
+#line 30835 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -30911,7 +30911,7 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -30974,7 +30974,7 @@ char* reflect = mccGuide_curved_10_reflect;
   }
 
 }
-#line 30949 "./generic_curved.c"
+#line 30949 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31025,7 +31025,7 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -31088,7 +31088,7 @@ char* reflect = mccGuide_curved_11_reflect;
   }
 
 }
-#line 31063 "./generic_curved.c"
+#line 31063 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31139,7 +31139,7 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -31202,7 +31202,7 @@ char* reflect = mccGuide_curved_12_reflect;
   }
 
 }
-#line 31177 "./generic_curved.c"
+#line 31177 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31253,7 +31253,7 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -31316,7 +31316,7 @@ char* reflect = mccGuide_curved_13_reflect;
   }
 
 }
-#line 31291 "./generic_curved.c"
+#line 31291 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31367,7 +31367,7 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -31430,7 +31430,7 @@ char* reflect = mccGuide_curved_14_reflect;
   }
 
 }
-#line 31405 "./generic_curved.c"
+#line 31405 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31481,7 +31481,7 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -31544,7 +31544,7 @@ char* reflect = mccGuide_curved_15_reflect;
   }
 
 }
-#line 31519 "./generic_curved.c"
+#line 31519 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31595,7 +31595,7 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -31658,7 +31658,7 @@ char* reflect = mccGuide_curved_16_reflect;
   }
 
 }
-#line 31633 "./generic_curved.c"
+#line 31633 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31709,7 +31709,7 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -31772,7 +31772,7 @@ char* reflect = mccGuide_curved_17_reflect;
   }
 
 }
-#line 31747 "./generic_curved.c"
+#line 31747 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31823,7 +31823,7 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -31886,7 +31886,7 @@ char* reflect = mccGuide_curved_18_reflect;
   }
 
 }
-#line 31861 "./generic_curved.c"
+#line 31861 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31937,7 +31937,7 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -32000,7 +32000,7 @@ char* reflect = mccGuide_curved_19_reflect;
   }
 
 }
-#line 31975 "./generic_curved.c"
+#line 31975 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32051,7 +32051,7 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -32114,7 +32114,7 @@ char* reflect = mccGuide_curved_20_reflect;
   }
 
 }
-#line 32089 "./generic_curved.c"
+#line 32089 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32165,7 +32165,7 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -32228,7 +32228,7 @@ char* reflect = mccGuide_curved_21_reflect;
   }
 
 }
-#line 32203 "./generic_curved.c"
+#line 32203 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32279,7 +32279,7 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -32342,7 +32342,7 @@ char* reflect = mccGuide_curved_22_reflect;
   }
 
 }
-#line 32317 "./generic_curved.c"
+#line 32317 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32393,7 +32393,7 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -32456,7 +32456,7 @@ char* reflect = mccGuide_curved_23_reflect;
   }
 
 }
-#line 32431 "./generic_curved.c"
+#line 32431 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32507,7 +32507,7 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -32570,7 +32570,7 @@ char* reflect = mccGuide_curved_24_reflect;
   }
 
 }
-#line 32545 "./generic_curved.c"
+#line 32545 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32621,7 +32621,7 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -32684,7 +32684,7 @@ char* reflect = mccGuide_curved_25_reflect;
   }
 
 }
-#line 32659 "./generic_curved.c"
+#line 32659 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32735,7 +32735,7 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -32798,7 +32798,7 @@ char* reflect = mccGuide_curved_26_reflect;
   }
 
 }
-#line 32773 "./generic_curved.c"
+#line 32773 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32849,7 +32849,7 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -32912,7 +32912,7 @@ char* reflect = mccGuide_curved_27_reflect;
   }
 
 }
-#line 32887 "./generic_curved.c"
+#line 32887 "../generic_guides/generic_curved.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32954,7 +32954,7 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 489 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 489 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
@@ -32963,7 +32963,7 @@ char* username3 = mccSample_username3;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 32938 "./generic_curved.c"
+#line 32938 "../generic_guides/generic_curved.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -32985,4 +32985,4 @@ char* username3 = mccSample_username3;
 #undef rectangle
 #undef box
 #undef circle
-/* end of generated C code ./generic_curved.c */
+/* end of generated C code ../generic_guides/generic_curved.c */

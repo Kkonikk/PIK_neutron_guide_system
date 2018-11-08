@@ -1,4 +1,4 @@
-R_min = 10; R_step = 10; R_max = 310;
+R_min = 10; R_step = 10; R_max = 510;
 model = mccode('../generic_guides/generic_curved.instr');
 name = 'H3-0-DEDM';
 parameters.sample_width=0.03;
@@ -10,9 +10,9 @@ parameters.source_lambda_max=4.95;
 parameters.cold_regime=1;
 
 
-parameters.n_chan=2;
-parameters.m=6;
-parameters.m_out=6;
+parameters.n_chan=1;
+parameters.m=2;
+parameters.m_out=3;
 parameters.R_curv = R_min:R_step:R_max;
 results = iData(model,parameters);
 sum_R = sum(results, 0);
