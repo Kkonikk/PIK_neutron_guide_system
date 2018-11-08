@@ -12,11 +12,11 @@ parameters.cold_regime=1;
 parameters.m_side=6;
 parameters.m_top=6;
 parameters.sample_dist = 0.5;
-parameters.guide_length=20;
+parameters.guide_length=
+parameter.linw = 10.5;
+parameter.linh = 10.5;
 parameter.loutw = 0.5;
 parameter.louth = 0.5;
-parameter.linw = parameters.nose_length+parameter.loutw;
-parameter.linh = parameters.nose_length+parameter.louth;
 parameters.nose_length = nose_length_min:nose_length_step:nose_length_max;
 results = iData(model,parameters);
 sum_L = sum(results, 0);
@@ -31,3 +31,4 @@ legend('Nose length')
 print(gcf,[name 'L_scan'],'-dpng','-r300')
 %matlab2tikz([name 'm_scan.tex'], 'width', '0.85\textwidth');
 saveas(fig,[name 'L_scan.fig']);
+
