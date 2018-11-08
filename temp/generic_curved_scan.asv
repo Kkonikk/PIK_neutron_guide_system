@@ -1,4 +1,4 @@
-R_min = 100; R_step = 50; R_max = 1000;
+R_min = 1; R_step = 1; R_max = 6;
 model = mccode('generic_curved.instr');
 name = 'H3-0-DEDM';
 parameters.guide_length=12;
@@ -14,15 +14,15 @@ parameters.cold_regime=1;
 
 parameters.R = R_min:R_step:R_max;
 results = iData(model,parameters);
-sum_R = sum(results, 0);
+sum_side = sum(results, 0);
 
 fig=figure;
-plot(R_min:R_step:R_max,sum_R,'LineWidth',2);
+plot(m_min:m_step:m_max,sum_side,m_min:m_step:m_max,sum_top,'LineWidth',2);
 title([name ' scan R'])
 grid on
-xlabel('R, m')
+xlabel('m')
 ylabel('I, arb.u.')
-legend('Curvature radius')
-print(gcf,[name 'R_scan'],'-dpng','-r300')
+legend('side','top')
+print(gcf,[name 'm_scan'],'-dpng','-r300')
 %matlab2tikz([name 'm_scan.tex'], 'width', '0.85\textwidth');
-saveas(fig,[name 'R_scan.fig']);
+saveas(fig,[name 'm_scan.fig']);
