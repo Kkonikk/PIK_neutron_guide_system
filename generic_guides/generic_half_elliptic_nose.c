@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: ../generic_guides/generic_half_elliptic_nose.instr (generic_half_elliptic_nose)
- * Date:       Thu Nov  8 16:20:32 2018
+ * Date:       Thu Nov  8 16:41:23 2018
  * File:       ../generic_guides/generic_half_elliptic_nose.c
  * Compile:    cc -o generic_half_elliptic_nose.out ../generic_guides/generic_half_elliptic_nose.c 
  * CFLAGS=

@@ -1,5 +1,5 @@
 McStas simulation description file for generic_half_elliptic_nose.
-Date:    Thu Nov  8 16:21:36 2018
+Date:    Thu Nov  8 16:41:36 2018
 Program: McStas 2.4.1 - Jun. 26, 2017
 
 begin instrument: generic_half_elliptic_nose
@@ -19,11 +19,11 @@ begin simulation: ../generic_guides/sim
   Ncount: 1000000
   Trace: no
   Gravitation: no
-  Seed: 1541693740
+  Seed: 1541696986
   Directory: ../generic_guides/sim
   Nodes: 8
   Param: guide_length=20
-  Param: nose_length=0.5
+  Param: nose_length=1
   Param: m_side=6
   Param: m_top=6
   Param: linh=10.5
@@ -33,24 +33,24 @@ begin simulation: ../generic_guides/sim
   Param: sample_height=0.1
   Param: sample_dist=0.5
   Param: guide_start_width=0.03
-  Param: guide_start_height=0.1
+  Param: guide_start_height=1
   Param: source_lambda_min=4.85
   Param: source_lambda_max=4.95
   Param: cold_regime=1
 end simulation
 
 begin data
-  Date: Thu Nov  8 16:21:42 2018 (1541683302)
+  Date: Thu Nov  8 16:41:38 2018 (1541684498)
   type: array_1d(100)
   Source: generic_half_elliptic_nose (../generic_guides/generic_half_elliptic_nose.instr)
   component: Sample
   position: 0 0 22.32
   title: x [m] monitor
   Ncount: 1000000
-  filename: Sample_1541683296.x
-  statistics: X0=3.46849e-06; dX=0.00710244;
-  signal: Min=2.26219e+07; Max=1.05328e+08; Mean=7.12963e+07;
-  values: 7.12963e+09 1.49995e+07 508640
+  filename: Sample_1541684496.x
+  statistics: X0=-3.08846e-05; dX=0.00727002;
+  signal: Min=1.07844e+07; Max=5.11083e+07; Mean=3.40418e+07;
+  values: 3.40418e+09 3.34355e+07 13257
   xvar: x
   yvar: (I,I_err)
   xlabel: x [m]
