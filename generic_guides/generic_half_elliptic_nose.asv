@@ -62,9 +62,10 @@ COMPONENT Nose_guide = Guide_tapering(
     w1=guide_start_width, 
     h1=guide_start_height, 
     l=nose_length, 
-    linh=nose_length + focal_dist, 
-    louth=focal_dist,
-    
+    linh = linh, 
+    louth = louth,
+    linw = linw,
+    loutw = focal_dist,
     R0=R0, 
     alphax=alpha, 
     alphay = alpha,

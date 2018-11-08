@@ -30,7 +30,7 @@
 *
 * %End
 *******************************************************************************/
-DEFINE INSTRUMENT generic_half_elliptic_nose(guide_length = 10, nose_length = 3, m_side = 2, m_top = 6, focal_dist = 0.5, R0=0.99, alpha = 3.3, sample_height = 0.01)
+DEFINE INSTRUMENT generic_half_elliptic_nose(guide_length = 10, nose_length = 3, m_side = 2, m_top = 6, linh = 10.5, louth = 0.5, linw = 10.5, loutw = 0.5, R0=0.99, alpha = 3.3, sample_height = 0.01)
 
 DECLARE
 %{
@@ -42,7 +42,7 @@ INITIALIZE
 
 TRACE
 
-%include "../H3.instr"
+%include "../main/H3.instr"
 
 COMPONENT Main_guide = Guide_gravity(
     w1=guide_start_width, 
@@ -62,8 +62,10 @@ COMPONENT Nose_guide = Guide_tapering(
     w1=guide_start_width, 
     h1=guide_start_height, 
     l=nose_length, 
-    linh=nose_length + focal_dist, 
-    louth=focal_dist,
+    linh = linh, 
+    louth = louth,
+    linw = linw,
+    loutw = loutw,
     R0=R0, 
     alphax=alpha, 
     alphay = alpha,
