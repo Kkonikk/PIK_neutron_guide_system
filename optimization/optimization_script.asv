@@ -10,20 +10,15 @@ for i = 1: length(filenames)
         name = [name, filenames{i}(j)];
         j = j + 1;
     end
-    model = mccode(filenames{i});
+    model = mccode(name);
     fix(model, 'all');
-    model.m_side = 6; model.m_top = 6;
-    model.guide_L0_str = 'free'; model.guide_L0_str = [];
-    model.guide_L1_bend = 'free'; model.guide_L1_bend = [];
-    guide_L2_end = 'free'; guide_L2_end = [];
-    model.loutw = 'free'; model.loutw = [];
-    model.louth = 'free'; model.louth = [];
-    model.linw = 'free'; model.linw = [];
-    model.linh = 'free'; model.linh = [];
+    model.m_side = 'free'; model.m_side = [1 2.5 6];
+    model.L0
+    model.m_top = 'free'; model.m_top = [1 2.5 6];
     [parameters, fval, status, output]=fmax(model,[], ...
   'optimizer=fminpso; OutputFcn=fminplot;TolFun =5%;TolX=5%;ncount=1e5;MaxFunEvals=100', nan);
 
-    a = {name {model.Parameters'; model}};
+    a = {name {model.Parameters'; parameters}};
 %     model(parameters, nan);  % evaluate the best solution
 %     figure; subplot(model.UserData.monitors)
     
@@ -41,9 +36,9 @@ end
 model = mccode('templateDIFF','monitor=*Theta*');	% monitor contains 'Theta'
 fix(model, 'all'); 				% fix all
 model.RV='free'; model.RV=[0.5 1 1.5];	% set RV free, bounds and value in a single assignment
-[model, fval, status, output]=fmax(model,[], ...
+[parameters, fval, status, output]=fmax(model,[], ...
   'optimizer=fminpso; OutputFcn=fminplot;TolFun =5%;TolX=5%;ncount=1e5;MaxFunEvals=100', nan);
 
 %plot
-model(model, nan);  % evaluate the best solution
+model(parameters, nan);  % evaluate the best solution
 figure; subplot(model.UserData.monitors)
