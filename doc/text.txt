@@ -1,0 +1,9 @@
+С сайта ifit:
+
+Про оптимизацию:
+
+1. The fastest methods are the Evolution Strategy with Covariance Matrix Adaptation (fmincmaes) and the Particle Swarm Optimization (fminpso).
+2.For large dimensionalities (many parameters), the Evolution Strategy with Covariance Matrix Adaptation (fmincmaes) proves very successful, as well as the Shuffled Complex Evolution (fminsce).  We also recommend the Markov Chain Monte Carlo (fminmarkov) which is very robust, but slow.
+
+Наверное стоит попробовать ещё метод оптимизации "fmincmaes" так как он быстрый и хорошо работает с многочисленными параметрами.
+
