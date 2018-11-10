@@ -22,11 +22,11 @@
 * %End
 *******************************************************************************/
 
-DEFINE INSTRUMENT H3_0()
+DEFINE INSTRUMENT H3_0(R_curv=10)
 
 DECLARE
 %{
-double guide_start_width = 0.03, guide_start_height = 0.1, source_lambda_min = 0.1, source_lambda_max = 20, cold_regime=1, m_out=3, R_curv=100, n_chan=1, m=2;
+double guide_start_width = 0.03, guide_start_height = 0.1, source_lambda_min = 0.1, source_lambda_max = 20, cold_regime=1, m_out=3,  n_chan=1, m=2;
 //[Cold source parameters
 double source_height = 0.2, source_width = 0.12;
 double source_I1 = 5.38e12, source_I2= 2.50e12, source_I3 = 9.51e12;
