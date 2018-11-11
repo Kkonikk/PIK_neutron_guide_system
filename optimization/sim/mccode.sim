@@ -1,0 +1,91 @@
+McStas simulation description file for generic_curved.
+Date:    Sun Nov 11 20:22:12 2018
+Program: McStas 2.4.1 - Jun. 26, 2017
+
+begin instrument: generic_curved
+  File: ./sim/mccode
+  Source: ./IN-2_opt.instr
+  Parameters:  dRH(double) dRV(double) lambda(double) l_straight(double) nose_length(double) sample_width(double) sample_height(double) m_out(double) m_in(double) m_str_side(double) m_str_top(double) m_el_side(double) m_el_top(double) linh(double) louth(double) linw(double) loutw(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: ./sim
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.4.1 - Jun. 26, 2017
+  Instrument: ./IN-2_opt.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1541974926
+  Directory: ./sim
+  Nodes: 8
+  Param: dRH=2
+  Param: dRV=1.75
+  Param: lambda=4
+  Param: l_straight=18.7
+  Param: nose_length=0.68517
+  Param: sample_width=0.01
+  Param: sample_height=0.01
+  Param: m_out=6
+  Param: m_in=6
+  Param: m_str_side=6
+  Param: m_str_top=6
+  Param: m_el_side=6
+  Param: m_el_top=6
+  Param: linh=5.0631
+  Param: louth=3.2613
+  Param: linw=5
+  Param: loutw=0.35
+  Param: guide_start_width=0.03
+  Param: guide_start_height=0.17306
+  Param: source_lambda_min=3.9
+  Param: source_lambda_max=4.1
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Sun Nov 11 20:22:17 2018 (1541956937)
+  type: array_2d(100, 100)
+  Source: generic_curved (./IN-2_opt.instr)
+  component: Sample2
+  position: -1.9145 0 23.4605
+  title:  Intensity Position Position Monitor (Square) per bin
+  Ncount: 1000000
+  filename: Sample2_1541956932.x_y
+  statistics: X0=0.000746962; dX=0.034813; Y0=-0.000120466; dY=0.0305796;
+  signal: Min=0; Max=5.61741e+06; Mean=492043;
+  values: 4.92043e+09 2.61736e+07 67016
+  xvar: x 
+  yvar: y 
+  xlabel: x [m]
+  ylabel: y [m]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: -0.1 0.1 -0.1 0.1
+  variables: I I_err N
+end data
+
+begin data
+  Date: Sun Nov 11 20:22:17 2018 (1541956937)
+  type: array_2d(100, 100)
+  Source: generic_curved (./IN-2_opt.instr)
+  component: Sample
+  position: -1.91545 0 23.4608
+  title:  Intensity Position Position Monitor (Square) per bin
+  Ncount: 1000000
+  filename: Sample_1541956932.x_y
+  statistics: X0=0.000199302; dX=0.00288026; Y0=1.30611e-05; dY=0.00279026;
+  signal: Min=0; Max=431296; Mean=6961.1;
+  values: 6.9611e+07 3.75076e+06 356
+  xvar: x 
+  yvar: y 
+  xlabel: x [m]
+  ylabel: y [m]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: -0.005 0.005 -0.005 0.005
+  variables: I I_err N
+end data

@@ -1,10 +1,10 @@
 /* Automatically generated file. Do not edit. 
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
- * Instrument: IN-2_opt.instr (generic_curved)
- * Date:       Sun Nov 11 18:58:47 2018
- * File:       IN-2_opt.c
- * Compile:    cc -o generic_curved.exe IN-2_opt.c 
+ * Instrument: ./IN-2_opt.instr (generic_curved)
+ * Date:       Sun Nov 11 20:12:46 2018
+ * File:       ./IN-2_opt.c
+ * Compile:    cc -o generic_curved.out ./IN-2_opt.c 
  * CFLAGS=
  */
 
@@ -688,7 +688,7 @@ NXhandle nxhandle;
 #endif /* MCCODE_R_H */
 /* End of file "mccode-r.h". */
 
-#line 691 "IN-2_opt.c"
+#line 691 "./IN-2_opt.c"
 
 #line 1 "mcstas-r.h"
 /*******************************************************************************
@@ -921,7 +921,7 @@ void mcsetstate(double x, double y, double z, double vx, double vy, double vz,
 #endif /* MCSTAS_R_H */
 /* End of file "mcstas-r.h". */
 
-#line 924 "IN-2_opt.c"
+#line 924 "./IN-2_opt.c"
 
 #line 1 "mccode-r.c"
 /*******************************************************************************
@@ -4853,7 +4853,7 @@ void neutronics_main_(float *inx, float *iny, float *inz, float *invx, float *in
 /* End of file "mccode-r.c". */
 /* End of file "mccode-r.c". */
 
-#line 4856 "IN-2_opt.c"
+#line 4856 "./IN-2_opt.c"
 
 #line 1 "mcstas-r.c"
 /*******************************************************************************
@@ -5213,16 +5213,16 @@ plane_intersect(double *t, double x, double y, double z,
 #endif /* !MCSTAS_H */
 /* End of file "mcstas-r.c". */
 
-#line 5216 "IN-2_opt.c"
+#line 5216 "./IN-2_opt.c"
 #ifdef MC_TRACE_ENABLED
 int mctraceenabled = 1;
 #else
 int mctraceenabled = 0;
 #endif
-#define MCSTAS "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\"
+#define MCSTAS "/usr/share/mcstas/2.4.1/"
 int mcdefaultmain = 1;
 char mcinstrument_name[] = "generic_curved";
-char mcinstrument_source[] = "IN-2_opt.instr";
+char mcinstrument_source[] = "./IN-2_opt.instr";
 char *mcinstrument_exe=NULL; /* will be set to argv[0] in main */
 int main(int argc, char *argv[]){return mccode_main(argc, argv);}
 void mcinit(void);
@@ -5232,7 +5232,7 @@ void mcfinally(void);
 void mcdisplay(void);
 
 /* Shared user declarations for all components 'Source_gen'. */
-#line 140 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 140 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -6701,10 +6701,10 @@ char *str_dup_numeric(char *orig)
   }
 #endif
 
-#line 6704 "IN-2_opt.c"
+#line 6704 "./IN-2_opt.c"
 
 /* Shared user declarations for all components 'Guide_gravity'. */
-#line 124 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 124 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 /*****************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -7057,15 +7057,15 @@ void TableReflecFunc(double mc_pol_q, t_Table *mc_pol_par, double *mc_pol_r) {
 
 
 #endif
-#line 7060 "IN-2_opt.c"
+#line 7060 "./IN-2_opt.c"
 
 /* Shared user declarations for all components 'Guide_tapering'. */
-#line 91 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_tapering.comp"
+#line 91 "/usr/share/mcstas/2.4.1/optics/Guide_tapering.comp"
 
-#line 7065 "IN-2_opt.c"
+#line 7065 "./IN-2_opt.c"
 
 /* Shared user declarations for all components 'Monochromator_curved'. */
-#line 109 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Monochromator_curved.comp"
+#line 109 "/usr/share/mcstas/2.4.1/optics/Monochromator_curved.comp"
 #ifndef GAUSS
 /* Define these arrays only once for all instances. */
 /* Values for Gauss quadrature. Taken from Brice Carnahan, H. A. Luther and
@@ -7088,10 +7088,10 @@ double Gauss_W[] = {0.030753241996117, 0.070366047488108, 0.107159220467172,
 #endif
 
 
-#line 7091 "IN-2_opt.c"
+#line 7091 "./IN-2_opt.c"
 
 /* Shared user declarations for all components 'Monitor_nD'. */
-#line 212 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 212 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -10001,7 +10001,7 @@ void off_display(off_struct data)
 
 /* end of interoff-lib.c */
 
-#line 10004 "IN-2_opt.c"
+#line 10004 "./IN-2_opt.c"
 
 /* Instrument parameters. */
 MCNUM mcipdRH;
@@ -10105,7 +10105,7 @@ double R0 = 0.99, alpha = 3.3;
 double rot,l_sect;
 double d_lattice_parameter = 3.355;
 double RH,RV;
-#line 10108 "IN-2_opt.c"
+#line 10108 "./IN-2_opt.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -10362,7 +10362,7 @@ char mccSample_username3[16384];
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 44 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 44 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 #ifndef PROGRESS_BAR
 #define PROGRESS_BAR
 #else
@@ -10373,7 +10373,7 @@ double IntermediateCnts;
 time_t StartTime;
 time_t EndTime;
 time_t CurrentTime;
-#line 10376 "IN-2_opt.c"
+#line 10376 "./IN-2_opt.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -10437,7 +10437,7 @@ time_t CurrentTime;
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 184 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 184 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 
   double p_in;
   double lambda1;  /* first Maxwellian source */
@@ -10457,7 +10457,7 @@ time_t CurrentTime;
   double pTable_dymin;
   double pTable_dymax;
 
-#line 10460 "IN-2_opt.c"
+#line 10460 "./IN-2_opt.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -10557,10 +10557,10 @@ time_t CurrentTime;
 #define nu mccGuide_straight_nu
 #define phase mccGuide_straight_phase
 #define reflect mccGuide_straight_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 10563 "IN-2_opt.c"
+#line 10563 "./IN-2_opt.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -10663,7 +10663,7 @@ time_t CurrentTime;
 #define segno mccNose_guide_segno
 #define curvature mccNose_guide_curvature
 #define curvature_v mccNose_guide_curvature_v
-#line 97 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_tapering.comp"
+#line 97 "/usr/share/mcstas/2.4.1/optics/Guide_tapering.comp"
 double *w1c;
 double *w2c;
 double *ww, *hh;
@@ -10680,7 +10680,7 @@ char file_name[1024];
 char *ep;
 FILE *num;
 double rotation_h, rotation_v;
-#line 10683 "IN-2_opt.c"
+#line 10683 "./IN-2_opt.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -10853,7 +10853,7 @@ double rotation_h, rotation_v;
 #define height mccmon_curv_height
 #define verbose mccmon_curv_verbose
 #define order mccmon_curv_order
-#line 136 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Monochromator_curved.comp"
+#line 136 "/usr/share/mcstas/2.4.1/optics/Monochromator_curved.comp"
   double mos_rms_y; /* root-mean-square of mosaic, in radians */
   double mos_rms_z;
   double mos_rms_max;
@@ -10863,7 +10863,7 @@ double rotation_h, rotation_v;
   double row,col;
   double* tiltH;
   double* tiltV;
-#line 10866 "IN-2_opt.c"
+#line 10866 "./IN-2_opt.c"
 #undef order
 #undef verbose
 #undef height
@@ -10939,12 +10939,12 @@ double rotation_h, rotation_v;
 #define username1 mccSample2_username1
 #define username2 mccSample2_username2
 #define username3 mccSample2_username3
-#line 220 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 220 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 10947 "IN-2_opt.c"
+#line 10947 "./IN-2_opt.c"
 #undef username3
 #undef username2
 #undef username1
@@ -11007,12 +11007,12 @@ double rotation_h, rotation_v;
 #define username1 mccSample_username1
 #define username2 mccSample_username2
 #define username3 mccSample_username3
-#line 220 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 220 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 11015 "IN-2_opt.c"
+#line 11015 "./IN-2_opt.c"
 #undef username3
 #undef username2
 #undef username1
@@ -11120,7 +11120,7 @@ if (cold_regime==-1){
 RH = -dRH*2*2*d_lattice_parameter/lambda;
 RV = -dRV*2*lambda/2/d_lattice_parameter;
 }
-#line 11123 "IN-2_opt.c"
+#line 11123 "./IN-2_opt.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -11160,31 +11160,31 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     /* Component Origin. */
   /* Setting parameters for component Origin. */
   SIG_MESSAGE("Origin (Init:SetPar)");
-#line 39 "IN-2_opt.instr"
+#line 39 "./IN-2_opt.instr"
   if("NULL") strncpy(mccOrigin_profile, "NULL" ? "NULL" : "", 16384); else mccOrigin_profile[0]='\0';
-#line 39 "IN-2_opt.instr"
+#line 39 "./IN-2_opt.instr"
   mccOrigin_percent = 10;
-#line 39 "IN-2_opt.instr"
+#line 39 "./IN-2_opt.instr"
   mccOrigin_flag_save = 0;
-#line 39 "IN-2_opt.instr"
+#line 39 "./IN-2_opt.instr"
   mccOrigin_minutes = 0;
-#line 11171 "IN-2_opt.c"
+#line 11171 "./IN-2_opt.c"
 
   SIG_MESSAGE("Origin (Init:Place/Rotate)");
   rot_set_rotation(mcrotaOrigin,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11178 "IN-2_opt.c"
+#line 11178 "./IN-2_opt.c"
   rot_copy(mcrotrOrigin, mcrotaOrigin);
   mcposaOrigin = coords_set(
-#line 69 "IN-2_opt.instr"
+#line 69 "./IN-2_opt.instr"
     0,
-#line 69 "IN-2_opt.instr"
+#line 69 "./IN-2_opt.instr"
     0,
-#line 69 "IN-2_opt.instr"
+#line 69 "./IN-2_opt.instr"
     0);
-#line 11187 "IN-2_opt.c"
+#line 11187 "./IN-2_opt.c"
   mctc1 = coords_neg(mcposaOrigin);
   mcposrOrigin = rot_apply(mcrotaOrigin, mctc1);
   mcDEBUG_COMPONENT("Origin", mcposaOrigin, mcrotaOrigin)
@@ -11195,85 +11195,85 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     /* Component H3. */
   /* Setting parameters for component H3. */
   SIG_MESSAGE("H3 (Init:SetPar)");
-#line 129 "IN-2_opt.instr"
+#line 129 "./IN-2_opt.instr"
   if("NULL") strncpy(mccH3_flux_file, "NULL" ? "NULL" : "", 16384); else mccH3_flux_file[0]='\0';
-#line 129 "IN-2_opt.instr"
+#line 129 "./IN-2_opt.instr"
   if("NULL") strncpy(mccH3_xdiv_file, "NULL" ? "NULL" : "", 16384); else mccH3_xdiv_file[0]='\0';
-#line 129 "IN-2_opt.instr"
+#line 129 "./IN-2_opt.instr"
   if("NULL") strncpy(mccH3_ydiv_file, "NULL" ? "NULL" : "", 16384); else mccH3_ydiv_file[0]='\0';
-#line 130 "IN-2_opt.instr"
+#line 130 "./IN-2_opt.instr"
   mccH3_radius = 0.0;
-#line 73 "IN-2_opt.instr"
+#line 73 "./IN-2_opt.instr"
   mccH3_dist = guide_start_dist;
-#line 73 "IN-2_opt.instr"
+#line 73 "./IN-2_opt.instr"
   mccH3_focus_xw = mcipguide_start_width;
-#line 74 "IN-2_opt.instr"
+#line 74 "./IN-2_opt.instr"
   mccH3_focus_yh = mcipguide_start_height;
-#line 130 "IN-2_opt.instr"
+#line 130 "./IN-2_opt.instr"
   mccH3_focus_aw = 0;
-#line 130 "IN-2_opt.instr"
+#line 130 "./IN-2_opt.instr"
   mccH3_focus_ah = 0;
-#line 131 "IN-2_opt.instr"
+#line 131 "./IN-2_opt.instr"
   mccH3_E0 = 0;
-#line 131 "IN-2_opt.instr"
+#line 131 "./IN-2_opt.instr"
   mccH3_dE = 0;
-#line 131 "IN-2_opt.instr"
+#line 131 "./IN-2_opt.instr"
   mccH3_lambda0 = 0;
-#line 131 "IN-2_opt.instr"
+#line 131 "./IN-2_opt.instr"
   mccH3_dlambda = 0;
-#line 74 "IN-2_opt.instr"
+#line 74 "./IN-2_opt.instr"
   mccH3_I1 = source_I1;
-#line 74 "IN-2_opt.instr"
+#line 74 "./IN-2_opt.instr"
   mccH3_yheight = source_height;
-#line 75 "IN-2_opt.instr"
+#line 75 "./IN-2_opt.instr"
   mccH3_xwidth = source_width;
-#line 132 "IN-2_opt.instr"
+#line 132 "./IN-2_opt.instr"
   mccH3_verbose = 0;
-#line 75 "IN-2_opt.instr"
+#line 75 "./IN-2_opt.instr"
   mccH3_T1 = source_T1;
-#line 133 "IN-2_opt.instr"
+#line 133 "./IN-2_opt.instr"
   mccH3_flux_file_perAA = 0;
-#line 133 "IN-2_opt.instr"
+#line 133 "./IN-2_opt.instr"
   mccH3_flux_file_log = 0;
-#line 75 "IN-2_opt.instr"
+#line 75 "./IN-2_opt.instr"
   mccH3_Lmin = mcipsource_lambda_min;
-#line 76 "IN-2_opt.instr"
+#line 76 "./IN-2_opt.instr"
   mccH3_Lmax = mcipsource_lambda_max;
-#line 134 "IN-2_opt.instr"
+#line 134 "./IN-2_opt.instr"
   mccH3_Emin = 0;
-#line 134 "IN-2_opt.instr"
+#line 134 "./IN-2_opt.instr"
   mccH3_Emax = 0;
-#line 76 "IN-2_opt.instr"
+#line 76 "./IN-2_opt.instr"
   mccH3_T2 = source_T2;
-#line 76 "IN-2_opt.instr"
+#line 76 "./IN-2_opt.instr"
   mccH3_I2 = source_I2;
-#line 76 "IN-2_opt.instr"
+#line 76 "./IN-2_opt.instr"
   mccH3_T3 = source_T3;
-#line 77 "IN-2_opt.instr"
+#line 77 "./IN-2_opt.instr"
   mccH3_I3 = source_I3;
-#line 134 "IN-2_opt.instr"
+#line 134 "./IN-2_opt.instr"
   mccH3_zdepth = 0;
-#line 134 "IN-2_opt.instr"
+#line 134 "./IN-2_opt.instr"
   mccH3_target_index = + 1;
-#line 11258 "IN-2_opt.c"
+#line 11258 "./IN-2_opt.c"
 
   SIG_MESSAGE("H3 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11265 "IN-2_opt.c"
+#line 11265 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaH3);
   rot_transpose(mcrotaOrigin, mctr1);
   rot_mul(mcrotaH3, mctr1, mcrotrH3);
   mctc1 = coords_set(
-#line 78 "IN-2_opt.instr"
+#line 78 "./IN-2_opt.instr"
     0,
-#line 78 "IN-2_opt.instr"
+#line 78 "./IN-2_opt.instr"
     0,
-#line 78 "IN-2_opt.instr"
+#line 78 "./IN-2_opt.instr"
     0);
-#line 11276 "IN-2_opt.c"
+#line 11276 "./IN-2_opt.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaH3 = coords_add(mcposaOrigin, mctc2);
@@ -11293,18 +11293,18 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11296 "IN-2_opt.c"
+#line 11296 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaGuide_start_arm);
   rot_transpose(mcrotaH3, mctr1);
   rot_mul(mcrotaGuide_start_arm, mctr1, mcrotrGuide_start_arm);
   mctc1 = coords_set(
-#line 82 "IN-2_opt.instr"
+#line 82 "./IN-2_opt.instr"
     0,
-#line 82 "IN-2_opt.instr"
+#line 82 "./IN-2_opt.instr"
     0,
-#line 82 "IN-2_opt.instr"
+#line 82 "./IN-2_opt.instr"
     guide_start_dist);
-#line 11307 "IN-2_opt.c"
+#line 11307 "./IN-2_opt.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_start_arm = coords_add(mcposaOrigin, mctc2);
@@ -11318,93 +11318,93 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     /* Component Guide_straight. */
   /* Setting parameters for component Guide_straight. */
   SIG_MESSAGE("Guide_straight (Init:SetPar)");
-#line 51 "IN-2_opt.instr"
+#line 51 "./IN-2_opt.instr"
   mccGuide_straight_w1 = mcipguide_start_width;
-#line 51 "IN-2_opt.instr"
+#line 51 "./IN-2_opt.instr"
   mccGuide_straight_h1 = mcipguide_start_height;
-#line 113 "IN-2_opt.instr"
+#line 113 "./IN-2_opt.instr"
   mccGuide_straight_w2 = 0;
-#line 113 "IN-2_opt.instr"
+#line 113 "./IN-2_opt.instr"
   mccGuide_straight_h2 = 0;
-#line 51 "IN-2_opt.instr"
+#line 51 "./IN-2_opt.instr"
   mccGuide_straight_l = mcipl_straight - mcipnose_length;
-#line 51 "IN-2_opt.instr"
+#line 51 "./IN-2_opt.instr"
   mccGuide_straight_R0 = R0;
-#line 114 "IN-2_opt.instr"
+#line 114 "./IN-2_opt.instr"
   mccGuide_straight_Qc = 0.0218;
-#line 52 "IN-2_opt.instr"
+#line 52 "./IN-2_opt.instr"
   mccGuide_straight_alpha = alpha;
-#line 114 "IN-2_opt.instr"
+#line 114 "./IN-2_opt.instr"
   mccGuide_straight_m = 1.0;
-#line 114 "IN-2_opt.instr"
+#line 114 "./IN-2_opt.instr"
   mccGuide_straight_W = 0.003;
-#line 51 "IN-2_opt.instr"
+#line 51 "./IN-2_opt.instr"
   mccGuide_straight_nslit = 1;
-#line 114 "IN-2_opt.instr"
+#line 114 "./IN-2_opt.instr"
   mccGuide_straight_d = 0.0005;
-#line 51 "IN-2_opt.instr"
+#line 51 "./IN-2_opt.instr"
   mccGuide_straight_mleft = mcipm_str_side;
-#line 51 "IN-2_opt.instr"
+#line 51 "./IN-2_opt.instr"
   mccGuide_straight_mright = mcipm_str_side;
-#line 51 "IN-2_opt.instr"
+#line 51 "./IN-2_opt.instr"
   mccGuide_straight_mtop = mcipm_str_top;
-#line 51 "IN-2_opt.instr"
+#line 51 "./IN-2_opt.instr"
   mccGuide_straight_mbottom = mcipm_str_top;
-#line 115 "IN-2_opt.instr"
+#line 115 "./IN-2_opt.instr"
   mccGuide_straight_nhslit = 1;
-#line 115 "IN-2_opt.instr"
+#line 115 "./IN-2_opt.instr"
   mccGuide_straight_G = 0;
-#line 116 "IN-2_opt.instr"
+#line 116 "./IN-2_opt.instr"
   mccGuide_straight_aleft = -1;
-#line 116 "IN-2_opt.instr"
+#line 116 "./IN-2_opt.instr"
   mccGuide_straight_aright = -1;
-#line 116 "IN-2_opt.instr"
+#line 116 "./IN-2_opt.instr"
   mccGuide_straight_atop = -1;
-#line 116 "IN-2_opt.instr"
+#line 116 "./IN-2_opt.instr"
   mccGuide_straight_abottom = -1;
-#line 117 "IN-2_opt.instr"
+#line 117 "./IN-2_opt.instr"
   mccGuide_straight_wavy = 0;
-#line 117 "IN-2_opt.instr"
+#line 117 "./IN-2_opt.instr"
   mccGuide_straight_wavy_z = 0;
-#line 117 "IN-2_opt.instr"
+#line 117 "./IN-2_opt.instr"
   mccGuide_straight_wavy_tb = 0;
-#line 117 "IN-2_opt.instr"
+#line 117 "./IN-2_opt.instr"
   mccGuide_straight_wavy_lr = 0;
-#line 118 "IN-2_opt.instr"
+#line 118 "./IN-2_opt.instr"
   mccGuide_straight_chamfers = 0;
-#line 118 "IN-2_opt.instr"
+#line 118 "./IN-2_opt.instr"
   mccGuide_straight_chamfers_z = 0;
-#line 118 "IN-2_opt.instr"
+#line 118 "./IN-2_opt.instr"
   mccGuide_straight_chamfers_lr = 0;
-#line 118 "IN-2_opt.instr"
+#line 118 "./IN-2_opt.instr"
   mccGuide_straight_chamfers_tb = 0;
-#line 118 "IN-2_opt.instr"
+#line 118 "./IN-2_opt.instr"
   mccGuide_straight_nelements = 1;
-#line 119 "IN-2_opt.instr"
+#line 119 "./IN-2_opt.instr"
   mccGuide_straight_nu = 0;
-#line 119 "IN-2_opt.instr"
+#line 119 "./IN-2_opt.instr"
   mccGuide_straight_phase = 0;
-#line 119 "IN-2_opt.instr"
+#line 119 "./IN-2_opt.instr"
   if("NULL") strncpy(mccGuide_straight_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_straight_reflect[0]='\0';
-#line 11389 "IN-2_opt.c"
+#line 11389 "./IN-2_opt.c"
 
   SIG_MESSAGE("Guide_straight (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11396 "IN-2_opt.c"
+#line 11396 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaGuide_straight);
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   rot_mul(mcrotaGuide_straight, mctr1, mcrotrGuide_straight);
   mctc1 = coords_set(
-#line 53 "IN-2_opt.instr"
+#line 53 "./IN-2_opt.instr"
     0,
-#line 53 "IN-2_opt.instr"
+#line 53 "./IN-2_opt.instr"
     0,
-#line 53 "IN-2_opt.instr"
+#line 53 "./IN-2_opt.instr"
     0.001);
-#line 11407 "IN-2_opt.c"
+#line 11407 "./IN-2_opt.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_straight = coords_add(mcposaGuide_start_arm, mctc2);
@@ -11418,63 +11418,63 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     /* Component Nose_guide. */
   /* Setting parameters for component Nose_guide. */
   SIG_MESSAGE("Nose_guide (Init:SetPar)");
-#line 56 "IN-2_opt.instr"
+#line 56 "./IN-2_opt.instr"
   if("elliptical") strncpy(mccNose_guide_option, "elliptical" ? "elliptical" : "", 16384); else mccNose_guide_option[0]='\0';
-#line 57 "IN-2_opt.instr"
+#line 57 "./IN-2_opt.instr"
   mccNose_guide_w1 = mcipguide_start_width;
-#line 58 "IN-2_opt.instr"
+#line 58 "./IN-2_opt.instr"
   mccNose_guide_h1 = mcipguide_start_height;
-#line 59 "IN-2_opt.instr"
+#line 59 "./IN-2_opt.instr"
   mccNose_guide_l = mcipnose_length;
-#line 62 "IN-2_opt.instr"
+#line 62 "./IN-2_opt.instr"
   mccNose_guide_linw = mciplinw;
-#line 63 "IN-2_opt.instr"
+#line 63 "./IN-2_opt.instr"
   mccNose_guide_loutw = mciploutw;
-#line 60 "IN-2_opt.instr"
+#line 60 "./IN-2_opt.instr"
   mccNose_guide_linh = mciplinh;
-#line 61 "IN-2_opt.instr"
+#line 61 "./IN-2_opt.instr"
   mccNose_guide_louth = mciplouth;
-#line 81 "IN-2_opt.instr"
+#line 81 "./IN-2_opt.instr"
   mccNose_guide_R0 = 0.99;
-#line 82 "IN-2_opt.instr"
+#line 82 "./IN-2_opt.instr"
   mccNose_guide_Qcx = 0.021;
-#line 82 "IN-2_opt.instr"
+#line 82 "./IN-2_opt.instr"
   mccNose_guide_Qcy = 0.021;
-#line 82 "IN-2_opt.instr"
+#line 82 "./IN-2_opt.instr"
   mccNose_guide_alphax = 6.07;
-#line 82 "IN-2_opt.instr"
+#line 82 "./IN-2_opt.instr"
   mccNose_guide_alphay = 6.07;
-#line 82 "IN-2_opt.instr"
+#line 82 "./IN-2_opt.instr"
   mccNose_guide_W = 0.003;
-#line 64 "IN-2_opt.instr"
+#line 64 "./IN-2_opt.instr"
   mccNose_guide_mx = mcipm_el_side;
-#line 65 "IN-2_opt.instr"
+#line 65 "./IN-2_opt.instr"
   mccNose_guide_my = mcipm_el_top;
-#line 83 "IN-2_opt.instr"
+#line 83 "./IN-2_opt.instr"
   mccNose_guide_segno = 800;
-#line 83 "IN-2_opt.instr"
+#line 83 "./IN-2_opt.instr"
   mccNose_guide_curvature = 0;
-#line 83 "IN-2_opt.instr"
+#line 83 "./IN-2_opt.instr"
   mccNose_guide_curvature_v = 0;
-#line 11459 "IN-2_opt.c"
+#line 11459 "./IN-2_opt.c"
 
   SIG_MESSAGE("Nose_guide (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11466 "IN-2_opt.c"
+#line 11466 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotaGuide_straight, mcrotaNose_guide);
   rot_transpose(mcrotaGuide_straight, mctr1);
   rot_mul(mcrotaNose_guide, mctr1, mcrotrNose_guide);
   mctc1 = coords_set(
-#line 66 "IN-2_opt.instr"
+#line 66 "./IN-2_opt.instr"
     0,
-#line 66 "IN-2_opt.instr"
+#line 66 "./IN-2_opt.instr"
     0,
-#line 66 "IN-2_opt.instr"
+#line 66 "./IN-2_opt.instr"
     mcipl_straight - mcipnose_length + 0.001);
-#line 11477 "IN-2_opt.c"
+#line 11477 "./IN-2_opt.c"
   rot_transpose(mcrotaGuide_straight, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaNose_guide = coords_add(mcposaGuide_straight, mctc2);
@@ -11488,39 +11488,39 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     /* Component slit_sel1. */
   /* Setting parameters for component slit_sel1. */
   SIG_MESSAGE("slit_sel1 (Init:SetPar)");
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_sel1_xmin = -0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_sel1_xmax = 0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_sel1_ymin = -0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_sel1_ymax = 0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_sel1_radius = 0;
-#line 69 "IN-2_opt.instr"
+#line 69 "./IN-2_opt.instr"
   mccslit_sel1_xwidth = 0.1;
-#line 69 "IN-2_opt.instr"
+#line 69 "./IN-2_opt.instr"
   mccslit_sel1_yheight = 0.15;
-#line 11505 "IN-2_opt.c"
+#line 11505 "./IN-2_opt.c"
 
   SIG_MESSAGE("slit_sel1 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11512 "IN-2_opt.c"
+#line 11512 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotaNose_guide, mcrotaslit_sel1);
   rot_transpose(mcrotaNose_guide, mctr1);
   rot_mul(mcrotaslit_sel1, mctr1, mcrotrslit_sel1);
   mctc1 = coords_set(
-#line 70 "IN-2_opt.instr"
+#line 70 "./IN-2_opt.instr"
     0,
-#line 70 "IN-2_opt.instr"
+#line 70 "./IN-2_opt.instr"
     0,
-#line 70 "IN-2_opt.instr"
+#line 70 "./IN-2_opt.instr"
     mcipnose_length + 0.01);
-#line 11523 "IN-2_opt.c"
+#line 11523 "./IN-2_opt.c"
   rot_transpose(mcrotaNose_guide, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaslit_sel1 = coords_add(mcposaNose_guide, mctc2);
@@ -11534,39 +11534,39 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     /* Component slit_sel2. */
   /* Setting parameters for component slit_sel2. */
   SIG_MESSAGE("slit_sel2 (Init:SetPar)");
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_sel2_xmin = -0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_sel2_xmax = 0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_sel2_ymin = -0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_sel2_ymax = 0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_sel2_radius = 0;
-#line 73 "IN-2_opt.instr"
+#line 73 "./IN-2_opt.instr"
   mccslit_sel2_xwidth = 0.1;
-#line 73 "IN-2_opt.instr"
+#line 73 "./IN-2_opt.instr"
   mccslit_sel2_yheight = 0.15;
-#line 11551 "IN-2_opt.c"
+#line 11551 "./IN-2_opt.c"
 
   SIG_MESSAGE("slit_sel2 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11558 "IN-2_opt.c"
+#line 11558 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotaslit_sel1, mcrotaslit_sel2);
   rot_transpose(mcrotaslit_sel1, mctr1);
   rot_mul(mcrotaslit_sel2, mctr1, mcrotrslit_sel2);
   mctc1 = coords_set(
-#line 74 "IN-2_opt.instr"
+#line 74 "./IN-2_opt.instr"
     0,
-#line 74 "IN-2_opt.instr"
+#line 74 "./IN-2_opt.instr"
     0,
-#line 74 "IN-2_opt.instr"
+#line 74 "./IN-2_opt.instr"
     0.3);
-#line 11569 "IN-2_opt.c"
+#line 11569 "./IN-2_opt.c"
   rot_transpose(mcrotaslit_sel1, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaslit_sel2 = coords_add(mcposaslit_sel1, mctc2);
@@ -11580,39 +11580,39 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     /* Component slit_VS. */
   /* Setting parameters for component slit_VS. */
   SIG_MESSAGE("slit_VS (Init:SetPar)");
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_VS_xmin = -0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_VS_xmax = 0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_VS_ymin = -0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_VS_ymax = 0.01;
-#line 43 "IN-2_opt.instr"
+#line 43 "./IN-2_opt.instr"
   mccslit_VS_radius = 0;
-#line 77 "IN-2_opt.instr"
+#line 77 "./IN-2_opt.instr"
   mccslit_VS_xwidth = 0.06;
-#line 77 "IN-2_opt.instr"
+#line 77 "./IN-2_opt.instr"
   mccslit_VS_yheight = 0.2;
-#line 11597 "IN-2_opt.c"
+#line 11597 "./IN-2_opt.c"
 
   SIG_MESSAGE("slit_VS (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11604 "IN-2_opt.c"
+#line 11604 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotaslit_sel2, mcrotaslit_VS);
   rot_transpose(mcrotaslit_sel2, mctr1);
   rot_mul(mcrotaslit_VS, mctr1, mcrotrslit_VS);
   mctc1 = coords_set(
-#line 78 "IN-2_opt.instr"
+#line 78 "./IN-2_opt.instr"
     0,
-#line 78 "IN-2_opt.instr"
+#line 78 "./IN-2_opt.instr"
     0,
-#line 78 "IN-2_opt.instr"
+#line 78 "./IN-2_opt.instr"
     0.05);
-#line 11615 "IN-2_opt.c"
+#line 11615 "./IN-2_opt.c"
   rot_transpose(mcrotaslit_sel2, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaslit_VS = coords_add(mcposaslit_sel2, mctc2);
@@ -11632,18 +11632,18 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11635 "IN-2_opt.c"
+#line 11635 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotaslit_VS, mcrotamon_IN);
   rot_transpose(mcrotaslit_VS, mctr1);
   rot_mul(mcrotamon_IN, mctr1, mcrotrmon_IN);
   mctc1 = coords_set(
-#line 84 "IN-2_opt.instr"
+#line 84 "./IN-2_opt.instr"
     0,
-#line 84 "IN-2_opt.instr"
+#line 84 "./IN-2_opt.instr"
     0,
-#line 84 "IN-2_opt.instr"
+#line 84 "./IN-2_opt.instr"
     2);
-#line 11646 "IN-2_opt.c"
+#line 11646 "./IN-2_opt.c"
   rot_transpose(mcrotaslit_VS, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposamon_IN = coords_add(mcposaslit_VS, mctc2);
@@ -11657,68 +11657,68 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     /* Component mon_curv. */
   /* Setting parameters for component mon_curv. */
   SIG_MESSAGE("mon_curv (Init:SetPar)");
-#line 99 "IN-2_opt.instr"
+#line 99 "./IN-2_opt.instr"
   if("NULL") strncpy(mccmon_curv_reflect, "NULL" ? "NULL" : "", 16384); else mccmon_curv_reflect[0]='\0';
-#line 99 "IN-2_opt.instr"
+#line 99 "./IN-2_opt.instr"
   if("NULL") strncpy(mccmon_curv_transmit, "NULL" ? "NULL" : "", 16384); else mccmon_curv_transmit[0]='\0';
-#line 87 "IN-2_opt.instr"
+#line 87 "./IN-2_opt.instr"
   mccmon_curv_zwidth = 0.01;
-#line 87 "IN-2_opt.instr"
+#line 87 "./IN-2_opt.instr"
   mccmon_curv_yheight = 0.01;
-#line 101 "IN-2_opt.instr"
+#line 101 "./IN-2_opt.instr"
   mccmon_curv_gap = 0.0005;
-#line 87 "IN-2_opt.instr"
+#line 87 "./IN-2_opt.instr"
   mccmon_curv_NH = 30;
-#line 87 "IN-2_opt.instr"
+#line 87 "./IN-2_opt.instr"
   mccmon_curv_NV = 30;
-#line 101 "IN-2_opt.instr"
+#line 101 "./IN-2_opt.instr"
   mccmon_curv_mosaich = 30.0;
-#line 101 "IN-2_opt.instr"
+#line 101 "./IN-2_opt.instr"
   mccmon_curv_mosaicv = 30.0;
-#line 101 "IN-2_opt.instr"
+#line 101 "./IN-2_opt.instr"
   mccmon_curv_r0 = 0.7;
-#line 101 "IN-2_opt.instr"
+#line 101 "./IN-2_opt.instr"
   mccmon_curv_t0 = 1.0;
-#line 101 "IN-2_opt.instr"
+#line 101 "./IN-2_opt.instr"
   mccmon_curv_Q = 1.8734;
-#line 89 "IN-2_opt.instr"
+#line 89 "./IN-2_opt.instr"
   mccmon_curv_RV = RV;
-#line 89 "IN-2_opt.instr"
+#line 89 "./IN-2_opt.instr"
   mccmon_curv_RH = RH;
-#line 88 "IN-2_opt.instr"
+#line 88 "./IN-2_opt.instr"
   mccmon_curv_DM = d_lattice_parameter;
-#line 88 "IN-2_opt.instr"
+#line 88 "./IN-2_opt.instr"
   mccmon_curv_mosaic = 30;
-#line 102 "IN-2_opt.instr"
+#line 102 "./IN-2_opt.instr"
   mccmon_curv_width = 0;
-#line 102 "IN-2_opt.instr"
+#line 102 "./IN-2_opt.instr"
   mccmon_curv_height = 0;
-#line 102 "IN-2_opt.instr"
+#line 102 "./IN-2_opt.instr"
   mccmon_curv_verbose = 0;
-#line 102 "IN-2_opt.instr"
+#line 102 "./IN-2_opt.instr"
   mccmon_curv_order = 0;
-#line 11700 "IN-2_opt.c"
+#line 11700 "./IN-2_opt.c"
 
   SIG_MESSAGE("mon_curv (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 91 "IN-2_opt.instr"
+#line 91 "./IN-2_opt.instr"
     (0)*DEG2RAD,
-#line 91 "IN-2_opt.instr"
+#line 91 "./IN-2_opt.instr"
     (- asin ( mciplambda / 2 / d_lattice_parameter ) * RAD2DEG)*DEG2RAD,
-#line 91 "IN-2_opt.instr"
+#line 91 "./IN-2_opt.instr"
     (0)*DEG2RAD);
-#line 11710 "IN-2_opt.c"
+#line 11710 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotamon_IN, mcrotamon_curv);
   rot_transpose(mcrotamon_IN, mctr1);
   rot_mul(mcrotamon_curv, mctr1, mcrotrmon_curv);
   mctc1 = coords_set(
-#line 90 "IN-2_opt.instr"
+#line 90 "./IN-2_opt.instr"
     0,
-#line 90 "IN-2_opt.instr"
+#line 90 "./IN-2_opt.instr"
     0,
-#line 90 "IN-2_opt.instr"
+#line 90 "./IN-2_opt.instr"
     0);
-#line 11721 "IN-2_opt.c"
+#line 11721 "./IN-2_opt.c"
   rot_transpose(mcrotamon_IN, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposamon_curv = coords_add(mcposamon_IN, mctc2);
@@ -11735,24 +11735,24 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
 
   SIG_MESSAGE("mon_OUT (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 100 "IN-2_opt.instr"
+#line 100 "./IN-2_opt.instr"
     (0)*DEG2RAD,
-#line 100 "IN-2_opt.instr"
+#line 100 "./IN-2_opt.instr"
     (-2 * asin ( mciplambda / 2 / d_lattice_parameter ) * RAD2DEG)*DEG2RAD,
-#line 100 "IN-2_opt.instr"
+#line 100 "./IN-2_opt.instr"
     (0)*DEG2RAD);
-#line 11744 "IN-2_opt.c"
+#line 11744 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotamon_IN, mcrotamon_OUT);
   rot_transpose(mcrotamon_curv, mctr1);
   rot_mul(mcrotamon_OUT, mctr1, mcrotrmon_OUT);
   mctc1 = coords_set(
-#line 99 "IN-2_opt.instr"
+#line 99 "./IN-2_opt.instr"
     0,
-#line 99 "IN-2_opt.instr"
+#line 99 "./IN-2_opt.instr"
     0,
-#line 99 "IN-2_opt.instr"
+#line 99 "./IN-2_opt.instr"
     0);
-#line 11755 "IN-2_opt.c"
+#line 11755 "./IN-2_opt.c"
   rot_transpose(mcrotamon_IN, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposamon_OUT = coords_add(mcposamon_IN, mctc2);
@@ -11766,65 +11766,65 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     /* Component Sample2. */
   /* Setting parameters for component Sample2. */
   SIG_MESSAGE("Sample2 (Init:SetPar)");
-#line 103 "IN-2_opt.instr"
+#line 103 "./IN-2_opt.instr"
   mccSample2_xwidth = 0.2;
-#line 104 "IN-2_opt.instr"
+#line 104 "./IN-2_opt.instr"
   mccSample2_yheight = 0.2;
-#line 200 "IN-2_opt.instr"
+#line 200 "./IN-2_opt.instr"
   mccSample2_zdepth = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample2_xmin = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample2_xmax = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample2_ymin = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample2_ymax = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample2_zmin = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample2_zmax = 0;
-#line 105 "IN-2_opt.instr"
+#line 105 "./IN-2_opt.instr"
   mccSample2_bins = 100;
-#line 202 "IN-2_opt.instr"
+#line 202 "./IN-2_opt.instr"
   mccSample2_min = -1e40;
-#line 202 "IN-2_opt.instr"
+#line 202 "./IN-2_opt.instr"
   mccSample2_max = 1e40;
-#line 202 "IN-2_opt.instr"
+#line 202 "./IN-2_opt.instr"
   mccSample2_restore_neutron = 0;
-#line 202 "IN-2_opt.instr"
+#line 202 "./IN-2_opt.instr"
   mccSample2_radius = 0;
-#line 106 "IN-2_opt.instr"
+#line 106 "./IN-2_opt.instr"
   if("x y") strncpy(mccSample2_options, "x y" ? "x y" : "", 16384); else mccSample2_options[0]='\0';
-#line 203 "IN-2_opt.instr"
+#line 203 "./IN-2_opt.instr"
   if("NULL") strncpy(mccSample2_filename, "NULL" ? "NULL" : "", 16384); else mccSample2_filename[0]='\0';
-#line 203 "IN-2_opt.instr"
+#line 203 "./IN-2_opt.instr"
   if("NULL") strncpy(mccSample2_geometry, "NULL" ? "NULL" : "", 16384); else mccSample2_geometry[0]='\0';
-#line 204 "IN-2_opt.instr"
+#line 204 "./IN-2_opt.instr"
   if("NULL") strncpy(mccSample2_username1, "NULL" ? "NULL" : "", 16384); else mccSample2_username1[0]='\0';
-#line 204 "IN-2_opt.instr"
+#line 204 "./IN-2_opt.instr"
   if("NULL") strncpy(mccSample2_username2, "NULL" ? "NULL" : "", 16384); else mccSample2_username2[0]='\0';
-#line 204 "IN-2_opt.instr"
+#line 204 "./IN-2_opt.instr"
   if("NULL") strncpy(mccSample2_username3, "NULL" ? "NULL" : "", 16384); else mccSample2_username3[0]='\0';
-#line 11809 "IN-2_opt.c"
+#line 11809 "./IN-2_opt.c"
 
   SIG_MESSAGE("Sample2 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11816 "IN-2_opt.c"
+#line 11816 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotamon_OUT, mcrotaSample2);
   rot_transpose(mcrotamon_OUT, mctr1);
   rot_mul(mcrotaSample2, mctr1, mcrotrSample2);
   mctc1 = coords_set(
-#line 107 "IN-2_opt.instr"
+#line 107 "./IN-2_opt.instr"
     0,
-#line 107 "IN-2_opt.instr"
+#line 107 "./IN-2_opt.instr"
     0,
-#line 107 "IN-2_opt.instr"
+#line 107 "./IN-2_opt.instr"
     2);
-#line 11827 "IN-2_opt.c"
+#line 11827 "./IN-2_opt.c"
   rot_transpose(mcrotamon_OUT, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaSample2 = coords_add(mcposamon_OUT, mctc2);
@@ -11838,65 +11838,65 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
     /* Component Sample. */
   /* Setting parameters for component Sample. */
   SIG_MESSAGE("Sample (Init:SetPar)");
-#line 110 "IN-2_opt.instr"
+#line 110 "./IN-2_opt.instr"
   mccSample_xwidth = mcipsample_width;
-#line 111 "IN-2_opt.instr"
+#line 111 "./IN-2_opt.instr"
   mccSample_yheight = mcipsample_height;
-#line 200 "IN-2_opt.instr"
+#line 200 "./IN-2_opt.instr"
   mccSample_zdepth = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample_xmin = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample_xmax = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample_ymin = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample_ymax = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample_zmin = 0;
-#line 201 "IN-2_opt.instr"
+#line 201 "./IN-2_opt.instr"
   mccSample_zmax = 0;
-#line 112 "IN-2_opt.instr"
+#line 112 "./IN-2_opt.instr"
   mccSample_bins = 100;
-#line 202 "IN-2_opt.instr"
+#line 202 "./IN-2_opt.instr"
   mccSample_min = -1e40;
-#line 202 "IN-2_opt.instr"
+#line 202 "./IN-2_opt.instr"
   mccSample_max = 1e40;
-#line 202 "IN-2_opt.instr"
+#line 202 "./IN-2_opt.instr"
   mccSample_restore_neutron = 0;
-#line 202 "IN-2_opt.instr"
+#line 202 "./IN-2_opt.instr"
   mccSample_radius = 0;
-#line 113 "IN-2_opt.instr"
+#line 113 "./IN-2_opt.instr"
   if("x y") strncpy(mccSample_options, "x y" ? "x y" : "", 16384); else mccSample_options[0]='\0';
-#line 203 "IN-2_opt.instr"
+#line 203 "./IN-2_opt.instr"
   if("NULL") strncpy(mccSample_filename, "NULL" ? "NULL" : "", 16384); else mccSample_filename[0]='\0';
-#line 203 "IN-2_opt.instr"
+#line 203 "./IN-2_opt.instr"
   if("NULL") strncpy(mccSample_geometry, "NULL" ? "NULL" : "", 16384); else mccSample_geometry[0]='\0';
-#line 204 "IN-2_opt.instr"
+#line 204 "./IN-2_opt.instr"
   if("NULL") strncpy(mccSample_username1, "NULL" ? "NULL" : "", 16384); else mccSample_username1[0]='\0';
-#line 204 "IN-2_opt.instr"
+#line 204 "./IN-2_opt.instr"
   if("NULL") strncpy(mccSample_username2, "NULL" ? "NULL" : "", 16384); else mccSample_username2[0]='\0';
-#line 204 "IN-2_opt.instr"
+#line 204 "./IN-2_opt.instr"
   if("NULL") strncpy(mccSample_username3, "NULL" ? "NULL" : "", 16384); else mccSample_username3[0]='\0';
-#line 11881 "IN-2_opt.c"
+#line 11881 "./IN-2_opt.c"
 
   SIG_MESSAGE("Sample (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11888 "IN-2_opt.c"
+#line 11888 "./IN-2_opt.c"
   rot_mul(mctr1, mcrotamon_OUT, mcrotaSample);
   rot_transpose(mcrotaSample2, mctr1);
   rot_mul(mcrotaSample, mctr1, mcrotrSample);
   mctc1 = coords_set(
-#line 114 "IN-2_opt.instr"
+#line 114 "./IN-2_opt.instr"
     0,
-#line 114 "IN-2_opt.instr"
+#line 114 "./IN-2_opt.instr"
     0,
-#line 114 "IN-2_opt.instr"
+#line 114 "./IN-2_opt.instr"
     2.001);
-#line 11899 "IN-2_opt.c"
+#line 11899 "./IN-2_opt.c"
   rot_transpose(mcrotamon_OUT, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaSample = coords_add(mcposamon_OUT, mctc2);
@@ -11921,7 +11921,7 @@ RV = -dRV*2*lambda/2/d_lattice_parameter;
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 57 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 57 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
 IntermediateCnts=0;
 StartTime=0;
@@ -11933,7 +11933,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
     percent=1e5*100.0/mcget_ncount();
   }
 }
-#line 11936 "IN-2_opt.c"
+#line 11936 "./IN-2_opt.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -11998,7 +11998,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 206 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 206 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   pTable_xsum=0;
   pTable_ysum=0;
@@ -12270,7 +12270,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
       printf("Source_gen: component %s unactivated", NAME_CURRENT_COMP);
   );
 }
-#line 12273 "IN-2_opt.c"
+#line 12273 "./IN-2_opt.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -12366,7 +12366,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_straight_nu
 #define phase mccGuide_straight_phase
 #define reflect mccGuide_straight_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -12418,7 +12418,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 12421 "IN-2_opt.c"
+#line 12421 "./IN-2_opt.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12522,7 +12522,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define segno mccNose_guide_segno
 #define curvature mccNose_guide_curvature
 #define curvature_v mccNose_guide_curvature_v
-#line 116 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_tapering.comp"
+#line 116 "/usr/share/mcstas/2.4.1/optics/Guide_tapering.comp"
 {
 rotation_h=0;
 rotation_v=0;
@@ -12858,7 +12858,7 @@ w1c = (double*)malloc(sizeof(double)*segno);
   if (curvature && l && segno)   rotation_h = l/curvature/segno;
   if (curvature_v && l && segno) rotation_v = l/curvature_v/segno;
 }
-#line 12861 "IN-2_opt.c"
+#line 12861 "./IN-2_opt.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -12933,7 +12933,7 @@ w1c = (double*)malloc(sizeof(double)*segno);
 #define radius mccslit_sel1_radius
 #define xwidth mccslit_sel1_xwidth
 #define yheight mccslit_sel1_yheight
-#line 47 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Slit.comp"
+#line 47 "/usr/share/mcstas/2.4.1/optics/Slit.comp"
 {
 if (xwidth > 0)  { xmax=xwidth/2;  xmin=-xmax; }
   if (yheight > 0) { ymax=yheight/2; ymin=-ymax; }
@@ -12941,7 +12941,7 @@ if (xwidth > 0)  { xmax=xwidth/2;  xmin=-xmax; }
     { fprintf(stderr,"Slit: %s: Error: give geometry\n", NAME_CURRENT_COMP); exit(-1); }
 
 }
-#line 12944 "IN-2_opt.c"
+#line 12944 "./IN-2_opt.c"
 #undef yheight
 #undef xwidth
 #undef radius
@@ -12965,7 +12965,7 @@ if (xwidth > 0)  { xmax=xwidth/2;  xmin=-xmax; }
 #define radius mccslit_sel2_radius
 #define xwidth mccslit_sel2_xwidth
 #define yheight mccslit_sel2_yheight
-#line 47 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Slit.comp"
+#line 47 "/usr/share/mcstas/2.4.1/optics/Slit.comp"
 {
 if (xwidth > 0)  { xmax=xwidth/2;  xmin=-xmax; }
   if (yheight > 0) { ymax=yheight/2; ymin=-ymax; }
@@ -12973,7 +12973,7 @@ if (xwidth > 0)  { xmax=xwidth/2;  xmin=-xmax; }
     { fprintf(stderr,"Slit: %s: Error: give geometry\n", NAME_CURRENT_COMP); exit(-1); }
 
 }
-#line 12976 "IN-2_opt.c"
+#line 12976 "./IN-2_opt.c"
 #undef yheight
 #undef xwidth
 #undef radius
@@ -12997,7 +12997,7 @@ if (xwidth > 0)  { xmax=xwidth/2;  xmin=-xmax; }
 #define radius mccslit_VS_radius
 #define xwidth mccslit_VS_xwidth
 #define yheight mccslit_VS_yheight
-#line 47 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Slit.comp"
+#line 47 "/usr/share/mcstas/2.4.1/optics/Slit.comp"
 {
 if (xwidth > 0)  { xmax=xwidth/2;  xmin=-xmax; }
   if (yheight > 0) { ymax=yheight/2; ymin=-ymax; }
@@ -13005,7 +13005,7 @@ if (xwidth > 0)  { xmax=xwidth/2;  xmin=-xmax; }
     { fprintf(stderr,"Slit: %s: Error: give geometry\n", NAME_CURRENT_COMP); exit(-1); }
 
 }
-#line 13008 "IN-2_opt.c"
+#line 13008 "./IN-2_opt.c"
 #undef yheight
 #undef xwidth
 #undef radius
@@ -13057,7 +13057,7 @@ if (xwidth > 0)  { xmax=xwidth/2;  xmin=-xmax; }
 #define height mccmon_curv_height
 #define verbose mccmon_curv_verbose
 #define order mccmon_curv_order
-#line 148 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Monochromator_curved.comp"
+#line 148 "/usr/share/mcstas/2.4.1/optics/Monochromator_curved.comp"
 {
   int i;
 
@@ -13138,7 +13138,7 @@ if (xwidth > 0)  { xmax=xwidth/2;  xmin=-xmax; }
   }
 
 }
-#line 13141 "IN-2_opt.c"
+#line 13141 "./IN-2_opt.c"
 #undef order
 #undef verbose
 #undef height
@@ -13210,7 +13210,7 @@ if (xwidth > 0)  { xmax=xwidth/2;  xmin=-xmax; }
 #define username1 mccSample2_username1
 #define username2 mccSample2_username2
 #define username3 mccSample2_username3
-#line 227 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 227 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -13289,7 +13289,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 13292 "IN-2_opt.c"
+#line 13292 "./IN-2_opt.c"
 #undef username3
 #undef username2
 #undef username1
@@ -13353,7 +13353,7 @@ MPI_MASTER(
 #define username1 mccSample_username1
 #define username2 mccSample_username2
 #define username3 mccSample_username3
-#line 227 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 227 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -13432,7 +13432,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 13435 "IN-2_opt.c"
+#line 13435 "./IN-2_opt.c"
 #undef username3
 #undef username2
 #undef username1
@@ -13573,7 +13573,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 70 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 70 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   double ncount;
   ncount = mcget_run_num();
@@ -13617,7 +13617,7 @@ MCNUM minutes = mccOrigin_minutes;
     if (flag_save) mcsave(NULL);
   }
 }
-#line 13620 "IN-2_opt.c"
+#line 13620 "./IN-2_opt.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -13774,7 +13774,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 479 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 479 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   double dx=0,dy=0,xf,yf,rf,pdir,chi,v,r, lambda;
   double Maxwell;
@@ -13865,7 +13865,7 @@ int target_index = mccH3_target_index;
     SCATTER;
   }
 }
-#line 13868 "IN-2_opt.c"
+#line 13868 "./IN-2_opt.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -14127,7 +14127,7 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -14296,7 +14296,7 @@ char* reflect = mccGuide_straight_reflect;
 
   } /* if l */
 }
-#line 14299 "IN-2_opt.c"
+#line 14299 "./IN-2_opt.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -14462,7 +14462,7 @@ MCNUM my = mccNose_guide_my;
 MCNUM segno = mccNose_guide_segno;
 MCNUM curvature = mccNose_guide_curvature;
 MCNUM curvature_v = mccNose_guide_curvature_v;
-#line 453 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_tapering.comp"
+#line 453 "/usr/share/mcstas/2.4.1/optics/Guide_tapering.comp"
 {
   double t1,t2,ts,zr;                           /* Intersection times. */
   double av,ah,bv,bh,cv1,cv2,ch1,ch2,dd;        /* Intermediate values */
@@ -14617,7 +14617,7 @@ MCNUM curvature_v = mccNose_guide_curvature_v;
   } /* loop on segments */
 
 }
-#line 14620 "IN-2_opt.c"
+#line 14620 "./IN-2_opt.c"
 }   /* End of Nose_guide=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -14769,7 +14769,7 @@ MCNUM ymax = mccslit_sel1_ymax;
 MCNUM radius = mccslit_sel1_radius;
 MCNUM xwidth = mccslit_sel1_xwidth;
 MCNUM yheight = mccslit_sel1_yheight;
-#line 56 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Slit.comp"
+#line 56 "/usr/share/mcstas/2.4.1/optics/Slit.comp"
 {
     PROP_Z0;
     if (((radius == 0) && (x<xmin || x>xmax || y<ymin || y>ymax))
@@ -14778,7 +14778,7 @@ MCNUM yheight = mccslit_sel1_yheight;
     else
         SCATTER;
 }
-#line 14781 "IN-2_opt.c"
+#line 14781 "./IN-2_opt.c"
 }   /* End of slit_sel1=Slit() SETTING parameter declarations. */
 #undef mccompcurname
 #undef mccompcurtype
@@ -14891,7 +14891,7 @@ MCNUM ymax = mccslit_sel2_ymax;
 MCNUM radius = mccslit_sel2_radius;
 MCNUM xwidth = mccslit_sel2_xwidth;
 MCNUM yheight = mccslit_sel2_yheight;
-#line 56 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Slit.comp"
+#line 56 "/usr/share/mcstas/2.4.1/optics/Slit.comp"
 {
     PROP_Z0;
     if (((radius == 0) && (x<xmin || x>xmax || y<ymin || y>ymax))
@@ -14900,7 +14900,7 @@ MCNUM yheight = mccslit_sel2_yheight;
     else
         SCATTER;
 }
-#line 14903 "IN-2_opt.c"
+#line 14903 "./IN-2_opt.c"
 }   /* End of slit_sel2=Slit() SETTING parameter declarations. */
 #undef mccompcurname
 #undef mccompcurtype
@@ -15013,7 +15013,7 @@ MCNUM ymax = mccslit_VS_ymax;
 MCNUM radius = mccslit_VS_radius;
 MCNUM xwidth = mccslit_VS_xwidth;
 MCNUM yheight = mccslit_VS_yheight;
-#line 56 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Slit.comp"
+#line 56 "/usr/share/mcstas/2.4.1/optics/Slit.comp"
 {
     PROP_Z0;
     if (((radius == 0) && (x<xmin || x>xmax || y<ymin || y>ymax))
@@ -15022,7 +15022,7 @@ MCNUM yheight = mccslit_VS_yheight;
     else
         SCATTER;
 }
-#line 15025 "IN-2_opt.c"
+#line 15025 "./IN-2_opt.c"
 }   /* End of slit_VS=Slit() SETTING parameter declarations. */
 #undef mccompcurname
 #undef mccompcurtype
@@ -15263,7 +15263,7 @@ MCNUM width = mccmon_curv_width;
 MCNUM height = mccmon_curv_height;
 MCNUM verbose = mccmon_curv_verbose;
 MCNUM order = mccmon_curv_order;
-#line 230 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Monochromator_curved.comp"
+#line 230 "/usr/share/mcstas/2.4.1/optics/Monochromator_curved.comp"
 {
   double dt;
 
@@ -15488,12 +15488,12 @@ MCNUM order = mccmon_curv_order;
     }
   } /* End neutron moving towards crystal (if vx)*/
 }
-#line 15491 "IN-2_opt.c"
+#line 15491 "./IN-2_opt.c"
 /* 'mon_curv=Monochromator_curved()' component instance extend code */
     SIG_MESSAGE("mon_curv (Trace:Extend)");
-#line 94 "IN-2_opt.instr"
+#line 94 "./IN-2_opt.instr"
      if (!SCATTERED) ABSORB;
-#line 15496 "IN-2_opt.c"
+#line 15496 "./IN-2_opt.c"
 }   /* End of mon_curv=Monochromator_curved() SETTING parameter declarations. */
 #undef tiltV
 #undef tiltH
@@ -15741,7 +15741,7 @@ char* geometry = mccSample2_geometry;
 char* username1 = mccSample2_username1;
 char* username2 = mccSample2_username2;
 char* username3 = mccSample2_username3;
-#line 307 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 307 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -15910,7 +15910,7 @@ char* username3 = mccSample2_username3;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 15913 "IN-2_opt.c"
+#line 15913 "./IN-2_opt.c"
 }   /* End of Sample2=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -16050,7 +16050,7 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 307 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 307 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -16219,7 +16219,7 @@ char* username3 = mccSample_username3;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 16222 "IN-2_opt.c"
+#line 16222 "./IN-2_opt.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -16318,7 +16318,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 115 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 115 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   MPI_MASTER(fprintf(stdout, "\nSave [%s]\n", mcinstrument_name););
   if (profile && strlen(profile) && strcmp(profile,"NULL") && strcmp(profile,"0")) {
@@ -16335,7 +16335,7 @@ MCNUM minutes = mccOrigin_minutes;
 
   }
 }
-#line 16338 "IN-2_opt.c"
+#line 16338 "./IN-2_opt.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -16378,12 +16378,12 @@ char* geometry = mccSample2_geometry;
 char* username1 = mccSample2_username1;
 char* username2 = mccSample2_username2;
 char* username3 = mccSample2_username3;
-#line 477 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 477 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 16386 "IN-2_opt.c"
+#line 16386 "./IN-2_opt.c"
 }   /* End of Sample2=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -16429,12 +16429,12 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 477 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 477 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 16437 "IN-2_opt.c"
+#line 16437 "./IN-2_opt.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -16468,7 +16468,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 133 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 133 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   time_t NowTime;
   time(&NowTime);
@@ -16481,7 +16481,7 @@ MCNUM minutes = mccOrigin_minutes;
     fprintf(stdout, "%g [min] ", difftime(NowTime,StartTime)/60.0);
   fprintf(stdout, "\n");
 }
-#line 16484 "IN-2_opt.c"
+#line 16484 "./IN-2_opt.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -16547,13 +16547,13 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 571 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   Table_Free(&pTable);
   Table_Free(&pTable_x);
   Table_Free(&pTable_y);
 }
-#line 16555 "IN-2_opt.c"
+#line 16555 "./IN-2_opt.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -16624,14 +16624,14 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 16631 "IN-2_opt.c"
+#line 16631 "./IN-2_opt.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -16706,7 +16706,7 @@ MCNUM my = mccNose_guide_my;
 MCNUM segno = mccNose_guide_segno;
 MCNUM curvature = mccNose_guide_curvature;
 MCNUM curvature_v = mccNose_guide_curvature_v;
-#line 609 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_tapering.comp"
+#line 609 "/usr/share/mcstas/2.4.1/optics/Guide_tapering.comp"
 {
   free(w1c);
   free(w2c);
@@ -16721,7 +16721,7 @@ MCNUM curvature_v = mccNose_guide_curvature_v;
   free(w1_in);
   free(w2_out);
 }
-#line 16720 "IN-2_opt.c"
+#line 16720 "./IN-2_opt.c"
 }   /* End of Nose_guide=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -16819,14 +16819,14 @@ MCNUM width = mccmon_curv_width;
 MCNUM height = mccmon_curv_height;
 MCNUM verbose = mccmon_curv_verbose;
 MCNUM order = mccmon_curv_order;
-#line 456 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Monochromator_curved.comp"
+#line 456 "/usr/share/mcstas/2.4.1/optics/Monochromator_curved.comp"
 {
   Table_Free(&rTable);
   Table_Free(&tTable);
   if (tiltH) free(tiltH);
   if (tiltV) free(tiltV);
 }
-#line 16820 "IN-2_opt.c"
+#line 16820 "./IN-2_opt.c"
 }   /* End of mon_curv=Monochromator_curved() SETTING parameter declarations. */
 #undef tiltV
 #undef tiltH
@@ -16883,12 +16883,12 @@ char* geometry = mccSample2_geometry;
 char* username1 = mccSample2_username1;
 char* username2 = mccSample2_username2;
 char* username3 = mccSample2_username3;
-#line 483 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 483 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   /* free pointers */
   Monitor_nD_Finally(&DEFS, &Vars);
 }
-#line 16880 "IN-2_opt.c"
+#line 16880 "./IN-2_opt.c"
 }   /* End of Sample2=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -16937,12 +16937,12 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 483 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 483 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   /* free pointers */
   Monitor_nD_Finally(&DEFS, &Vars);
 }
-#line 16933 "IN-2_opt.c"
+#line 16933 "./IN-2_opt.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -16986,11 +16986,11 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 147 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 147 "/usr/share/mcstas/2.4.1/misc/Progress_bar.comp"
 {
   magnify("");
 }
-#line 16980 "IN-2_opt.c"
+#line 16980 "./IN-2_opt.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -17054,7 +17054,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 578 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 578 "/usr/share/mcstas/2.4.1/sources/Source_gen.comp"
 {
   double xmin;
   double xmax;
@@ -17103,7 +17103,7 @@ int target_index = mccH3_target_index;
     dashed_line(0,0,0, -focus_xw/2, focus_yh/2,dist, 4);
   }
 }
-#line 17093 "IN-2_opt.c"
+#line 17093 "./IN-2_opt.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -17132,7 +17132,7 @@ int target_index = mccH3_target_index;
 #define mccompcurname  Guide_start_arm
 #define mccompcurtype  Arm
 #define mccompcurindex 3
-#line 40 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Arm.comp"
+#line 40 "/usr/share/mcstas/2.4.1/optics/Arm.comp"
 {
   /* A bit ugly; hard-coded dimensions. */
   magnify("");
@@ -17140,7 +17140,7 @@ int target_index = mccH3_target_index;
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 17130 "IN-2_opt.c"
+#line 17130 "./IN-2_opt.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -17188,7 +17188,7 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -17251,7 +17251,7 @@ char* reflect = mccGuide_straight_reflect;
   }
 
 }
-#line 17241 "IN-2_opt.c"
+#line 17241 "./IN-2_opt.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -17324,7 +17324,7 @@ MCNUM my = mccNose_guide_my;
 MCNUM segno = mccNose_guide_segno;
 MCNUM curvature = mccNose_guide_curvature;
 MCNUM curvature_v = mccNose_guide_curvature_v;
-#line 625 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_tapering.comp"
+#line 625 "/usr/share/mcstas/2.4.1/optics/Guide_tapering.comp"
 {
   double x;
   int i,ii;
@@ -17357,7 +17357,7 @@ MCNUM curvature_v = mccNose_guide_curvature_v;
   }
 
 }
-#line 17347 "IN-2_opt.c"
+#line 17347 "./IN-2_opt.c"
 }   /* End of Nose_guide=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -17416,7 +17416,7 @@ MCNUM ymax = mccslit_sel1_ymax;
 MCNUM radius = mccslit_sel1_radius;
 MCNUM xwidth = mccslit_sel1_xwidth;
 MCNUM yheight = mccslit_sel1_yheight;
-#line 66 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Slit.comp"
+#line 66 "/usr/share/mcstas/2.4.1/optics/Slit.comp"
 {
   magnify("xy");
   if (radius == 0) {
@@ -17439,7 +17439,7 @@ MCNUM yheight = mccslit_sel1_yheight;
     circle("xy",0,0,0,radius);
   }
 }
-#line 17429 "IN-2_opt.c"
+#line 17429 "./IN-2_opt.c"
 }   /* End of slit_sel1=Slit() SETTING parameter declarations. */
 #undef mccompcurname
 #undef mccompcurtype
@@ -17459,7 +17459,7 @@ MCNUM ymax = mccslit_sel2_ymax;
 MCNUM radius = mccslit_sel2_radius;
 MCNUM xwidth = mccslit_sel2_xwidth;
 MCNUM yheight = mccslit_sel2_yheight;
-#line 66 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Slit.comp"
+#line 66 "/usr/share/mcstas/2.4.1/optics/Slit.comp"
 {
   magnify("xy");
   if (radius == 0) {
@@ -17482,7 +17482,7 @@ MCNUM yheight = mccslit_sel2_yheight;
     circle("xy",0,0,0,radius);
   }
 }
-#line 17472 "IN-2_opt.c"
+#line 17472 "./IN-2_opt.c"
 }   /* End of slit_sel2=Slit() SETTING parameter declarations. */
 #undef mccompcurname
 #undef mccompcurtype
@@ -17502,7 +17502,7 @@ MCNUM ymax = mccslit_VS_ymax;
 MCNUM radius = mccslit_VS_radius;
 MCNUM xwidth = mccslit_VS_xwidth;
 MCNUM yheight = mccslit_VS_yheight;
-#line 66 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Slit.comp"
+#line 66 "/usr/share/mcstas/2.4.1/optics/Slit.comp"
 {
   magnify("xy");
   if (radius == 0) {
@@ -17525,7 +17525,7 @@ MCNUM yheight = mccslit_VS_yheight;
     circle("xy",0,0,0,radius);
   }
 }
-#line 17515 "IN-2_opt.c"
+#line 17515 "./IN-2_opt.c"
 }   /* End of slit_VS=Slit() SETTING parameter declarations. */
 #undef mccompcurname
 #undef mccompcurtype
@@ -17537,7 +17537,7 @@ MCNUM yheight = mccslit_VS_yheight;
 #define mccompcurname  mon_IN
 #define mccompcurtype  Arm
 #define mccompcurindex 9
-#line 40 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Arm.comp"
+#line 40 "/usr/share/mcstas/2.4.1/optics/Arm.comp"
 {
   /* A bit ugly; hard-coded dimensions. */
   magnify("");
@@ -17545,7 +17545,7 @@ MCNUM yheight = mccslit_VS_yheight;
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 17535 "IN-2_opt.c"
+#line 17535 "./IN-2_opt.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -17589,7 +17589,7 @@ MCNUM width = mccmon_curv_width;
 MCNUM height = mccmon_curv_height;
 MCNUM verbose = mccmon_curv_verbose;
 MCNUM order = mccmon_curv_order;
-#line 464 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Monochromator_curved.comp"
+#line 464 "/usr/share/mcstas/2.4.1/optics/Monochromator_curved.comp"
 {
   int ih;
 
@@ -17620,7 +17620,7 @@ MCNUM order = mccmon_curv_order;
      }
    }
 }
-#line 17610 "IN-2_opt.c"
+#line 17610 "./IN-2_opt.c"
 }   /* End of mon_curv=Monochromator_curved() SETTING parameter declarations. */
 #undef tiltV
 #undef tiltH
@@ -17644,7 +17644,7 @@ MCNUM order = mccmon_curv_order;
 #define mccompcurname  mon_OUT
 #define mccompcurtype  Arm
 #define mccompcurindex 11
-#line 40 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Arm.comp"
+#line 40 "/usr/share/mcstas/2.4.1/optics/Arm.comp"
 {
   /* A bit ugly; hard-coded dimensions. */
   magnify("");
@@ -17652,7 +17652,7 @@ MCNUM order = mccmon_curv_order;
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 17642 "IN-2_opt.c"
+#line 17642 "./IN-2_opt.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -17691,7 +17691,7 @@ char* geometry = mccSample2_geometry;
 char* username1 = mccSample2_username1;
 char* username2 = mccSample2_username2;
 char* username3 = mccSample2_username3;
-#line 489 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 489 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
@@ -17700,7 +17700,7 @@ char* username3 = mccSample2_username3;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 17690 "IN-2_opt.c"
+#line 17690 "./IN-2_opt.c"
 }   /* End of Sample2=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -17747,7 +17747,7 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 489 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 489 "/usr/share/mcstas/2.4.1/monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
@@ -17756,7 +17756,7 @@ char* username3 = mccSample_username3;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 17746 "IN-2_opt.c"
+#line 17746 "./IN-2_opt.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -17778,4 +17778,4 @@ char* username3 = mccSample_username3;
 #undef rectangle
 #undef box
 #undef circle
-/* end of generated C code IN-2_opt.c */
+/* end of generated C code ./IN-2_opt.c */
