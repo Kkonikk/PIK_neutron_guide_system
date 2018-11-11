@@ -23,14 +23,12 @@
 * %End
 *******************************************************************************/
 
-DEFINE INSTRUMENT generic_curved( R_curv=100, l_bender=20, l_straight=20, n_chan=1,sample_width=0.01, sample_height=0.01)
+DEFINE INSTRUMENT generic_curved( R_curv=100, l_bender=20, l_straight=20, n_chan=1,sample_width=0.01, sample_height=0.01, m_out=6, m_in=6, m_str_side = 6, m_top = 6)
 
 DECLARE
 %{
 //rotation of one guide element
 double rot,l_sect;
-double n_chan_str = 1;
-double m_out=6, m=6, m_side = 6, m_top = 6; 
 %}
 
 INITIALIZE
@@ -50,7 +48,7 @@ TRACE
 //curved part
 
 COMPONENT Guide_curved = Guide_gravity(
-    w1 = guide_start_width, h1 = guide_start_height, l = l_sect, mright=m_out, mleft=m, mtop=m_top,mbottom=m_top, nslit=n_chan)
+    w1 = guide_start_width, h1 = guide_start_height, l = l_sect, mright=m_out, mleft=m_in, mtop=m_top,mbottom=m_top, nslit=n_chan)
   AT (0, 0, 0) RELATIVE Guide_start_arm
 
 COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
@@ -450,23 +448,23 @@ COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
   ROTATED (0,rot,0) RELATIVE PREVIOUS
 
 COMPONENT Guide_straight = Guide_gravity(
-    w1 = guide_start_width, h1 = guide_start_height, l = l_straight, mright=m_side, mleft=m_side, mtop=m_top,mbottom=m_top, nslit=n_chan_str)
+    w1 = guide_start_width, h1 = guide_start_height, l = l_straight, mright=m_str_side, mleft=m_str_side, mtop=m_top,mbottom=m_top, nslit=1)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
 
-COMPONENT Sample = Monitor_nD(
-    xwidth=guide_start_width, 
+/*COMPONENT Sample = Monitor_nD(
+    xwidth=sample_width, 
     yheight=guide_start_height, 
     bins=100, 
     options="x y")
 AT (0, 0, l_straight+0.01) RELATIVE PREVIOUS
-/*
+*/
 COMPONENT Sample = Monitor_nD(
     xwidth=sample_width, 
     yheight=sample_height, 
     bins=100, 
     options="dx limits = [-1 1] dy limits = [-1 1]")
 AT (0, 0, l_straight+0.01) RELATIVE PREVIOUS
-*/
+
 FINALLY
 %{
 %}
