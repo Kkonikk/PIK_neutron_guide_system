@@ -1,11 +1,11 @@
-McStas simulation description file for generic_half_elliptic_nose.
-Date:    Thu Nov  8 16:41:36 2018
+McStas simulation description file for generic_curved.
+Date:    Sun Nov 11 15:26:52 2018
 Program: McStas 2.4.1 - Jun. 26, 2017
 
-begin instrument: generic_half_elliptic_nose
+begin instrument: generic_curved
   File: ../generic_guides/sim/mccode
-  Source: ../generic_guides/generic_half_elliptic_nose.instr
-  Parameters:  guide_length(double) nose_length(double) m_side(double) m_top(double) linh(double) louth(double) linw(double) loutw(double) sample_height(double) sample_dist(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Source: ../generic_guides/generic_curved.instr
+  Parameters:  R_curv(double) l_bender(double) l_straight(double) n_chan(double) sample_width(double) sample_height(double) m_out(double) m_in(double) m_str_side(double) m_top(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
   Trace_enabled: yes
   Default_main: yes
   Embedded_runtime: yes
@@ -15,46 +15,25 @@ begin simulation: ../generic_guides/sim
   Format: McCode with text headers
   URL: http://www.mccode.org
   Creator: McStas 2.4.1 - Jun. 26, 2017
-  Instrument: ../generic_guides/generic_half_elliptic_nose.instr
+  Instrument: ../generic_guides/generic_curved.instr
   Ncount: 1000000
   Trace: no
   Gravitation: no
-  Seed: 1541696986
+  Seed: 1541949801
   Directory: ../generic_guides/sim
   Nodes: 8
-  Param: guide_length=20
-  Param: nose_length=1
-  Param: m_side=6
+  Param: R_curv=143.275
+  Param: l_bender=10
+  Param: l_straight=44
+  Param: n_chan=2
+  Param: sample_width=0.05
+  Param: sample_height=0.05
+  Param: m_out=6
+  Param: m_in=6
+  Param: m_str_side=6
   Param: m_top=6
-  Param: linh=10.5
-  Param: louth=0.5
-  Param: linw=10.5
-  Param: loutw=0.5
-  Param: sample_height=0.1
-  Param: sample_dist=0.5
-  Param: guide_start_width=0.03
-  Param: guide_start_height=1
-  Param: source_lambda_min=4.85
-  Param: source_lambda_max=4.95
+  Param: guide_start_width=0.05
+  Param: guide_start_height=0.05
+  Param: source_lambda_min=4.5
+  Param: source_lambda_max=4.6
   Param: cold_regime=1
-end simulation
-
-begin data
-  Date: Thu Nov  8 16:41:38 2018 (1541684498)
-  type: array_1d(100)
-  Source: generic_half_elliptic_nose (../generic_guides/generic_half_elliptic_nose.instr)
-  component: Sample
-  position: 0 0 22.32
-  title: x [m] monitor
-  Ncount: 1000000
-  filename: Sample_1541684496.x
-  statistics: X0=-3.08846e-05; dX=0.00727002;
-  signal: Min=1.07844e+07; Max=5.11083e+07; Mean=3.40418e+07;
-  values: 3.40418e+09 3.34355e+07 13257
-  xvar: x
-  yvar: (I,I_err)
-  xlabel: x [m]
-  ylabel: Intensity [n/s/bin]
-  xlimits: -0.015 0.015
-  variables: x I I_err N
-end data

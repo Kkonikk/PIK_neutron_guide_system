@@ -1,15 +1,15 @@
 function generic_bender_scan(H,L,N)
-Lb_min = 1; Lb_step = 1; Lb_max = L;
+Lb_min = 1; Lb_step = 1; Lb_max = 30;
 n_chan_min = 1; n_chan_step = 1; n_chan_max = N;
 model = mccode('../generic_guides/generic_curved.instr');
 
-name = 'bender';
-parameters.sample_width=0.03;
-parameters.sample_height=0.1;
-parameters.guide_start_width=0.03;
-parameters.guide_start_height=0.1;
-parameters.source_lambda_min=4.85;
-parameters.source_lambda_max=4.95;
+name = 'H3-4 Tensor bender scan';
+parameters.sample_width=0.05;
+parameters.sample_height=0.05;
+parameters.guide_start_width=0.05;
+parameters.guide_start_height=0.05;
+parameters.source_lambda_min=4.5;
+parameters.source_lambda_max=4.6;
 parameters.cold_regime=1;
 parameters.m_out=6;
 parameters.m_in=6;
@@ -20,18 +20,17 @@ model_str = mccode('../generic_guides/generic_straight.instr');
 parameters_str.guide_length = L;
 parameters_str.m_str_side=6;
 parameters_str.m_top=6;
-parameters_str.sample_width=0.03;
-parameters_str.sample_height=0.1;
-parameters_str.guide_start_width=0.03;
-parameters_str.guide_start_height=0.1;
-parameters_str.source_lambda_min=4.85;
-parameters_str.source_lambda_max=4.95;
+parameters_str.sample_width=0.05;
+parameters_str.sample_height=0.05;
+parameters_str.guide_start_width=0.05;
+parameters_str.guide_start_height=0.05;
+parameters_str.source_lambda_min=4.5;
+parameters_str.source_lambda_max=4.6;
 results_str = iData(model_str,parameters_str);
 sum_L_str = sum(results_str, 0);
 
-fig=figure;
-hold on
-for nchan = n_chan_min:n_chan_step:n_chan_max
+figure
+for n_chan = n_chan_min:n_chan_step:n_chan_max
     i=1;
     for Lb=Lb_min:Lb_step:Lb_max
         Ls = L - Lb;
@@ -41,18 +40,20 @@ for nchan = n_chan_min:n_chan_step:n_chan_max
         parameters.l_straight = Ls;
         parameters.R_curv = R;
         results = iData(model,parameters);
-        sum_Lb(i) = sum(results, 0)/sum_L_str;
+        sum_Lb(i) = sum(results, 0);
         i = i+1;
     end
-    plot(Lb_min:Lb_step:Lb_max,sum_Lb,'LineWidth',2,'DisplayName',['n_chan =' num2str(n_chan)]);
+    sum_Lb=sum_Lb/sum_L_str;
+    plot(Lb_min:Lb_step:Lb_max,sum_Lb,'LineWidth',2,'DisplayName',['n chan =' num2str(n_chan)]);
+    hold on
 end
 
-title([name ' scan L_bender'])
+title(name)
 grid on
 xlabel('Lb, m')
-ylabel('I, arb.u.')
+ylabel('transmission')
 legend
-% legend('Curvature radius')
-% print(gcf,[name 'R_scan'],'-dpng','-r300')
-% %matlab2tikz([name 'm_scan.tex'], 'width', '0.85\textwidth');
-% saveas(fig,[name 'R_scan.fig']);
+legend('Location','south')
+print(gcf,[name 'bend_scan'],'-dpng','-r300')
+%matlab2tikz([name 'm_scan.tex'], 'width', '0.85\textwidth');
+saveas(fig,[name 'bend_scan.fig']);
