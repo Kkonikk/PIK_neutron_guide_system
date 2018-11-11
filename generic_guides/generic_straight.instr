@@ -30,7 +30,7 @@
 *
 * %End
 *******************************************************************************/
-DEFINE INSTRUMENT generic_straight(guide_length = 10, m_side = 2, m_top = 6, sample_height = 0.01, sample_width = 0.01)
+DEFINE INSTRUMENT generic_straight(guide_length = 10, m_str_side = 2, m_top = 6, sample_height = 0.01, sample_width = 0.01)
 
 DECLARE
 %{
@@ -50,8 +50,8 @@ COMPONENT Main_guide = Guide_gravity(
     l=guide_length, 
     R0=R0, 
     alpha=alpha, 
-    mleft=m_side, 
-    mright=m_side, 
+    mleft=m_str_side, 
+    mright=m_str_side, 
     mtop=m_top, 
     mbottom=m_top, 
     G=-9.81)

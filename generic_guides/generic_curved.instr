@@ -48,7 +48,8 @@ TRACE
 //curved part
 
 COMPONENT Guide_curved = Guide_gravity(
-    w1 = guide_start_width, h1 = guide_start_height, l = l_sect, mright=m_out, mleft=m_in, mtop=m_top,mbottom=m_top, nslit=n_chan)
+    w1 = guide_start_width, h1 = guide_start_height, l = l_sect, mright=m_out, mleft=m_in, mtop=m_top,mbottom=m_top, nslit=n_chan,     R0=R0, 
+    alpha=alpha)
   AT (0, 0, 0) RELATIVE Guide_start_arm
 
 COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
@@ -448,7 +449,8 @@ COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
   ROTATED (0,rot,0) RELATIVE PREVIOUS
 
 COMPONENT Guide_straight = Guide_gravity(
-    w1 = guide_start_width, h1 = guide_start_height, l = l_straight, mright=m_str_side, mleft=m_str_side, mtop=m_top,mbottom=m_top, nslit=1)
+    w1 = guide_start_width, h1 = guide_start_height, l = l_straight, mright=m_str_side, mleft=m_str_side, mtop=m_top,mbottom=m_top, nslit=1,   R0=R0, 
+    alpha=alpha)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
 
 /*COMPONENT Sample = Monitor_nD(
