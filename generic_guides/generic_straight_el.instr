@@ -30,7 +30,7 @@
 *
 * %End
 *******************************************************************************/
-DEFINE INSTRUMENT generic_half_elliptic_nose(sample_width = 0.01, guide_length = 10, nose_length = 3, m_side = 2, m_top = 6, linh = 10.5, louth = 0.5, linw = 10.5, loutw = 0.5, sample_height = 0.01, sample_dist=0.5)
+DEFINE INSTRUMENT generic_straight(guide_length = 10, m_str_side = 2, m_top = 6, sample_height = 0.01, sample_width = 0.01)
 
 DECLARE
 %{
@@ -47,9 +47,11 @@ TRACE
 COMPONENT Main_guide = Guide_gravity(
     w1=guide_start_width, 
     h1=guide_start_height, 
-    l=guide_length - nose_length,  
-    mleft=m_side, 
-    mright=m_side, 
+    l=guide_length, 
+    R0=R0, 
+    alpha=alpha, 
+    mleft=m_str_side, 
+    mright=m_str_side, 
     mtop=m_top, 
     mbottom=m_top, 
     G=-9.81)
@@ -72,8 +74,8 @@ COMPONENT Sample = Monitor_nD(
     xwidth=sample_width, 
     yheight=sample_height, 
     bins=100, 
-    options="x")
-AT (0, 0, nose_length + sample_dist) RELATIVE PREVIOUS
+    options="dx limits = [-0.2 0.2] dy limits = [-0.2 0.2]")
+AT (0, 0, guide_length + 0.01) RELATIVE PREVIOUS
 
 FINALLY
 %{
