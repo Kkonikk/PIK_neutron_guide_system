@@ -23,7 +23,7 @@
 * %End
 *******************************************************************************/
 
-DEFINE INSTRUMENT generic_curved( R_curv=100, l_bender=20, l_straight=20, n_chan=1,sample_width=0.01, sample_height=0.01, m_out=6, m_in=6, m_str_side = 6, m_top = 6)
+DEFINE INSTRUMENT generic_curved( R_curv=906, l_bender=25, l_straight=32.8, n_chan=1,sample_width=0.01, sample_height=0.01, m_out=6, m_in=6, m_str_side = 6, m_top = 6)
 
 DECLARE
 %{

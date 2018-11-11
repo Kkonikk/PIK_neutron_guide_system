@@ -1,7 +1,7 @@
 function generic_bender_mono_scan(H,L,N)
 Lb_min = 1; Lb_step = 1; Lb_max = 30;
 n_chan_min = 1; n_chan_step = 1; n_chan_max = N;
-model = mccode('../generic_guides/generic_curved.instr');
+model = mccode('../generic_guides/generic_curved_mono.instr');
 
 name = 'H3-4 Tensor bender scan';
 parameters.sample_width=0.05;
