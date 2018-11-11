@@ -1,0 +1,120 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: PIK H3 beamtube 
+*
+* %Identification
+* Written by: K.Pavlov
+* Date: 07.09.18
+* Origin: PNPI
+* Release: McStas 2.3
+* Version: 2.0
+*
+* PIK reactor beamtube H3 facing cold neutron source. Handles additionaly the thermal regime of CNS and no CNS at all situation.
+*
+* %Parameters
+* guide_start_width: [m] Initial width of guide (where to focus neutrons from source)
+* guide_start_height: [m]  Initial height of guide (where to focus neutrons from source)
+* source_lambda_min: [AA] Minimal wavelength to create
+* source_lambda_max: [AA] Maximal wavelength to create
+* cold_regime: [num] 1 corresponds to normal operation, 0 corresponds to thermal regime, -1 corresponds to no container situation
+*
+*
+* %End
+*******************************************************************************/
+
+DEFINE INSTRUMENT generic_curved(dRH = 2, dRV = 1.75, lambda = 4, l_straight=18.7, nose_length = 2, sample_width=0.01, sample_height=0.01, m_out=6, m_in=6, m_str_side = 6, m_str_top = 6,m_el_side =6,m_el_top = 6, linh = 5, louth = 0.35, linw = 5, loutw = 0.35)
+
+DECLARE
+%{
+//rotation of one guide element
+double rot,l_sect;
+double d_lattice_parameter = 3.355;
+double RH,RV;
+%}
+
+INITIALIZE
+%{
+RH = -dRH*2*2*d_lattice_parameter/lambda;
+RV = -dRV*2*lambda/2/d_lattice_parameter;
+%}
+
+TRACE
+
+%include "../main/H3_source.instr"
+
+//curved part
+
+
+
+COMPONENT Guide_straight = Guide_gravity(
+    w1 = guide_start_width, h1 = guide_start_height, l = l_straight-nose_length, mright=m_str_side, mleft=m_str_side, mtop=m_str_top,mbottom=m_str_top, nslit=1,   R0=R0, 
+    alpha=alpha)
+  AT (0, 0, 0.001) RELATIVE PREVIOUS
+  
+  COMPONENT Nose_guide = Guide_tapering(
+    option="elliptical", 
+    w1=guide_start_width, 
+    h1=guide_start_height, 
+    l=nose_length, 
+    linh = linh, 
+    louth = louth,
+    linw = linw,
+    loutw = loutw,
+    mx=m_el_side,
+    my=m_el_top)
+AT (0, 0,l_straight-nose_length+0.001) RELATIVE PREVIOUS
+
+COMPONENT slit_sel1 = Slit(
+    xwidth = 0.1, yheight = 0.15)
+  AT (0, 0, nose_length + 0.01) RELATIVE Nose_guide
+  
+  COMPONENT slit_sel2 = Slit(
+    xwidth = 0.1, yheight = 0.15)
+  AT (0, 0, 0.3) RELATIVE PREVIOUS
+  
+  COMPONENT slit_VS = Slit(
+    xwidth = 0.06, yheight = 0.2)
+  AT (0, 0, 0.05) RELATIVE slit_sel2
+
+/* ******************************* Monochromator  *************************************/    
+
+COMPONENT mon_IN = Arm(
+    )
+  AT (0, 0, 2) RELATIVE slit_VS
+
+COMPONENT mon_curv = Monochromator_curved(
+    zwidth = 0.01, yheight = 0.01, NH = 30, NV = 30, 
+    DM = d_lattice_parameter, mosaic = 30,
+    RH = RH, RV = RV)
+  AT (0, 0, 0) RELATIVE mon_IN
+ ROTATED (0, -asin(lambda/2/d_lattice_parameter)*RAD2DEG, 0) RELATIVE mon_IN
+EXTEND
+%{
+     if (!SCATTERED) ABSORB;
+%}
+
+COMPONENT mon_OUT = Arm(
+    )
+  AT (0, 0, 0) RELATIVE mon_IN
+  ROTATED (0, -2*asin(lambda/2/d_lattice_parameter)*RAD2DEG, 0) RELATIVE mon_IN
+
+COMPONENT Sample2 = Monitor_nD(
+    xwidth=0.2, 
+    yheight=0.2, 
+    bins=100, 
+    options="x y")
+	  AT (0, 0, 2) RELATIVE mon_OUT
+
+COMPONENT Sample = Monitor_nD(
+    xwidth=sample_width, 
+    yheight=sample_height, 
+    bins=100, 
+    options="x y")
+	  AT (0, 0, 2.001) RELATIVE mon_OUT
+
+FINALLY
+%{
+%}
+
+END
