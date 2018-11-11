@@ -17,7 +17,7 @@ parameters.m_str_side=6;
 parameters.m_top=6;
 
 model_str = mccode('../generic_guides/generic_straight.instr');
-parameters_str.l_straight = L;
+parameters_str.guide_length = L;
 parameters_str.m_str_side=6;
 parameters_str.m_top=6;
 parameters_str.sample_width=0.03;
