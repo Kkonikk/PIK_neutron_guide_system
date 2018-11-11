@@ -32,15 +32,18 @@ sum_L_str = sum(results_str, 0);
 fig=figure;
 hold on
 for nchan = n_chan_min:n_chan_step:n_chan_max
-    Ls = L - Lb;
-    R = (Lb^2+2*Lb*Ls)/2/H;
-    parameters.n_chan=n_chan;
-    parameters.l_bender = Lb_min:Lb_step:Lb_max;
-    parameters.l_straight = Ls;
-    parameters.R_curv = R;
-    results = iData(model,parameters);
-    sum_Lb = sum(results, 0)/sum_L_str;
-
+    i=1;
+    for Lb=Lb_min:Lb_step:Lb_max
+        Ls = L - Lb;
+        R = (Lb^2+2*Lb*Ls)/2/H;
+        parameters.n_chan=n_chan;
+        parameters.l_bender = Lb;
+        parameters.l_straight = Ls;
+        parameters.R_curv = R;
+        results = iData(model,parameters);
+        sum_Lb(i) = sum(results, 0)/sum_L_str;
+        i = i+1;
+    end
     plot(Lb_min:Lb_step:Lb_max,sum_Lb,'LineWidth',2,'DisplayName',['n_chan =' num2str(n_chan)]);
 end
 
