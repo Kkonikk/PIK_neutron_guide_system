@@ -1,10 +1,10 @@
 McStas simulation description file for generic_curved.
-Date:    Sun Nov 11 19:11:10 2018
+Date:    Sun Nov 11 19:29:25 2018
 Program: McStas 2.4.1 - Jun. 26, 2017
 
 begin instrument: generic_curved
   File: ../generic_guides/sim/mccode
-  Source: ../generic_guides/generic_straight_mono.instr
+  Source: ../generic_guides/generic_curved_mono.instr
   Parameters:  lambda(double) R_curv(double) l_bender(double) l_straight(double) n_chan(double) sample_width(double) sample_height(double) m_out(double) m_in(double) m_str_side(double) m_top(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
   Trace_enabled: yes
   Default_main: yes
@@ -15,19 +15,19 @@ begin simulation: ../generic_guides/sim
   Format: McCode with text headers
   URL: http://www.mccode.org
   Creator: McStas 2.4.1 - Jun. 26, 2017
-  Instrument: ../generic_guides/generic_straight_mono.instr
-  Ncount: 10000000
+  Instrument: ../generic_guides/generic_curved_mono.instr
+  Ncount: 1000000
   Trace: no
   Gravitation: no
-  Seed: 1541954743
+  Seed: 1541958742
   Directory: ../generic_guides/sim
   Nodes: 8
   Param: lambda=2.4
-  Param: R_curv=500
-  Param: l_bender=10
-  Param: l_straight=20.7
+  Param: R_curv=900
+  Param: l_bender=25
+  Param: l_straight=5.7
   Param: n_chan=1
-  Param: sample_width=0.01
+  Param: sample_width=0.04
   Param: sample_height=0.01
   Param: m_out=6
   Param: m_in=6
@@ -38,3 +38,24 @@ begin simulation: ../generic_guides/sim
   Param: source_lambda_min=2.35
   Param: source_lambda_max=2.45
   Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Sun Nov 11 19:29:26 2018 (1541953766)
+  type: array_1d(100)
+  Source: generic_curved (../generic_guides/generic_curved_mono.instr)
+  component: Sample
+  position: -2.1059 0 35.8327
+  title: Hor. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: Sample_1541953765.hd
+  statistics: X0=-0.00572405; dX=0.188277;
+  signal: Min=0; Max=2.29502e+06; Mean=873980;
+  values: 8.7398e+07 2.837e+06 1076
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/bin]
+  xlimits: -0.5 0.5
+  variables: hd I I_err N
+end data

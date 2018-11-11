@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: ../generic_guides/generic_straight_mono.instr (generic_curved)
- * Date:       Sun Nov 11 19:10:56 2018
+ * Date:       Sun Nov 11 19:25:10 2018
  * File:       ../generic_guides/generic_straight_mono.c
  * Compile:    cc -o generic_curved.out ../generic_guides/generic_straight_mono.c 
  * CFLAGS=

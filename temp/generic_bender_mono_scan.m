@@ -1,10 +1,10 @@
 function generic_bender_mono_scan(H,L,N)
-Lb_min = 1; Lb_step = 2; Lb_max = 11;
+Lb_min = 25; Lb_step = 1; Lb_max = 25;
 n_chan_min = 1; n_chan_step = 1; n_chan_max = N;
 model = mccode('../generic_guides/generic_curved_mono.instr','ncount=1e7');
 
 name = 'H3-2 NeRo bender scan lambda 24';
-parameters.sample_width=0.01;
+parameters.sample_width=0.1;
 parameters.sample_height=0.01;
 parameters.guide_start_width=0.03;
 parameters.guide_start_height=0.2;
@@ -21,7 +21,7 @@ model_str = mccode('../generic_guides/generic_straight_mono.instr','ncount=1e7')
 parameters_str.guide_length = L;
 parameters_str.m_str_side=6;
 parameters_str.m_top=6;
-parameters_str.sample_width=0.01;
+parameters_str.sample_width=0.1;
 parameters_str.sample_height=0.01;
 parameters_str.guide_start_width=0.03;
 parameters_str.guide_start_height=0.2;
@@ -36,7 +36,8 @@ for n_chan = n_chan_min:n_chan_step:n_chan_max
     i=1;
     for Lb=Lb_min:Lb_step:Lb_max
         Ls = L - Lb;
-        R = (Lb^2+2*Lb*Ls)/2/H;
+        %R = (Lb^2+2*Lb*Ls)/2/H;
+        R=900;
         parameters.n_chan=n_chan;
         parameters.l_bender = Lb;
         parameters.l_straight = Ls;

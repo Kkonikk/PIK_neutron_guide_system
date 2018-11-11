@@ -1,20 +1,22 @@
-model = mccode('../generic_guides/generic_curved.instr');
-name = 'H3-4 Tensor m downgrade scan';
+model = mccode('../generic_guides/generic_curved_mono.instr');
+name = 'H3-2 NeRo m downgrade scan';
 m_min = 1; m_step = 1; m_max = 6;
-H = 0.5;
-L = 10;
+%H = 0.;
+L = 30.7;
 N = 1;
-Lb = 5;
+Lb = 25;
 Ls = L - Lb;
-R = (Lb^2+2*Lb*Ls)/2/H;
+%R = (Lb^2+2*Lb*Ls)/2/H;
+R=900;
 
-parameters.sample_width=0.05;
-parameters.sample_height=0.05;
-parameters.guide_start_width=0.05;
-parameters.guide_start_height=0.05;
-parameters.source_lambda_min=4.5;
-parameters.source_lambda_max=4.6;
+parameters.sample_width=0.04;
+parameters.sample_height=0.01;
+parameters.guide_start_width=0.03;
+parameters.guide_start_height=0.2;
+parameters.source_lambda_min=2.35;
+parameters.source_lambda_max=2.45;
 parameters.cold_regime=1;
+parameters.lambda=2.4;
 
 parameters.n_chan=N;
 parameters.l_bender = Lb;
