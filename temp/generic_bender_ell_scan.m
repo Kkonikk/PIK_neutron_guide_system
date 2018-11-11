@@ -1,13 +1,13 @@
 function generic_bender_ell_scan(H,L,N)
-Lb_min = 1; Lb_step = 2; Lb_max = 30;
+Lb_min = 13; Lb_step = 1; Lb_max = 14;
 n_chan_min = 1; n_chan_step = 1; n_chan_max = N;
-model = mccode('../generic_guides/generic_curved_ell.instr','ncount=1e7');
+model = mccode('../generic_guides/generic_curved_ell.instr','ncount=1e6');
 
-name = 'H3-4 Tensor bender scan lambda 20';
-parameters.sample_width=0.05;
-parameters.sample_height=0.05;
-parameters.guide_start_width=0.05;
-parameters.guide_start_height=0.05;
+name = 'H3-3 Sonata bender ell scan lambda 2';
+parameters.sample_width=0.01;
+parameters.sample_height=0.01;
+parameters.guide_start_width=0.03;
+parameters.guide_start_height=0.15;
 parameters.source_lambda_min=2.0;
 parameters.source_lambda_max=2.1;
 parameters.cold_regime=1;
@@ -17,30 +17,29 @@ parameters.m_str_side=6;
 parameters.m_top=6;
 
 parameters.sample_dist = 0.5;
-parameters.nose_length = 0;
+parameters.nose_length = 4.8;
 parameters.loutw = 0;
 parameters.linw = 0;
-parameters.linh = 0;
-parameters.louth = 0;
+parameters.linh = 12.3;
+parameters.louth = 0.38;
 
-model_str = mccode('../generic_guides/generic_straight_ell.instr','ncount=1e7');
+model_str = mccode('../generic_guides/generic_straight_ell.instr','ncount=1e6');
 parameters_str.guide_length = L;
 parameters_str.m_str_side=6;
 parameters_str.m_top=6;
-parameters_str.sample_width=0.05;
-parameters_str.sample_height=0.05;
-parameters_str.guide_start_width=0.05;
-parameters_str.guide_start_height=0.05;
+parameters_str.sample_width=0.01;
+parameters_str.sample_height=0.01;
+parameters_str.guide_start_width=0.03;
+parameters_str.guide_start_height=0.15;
 parameters_str.source_lambda_min=2.0;
 parameters_str.source_lambda_max=2.1;
 
 parameters_str.sample_dist = 0.5;
-parameters_str.sample_dist = 0.5;
-parameters_str.nose_length = 0;
+parameters_str.nose_length = 4.8;
 parameters_str.loutw = 0;
 parameters_str.linw = 0;
-parameters_str.linh = 0;
-parameters_str.louth = 0;
+parameters_str.linh = 12.3;
+parameters_str.louth = 0.38;
 
 results_str = iData(model_str,parameters_str);
 sum_L_str = sum(results_str, 0);
