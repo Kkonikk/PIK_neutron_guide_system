@@ -12,10 +12,7 @@ for i = 1: length(filenames)
     end
     model = mccode(filenames{i});
     fix(model, 'all');
-    model.nose_length = 'free'; model.guide_L0_str = [0.5 2 5];
-    model.guide_start_width = 'free'; model.guide_start_width = [0.0 2 5];
-    
-    guide_start_width
+    model.m_side = 6; model.m_top = 6;
     model.guide_L0_str = 'free'; model.guide_L0_str = [];
     model.guide_L1_bend = 'free'; model.guide_L1_bend = [];
     guide_L2_end = 'free'; guide_L2_end = [];
