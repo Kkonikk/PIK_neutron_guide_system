@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: ../generic_guides/generic_half_elliptic_nose.instr (generic_half_elliptic_nose)
- * Date:       Thu Nov  8 16:41:23 2018
+ * Date:       Sun Nov 11 20:51:09 2018
  * File:       ../generic_guides/generic_half_elliptic_nose.c
  * Compile:    cc -o generic_half_elliptic_nose.out ../generic_guides/generic_half_elliptic_nose.c 
  * CFLAGS=
@@ -9978,6 +9978,7 @@ void off_display(off_struct data)
 #line 9978 "../generic_guides/generic_half_elliptic_nose.c"
 
 /* Instrument parameters. */
+MCNUM mcipsample_width;
 MCNUM mcipguide_length;
 MCNUM mcipnose_length;
 MCNUM mcipm_side;
@@ -9994,9 +9995,10 @@ MCNUM mcipsource_lambda_min;
 MCNUM mcipsource_lambda_max;
 MCNUM mcipcold_regime;
 
-#define mcNUMIPAR 15
-int mcnumipar = 15;
+#define mcNUMIPAR 16
+int mcnumipar = 16;
 struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
+  "sample_width", &mcipsample_width, instr_type_double, "0.01", 
   "guide_length", &mcipguide_length, instr_type_double, "10", 
   "nose_length", &mcipnose_length, instr_type_double, "3", 
   "m_side", &mcipm_side, instr_type_double, "2", 
@@ -10020,6 +10022,7 @@ struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
 #define mccompcurtype  INSTRUMENT
 #define mccompcurindex 0
 #define mcposageneric_half_elliptic_nose coords_set(0,0,0)
+#define sample_width mcipsample_width
 #define guide_length mcipguide_length
 #define nose_length mcipnose_length
 #define m_side mcipm_side
@@ -10054,7 +10057,7 @@ double guide_start_dist = 1.82;
 
 //Reflection parameters
 double R0 = 0.99, alpha = 3.3;
-#line 10057 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10060 "../generic_guides/generic_half_elliptic_nose.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -10070,6 +10073,7 @@ double R0 = 0.99, alpha = 3.3;
 #undef m_side
 #undef nose_length
 #undef guide_length
+#undef sample_width
 #undef mcposageneric_half_elliptic_nose
 #undef mccompcurindex
 #undef mccompcurtype
@@ -10240,7 +10244,7 @@ double IntermediateCnts;
 time_t StartTime;
 time_t EndTime;
 time_t CurrentTime;
-#line 10243 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10247 "../generic_guides/generic_half_elliptic_nose.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -10324,7 +10328,7 @@ time_t CurrentTime;
   double pTable_dymin;
   double pTable_dymax;
 
-#line 10327 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10331 "../generic_guides/generic_half_elliptic_nose.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -10427,7 +10431,7 @@ time_t CurrentTime;
 #line 334 "/usr/share/mcstas/2.4.1/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 10430 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10434 "../generic_guides/generic_half_elliptic_nose.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -10547,7 +10551,7 @@ char file_name[1024];
 char *ep;
 FILE *num;
 double rotation_h, rotation_v;
-#line 10550 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10554 "../generic_guides/generic_half_elliptic_nose.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -10646,7 +10650,7 @@ double rotation_h, rotation_v;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 10649 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10653 "../generic_guides/generic_half_elliptic_nose.c"
 #undef username3
 #undef username2
 #undef username1
@@ -10700,6 +10704,7 @@ void mcinit(void) {
 #define mccompcurtype  INSTRUMENT
 #define mccompcurindex 0
 #define mcposageneric_half_elliptic_nose coords_set(0,0,0)
+#define sample_width mcipsample_width
 #define guide_length mcipguide_length
 #define nose_length mcipnose_length
 #define m_side mcipm_side
@@ -10731,7 +10736,7 @@ if (cold_regime==-1){
 	source_I2 = 0;
 	source_I3 = 0;};	
 }
-#line 10734 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10739 "../generic_guides/generic_half_elliptic_nose.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -10747,6 +10752,7 @@ if (cold_regime==-1){
 #undef m_side
 #undef nose_length
 #undef guide_length
+#undef sample_width
 #undef mcposageneric_half_elliptic_nose
 #undef mccompcurindex
 #undef mccompcurtype
@@ -10772,14 +10778,14 @@ if (cold_regime==-1){
   mccOrigin_flag_save = 0;
 #line 39 "../generic_guides/generic_half_elliptic_nose.instr"
   mccOrigin_minutes = 0;
-#line 10775 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10781 "../generic_guides/generic_half_elliptic_nose.c"
 
   SIG_MESSAGE("Origin (Init:Place/Rotate)");
   rot_set_rotation(mcrotaOrigin,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10782 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10788 "../generic_guides/generic_half_elliptic_nose.c"
   rot_copy(mcrotrOrigin, mcrotaOrigin);
   mcposaOrigin = coords_set(
 #line 69 "../generic_guides/generic_half_elliptic_nose.instr"
@@ -10788,7 +10794,7 @@ if (cold_regime==-1){
     0,
 #line 69 "../generic_guides/generic_half_elliptic_nose.instr"
     0);
-#line 10791 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10797 "../generic_guides/generic_half_elliptic_nose.c"
   mctc1 = coords_neg(mcposaOrigin);
   mcposrOrigin = rot_apply(mcrotaOrigin, mctc1);
   mcDEBUG_COMPONENT("Origin", mcposaOrigin, mcrotaOrigin)
@@ -10859,14 +10865,14 @@ if (cold_regime==-1){
   mccH3_zdepth = 0;
 #line 134 "../generic_guides/generic_half_elliptic_nose.instr"
   mccH3_target_index = + 1;
-#line 10862 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10868 "../generic_guides/generic_half_elliptic_nose.c"
 
   SIG_MESSAGE("H3 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10869 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10875 "../generic_guides/generic_half_elliptic_nose.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaH3);
   rot_transpose(mcrotaOrigin, mctr1);
   rot_mul(mcrotaH3, mctr1, mcrotrH3);
@@ -10877,7 +10883,7 @@ if (cold_regime==-1){
     0,
 #line 78 "../generic_guides/generic_half_elliptic_nose.instr"
     0);
-#line 10880 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10886 "../generic_guides/generic_half_elliptic_nose.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaH3 = coords_add(mcposaOrigin, mctc2);
@@ -10897,7 +10903,7 @@ if (cold_regime==-1){
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10900 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10906 "../generic_guides/generic_half_elliptic_nose.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaGuide_start_arm);
   rot_transpose(mcrotaH3, mctr1);
   rot_mul(mcrotaGuide_start_arm, mctr1, mcrotrGuide_start_arm);
@@ -10908,7 +10914,7 @@ if (cold_regime==-1){
     0,
 #line 82 "../generic_guides/generic_half_elliptic_nose.instr"
     guide_start_dist);
-#line 10911 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10917 "../generic_guides/generic_half_elliptic_nose.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_start_arm = coords_add(mcposaOrigin, mctc2);
@@ -10990,14 +10996,14 @@ if (cold_regime==-1){
   mccMain_guide_phase = 0;
 #line 119 "../generic_guides/generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccMain_guide_reflect, "NULL" ? "NULL" : "", 16384); else mccMain_guide_reflect[0]='\0';
-#line 10993 "../generic_guides/generic_half_elliptic_nose.c"
+#line 10999 "../generic_guides/generic_half_elliptic_nose.c"
 
   SIG_MESSAGE("Main_guide (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11000 "../generic_guides/generic_half_elliptic_nose.c"
+#line 11006 "../generic_guides/generic_half_elliptic_nose.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaMain_guide);
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   rot_mul(mcrotaMain_guide, mctr1, mcrotrMain_guide);
@@ -11008,7 +11014,7 @@ if (cold_regime==-1){
     0,
 #line 56 "../generic_guides/generic_half_elliptic_nose.instr"
     0);
-#line 11011 "../generic_guides/generic_half_elliptic_nose.c"
+#line 11017 "../generic_guides/generic_half_elliptic_nose.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMain_guide = coords_add(mcposaGuide_start_arm, mctc2);
@@ -11060,14 +11066,14 @@ if (cold_regime==-1){
   mccNose_guide_curvature = 0;
 #line 83 "../generic_guides/generic_half_elliptic_nose.instr"
   mccNose_guide_curvature_v = 0;
-#line 11063 "../generic_guides/generic_half_elliptic_nose.c"
+#line 11069 "../generic_guides/generic_half_elliptic_nose.c"
 
   SIG_MESSAGE("Nose_guide (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11070 "../generic_guides/generic_half_elliptic_nose.c"
+#line 11076 "../generic_guides/generic_half_elliptic_nose.c"
   rot_mul(mctr1, mcrotaMain_guide, mcrotaNose_guide);
   rot_transpose(mcrotaMain_guide, mctr1);
   rot_mul(mcrotaNose_guide, mctr1, mcrotrNose_guide);
@@ -11078,7 +11084,7 @@ if (cold_regime==-1){
     0,
 #line 69 "../generic_guides/generic_half_elliptic_nose.instr"
     mcipguide_length - mcipnose_length);
-#line 11081 "../generic_guides/generic_half_elliptic_nose.c"
+#line 11087 "../generic_guides/generic_half_elliptic_nose.c"
   rot_transpose(mcrotaMain_guide, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaNose_guide = coords_add(mcposaMain_guide, mctc2);
@@ -11093,7 +11099,7 @@ if (cold_regime==-1){
   /* Setting parameters for component Sample. */
   SIG_MESSAGE("Sample (Init:SetPar)");
 #line 72 "../generic_guides/generic_half_elliptic_nose.instr"
-  mccSample_xwidth = mcipguide_start_width;
+  mccSample_xwidth = mcipsample_width;
 #line 73 "../generic_guides/generic_half_elliptic_nose.instr"
   mccSample_yheight = mcipsample_height;
 #line 200 "../generic_guides/generic_half_elliptic_nose.instr"
@@ -11132,14 +11138,14 @@ if (cold_regime==-1){
   if("NULL") strncpy(mccSample_username2, "NULL" ? "NULL" : "", 16384); else mccSample_username2[0]='\0';
 #line 204 "../generic_guides/generic_half_elliptic_nose.instr"
   if("NULL") strncpy(mccSample_username3, "NULL" ? "NULL" : "", 16384); else mccSample_username3[0]='\0';
-#line 11135 "../generic_guides/generic_half_elliptic_nose.c"
+#line 11141 "../generic_guides/generic_half_elliptic_nose.c"
 
   SIG_MESSAGE("Sample (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 11142 "../generic_guides/generic_half_elliptic_nose.c"
+#line 11148 "../generic_guides/generic_half_elliptic_nose.c"
   rot_mul(mctr1, mcrotaNose_guide, mcrotaSample);
   rot_transpose(mcrotaNose_guide, mctr1);
   rot_mul(mcrotaSample, mctr1, mcrotrSample);
@@ -11150,7 +11156,7 @@ if (cold_regime==-1){
     0,
 #line 76 "../generic_guides/generic_half_elliptic_nose.instr"
     mcipnose_length + mcipsample_dist);
-#line 11153 "../generic_guides/generic_half_elliptic_nose.c"
+#line 11159 "../generic_guides/generic_half_elliptic_nose.c"
   rot_transpose(mcrotaNose_guide, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaSample = coords_add(mcposaNose_guide, mctc2);
@@ -11187,7 +11193,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
     percent=1e5*100.0/mcget_ncount();
   }
 }
-#line 11190 "../generic_guides/generic_half_elliptic_nose.c"
+#line 11196 "../generic_guides/generic_half_elliptic_nose.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -11524,7 +11530,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
       printf("Source_gen: component %s unactivated", NAME_CURRENT_COMP);
   );
 }
-#line 11527 "../generic_guides/generic_half_elliptic_nose.c"
+#line 11533 "../generic_guides/generic_half_elliptic_nose.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -11672,7 +11678,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 11675 "../generic_guides/generic_half_elliptic_nose.c"
+#line 11681 "../generic_guides/generic_half_elliptic_nose.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12112,7 +12118,7 @@ w1c = (double*)malloc(sizeof(double)*segno);
   if (curvature && l && segno)   rotation_h = l/curvature/segno;
   if (curvature_v && l && segno) rotation_v = l/curvature_v/segno;
 }
-#line 12115 "../generic_guides/generic_half_elliptic_nose.c"
+#line 12121 "../generic_guides/generic_half_elliptic_nose.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -12286,7 +12292,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 12289 "../generic_guides/generic_half_elliptic_nose.c"
+#line 12295 "../generic_guides/generic_half_elliptic_nose.c"
 #undef username3
 #undef username2
 #undef username1
@@ -12471,7 +12477,7 @@ MCNUM minutes = mccOrigin_minutes;
     if (flag_save) mcsave(NULL);
   }
 }
-#line 12474 "../generic_guides/generic_half_elliptic_nose.c"
+#line 12480 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -12719,7 +12725,7 @@ int target_index = mccH3_target_index;
     SCATTER;
   }
 }
-#line 12722 "../generic_guides/generic_half_elliptic_nose.c"
+#line 12728 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -13150,7 +13156,7 @@ char* reflect = mccMain_guide_reflect;
 
   } /* if l */
 }
-#line 13153 "../generic_guides/generic_half_elliptic_nose.c"
+#line 13159 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Main_guide=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -13471,7 +13477,7 @@ MCNUM curvature_v = mccNose_guide_curvature_v;
   } /* loop on segments */
 
 }
-#line 13474 "../generic_guides/generic_half_elliptic_nose.c"
+#line 13480 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Nose_guide=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -13812,7 +13818,7 @@ char* username3 = mccSample_username3;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 13815 "../generic_guides/generic_half_elliptic_nose.c"
+#line 13821 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -13928,7 +13934,7 @@ MCNUM minutes = mccOrigin_minutes;
 
   }
 }
-#line 13931 "../generic_guides/generic_half_elliptic_nose.c"
+#line 13937 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -13976,7 +13982,7 @@ char* username3 = mccSample_username3;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 13979 "../generic_guides/generic_half_elliptic_nose.c"
+#line 13985 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -14023,7 +14029,7 @@ MCNUM minutes = mccOrigin_minutes;
     fprintf(stdout, "%g [min] ", difftime(NowTime,StartTime)/60.0);
   fprintf(stdout, "\n");
 }
-#line 14026 "../generic_guides/generic_half_elliptic_nose.c"
+#line 14032 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -14095,7 +14101,7 @@ int target_index = mccH3_target_index;
   Table_Free(&pTable_x);
   Table_Free(&pTable_y);
 }
-#line 14097 "../generic_guides/generic_half_elliptic_nose.c"
+#line 14103 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -14173,7 +14179,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 14173 "../generic_guides/generic_half_elliptic_nose.c"
+#line 14179 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Main_guide=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -14263,7 +14269,7 @@ MCNUM curvature_v = mccNose_guide_curvature_v;
   free(w1_in);
   free(w2_out);
 }
-#line 14262 "../generic_guides/generic_half_elliptic_nose.c"
+#line 14268 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Nose_guide=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -14349,7 +14355,7 @@ char* username3 = mccSample_username3;
   /* free pointers */
   Monitor_nD_Finally(&DEFS, &Vars);
 }
-#line 14347 "../generic_guides/generic_half_elliptic_nose.c"
+#line 14353 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -14397,7 +14403,7 @@ MCNUM minutes = mccOrigin_minutes;
 {
   magnify("");
 }
-#line 14394 "../generic_guides/generic_half_elliptic_nose.c"
+#line 14400 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -14510,7 +14516,7 @@ int target_index = mccH3_target_index;
     dashed_line(0,0,0, -focus_xw/2, focus_yh/2,dist, 4);
   }
 }
-#line 14507 "../generic_guides/generic_half_elliptic_nose.c"
+#line 14513 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -14547,7 +14553,7 @@ int target_index = mccH3_target_index;
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 14544 "../generic_guides/generic_half_elliptic_nose.c"
+#line 14550 "../generic_guides/generic_half_elliptic_nose.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -14658,7 +14664,7 @@ char* reflect = mccMain_guide_reflect;
   }
 
 }
-#line 14655 "../generic_guides/generic_half_elliptic_nose.c"
+#line 14661 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Main_guide=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -14764,7 +14770,7 @@ MCNUM curvature_v = mccNose_guide_curvature_v;
   }
 
 }
-#line 14761 "../generic_guides/generic_half_elliptic_nose.c"
+#line 14767 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Nose_guide=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -14852,7 +14858,7 @@ char* username3 = mccSample_username3;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 14849 "../generic_guides/generic_half_elliptic_nose.c"
+#line 14855 "../generic_guides/generic_half_elliptic_nose.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
