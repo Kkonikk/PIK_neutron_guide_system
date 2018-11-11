@@ -43,7 +43,7 @@ rot = l_sect/R_curv*RAD2DEG;
 
 TRACE
 
-%include "../main/H3_source.instr"
+%include "../main/H2_source.instr"
 
 //curved part
 
