@@ -1,31 +1,33 @@
 function generic_bender_scan(H,L,N)
-Lb_min = 1; Lb_step = 1; Lb_max = L-0.1;
+Lb_min = 1; Lb_step = 2; Lb_max = 11;
 n_chan_min = 1; n_chan_step = 1; n_chan_max = N;
 model = mccode('../generic_guides/generic_curved.instr');
 
-name = 'H3-4 Tensor bender scan';
-parameters.sample_width=0.01;
-parameters.sample_height=0.01;
-parameters.guide_start_width=0.03;
-parameters.guide_start_height=0.1;
-parameters.source_lambda_min=4.85;
-parameters.source_lambda_max=4.95;
+name = 'H3-4 Tensor bender scan lambda 45';
+parameters.sample_width=0.05;
+parameters.sample_height=0.05;
+parameters.guide_start_width=0.05;
+parameters.guide_start_height=0.05;
+parameters.source_lambda_min=4.5;
+parameters.source_lambda_max=4.6;
 parameters.cold_regime=1;
 parameters.m_out=6;
 parameters.m_in=6;
 parameters.m_str_side=6;
 parameters.m_top=6;
+parameters.ncount=1e7;
 
 model_str = mccode('../generic_guides/generic_straight.instr');
 parameters_str.guide_length = L;
 parameters_str.m_str_side=6;
 parameters_str.m_top=6;
-parameters_str.sample_width=0.03;
-parameters_str.sample_height=0.1;
-parameters_str.guide_start_width=0.03;
-parameters_str.guide_start_height=0.1;
-parameters_str.source_lambda_min=4.85;
-parameters_str.source_lambda_max=4.95;
+parameters_str.sample_width=0.05;
+parameters_str.sample_height=0.05;
+parameters_str.guide_start_width=0.05;
+parameters_str.guide_start_height=0.05;
+parameters_str.source_lambda_min=4.5;
+parameters_str.source_lambda_max=4.6;
+parameters_str.ncount=1e7;
 results_str = iData(model_str,parameters_str);
 sum_L_str = sum(results_str, 0);
 
@@ -56,4 +58,4 @@ legend
 legend('Location','south')
 print(gcf,[name 'bend_scan'],'-dpng','-r300')
 %matlab2tikz([name 'm_scan.tex'], 'width', '0.85\textwidth');
-saveas(fig,[name 'bend_scan.fig']);
+saveas(gcf,[name 'bend_scan.fig']);

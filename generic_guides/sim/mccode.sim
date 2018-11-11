@@ -1,5 +1,5 @@
 McStas simulation description file for generic_curved.
-Date:    Sun Nov 11 15:26:52 2018
+Date:    Sun Nov 11 17:11:07 2018
 Program: McStas 2.4.1 - Jun. 26, 2017
 
 begin instrument: generic_curved
@@ -16,16 +16,16 @@ begin simulation: ../generic_guides/sim
   URL: http://www.mccode.org
   Creator: McStas 2.4.1 - Jun. 26, 2017
   Instrument: ../generic_guides/generic_curved.instr
-  Ncount: 1000000
+  Ncount: 10000000
   Trace: no
   Gravitation: no
-  Seed: 1541949801
+  Seed: 1541967825
   Directory: ../generic_guides/sim
   Nodes: 8
-  Param: R_curv=143.275
-  Param: l_bender=10
-  Param: l_straight=44
-  Param: n_chan=2
+  Param: R_curv=334.942
+  Param: l_bender=29
+  Param: l_straight=25
+  Param: n_chan=5
   Param: sample_width=0.05
   Param: sample_height=0.05
   Param: m_out=6
@@ -34,6 +34,29 @@ begin simulation: ../generic_guides/sim
   Param: m_top=6
   Param: guide_start_width=0.05
   Param: guide_start_height=0.05
-  Param: source_lambda_min=4.5
-  Param: source_lambda_max=4.6
+  Param: source_lambda_min=2
+  Param: source_lambda_max=2.1
   Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Sun Nov 11 17:11:35 2018 (1541945495)
+  type: array_2d(100, 100)
+  Source: generic_curved (../generic_guides/generic_curved.instr)
+  component: Sample
+  position: 3.38326 0 55.7025
+  title:  Intensity Divergence Divergence Monitor (Square) per bin
+  Ncount: 10000000
+  filename: Sample_1541945467.hd_vd
+  statistics: X0=-0.00115952; dX=0.113195; Y0=0.000135715; dY=0.114879;
+  signal: Min=0; Max=80273.7; Mean=24315.5;
+  values: 2.43155e+08 978348 64597
+  xvar: Ho
+  yvar: Ve
+  xlabel: Hor. Divergence [deg]
+  ylabel: Vert. Divergence [deg]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: -0.2 0.2 -0.2 0.2
+  variables: I I_err N
+end data

@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: ../generic_guides/generic_curved.instr (generic_curved)
- * Date:       Sun Nov 11 15:20:54 2018
+ * Date:       Sun Nov 11 16:38:51 2018
  * File:       ../generic_guides/generic_curved.c
  * Compile:    cc -o generic_curved.out ../generic_guides/generic_curved.c 
  * CFLAGS=
@@ -33386,7 +33386,7 @@ rot = l_sect/R_curv*RAD2DEG;
 #line 202 "../generic_guides/generic_curved.instr"
   mccSample_radius = 0;
 #line 467 "../generic_guides/generic_curved.instr"
-  if("dx limits = [-0.45 0.45] dy limits = [-0.45 0.45]") strncpy(mccSample_options, "dx limits = [-0.45 0.45] dy limits = [-0.45 0.45]" ? "dx limits = [-0.45 0.45] dy limits = [-0.45 0.45]" : "", 16384); else mccSample_options[0]='\0';
+  if("dx limits = [-0.2 0.2] dy limits = [-0.2 0.2]") strncpy(mccSample_options, "dx limits = [-0.2 0.2] dy limits = [-0.2 0.2]" ? "dx limits = [-0.2 0.2] dy limits = [-0.2 0.2]" : "", 16384); else mccSample_options[0]='\0';
 #line 203 "../generic_guides/generic_curved.instr"
   if("NULL") strncpy(mccSample_filename, "NULL" ? "NULL" : "", 16384); else mccSample_filename[0]='\0';
 #line 203 "../generic_guides/generic_curved.instr"
