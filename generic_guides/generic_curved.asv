@@ -453,20 +453,15 @@ COMPONENT Guide_straight = Guide_gravity(
     w1 = guide_start_width, h1 = guide_start_height, l = l_straight, mright=m_side, mleft=m_side, mtop=m_top,mbottom=m_top, nslit=n_chan_str)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
 
-COMPONENT Sample = Monitor_nD(
-    xwidth=guide_start_width, 
-    yheight=guide_start_height, 
-    bins=100, 
-    options="x y")
-AT (0, 0, l_straight+0.01) RELATIVE PREVIOUS
-/*
+
+
 COMPONENT Sample = Monitor_nD(
     xwidth=sample_width, 
     yheight=sample_height, 
     bins=100, 
     options="dx limits = [-1 1] dy limits = [-1 1]")
 AT (0, 0, l_straight+0.01) RELATIVE PREVIOUS
-*/
+
 FINALLY
 %{
 %}
