@@ -1,0 +1,111 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: test (rename also the example and DEFINE lines below)
+*
+* %Identification
+* Written by: Your name (email)
+* Date: Current Date
+* Origin: Your institution
+* %INSTRUMENT_SITE: Templates
+*
+* Instrument short description
+*
+* %Description
+* Instrument longer description (type, elements, usage...)
+*
+* Example: mcrun test.instr <parameters=values>
+*
+* once your instrument is written and functional:
+* - replace INSTRUMENT_SITE entry above with your Institution name as a single word
+* - rename the instrument name after DEFINE INSTRUMENT below
+* - update the parameter help in the following Parameters section
+* - update the instrument description, and better add a usage example with a
+*     sensible parameter set.
+*
+* %Parameters
+*
+* %Link
+* A reference/HTML link for more information
+*
+* %End
+*******************************************************************************/
+DEFINE INSTRUMENT generic_half_elliptic_nose(RH=0,RV=-4,lambda = 1.5, sample_width = 0.01, guide_length = 10, nose_length = 3, m_side = 2, m_top = 6, linh = 10.5, louth = 0.5, linw = 10.5, loutw = 0.5, sample_height = 0.01, sample_dist=0.5)
+
+DECLARE
+%{
+double d_lattice_parameter=3.355;
+%}
+
+INITIALIZE
+%{
+%}
+
+TRACE
+
+%include "../main/H2_source.instr"
+
+COMPONENT Main_guide = Guide_gravity(
+    w1=guide_start_width, 
+    h1=guide_start_height, 
+    l=guide_length - nose_length,  
+    mleft=m_side, 
+    mright=m_side, 
+    mtop=m_top, 
+    mbottom=m_top, 
+    G=-9.81)
+AT (0, 0, 0) RELATIVE Guide_start_arm
+
+COMPONENT Nose_guide = Guide_tapering(
+    option="elliptical", 
+    w1=guide_start_width, 
+    h1=guide_start_height, 
+    l=nose_length, 
+    linh = linh, 
+    louth = louth,
+    linw = linw,
+    loutw = loutw,
+    mx=m_side,
+    my=m_top)
+AT (0, 0, guide_length - nose_length) RELATIVE PREVIOUS
+
+/* ******************************* Monochromator  *************************************/    
+
+COMPONENT mon_IN = Arm(
+    )
+AT (0, 0, nose_length + sample_dist+2) RELATIVE PREVIOUS
+
+COMPONENT mon_curv = Monochromator_curved(
+    zwidth = 0.01, yheight = 0.01, NH = 30, NV = 30, 
+    DM = d_lattice_parameter, mosaic = 30,
+    RH = RH, RV = RV)
+  AT (0, 0, 0) RELATIVE mon_IN
+ ROTATED (0, -asin(lambda/2/d_lattice_parameter)*RAD2DEG, 0) RELATIVE mon_IN
+EXTEND
+%{
+     if (!SCATTERED) ABSORB;
+%}
+
+COMPONENT mon_OUT = Arm(
+    )
+  AT (0, 0, 0) RELATIVE mon_IN
+  ROTATED (0, -2*asin(lambda/2/d_lattice_parameter)*RAD2DEG, 0) RELATIVE mon_IN
+
+COMPONENT Sample = Monitor_nD(
+    xwidth=sample_width, 
+    yheight=sample_height, 
+    bins=100, 
+    options="x")
+	  AT (0, 0, 2.001) RELATIVE mon_OUT
+/*
+COMPONENT Sample2 = Monitor_nD(
+    xwidth=0.2, 
+    yheight=0.2, 
+    bins=100, 
+    options="x y")
+AT (0, 0, 2.002) RELATIVE mon_OUT
+*/
+FINALLY
+%{
+%}
+END
