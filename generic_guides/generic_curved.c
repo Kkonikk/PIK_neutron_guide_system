@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: ../generic_guides/generic_curved.instr (generic_curved)
- * Date:       Sun Nov 11 22:21:36 2018
+ * Date:       Tue Nov 13 16:46:01 2018
  * File:       ../generic_guides/generic_curved.c
  * Compile:    cc -o generic_curved.out ../generic_guides/generic_curved.c 
  * CFLAGS=
