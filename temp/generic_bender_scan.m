@@ -1,9 +1,9 @@
 function generic_bender_scan(H,L,N)
-Lb_min = 1; Lb_step = 2; Lb_max = 30;
+Lb_min = 1; Lb_step = 3; Lb_max = 31;
 n_chan_min = 1; n_chan_step = 1; n_chan_max = N;
 model = mccode('../generic_guides/generic_curved.instr','ncount=1e7');
 
-name = 'H3-4 Tensor bender scan lambda 20';
+name = 'H3-4 Tensor bender scan lambda 20 dop';
 parameters.sample_width=0.05;
 parameters.sample_height=0.05;
 parameters.guide_start_width=0.05;

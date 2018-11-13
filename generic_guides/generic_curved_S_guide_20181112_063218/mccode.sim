@@ -1,0 +1,27 @@
+begin instrument:
+  Creator: mcstas 2.4.1
+  Source: generic_curved_S_guide.instr
+  Parameters:  n_chan
+  Trace_enabled: no
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation
+Date: Mon Nov 12 06 32 2018
+Ncount: 1000000
+Numpoints: 2
+Param: n_chan = 1, n_chan = 10
+end simulation
+
+begin data
+type: multiarray_1d(2)
+title: Scan of n_chan
+xvars: n_chan
+yvars: (Sample_I,Sample_ERR)
+xlabel: 'n_chan'
+ylabel: 'Intensity'
+xlimits: 1 10
+filename: mccode.dat
+variables: n_chan Sample_I Sample_ERR
+end data

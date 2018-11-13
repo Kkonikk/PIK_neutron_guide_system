@@ -1,5 +1,5 @@
 McStas simulation description file for generic_curved.
-Date:    Sun Nov 11 21:25:32 2018
+Date:    Sun Nov 11 23:15:56 2018
 Program: McStas 2.4.1 - Jun. 26, 2017
 
 begin instrument: generic_curved
@@ -16,10 +16,10 @@ begin simulation: ../generic_guides/sim
   URL: http://www.mccode.org
   Creator: McStas 2.4.1 - Jun. 26, 2017
   Instrument: ../generic_guides/generic_curved_ell.instr
-  Ncount: 1000000
+  Ncount: 10000000
   Trace: no
   Gravitation: no
-  Seed: 1541965384
+  Seed: 1541981555
   Directory: ../generic_guides/sim
   Nodes: 8
   Param: nose_length=4.8
@@ -27,10 +27,10 @@ begin simulation: ../generic_guides/sim
   Param: louth=0.38
   Param: linw=0
   Param: loutw=0
-  Param: R_curv=1360
-  Param: l_bender=14
-  Param: l_straight=4.9
-  Param: n_chan=1
+  Param: R_curv=669.039
+  Param: l_bender=80
+  Param: l_straight=7
+  Param: n_chan=3
   Param: sample_width=0.01
   Param: sample_height=0.01
   Param: m_out=6
@@ -46,17 +46,17 @@ begin simulation: ../generic_guides/sim
 end simulation
 
 begin data
-  Date: Sun Nov 11 21:25:36 2018 (1541960736)
+  Date: Sun Nov 11 23:16:37 2018 (1541967397)
   type: array_1d(100)
   Source: generic_curved (../generic_guides/generic_curved_ell.instr)
   component: Sample
-  position: 0.126379 0 21.2205
+  position: 5.61545 0 89.0808
   title: Hor. Divergence [deg] monitor
-  Ncount: 1000000
-  filename: Sample_1541960732.hd
-  statistics: X0=-0.000254476; dX=0.26167;
-  signal: Min=1.25361e+06; Max=4.11622e+06; Mean=2.68371e+06;
-  values: 2.68371e+08 4.1996e+06 5001
+  Ncount: 10000000
+  filename: Sample_1541967356.hd
+  statistics: X0=-0.0107346; dX=0.176785;
+  signal: Min=2555.55; Max=1.98137e+06; Mean=816450;
+  values: 8.1645e+07 573102 49083
   xvar: hd
   yvar: (I,I_err)
   xlabel: Hor. Divergence [deg]

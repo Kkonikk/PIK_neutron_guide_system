@@ -1,0 +1,66 @@
+McStas simulation description file for generic_curved.
+Date:    Sun Nov 11 22:39:50 2018
+Program: McStas 2.4.1 - Jun. 26, 2017
+
+begin instrument: generic_curved
+  File: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_curved_ell_S_guide_20181111_223903/7/mccode
+  Source: generic_curved_ell_S_guide.instr
+  Parameters:  nose_length(double) linh(double) louth(double) linw(double) loutw(double) R_curv(double) l_bender(double) l_straight(double) n_chan(double) sample_width(double) sample_height(double) m_out(double) m_in(double) m_str_side(double) m_top(double) sample_dist(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_curved_ell_S_guide_20181111_223903/7
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.4.1 - Jun. 26, 2017
+  Instrument: generic_curved_ell_S_guide.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1541975873
+  Directory: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_curved_ell_S_guide_20181111_223903/7
+  Nodes: 4
+  Param: nose_length=9
+  Param: linh=9.5
+  Param: louth=0.5
+  Param: linw=0
+  Param: loutw=0
+  Param: R_curv=730
+  Param: l_bender=50
+  Param: l_straight=20
+  Param: n_chan=1
+  Param: sample_width=0.01
+  Param: sample_height=0.01
+  Param: m_out=6
+  Param: m_in=6
+  Param: m_str_side=6
+  Param: m_top=6
+  Param: sample_dist=0.5
+  Param: guide_start_width=0.03
+  Param: guide_start_height=0.15
+  Param: source_lambda_min=2
+  Param: source_lambda_max=2.1
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Sun Nov 11 22:39:55 2018 (1541965195)
+  type: array_1d(100)
+  Source: generic_curved (generic_curved_ell_S_guide.instr)
+  component: Sample
+  position: 0 -0.735375 72.3126
+  title: Hor. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: Sample_1541965190.hd
+  statistics: X0=-0.00487902; dX=0.209646;
+  signal: Min=80482.4; Max=2.10058e+06; Mean=919761;
+  values: 9.19761e+07 1.78289e+06 4726
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/bin]
+  xlimits: -0.5 0.5
+  variables: hd I I_err N
+end data
