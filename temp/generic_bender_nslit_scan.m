@@ -50,6 +50,6 @@ xlabel('n channels')
 ylabel('transmission')
 % legend
 % legend('Location','south')
-% print(gcf,[name 'bend_scan'],'-dpng','-r300')
-% %matlab2tikz([name 'm_scan.tex'], 'width', '0.85\textwidth');
-% saveas(gcf,[name 'bend_scan.fig']);
+print(gcf,[name 'n_channels_scan'],'-dpng','-r300')
+%matlab2tikz([name 'm_scan.tex'], 'width', '0.85\textwidth');
+saveas(gcf,[name 'n_channels_scan.fig']);
