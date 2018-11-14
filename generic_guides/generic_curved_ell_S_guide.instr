@@ -50,7 +50,7 @@ TRACE
 //curved part
 
 COMPONENT Guide_curved = Guide_gravity(
-    w1 = guide_start_width, h1 = guide_start_height, l = l_sect, mright=m_out, mleft=m_in, mtop=m_top,mbottom=m_top, nhslit=n_chan,     R0=R0, 
+    w1 = guide_start_width, h1 = guide_start_height, l = l_sect, mright=m_str_side, mleft=m_str_side, mtop=m_out,mbottom=m_in, nhslit=n_chan,     R0=R0, 
     alpha=alpha)
   AT (0, 0, 0) RELATIVE Guide_start_arm
 
@@ -133,83 +133,83 @@ COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
   ROTATED (rot,0,0) RELATIVE PREVIOUS
 //20 and change direction
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 //25
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 //30
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 //35
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 
-COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)(mtop=m_in,mbottom=m_out)
   AT (0, 0, l_sect) RELATIVE PREVIOUS
   ROTATED (-rot,0,0) RELATIVE PREVIOUS
 //40
@@ -228,15 +228,15 @@ COMPONENT Guide_straight = Guide_gravity(
     louth = louth,
     linw = linw,
     loutw = loutw,
-    mx=m_str_side,
-    my=m_top)
+    mx=6,
+    my=6)
 AT (0, 0, l_straight - nose_length+0.001) RELATIVE PREVIOUS
 
 COMPONENT Sample = Monitor_nD(
     xwidth=sample_width, 
     yheight=sample_height, 
     bins=100, 
-    options="dx limits = [-0.5 0.5]")
+    options="x")
 AT (0, 0, nose_length + sample_dist) RELATIVE PREVIOUS
 
 FINALLY

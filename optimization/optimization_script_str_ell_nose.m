@@ -6,23 +6,23 @@ model.m_top = 6;
 
 model.sample_dist = 0.5;
 model.sample_width=0.01;
-model.sample_height=0.04;
+model.sample_height=0.01;
 
-model.guide_length = 57.8;
-model.guide_start_width=0.03;
-model.guide_start_height=0.15;
+model.guide_length = 107;
+model.guide_start_width=0.05;
+model.guide_start_height=0.14;
 
-model.source_lambda_min=2.0;
-model.source_lambda_max=2.1;
+model.source_lambda_min=5.0;
+model.source_lambda_max=5.1;
 model.cold_regime=1;
 
-model.nose_length = 'free'; model.nose_length = [0.5 4.8 10];
-model.loutw = 0;
-model.linw = 0;
-model.linh = 'free'; model.linh = [0 12.3 20];
-model.louth = 'free'; model.louth = [0 0.38 5];
+model.nose_length = 'free'; model.nose_length = [0.5 4.8 20];
+model.loutw = 'free'; model.loutw = [0 0.38 5];
+model.linw = 'free'; model.linw = [0 12.3 20];
+model.linh = 0;
+model.louth = 0;
 
 [parameters, fval, status, output]=fmax(model,[], ...
-'optimizer=fminpso; OutputFcn=fminplot;TolFun =5%;TolX=5%;ncount=1e5;MaxFunEvals=150', nan);
+'optimizer=fminpso; OutputFcn=fminplot;TolFun =5%;TolX=5%;ncount=1e5;MaxFunEvals=100', nan);
 
 a = {name {model.Parameters'; model}};

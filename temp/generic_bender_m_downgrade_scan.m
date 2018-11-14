@@ -1,37 +1,35 @@
-model = mccode('../generic_guides/generic_curved_mono.instr');
-name = 'H3-2 NeRo m downgrade scan';
-m_min = 1; m_step = 1; m_max = 6;
+model = mccode('../generic_guides/generic_curved_ell_S_guide.instr');
+name = 'H3-5 TOF m downgrade scan 2AA_y';
+m_min = 1; m_step = 0.5; m_max = 6;
 %H = 0.;
-L = 30.7;
+L = 107;
 N = 1;
-Lb = 25;
+Lb = 50;
 Ls = L - Lb;
 %R = (Lb^2+2*Lb*Ls)/2/H;
-R=900;
+R=2660;
 
-parameters.sample_width=0.04;
+parameters.sample_width=0.01;
 parameters.sample_height=0.01;
-parameters.guide_start_width=0.03;
-parameters.guide_start_height=0.2;
-parameters.source_lambda_min=2.35;
-parameters.source_lambda_max=2.45;
+parameters.guide_start_width=0.05;
+parameters.guide_start_height=0.14;
+parameters.source_lambda_min=2.0;
+parameters.source_lambda_max=2.1;
 parameters.cold_regime=1;
-parameters.lambda=2.4;
+%parameters.lambda=2.4;
 
 parameters.n_chan=N;
 parameters.l_bender = Lb;
 parameters.l_straight = Ls;
 parameters.R_curv = R;
 
-%top
-parameters.m_top = 6;
-parameters.m_out=6;
-parameters.m_in=6;
-parameters.m_str_side=6;
+parameters.sample_dist = 0.5;
+parameters.nose_length = 4.39;
+parameters.loutw = 0;
+parameters.linw = 0;
+parameters.linh = 13.57;
+parameters.louth = 0.53;
 
-parameters.m_top = m_min:m_step:m_max;
-results_top = iData(model,parameters);
-sum_top = sum(results_top, 0);
 
 %top
 parameters.m_out=6;

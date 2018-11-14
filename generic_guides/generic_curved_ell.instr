@@ -464,15 +464,15 @@ COMPONENT Guide_straight = Guide_gravity(
     louth = louth,
     linw = linw,
     loutw = loutw,
-    mx=m_str_side,
-    my=m_top)
+    mx=6,
+    my=6)
 AT (0, 0, l_straight - nose_length+0.001) RELATIVE PREVIOUS
 
 COMPONENT Sample = Monitor_nD(
     xwidth=sample_width, 
     yheight=sample_height, 
     bins=100, 
-    options="dx limits = [-0.5 0.5]")
+    options="x")
 AT (0, 0, nose_length + sample_dist) RELATIVE PREVIOUS
 
 FINALLY

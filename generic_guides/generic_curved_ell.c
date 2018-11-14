@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: ../generic_guides/generic_curved_ell.instr (generic_curved)
- * Date:       Sun Nov 11 22:56:59 2018
+ * Date:       Wed Nov 14 20:41:41 2018
  * File:       ../generic_guides/generic_curved_ell.c
  * Compile:    cc -o generic_curved.out ../generic_guides/generic_curved_ell.c 
  * CFLAGS=
@@ -33592,9 +33592,9 @@ rot = l_sect/R_curv*RAD2DEG;
 #line 82 "../generic_guides/generic_curved_ell.instr"
   mccNose_guide_W = 0.003;
 #line 467 "../generic_guides/generic_curved_ell.instr"
-  mccNose_guide_mx = mcipm_str_side;
+  mccNose_guide_mx = 6;
 #line 468 "../generic_guides/generic_curved_ell.instr"
-  mccNose_guide_my = mcipm_top;
+  mccNose_guide_my = 6;
 #line 83 "../generic_guides/generic_curved_ell.instr"
   mccNose_guide_segno = 800;
 #line 83 "../generic_guides/generic_curved_ell.instr"
@@ -33662,7 +33662,7 @@ rot = l_sect/R_curv*RAD2DEG;
 #line 202 "../generic_guides/generic_curved_ell.instr"
   mccSample_radius = 0;
 #line 475 "../generic_guides/generic_curved_ell.instr"
-  if("dx limits = [-0.5 0.5]") strncpy(mccSample_options, "dx limits = [-0.5 0.5]" ? "dx limits = [-0.5 0.5]" : "", 16384); else mccSample_options[0]='\0';
+  if("x") strncpy(mccSample_options, "x" ? "x" : "", 16384); else mccSample_options[0]='\0';
 #line 203 "../generic_guides/generic_curved_ell.instr"
   if("NULL") strncpy(mccSample_filename, "NULL" ? "NULL" : "", 16384); else mccSample_filename[0]='\0';
 #line 203 "../generic_guides/generic_curved_ell.instr"

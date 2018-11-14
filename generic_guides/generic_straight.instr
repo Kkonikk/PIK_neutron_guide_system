@@ -61,7 +61,7 @@ COMPONENT Sample = Monitor_nD(
     xwidth=sample_width, 
     yheight=sample_height, 
     bins=100, 
-    options="dx limits = [-0.2 0.2] dy limits = [-0.2 0.2]")
+    options="x")
 AT (0, 0, guide_length + 0.01) RELATIVE PREVIOUS
 
 FINALLY
