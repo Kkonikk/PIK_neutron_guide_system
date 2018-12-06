@@ -2,8 +2,7 @@ DEFINE INSTRUMENT test1 ()
 
 DECLARE
 %{
-double n_monH = 20, n_monV = 20,n_mon_aV = 20,n_mon_aH = 20;
-double lambda=3,l_tapering=2, W=0.06,H=0.2,L_V=1, mx_first = 5, my_first = 5, alpha = -0.3;
+double l_tapering=2, W=0.06,H=0.2;
 
 // source parameters
 double source_width = 0.1 , source_height = 0.2;
@@ -18,37 +17,14 @@ double total_nonoptics_length = 2.518;
 
 //guide section
 double thickness_of_guide_walls=0.0004;
-double mx =3;
-double my =3;
-//double nmon_H = 25, nmon_V = 25;
 double width_slit = 0.05, height_slit= 0.03;
 
 double n=20;
 double R;
 
-double l_focus_left = 5,  l_focus_tapering= 0.1, m_tapering_x = 5,m_tapering_y = 5;
-
-//monochromator
-double n_monochr1=13;
-double n_monochr2=13;
-double RH;
-double RV;
-double dRH=1, dRV=1.75;
-//double n_monH = 30, n_monV = 30;
-
-//analyser
-double n_analys=25;
-
-//test
-double mosaic=30;
 double L;
 double d=0.001;
 double number_channels=2;
-//double lambda=3;
-double d_lattice_parameter=3.355;
-double VS=2;
-double VS1=2;
-double VS2=2;
 double mben_l = 2.5, mben_r = 3.5, mben_w = 3;
 
 %}
@@ -61,9 +37,7 @@ INITIALIZE
 lambda_min = 0.1;
 lambda_max = 20;
 L=25;
-RH = -dRH*2*VS2*d_lattice_parameter/lambda;
-RV=-dRV*VS2*lambda/2/d_lattice_parameter;
-R = -950;
+R = 900;
 %}
 
 TRACE
@@ -83,22 +57,14 @@ COMPONENT Source_arm = Arm(
     )
   AT (0, 0, 0) RELATIVE ABSOLUTE
 
-
-/* ******************************* Guide  *************************************/
-
-COMPONENT  CG_0 = Guide_gravity(
-    w1 = 0.06, h1 = 0.2, w2 = 0.12, h2 = 0.2,  l = 3, mleft  = mx_first, mright = mx_first, 
-mtop = my_first, mbottom = my_first, d = thickness_of_guide_walls, G = -9.81)
-  AT (0, 0, 0) RELATIVE PREVIOUS
-
 /* ******************************* Bender  *************************************/
 
 COMPONENT  CG_1 = Guide_gravity(
     w1 = W, h1 = H,  l = L/n,
-mleft=2.5,mright=3.5,mtop=mben_w,mbottom=mben_w,
-nslit = number_channels, G = -9.81, d = thickness_of_guide_walls)
-  AT (-0.03, 0, 3.0001) RELATIVE CG_0
-ROTATED (0, -0.3, 0) RELATIVE CG_0
+mleft=3,mright=4,mtop=4,mbottom=4,
+nslit = 1, G = -9.81, d = thickness_of_guide_walls)
+  AT (0, 0, 0) RELATIVE Source_arm
+ROTATED (0, 0, 0) RELATIVE Source_arm
 
 COMPONENT COPY(CG_1) = COPY(CG_1)
   AT (0, 0, d+L/n) RELATIVE PREVIOUS
@@ -177,12 +143,18 @@ COMPONENT COPY(CG_1) = COPY(CG_1)
   ROTATED (0, -(d+L/n)/R*180/PI, 0) RELATIVE PREVIOUS
 //20
 
+COMPONENT  CG_2 = Guide_gravity(
+    w1 = W, h1 = H,  l = 2,
+mleft=3,mright=3,mtop=4,mbottom=4,
+nslit = 1, G = -9.81, d = thickness_of_guide_walls)
+  AT (0,0,d+L/n)   RELATIVE PREVIOUS  
+
 COMPONENT arm_bend = Arm()  
-  AT (0,0,0.001+d+L/n)   RELATIVE PREVIOUS  
+  AT (0,0,2.001)   RELATIVE PREVIOUS  
 
 
 	COMPONENT Monlam = Monitor_nD(
-	    xwidth = 0.06, yheight = 0.2, options = "lambda bins = 100 limits = [0 20] per cm2", filename = "H2-1_IN3")
+	    xwidth = 0.06, yheight = 0.2, options = "lambda bins = 100 limits = [0.1 20] per cm2", filename = "H2-1_IN3")
 	  AT (0, 0, 0.0001) RELATIVE arm_bend
 
 	COMPONENT Mondx = Monitor_nD(
