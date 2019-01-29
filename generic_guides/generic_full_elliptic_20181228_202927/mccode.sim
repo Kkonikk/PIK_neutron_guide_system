@@ -1,0 +1,27 @@
+begin instrument:
+  Creator: mcstas 2.5
+  Source: generic_full_elliptic.instr
+  Parameters:  left_foc
+  Trace_enabled: no
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation
+Date: Fri Dec 28 20 29 2018
+Ncount: 1000000
+Numpoints: 2
+Param: left_foc = 0.5, left_foc = 2
+end simulation
+
+begin data
+type: multiarray_1d(2)
+title: Scan of left_foc
+xvars: left_foc
+yvars: (Sample_I,Sample_ERR)
+xlabel: 'left_foc'
+ylabel: 'Intensity'
+xlimits: 0.5 2
+filename: mccode.dat
+variables: left_foc Sample_I Sample_ERR
+end data

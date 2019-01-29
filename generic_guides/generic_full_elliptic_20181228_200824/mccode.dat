@@ -1,0 +1,23 @@
+# Instrument-source: 'generic_full_elliptic.instr'
+# Date: Fri Dec 28 20 08 2018
+# Ncount: 1000000
+# Numpoints: 2
+# Param: guide_start_height = 0.03
+# type: multiarray_1d(2)
+# title: Scan of guide_start_height
+# xlabel: 'guide_start_height'
+# ylabel: 'Intensity'
+# xvars: guide_start_height
+# yvars: (Sample_I,Sample_ERR)
+# xlimits: 0. 0.03
+# filename: mccode.dat
+# variables: guide_start_height Sample_I Sample_ERR
+0.03 4.01281E+7 134633
+0.02666666666666666666666666667 3.56437E+7 119526
+0.02333333333333333333333333333 3.08645E+7 103984
+0.02 2.67211E+7 89484.8
+0.01666666666666666666666666667 2.22244E+7 74447.1
+0.01333333333333333333333333333 1.77904E+7 59510.9
+0.01 1.31773E+7 44192.6
+0.00666666666666666666666666667 8.65455E+6 29028.4
+0.00333333333333333333333333333 4.10803E+6 13804.9

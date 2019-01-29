@@ -2,14 +2,14 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: generic_full_elliptic.instr (Full_ellipse)
- * Date:       Mon Jul  2 18:07:46 2018
+ * Date:       Fri Dec 28 20:39:44 2018
  * File:       ./generic_full_elliptic.c
  * Compile:    cc -o Full_ellipse.out ./generic_full_elliptic.c 
  * CFLAGS=
  */
 
 
-#define MCCODE_STRING "McStas 2.4.1 - Jun. 26, 2017"
+#define MCCODE_STRING "McStas 2.5 - Dec. 12, 2018"
 #define FLAVOR "mcstas"
 #define FLAVOR_UPPER "MCSTAS"
 #define MC_USE_DEFAULT_MAIN
@@ -29,7 +29,7 @@
 * %Identification
 * Written by: KN
 * Date:    Aug 29, 1997
-* Release: McStas 2.4.1
+* Release: McStas 2.5
 * Version: $Revision$
 *
 * Runtime system header for McStas/McXtrace.
@@ -107,15 +107,15 @@
 
 /* the version string is replaced when building distribution with mkdist */
 #ifndef MCCODE_STRING
-#define MCCODE_STRING "McStas 2.4.1 - Jun. 26, 2017"
+#define MCCODE_STRING "McStas 2.5 - Dec. 12, 2018"
 #endif
 
 #ifndef MCCODE_DATE
-#define MCCODE_DATE "Jun. 26, 2017"
+#define MCCODE_DATE "Dec. 12, 2018"
 #endif
 
 #ifndef MCCODE_VERSION
-#define MCCODE_VERSION "2.4.1"
+#define MCCODE_VERSION "2.5"
 #endif
 
 #ifndef MCCODE_NAME
@@ -346,7 +346,7 @@ unsigned long long mcget_run_num(void);           /* wrapper to get mcrun_num=0:
 #endif
 
 #ifdef DEBUG
-#define mcDEBUG_INSTR() if(!mcdotrace); else { printf("INSTRUMENT:\n"); printf("Instrument '%s' (%s)\n", mcinstrument_name, mcinstrument_source); }
+#define mcDEBUG_INSTR() if(!mcdotrace); else { printf("\nINSTRUMENT:\n"); printf("Instrument '%s' (%s)\n", mcinstrument_name, mcinstrument_source); }
 #define mcDEBUG_COMPONENT(name,c,t) if(!mcdotrace); else {\
   printf("COMPONENT: \"%s\"\n" \
          "POS: %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g\n", \
@@ -393,6 +393,10 @@ void mcdis_rectangle(char* plane, double x, double y, double z,
 void mcdis_box(double x, double y, double z,
 	       double width, double height, double length);
 void mcdis_circle(char *plane, double x, double y, double z, double r);
+void mcdis_Circle(double x, double y, double z, double r, double nx, double ny, double nz);
+void mcdis_cylinder( double x, double y, double z,
+        double r, double height, int N, double nx, double ny, double nz);
+void mcdis_sphere(double x, double y, double z, double r, int N);
 
 /* selection of random number generator. default is MT */
 #ifndef MC_RAND_ALG
@@ -688,7 +692,7 @@ NXhandle nxhandle;
 #endif /* MCCODE_R_H */
 /* End of file "mccode-r.h". */
 
-#line 691 "./generic_full_elliptic.c"
+#line 695 "./generic_full_elliptic.c"
 
 #line 1 "mcstas-r.h"
 /*******************************************************************************
@@ -921,7 +925,7 @@ void mcsetstate(double x, double y, double z, double vx, double vy, double vz,
 #endif /* MCSTAS_R_H */
 /* End of file "mcstas-r.h". */
 
-#line 924 "./generic_full_elliptic.c"
+#line 928 "./generic_full_elliptic.c"
 
 #line 1 "mccode-r.c"
 /*******************************************************************************
@@ -970,9 +974,13 @@ void mcsetstate(double x, double y, double z, double vx, double vy, double vz,
 // UNIX specific headers (non-Windows)
 #if defined(__unix__) || defined(__APPLE__)
 #include <unistd.h>
-#include <sys/stat.h>
 #endif
 
+#include <sys/stat.h>
+
+#ifdef _WIN32 
+# define  mkdir( D, M )   _mkdir( D ) 
+#endif 
 
 #ifndef DANSE
 #ifdef MC_ANCIENT_COMPATIBILITY
@@ -1028,8 +1036,8 @@ int mc_MPI_Sum(double *sbuf, long count)
     while (offset < count) {
       if (!length || offset+length > count-1) length=count-offset;
       else length=MPI_REDUCE_BLOCKSIZE;
-      if (MPI_Allreduce((double*)(sbuf+offset), (double*)(rbuf+offset),
-              length, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD) != MPI_SUCCESS)
+      if (MPI_Reduce((double*)(sbuf+offset), (double*)(rbuf+offset),
+              length, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD) != MPI_SUCCESS)
         return MPI_ERR_COUNT;
       offset += length;
     }
@@ -1856,16 +1864,17 @@ static void mcruninfo_out(char *pre, FILE *f)
 
   /* output parameter string ================================================ */
   for(i = 0; i < mcnumipar; i++) {
-    if (mcget_run_num() || (mcinputtable[i].val && strlen(mcinputtable[i].val))) {
-      if (mcinputtable[i].par == NULL)
-        strncpy(Parameters, (mcinputtable[i].val ? mcinputtable[i].val : ""), CHAR_BUF_LENGTH);
-      else
-        (*mcinputtypes[mcinputtable[i].type].printer)(Parameters, mcinputtable[i].par);
-
-      fprintf(f, "%sParam: %s=%s\n", pre, mcinputtable[i].name, Parameters);
-    }
+      if (mcinputtable[i].par){
+	/* Parameters with a default value */
+	if(mcinputtable[i].val && strlen(mcinputtable[i].val)){
+	  (*mcinputtypes[mcinputtable[i].type].printer)(Parameters, mcinputtable[i].par);
+	  fprintf(f, "%sParam: %s=%s\n", pre, mcinputtable[i].name, Parameters);
+        /* ... and those without */
+	}else{
+	  fprintf(f, "%sParam: %s=NULL\n", pre, mcinputtable[i].name);
+	}
+      } 
   }
-  fflush(f);
 } /* mcruninfo_out */
 
 /*******************************************************************************
@@ -2193,7 +2202,7 @@ static int nxstr(char type, NXhandle *f, char *tag, char *format, ...)
 *******************************************************************************/
 char *mcinfo_readfile(char *filename)
 {
-  FILE *f = fopen(filename, "r");
+  FILE *f = fopen(filename, "rb");
   if (!f) return(NULL);
   fseek(f, 0, SEEK_END);
   long fsize = ftell(f);
@@ -2667,8 +2676,9 @@ MCDETECTOR mcdetector_out_0D_nexus(MCDETECTOR detector)
   return(detector);
 } /* mcdetector_out_0D_ascii */
 
-MCDETECTOR mcdetector_out_1D_nexus(MCDETECTOR detector)
+MCDETECTOR mcdetector_out_1D_nexus(MCDETECTOR detector_inc)
 {
+  MCDETECTOR detector = detector_inc;
   MPI_MASTER(
   mcdatainfo_out_nexus(nxhandle, detector);
   mcdetector_out_data_nexus(nxhandle, detector);
@@ -2676,8 +2686,9 @@ MCDETECTOR mcdetector_out_1D_nexus(MCDETECTOR detector)
   return(detector);
 } /* mcdetector_out_1D_ascii */
 
-MCDETECTOR mcdetector_out_2D_nexus(MCDETECTOR detector)
+MCDETECTOR mcdetector_out_2D_nexus(MCDETECTOR detector_inc)
 {
+  MCDETECTOR detector = detector_inc;
   MPI_MASTER(
   mcdatainfo_out_nexus(nxhandle, detector);
   mcdetector_out_data_nexus(nxhandle, detector);
@@ -3070,7 +3081,7 @@ mcsetseed(char *arg)
 *******************************************************************************/
 
 void mcdis_magnify(char *what){
-  printf("MCDISPLAY: magnify('%s')\n", what);
+  // Do nothing here, better use interactive zoom from the tools
 }
 
 void mcdis_line(double x1, double y1, double z1,
@@ -3159,6 +3170,86 @@ void mcdis_box(double x, double y, double z,
 
 void mcdis_circle(char *plane, double x, double y, double z, double r){
   printf("MCDISPLAY: circle('%s',%g,%g,%g,%g)\n", plane, x, y, z, r);
+}
+
+/* Draws a circle with center (x,y,z), radius (r), and in the plane
+ * with normal (nx,ny,nz)*/
+void mcdis_Circle(double x, double y, double z, double r, double nx, double ny, double nz){
+    int i;
+    if(nx==0 && ny && nz==0){
+        for (i=0;i<24; i++){
+            mcdis_line(x+r*sin(i*2*M_PI/24),y,z+r*cos(i*2*M_PI/24),
+                    x+r*sin((i+1)*2*M_PI/24),y,z+r*cos((i+1)*2*M_PI/24));
+        }
+    }else{
+        double mx,my,mz;
+        /*generate perpendicular vector using (nx,ny,nz) and (0,1,0)*/
+        vec_prod(mx,my,mz, 0,1,0, nx,ny,nz);
+        NORM(mx,my,mz);
+        /*draw circle*/
+        for (i=0;i<24; i++){
+            double ux,uy,uz;
+            double wx,wy,wz;
+            rotate(ux,uy,uz, mx,my,mz, i*2*M_PI/24, nx,ny,nz);
+            rotate(wx,wy,wz, mx,my,mz, (i+1)*2*M_PI/24, nx,ny,nz);
+            mcdis_line(x+ux*r,y+uy*r,z+uz*r,
+                    x+wx*r,y+wy*r,z+wz*r);
+        }
+    }
+}
+
+/* Draws a cylinder with center at (x,y,z) with extent (r,height).
+ * The cylinder axis is along the vector nx,ny,nz.
+ * N determines how many vertical lines are drawn.*/
+void mcdis_cylinder( double x, double y, double z,
+        double r, double height, int N, double nx, double ny, double nz){
+    int i;
+    /*no lines make little sense - so trigger the default*/
+    if(N<=0) N=5;
+
+    NORM(nx,ny,nz);
+    double h_2=height/2.0;
+    mcdis_Circle(x+nx*h_2,y+ny*h_2,z+nz*h_2,r,nx,ny,nz);
+    mcdis_Circle(x-nx*h_2,y-ny*h_2,z-nz*h_2,r,nx,ny,nz);
+
+    double mx,my,mz;
+    /*generate perpendicular vector using (nx,ny,nz) and (0,1,0)*/
+    if(nx==0 && ny && nz==0){
+        mx=my=0;mz=1;
+    }else{
+        vec_prod(mx,my,mz, 0,1,0, nx,ny,nz);
+        NORM(mx,my,mz);
+    }
+    /*draw circle*/
+    for (i=0; i<24; i++){
+        double ux,uy,uz;
+        rotate(ux,uy,uz, mx,my,mz, i*2*M_PI/24, nx,ny,nz);
+        mcdis_line(x+nx*h_2+ux*r, y+ny*h_2+uy*r, z+nz*h_2+uz*r,
+                 x-nx*h_2+ux*r, y-ny*h_2+uy*r, z-nz*h_2+uz*r);
+    }
+}
+
+/* draws a sphere with center at (x,y,z) with extent (r)
+ * The sphere is drawn using N longitudes and N latitudes.*/
+void mcdis_sphere(double x, double y, double z, double r, int N){
+    double nx,ny,nz;
+    int i;
+    /*no lines make little sense - so trigger the default*/
+    if(N<=0) N=5;
+
+    nx=0;ny=0;nz=1;
+    mcdis_Circle(x,y,z,r,nx,ny,nz);
+    for (i=1;i<N;i++){
+        rotate(nx,ny,nz, nx,ny,nz, M_PI/N, 0,1,0);
+        mcdis_Circle(x,y,z,r,nx,ny,nz);
+    }
+    /*lastly draw a great circle perpendicular to all N circles*/
+    //mcdis_Circle(x,y,z,radius,1,0,0);
+
+    for (i=1;i<=N;i++){
+        double yy=-r+ 2*r*((double)i/(N+1));
+        mcdis_Circle(x,y+yy ,z,  sqrt(r*r-yy*yy) ,0,1,0);
+    }
 }
 
 /* SECTION: coordinates handling ============================================ */
@@ -4432,7 +4523,7 @@ mcparseoptions(int argc, char *argv[])
     else if(!strncmp("--ncount=", argv[i], 9))
       mcsetn_arg(&argv[i][9]);
     else if(!strcmp("-d", argv[i]) && (i + 1) < argc)
-      usedir=argv[++i];  /* will create directory after parsing all arguments (end of this function) */
+      usedir=argv[++i];  /* will create directory after parsing all arguments (end of this function) */
     else if(!strncmp("-d", argv[i], 2))
       usedir=&argv[i][2];
     else if(!strcmp("--dir", argv[i]) && (i + 1) < argc)
@@ -4515,7 +4606,7 @@ mcparseoptions(int argc, char *argv[])
 #ifdef USE_MPI
   if (mcdotrace) mpi_node_count=1; /* disable threading when in trace mode */
 #endif
-  if (usedir && strlen(usedir)) mcuse_dir(usedir);
+  if (usedir && strlen(usedir) && !mcdisable_output_files) mcuse_dir(usedir);
 } /* mcparseoptions */
 
 #ifndef NOSIGNALS
@@ -4853,7 +4944,7 @@ void neutronics_main_(float *inx, float *iny, float *inz, float *invx, float *in
 /* End of file "mccode-r.c". */
 /* End of file "mccode-r.c". */
 
-#line 4856 "./generic_full_elliptic.c"
+#line 4947 "./generic_full_elliptic.c"
 
 #line 1 "mcstas-r.c"
 /*******************************************************************************
@@ -5213,13 +5304,13 @@ plane_intersect(double *t, double x, double y, double z,
 #endif /* !MCSTAS_H */
 /* End of file "mcstas-r.c". */
 
-#line 5216 "./generic_full_elliptic.c"
+#line 5307 "./generic_full_elliptic.c"
 #ifdef MC_TRACE_ENABLED
 int mctraceenabled = 1;
 #else
 int mctraceenabled = 0;
 #endif
-#define MCSTAS "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../"
+#define MCSTAS "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../"
 int mcdefaultmain = 1;
 char mcinstrument_name[] = "Full_ellipse";
 char mcinstrument_source[] = "generic_full_elliptic.instr";
@@ -5232,7 +5323,7 @@ void mcfinally(void);
 void mcdisplay(void);
 
 /* Shared user declarations for all components 'Source_gen'. */
-#line 140 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 140 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -5412,10 +5503,11 @@ double z11, double z12, double z21, double z22);
 *******************************************************************************/
 void * Table_File_List_Handler(t_Read_table_file_actions action, void *item, void *item_modifier){
 
-    /* logic here is Read_Table should include a call to FIND. If found the return value shoud just be used as
-     * if the table had been read. If not found then read the table and STORE.
-     * Table_Free should include a call to GC. If this returns non-NULL then we shoudl proceed with freeing the memory
-     * associated with the table item - otherwise do nothing since there are more references that may need it.*/ 
+    /* logic here is Read_Table should include a call to FIND. If found the return value should just be used as
+     * if the table had been read from disk. If not found then read the table and STORE.
+     * Table_Free should include a call to GC. If this returns non-NULL then we should proceed with freeing the memory
+     * associated with the table item - otherwise only decrement the reference counter since there are more references
+     * that may need it.*/
 
     static t_Read_table_file_item read_table_file_list[1024];  
     static int read_table_file_count=0;
@@ -5455,11 +5547,12 @@ void * Table_File_List_Handler(t_Read_table_file_actions action, void *item, voi
                         tr->table_ref->block_number == ((t_Table *)item)->block_number){
                     /*matching item found*/
                     if (tr->ref_count>1){
-                        /*the item is found - no garbage collection needed*/
+                        /*the item is found and no garbage collection needed*/
                         tr->ref_count--;
                         return NULL;
                     }else{
-                        /* The item is found - move remaining list items up one slot,
+                        /* The item is found and the reference counter is 1.
+                         * This means we should garbage collect. Move remaining list items up one slot,
                          * and return the table for garbage collection by caller*/
                         while (tr->table_ref!=NULL){
                             *tr=*(tr+1);
@@ -5471,9 +5564,11 @@ void * Table_File_List_Handler(t_Read_table_file_actions action, void *item, voi
                 }
                 tr++;
             }
-            return (void *)0x1 ;/*item not found*/ 
-    } 
-
+            /* item not found, and so should be garbage collected. This could be the case if freeing a
+             * Table that has been constructed from code - not read from file. Return 0x1 to flag it for
+             * collection.*/
+            return (void *) 0x1 ;
+    }
 }
 
 /* Access functions to the handler*/
@@ -5657,7 +5752,7 @@ void *Table_File_List_store(t_Table *tab){
     t_Table *tab_p= Table_File_List_find(name,block_number,begin);
     if ( tab_p!=NULL ){
         /*table was found in the Table_File_List*/
-        printf("Reusing input file '%s' (Table_Read_Offset)\n", name);
+        // printf("Reusing input file '%s' (Table_Read_Offset)\n", name);
         *Table=*tab_p;
         return Table->rows*Table->columns;
     }
@@ -6158,7 +6253,7 @@ double Table_Value(t_Table Table, double X, long j)
   // Fall back to linear search, if no-one else has set X1, X2 correctly
   if (!((X1 <= X) && (X < X2))) {
     /* look for index surrounding X in the table -> Index */
-    for (Index=1; Index < Table.rows-1; Index++) {
+    for (Index=1; Index <= Table.rows-1; Index++) {
         X1 = Table_Index(Table, Index-1,0);
         X2 = Table_Index(Table, Index  ,0);
         if ((X1 <= X) && (X < X2)) break;
@@ -6231,7 +6326,9 @@ double Table_Value(t_Table Table, double X, long j)
 
 /*******************************************************************************
 * void Table_Free(t_Table *Table)
-*   ACTION: free a single Table
+*   ACTION: free a single Table. First Call Table_File_list_gc. If this returns
+*   non-zero it means there are more refernces to the table, and so the table
+*   should not bee freed.
 *   return: empty Table
 *******************************************************************************/
   void Table_Free(t_Table *Table)
@@ -6465,7 +6562,7 @@ MCDETECTOR Table_Write(t_Table Table, char *file, char *xl, char *yl,
     long allocated=256;
     long nelements=1;
 
-    /* fisrt allocate an initial empty t_Table array */
+    /* first allocate an initial empty t_Table array */
     Table_Array = (t_Table *)malloc(allocated*sizeof(t_Table));
     if (!Table_Array) {
       fprintf(stderr, "Error: Can not allocate memory %li (Table_Read_Array).\n",
@@ -6485,21 +6582,24 @@ MCDETECTOR Table_Write(t_Table Table, char *file, char *xl, char *yl,
       /* access file at offset and get following block. Block number is from the set offset
        * hence the hardcoded 1 - i.e. the next block counted from offset.*/
       nelements = Table_Read_Offset(&Table, File, 1, &offset,0);
-      /* if t_Table array is not long enough, expand and realocate */
-      if (block_number >= allocated-1) {
-        allocated += 256;
-        Table_Array = (t_Table *)realloc(Table_Array,
-           allocated*sizeof(t_Table));
-        if (!Table_Array) {
-          fprintf(stderr, "Error: Can not re-allocate memory %li (Table_Read_Array).\n",
-              allocated*sizeof(t_Table));
-          *blocks = 0;
-          return (NULL);
-        }
+      /*if the block is empty - don't store it*/
+      if (nelements>0){
+          /* if t_Table array is not long enough, expand and realocate */
+          if (block_number >= allocated-1) {
+              allocated += 256;
+              Table_Array = (t_Table *)realloc(Table_Array,
+                      allocated*sizeof(t_Table));
+              if (!Table_Array) {
+                  fprintf(stderr, "Error: Can not re-allocate memory %li (Table_Read_Array).\n",
+                          allocated*sizeof(t_Table));
+                  *blocks = 0;
+                  return (NULL);
+              }
+          }
+          /* store it into t_Table array */
+          //snprintf(Table.filename, 1024, "%s#%li", File, block_number-1);
+          Table_Array[block_number-1] = Table;
       }
-      /* store it into t_Table array */
-      //snprintf(Table.filename, 1024, "%s#%li", File, block_number-1);
-      Table_Array[block_number-1] = Table;
       /* continues until we find an empty block */
     }
     /* send back number of extracted blocks */
@@ -6517,11 +6617,10 @@ MCDETECTOR Table_Write(t_Table Table, char *file, char *xl, char *yl,
 *******************************************************************************/
   void Table_Free_Array(t_Table *Table)
   {
-    long index=0;
+    long index;
     if (!Table) return;
-    while (Table[index].data || Table[index].header){
+    for (index=0;index < Table[0].array_length; index++){
             Table_Free(&Table[index]);
-            index++;
     }
     free(Table);
   } /* end Table_Free_Array */
@@ -6701,10 +6800,10 @@ char *str_dup_numeric(char *orig)
   }
 #endif
 
-#line 6704 "./generic_full_elliptic.c"
+#line 6803 "./generic_full_elliptic.c"
 
 /* Shared user declarations for all components 'Guide_tapering'. */
-#line 91 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
+#line 91 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
 /*****************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -6853,10 +6952,10 @@ void TableReflecFunc(double mc_pol_q, t_Table *mc_pol_par, double *mc_pol_r) {
 
 /* end of ref-lib.c */
 
-#line 6856 "./generic_full_elliptic.c"
+#line 6955 "./generic_full_elliptic.c"
 
 /* Shared user declarations for all components 'Monitor_nD'. */
-#line 212 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 214 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -7029,7 +7128,7 @@ void TableReflecFunc(double mc_pol_q, t_Table *mc_pol_par, double *mc_pol_r) {
 /* ========================================================================= */
 
 void Monitor_nD_Init(MonitornD_Defines_type *, MonitornD_Variables_type *, MCNUM, MCNUM, MCNUM, MCNUM, MCNUM, MCNUM, MCNUM, MCNUM, MCNUM, int);
-double Monitor_nD_Trace(MonitornD_Defines_type *, MonitornD_Variables_type *);
+int Monitor_nD_Trace(MonitornD_Defines_type *, MonitornD_Variables_type *);
 MCDETECTOR Monitor_nD_Save(MonitornD_Defines_type *, MonitornD_Variables_type *);
 void Monitor_nD_Finally(MonitornD_Defines_type *, MonitornD_Variables_type *);
 void Monitor_nD_McDisplay(MonitornD_Defines_type *,
@@ -7193,7 +7292,13 @@ void Monitor_nD_Init(MonitornD_Defines_type *DEFS,
     Vars->Flag_Binary_List  = 0;   /* save list as a binary file (smaller) */
     Vars->Coord_Number      = 0;   /* total number of variables to monitor, plus intensity (0) */
     Vars->Coord_NumberNoPixel=0;   /* same but without counting PixelID */
-    Vars->Buffer_Block      = 10000;     /* Buffer size for list or auto limits */
+
+/* Allow to specify size of Monitor_nD buffer via a define*/
+#ifndef MONND_BUFSIZ
+    Vars->Buffer_Block      = 100000;     /* Buffer size for list or auto limits */
+#else
+	Vars->Buffer_Block      = MONND_BUFSIZ;     /* Buffer size for list or auto limits */	
+#endif
     Vars->Neutron_Counter   = 0;   /* event counter, simulation total counts is mcget_ncount() */
     Vars->Buffer_Counter    = 0;   /* index in Buffer size (for realloc) */
     Vars->Buffer_Size       = 0;
@@ -7789,12 +7894,14 @@ void Monitor_nD_Init(MonitornD_Defines_type *DEFS,
 
 /* ========================================================================= */
 /* Monitor_nD_Trace: this routine is used to monitor one propagating neutron */
+/* return values: 0=neutron was absorbed, -1=neutron was outside bounds, 1=neutron was measured*/
 /* ========================================================================= */
 
-double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *Vars)
+int Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *Vars)
 {
 
   double  XY=0, pp=0;
+  int     retval;
   long    i =0, j =0;
   double  Coord[MONnD_COORD_NMAX];
   long    Coord_Index[MONnD_COORD_NMAX];
@@ -7852,9 +7959,9 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
     }
   } /* end if Buffer realloc */
 
+  char    outsidebounds=0;
   while (!While_End)
   { /* we generate Coord[] and Coord_index[] from Buffer (auto limits) or passing neutron */
-    char    outsidebounds=0;
     if ((Vars->Flag_Auto_Limits == 2) && (Vars->Coord_Number > 0))
     { /* Vars->Flag_Auto_Limits == 2: read back from Buffer (Buffer is filled or auto limits have been computed) */
       if (While_Buffer < Vars->Buffer_Block)
@@ -8060,8 +8167,8 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
               if (Coord_Index[i] >= Vars->Coord_Bin[i]) Coord_Index[i] = Vars->Coord_Bin[i] - 1;
               if (Coord_Index[i] < 0) Coord_Index[i] = 0;
             }
-            if (0 > Coord_Index[i] || Coord_Index[i] >= Vars->Coord_Bin[i])
-              outsidebounds=1;
+            //if (0 > Coord_Index[i] || Coord_Index[i] >= Vars->Coord_Bin[i])
+            //  outsidebounds=1;
           } /* else will get Index later from Buffer when Flag_Auto_Limits == 2 */
         }
         
@@ -8078,7 +8185,7 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
         pp /= Vars->area;
 
       /* 2D case : Vars->Coord_Number==2 and !Vars->Flag_Multiple and !Vars->Flag_List */
-      if ( Vars->Coord_NumberNoPixel == 2 && !Vars->Flag_Multiple && !outsidebounds)
+      if ( Vars->Coord_NumberNoPixel == 2 && !Vars->Flag_Multiple)
       { /* Dim : Vars->Coord_Bin[1]*Vars->Coord_Bin[2] matrix */
         
         i = Coord_Index[1];
@@ -8092,9 +8199,8 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
           }
         } else {
           outsidebounds=1; 
-          if (Vars->Flag_Absorb) pp=0;
         }
-      } else if (!outsidebounds) {
+      } else {
         /* 1D and n1D case : Vars->Flag_Multiple */
         /* Dim : Vars->Coord_Number*Vars->Coord_Bin[i] vectors (intensity is not included) */
           
@@ -8105,10 +8211,10 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
               Vars->Mon2D_N[i-1][j]++;
               Vars->Mon2D_p[i-1][j]  += pp;
               Vars->Mon2D_p2[i-1][j] += pp*pp;
-            } 
+            }
           } else { 
-            outsidebounds=1; 
-            if (Vars->Flag_Absorb) { pp=0; break; }
+            outsidebounds=1;
+            break;
           }
         }
       }
@@ -8134,8 +8240,16 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
   Vars->Nsum++;
   Vars->psum  += pp;
   Vars->p2sum += pp*pp;
-  
-  return pp;
+
+  /*determine return value: 1:neutron was in bounds and measured, -1: outside bounds, 0: outside bounds, should be absorbed.*/
+  if(outsidebounds){
+      if(Vars->Flag_Absorb){
+          return 0;
+      }else{
+          return -1;
+      }
+  }
+  return 1;
 } /* end Monitor_nD_Trace */
 
 /* ========================================================================= */
@@ -8659,8 +8773,8 @@ void Monitor_nD_McDisplay(MonitornD_Defines_type *DEFS,
       
       /* check width and height of elements (sphere) to make sure the nb
          of plates remains limited */
-      if (width < 10  && NH > 1) { width = 10;  NH=(hdiv_max-hdiv_min)/width; }
-      if (height < 10 && NV > 1) { height = 10; NV=(vdiv_max-vdiv_min)/height; }
+      if (width < 10  && NH > 1) { width = 10;  NH=(hdiv_max-hdiv_min)/width; width=(hdiv_max-hdiv_min)/NH; }
+      if (height < 10 && NV > 1) { height = 10; NV=(vdiv_max-vdiv_min)/height; height= (vdiv_max-vdiv_min)/NV; }
       
       mcdis_magnify("xyz");
       for(ih = 0; ih < NH; ih++)
@@ -9143,6 +9257,13 @@ FILE *off_getBlocksIndex(char* filename, long* vtxSize, long* polySize )
   {
     fprintf(stderr, "Error: Can not read 1st line in file %s (interoff/off_getBlocksIndex)\n", filename);
     exit(1);
+  }
+  if (strlen(line)>5)
+  {
+      fprintf(stderr,"Error: First line in %s is too long (=%d). Possibly the line is not terminated by '\\n'.\n" 
+              "       The first line is required to be exactly 'OFF', '3' or 'ply'.\n",filename,strlen(line));
+      fclose(f);
+      return(NULL);
   }
 
   if (strncmp(line,"OFF",3) && strncmp(line,"3",1) && strncmp(line,"ply",1))
@@ -9766,7 +9887,7 @@ void off_display(off_struct data)
 
 /* end of interoff-lib.c */
 
-#line 9769 "./generic_full_elliptic.c"
+#line 9890 "./generic_full_elliptic.c"
 
 /* Instrument parameters. */
 MCNUM mcipguide_length;
@@ -9820,7 +9941,7 @@ struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
 #define source_lambda_min mcipsource_lambda_min
 #define source_lambda_max mcipsource_lambda_max
 #define cold_regime mcipcold_regime
-#line 29 "../H3.instr"
+#line 29 "H3_source.instr"
 //[Cold source parameters
 double source_height = 0.2, source_width = 0.12;
 double source_I1 = 5.38e12, source_I2= 2.50e12, source_I3 = 9.51e12;
@@ -9836,7 +9957,10 @@ double source_no_I1 = 7.05e12;
 
 //Distance to neutron guides
 double guide_start_dist = 1.82;
-#line 9839 "./generic_full_elliptic.c"
+
+//Reflection parameters
+double R0 = 0.99, alpha = 3.3;
+#line 9963 "./generic_full_elliptic.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -9958,6 +10082,7 @@ char mccSample_geometry[16384];
 char mccSample_username1[16384];
 char mccSample_username2[16384];
 char mccSample_username3[16384];
+int mccSample_nowritefile;
 
 /* User component declarations. */
 
@@ -9973,7 +10098,7 @@ char mccSample_username3[16384];
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 44 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 44 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 #ifndef PROGRESS_BAR
 #define PROGRESS_BAR
 #else
@@ -9984,7 +10109,7 @@ double IntermediateCnts;
 time_t StartTime;
 time_t EndTime;
 time_t CurrentTime;
-#line 9987 "./generic_full_elliptic.c"
+#line 10112 "./generic_full_elliptic.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -10048,7 +10173,7 @@ time_t CurrentTime;
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 184 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 184 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 
   double p_in;
   double lambda1;  /* first Maxwellian source */
@@ -10068,7 +10193,7 @@ time_t CurrentTime;
   double pTable_dymin;
   double pTable_dymax;
 
-#line 10071 "./generic_full_elliptic.c"
+#line 10196 "./generic_full_elliptic.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -10190,7 +10315,7 @@ time_t CurrentTime;
 #define segno mccGuide_ell_segno
 #define curvature mccGuide_ell_curvature
 #define curvature_v mccGuide_ell_curvature_v
-#line 96 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
+#line 96 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
 double *w1c;
 double *w2c;
 double *ww, *hh;
@@ -10207,7 +10332,7 @@ char file_name[1024];
 char *ep;
 FILE *num;
 double rotation_h, rotation_v;
-#line 10210 "./generic_full_elliptic.c"
+#line 10335 "./generic_full_elliptic.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -10301,12 +10426,14 @@ double rotation_h, rotation_v;
 #define username1 mccSample_username1
 #define username2 mccSample_username2
 #define username3 mccSample_username3
-#line 220 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#define nowritefile mccSample_nowritefile
+#line 222 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 10309 "./generic_full_elliptic.c"
+#line 10435 "./generic_full_elliptic.c"
+#undef nowritefile
 #undef username3
 #undef username2
 #undef username1
@@ -10371,7 +10498,7 @@ void mcinit(void) {
 #define source_lambda_min mcipsource_lambda_min
 #define source_lambda_max mcipsource_lambda_max
 #define cold_regime mcipcold_regime
-#line 47 "../H3.instr"
+#line 50 "H3_source.instr"
 {
 //thermal regime of CNS
 if (cold_regime==0){
@@ -10388,7 +10515,7 @@ if (cold_regime==-1){
 	source_I3 = 0;};	
 	
 }
-#line 10391 "./generic_full_elliptic.c"
+#line 10518 "./generic_full_elliptic.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -10427,23 +10554,23 @@ if (cold_regime==-1){
   mccOrigin_flag_save = 0;
 #line 39 "generic_full_elliptic.instr"
   mccOrigin_minutes = 0;
-#line 10430 "./generic_full_elliptic.c"
+#line 10557 "./generic_full_elliptic.c"
 
   SIG_MESSAGE("Origin (Init:Place/Rotate)");
   rot_set_rotation(mcrotaOrigin,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10437 "./generic_full_elliptic.c"
+#line 10564 "./generic_full_elliptic.c"
   rot_copy(mcrotrOrigin, mcrotaOrigin);
   mcposaOrigin = coords_set(
-#line 66 "generic_full_elliptic.instr"
+#line 69 "generic_full_elliptic.instr"
     0,
-#line 66 "generic_full_elliptic.instr"
+#line 69 "generic_full_elliptic.instr"
     0,
-#line 66 "generic_full_elliptic.instr"
+#line 69 "generic_full_elliptic.instr"
     0);
-#line 10446 "./generic_full_elliptic.c"
+#line 10573 "./generic_full_elliptic.c"
   mctc1 = coords_neg(mcposaOrigin);
   mcposrOrigin = rot_apply(mcrotaOrigin, mctc1);
   mcDEBUG_COMPONENT("Origin", mcposaOrigin, mcrotaOrigin)
@@ -10462,11 +10589,11 @@ if (cold_regime==-1){
   if("NULL") strncpy(mccH3_ydiv_file, "NULL" ? "NULL" : "", 16384); else mccH3_ydiv_file[0]='\0';
 #line 130 "generic_full_elliptic.instr"
   mccH3_radius = 0.0;
-#line 70 "generic_full_elliptic.instr"
+#line 73 "generic_full_elliptic.instr"
   mccH3_dist = guide_start_dist;
-#line 70 "generic_full_elliptic.instr"
+#line 73 "generic_full_elliptic.instr"
   mccH3_focus_xw = mcipguide_start_width;
-#line 71 "generic_full_elliptic.instr"
+#line 74 "generic_full_elliptic.instr"
   mccH3_focus_yh = mcipguide_start_height;
 #line 130 "generic_full_elliptic.instr"
   mccH3_focus_aw = 0;
@@ -10480,59 +10607,59 @@ if (cold_regime==-1){
   mccH3_lambda0 = 0;
 #line 131 "generic_full_elliptic.instr"
   mccH3_dlambda = 0;
-#line 71 "generic_full_elliptic.instr"
+#line 74 "generic_full_elliptic.instr"
   mccH3_I1 = source_I1;
-#line 71 "generic_full_elliptic.instr"
+#line 74 "generic_full_elliptic.instr"
   mccH3_yheight = source_height;
-#line 72 "generic_full_elliptic.instr"
+#line 75 "generic_full_elliptic.instr"
   mccH3_xwidth = source_width;
 #line 132 "generic_full_elliptic.instr"
   mccH3_verbose = 0;
-#line 72 "generic_full_elliptic.instr"
+#line 75 "generic_full_elliptic.instr"
   mccH3_T1 = source_T1;
 #line 133 "generic_full_elliptic.instr"
   mccH3_flux_file_perAA = 0;
 #line 133 "generic_full_elliptic.instr"
   mccH3_flux_file_log = 0;
-#line 72 "generic_full_elliptic.instr"
+#line 75 "generic_full_elliptic.instr"
   mccH3_Lmin = mcipsource_lambda_min;
-#line 73 "generic_full_elliptic.instr"
+#line 76 "generic_full_elliptic.instr"
   mccH3_Lmax = mcipsource_lambda_max;
 #line 134 "generic_full_elliptic.instr"
   mccH3_Emin = 0;
 #line 134 "generic_full_elliptic.instr"
   mccH3_Emax = 0;
-#line 73 "generic_full_elliptic.instr"
+#line 76 "generic_full_elliptic.instr"
   mccH3_T2 = source_T2;
-#line 73 "generic_full_elliptic.instr"
+#line 76 "generic_full_elliptic.instr"
   mccH3_I2 = source_I2;
-#line 73 "generic_full_elliptic.instr"
+#line 76 "generic_full_elliptic.instr"
   mccH3_T3 = source_T3;
-#line 74 "generic_full_elliptic.instr"
+#line 77 "generic_full_elliptic.instr"
   mccH3_I3 = source_I3;
 #line 134 "generic_full_elliptic.instr"
   mccH3_zdepth = 0;
 #line 134 "generic_full_elliptic.instr"
   mccH3_target_index = + 1;
-#line 10517 "./generic_full_elliptic.c"
+#line 10644 "./generic_full_elliptic.c"
 
   SIG_MESSAGE("H3 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10524 "./generic_full_elliptic.c"
+#line 10651 "./generic_full_elliptic.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaH3);
   rot_transpose(mcrotaOrigin, mctr1);
   rot_mul(mcrotaH3, mctr1, mcrotrH3);
   mctc1 = coords_set(
-#line 75 "generic_full_elliptic.instr"
+#line 78 "generic_full_elliptic.instr"
     0,
-#line 75 "generic_full_elliptic.instr"
+#line 78 "generic_full_elliptic.instr"
     0,
-#line 75 "generic_full_elliptic.instr"
+#line 78 "generic_full_elliptic.instr"
     0);
-#line 10535 "./generic_full_elliptic.c"
+#line 10662 "./generic_full_elliptic.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaH3 = coords_add(mcposaOrigin, mctc2);
@@ -10552,18 +10679,18 @@ if (cold_regime==-1){
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10555 "./generic_full_elliptic.c"
+#line 10682 "./generic_full_elliptic.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaGuide_start_arm);
   rot_transpose(mcrotaH3, mctr1);
   rot_mul(mcrotaGuide_start_arm, mctr1, mcrotrGuide_start_arm);
   mctc1 = coords_set(
-#line 79 "generic_full_elliptic.instr"
+#line 82 "generic_full_elliptic.instr"
     0,
-#line 79 "generic_full_elliptic.instr"
+#line 82 "generic_full_elliptic.instr"
     0,
-#line 79 "generic_full_elliptic.instr"
+#line 82 "generic_full_elliptic.instr"
     guide_start_dist);
-#line 10566 "./generic_full_elliptic.c"
+#line 10693 "./generic_full_elliptic.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_start_arm = coords_add(mcposaOrigin, mctc2);
@@ -10615,14 +10742,14 @@ if (cold_regime==-1){
   mccGuide_ell_curvature = 0;
 #line 83 "generic_full_elliptic.instr"
   mccGuide_ell_curvature_v = 0;
-#line 10618 "./generic_full_elliptic.c"
+#line 10745 "./generic_full_elliptic.c"
 
   SIG_MESSAGE("Guide_ell (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10625 "./generic_full_elliptic.c"
+#line 10752 "./generic_full_elliptic.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaGuide_ell);
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   rot_mul(mcrotaGuide_ell, mctr1, mcrotrGuide_ell);
@@ -10633,7 +10760,7 @@ if (cold_regime==-1){
     0,
 #line 44 "generic_full_elliptic.instr"
     0);
-#line 10636 "./generic_full_elliptic.c"
+#line 10763 "./generic_full_elliptic.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_ell = coords_add(mcposaGuide_start_arm, mctc2);
@@ -10651,50 +10778,52 @@ if (cold_regime==-1){
   mccSample_xwidth = mcipguide_start_width * 2;
 #line 47 "generic_full_elliptic.instr"
   mccSample_yheight = mcipsample_height;
-#line 200 "generic_full_elliptic.instr"
+#line 201 "generic_full_elliptic.instr"
   mccSample_zdepth = 0;
-#line 201 "generic_full_elliptic.instr"
+#line 202 "generic_full_elliptic.instr"
   mccSample_xmin = 0;
-#line 201 "generic_full_elliptic.instr"
+#line 202 "generic_full_elliptic.instr"
   mccSample_xmax = 0;
-#line 201 "generic_full_elliptic.instr"
+#line 202 "generic_full_elliptic.instr"
   mccSample_ymin = 0;
-#line 201 "generic_full_elliptic.instr"
+#line 202 "generic_full_elliptic.instr"
   mccSample_ymax = 0;
-#line 201 "generic_full_elliptic.instr"
+#line 202 "generic_full_elliptic.instr"
   mccSample_zmin = 0;
-#line 201 "generic_full_elliptic.instr"
+#line 202 "generic_full_elliptic.instr"
   mccSample_zmax = 0;
-#line 202 "generic_full_elliptic.instr"
+#line 203 "generic_full_elliptic.instr"
   mccSample_bins = 0;
-#line 202 "generic_full_elliptic.instr"
+#line 203 "generic_full_elliptic.instr"
   mccSample_min = -1e40;
-#line 202 "generic_full_elliptic.instr"
+#line 203 "generic_full_elliptic.instr"
   mccSample_max = 1e40;
-#line 202 "generic_full_elliptic.instr"
+#line 203 "generic_full_elliptic.instr"
   mccSample_restore_neutron = 0;
-#line 202 "generic_full_elliptic.instr"
+#line 203 "generic_full_elliptic.instr"
   mccSample_radius = 0;
 #line 47 "generic_full_elliptic.instr"
   if("y") strncpy(mccSample_options, "y" ? "y" : "", 16384); else mccSample_options[0]='\0';
-#line 203 "generic_full_elliptic.instr"
+#line 204 "generic_full_elliptic.instr"
   if("NULL") strncpy(mccSample_filename, "NULL" ? "NULL" : "", 16384); else mccSample_filename[0]='\0';
-#line 203 "generic_full_elliptic.instr"
+#line 204 "generic_full_elliptic.instr"
   if("NULL") strncpy(mccSample_geometry, "NULL" ? "NULL" : "", 16384); else mccSample_geometry[0]='\0';
-#line 204 "generic_full_elliptic.instr"
+#line 205 "generic_full_elliptic.instr"
   if("NULL") strncpy(mccSample_username1, "NULL" ? "NULL" : "", 16384); else mccSample_username1[0]='\0';
-#line 204 "generic_full_elliptic.instr"
+#line 205 "generic_full_elliptic.instr"
   if("NULL") strncpy(mccSample_username2, "NULL" ? "NULL" : "", 16384); else mccSample_username2[0]='\0';
-#line 204 "generic_full_elliptic.instr"
+#line 205 "generic_full_elliptic.instr"
   if("NULL") strncpy(mccSample_username3, "NULL" ? "NULL" : "", 16384); else mccSample_username3[0]='\0';
-#line 10690 "./generic_full_elliptic.c"
+#line 206 "generic_full_elliptic.instr"
+  mccSample_nowritefile = 0;
+#line 10819 "./generic_full_elliptic.c"
 
   SIG_MESSAGE("Sample (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 10697 "./generic_full_elliptic.c"
+#line 10826 "./generic_full_elliptic.c"
   rot_mul(mctr1, mcrotaGuide_ell, mcrotaSample);
   rot_transpose(mcrotaGuide_ell, mctr1);
   rot_mul(mcrotaSample, mctr1, mcrotrSample);
@@ -10705,7 +10834,7 @@ if (cold_regime==-1){
     0,
 #line 48 "generic_full_elliptic.instr"
     mcipguide_length + mcipright_foc);
-#line 10708 "./generic_full_elliptic.c"
+#line 10837 "./generic_full_elliptic.c"
   rot_transpose(mcrotaGuide_ell, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaSample = coords_add(mcposaGuide_ell, mctc2);
@@ -10730,7 +10859,7 @@ if (cold_regime==-1){
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 57 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 57 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
 IntermediateCnts=0;
 StartTime=0;
@@ -10742,7 +10871,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
     percent=1e5*100.0/mcget_ncount();
   }
 }
-#line 10745 "./generic_full_elliptic.c"
+#line 10874 "./generic_full_elliptic.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -10807,7 +10936,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 206 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 206 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   pTable_xsum=0;
   pTable_ysum=0;
@@ -11079,7 +11208,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
       printf("Source_gen: component %s unactivated", NAME_CURRENT_COMP);
   );
 }
-#line 11082 "./generic_full_elliptic.c"
+#line 11211 "./generic_full_elliptic.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -11197,7 +11326,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define segno mccGuide_ell_segno
 #define curvature mccGuide_ell_curvature
 #define curvature_v mccGuide_ell_curvature_v
-#line 115 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
+#line 115 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
 {
 rotation_h=0;
 rotation_v=0;
@@ -11533,7 +11662,7 @@ w1c = (double*)malloc(sizeof(double)*segno);
   if (curvature && l && segno)   rotation_h = l/curvature/segno;
   if (curvature_v && l && segno) rotation_v = l/curvature_v/segno;
 }
-#line 11536 "./generic_full_elliptic.c"
+#line 11665 "./generic_full_elliptic.c"
 #undef curvature_v
 #undef curvature
 #undef segno
@@ -11628,7 +11757,8 @@ w1c = (double*)malloc(sizeof(double)*segno);
 #define username1 mccSample_username1
 #define username2 mccSample_username2
 #define username3 mccSample_username3
-#line 227 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#define nowritefile mccSample_nowritefile
+#line 229 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -11707,7 +11837,8 @@ MPI_MASTER(
 );
 #endif
 }
-#line 11710 "./generic_full_elliptic.c"
+#line 11840 "./generic_full_elliptic.c"
+#undef nowritefile
 #undef username3
 #undef username2
 #undef username1
@@ -11848,7 +11979,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 70 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 70 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
   double ncount;
   ncount = mcget_run_num();
@@ -11892,7 +12023,7 @@ MCNUM minutes = mccOrigin_minutes;
     if (flag_save) mcsave(NULL);
   }
 }
-#line 11895 "./generic_full_elliptic.c"
+#line 12026 "./generic_full_elliptic.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -12049,7 +12180,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 479 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 479 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   double dx=0,dy=0,xf,yf,rf,pdir,chi,v,r, lambda;
   double Maxwell;
@@ -12140,7 +12271,7 @@ int target_index = mccH3_target_index;
     SCATTER;
   }
 }
-#line 12143 "./generic_full_elliptic.c"
+#line 12274 "./generic_full_elliptic.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -12424,7 +12555,7 @@ MCNUM my = mccGuide_ell_my;
 MCNUM segno = mccGuide_ell_segno;
 MCNUM curvature = mccGuide_ell_curvature;
 MCNUM curvature_v = mccGuide_ell_curvature_v;
-#line 452 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
+#line 452 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
 {
   double t1,t2,ts,zr;                           /* Intersection times. */
   double av,ah,bv,bh,cv1,cv2,ch1,ch2,dd;        /* Intermediate values */
@@ -12579,7 +12710,7 @@ MCNUM curvature_v = mccGuide_ell_curvature_v;
   } /* loop on segments */
 
 }
-#line 12582 "./generic_full_elliptic.c"
+#line 12713 "./generic_full_elliptic.c"
 }   /* End of Guide_ell=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -12751,7 +12882,8 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 307 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+int nowritefile = mccSample_nowritefile;
+#line 309 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -12897,7 +13029,7 @@ char* username3 = mccSample_username3;
     if (pp==0.0)
     { ABSORB;
     }
-    else
+    else if(pp==1)
     {
       SCATTER;
     }
@@ -12920,7 +13052,7 @@ char* username3 = mccSample_username3;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 12923 "./generic_full_elliptic.c"
+#line 13055 "./generic_full_elliptic.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -13019,7 +13151,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 115 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 115 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
   MPI_MASTER(fprintf(stdout, "\nSave [%s]\n", mcinstrument_name););
   if (profile && strlen(profile) && strcmp(profile,"NULL") && strcmp(profile,"0")) {
@@ -13036,7 +13168,7 @@ MCNUM minutes = mccOrigin_minutes;
 
   }
 }
-#line 13039 "./generic_full_elliptic.c"
+#line 13171 "./generic_full_elliptic.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -13079,12 +13211,13 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 477 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+int nowritefile = mccSample_nowritefile;
+#line 479 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 13087 "./generic_full_elliptic.c"
+#line 13220 "./generic_full_elliptic.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -13118,7 +13251,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 133 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 133 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
   time_t NowTime;
   time(&NowTime);
@@ -13131,7 +13264,7 @@ MCNUM minutes = mccOrigin_minutes;
     fprintf(stdout, "%g [min] ", difftime(NowTime,StartTime)/60.0);
   fprintf(stdout, "\n");
 }
-#line 13134 "./generic_full_elliptic.c"
+#line 13267 "./generic_full_elliptic.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -13197,13 +13330,13 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 571 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   Table_Free(&pTable);
   Table_Free(&pTable_x);
   Table_Free(&pTable_y);
 }
-#line 13205 "./generic_full_elliptic.c"
+#line 13338 "./generic_full_elliptic.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -13296,7 +13429,7 @@ MCNUM my = mccGuide_ell_my;
 MCNUM segno = mccGuide_ell_segno;
 MCNUM curvature = mccGuide_ell_curvature;
 MCNUM curvature_v = mccGuide_ell_curvature_v;
-#line 608 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
+#line 608 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
 {
   free(w1c);
   free(w2c);
@@ -13311,7 +13444,7 @@ MCNUM curvature_v = mccGuide_ell_curvature_v;
   free(w1_in);
   free(w2_out);
 }
-#line 13311 "./generic_full_elliptic.c"
+#line 13444 "./generic_full_elliptic.c"
 }   /* End of Guide_ell=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -13392,12 +13525,15 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 483 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+int nowritefile = mccSample_nowritefile;
+#line 485 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* free pointers */
-  Monitor_nD_Finally(&DEFS, &Vars);
+  if (!nowritefile) {
+    Monitor_nD_Finally(&DEFS, &Vars);
+  }
 }
-#line 13396 "./generic_full_elliptic.c"
+#line 13532 "./generic_full_elliptic.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -13422,6 +13558,8 @@ char* username3 = mccSample_username3;
 #define rectangle mcdis_rectangle
 #define box mcdis_box
 #define circle mcdis_circle
+#define cylinder mcdis_cylinder
+#define sphere mcdis_sphere
 void mcdisplay(void) {
   printf("MCDISPLAY: start\n");
   /* Components MCDISPLAY code. */
@@ -13441,11 +13579,11 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 147 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 147 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
-  magnify("");
+  
 }
-#line 13443 "./generic_full_elliptic.c"
+#line 13581 "./generic_full_elliptic.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -13509,7 +13647,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 578 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 578 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   double xmin;
   double xmax;
@@ -13518,7 +13656,7 @@ int target_index = mccH3_target_index;
 
   if (radius)
   {
-    magnify("xy");
+    
     circle("xy",0,0,0,radius);
     if (zdepth) {
       circle("xy",0,0,-zdepth/2,radius);
@@ -13530,7 +13668,7 @@ int target_index = mccH3_target_index;
     xmin = -xwidth/2; xmax = xwidth/2;
     ymin = -yheight/2; ymax = yheight/2;
 
-    magnify("xy");
+    
     multiline(5, (double)xmin, (double)ymin, 0.0,
              (double)xmax, (double)ymin, 0.0,
              (double)xmax, (double)ymax, 0.0,
@@ -13558,7 +13696,7 @@ int target_index = mccH3_target_index;
     dashed_line(0,0,0, -focus_xw/2, focus_yh/2,dist, 4);
   }
 }
-#line 13556 "./generic_full_elliptic.c"
+#line 13694 "./generic_full_elliptic.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -13587,15 +13725,15 @@ int target_index = mccH3_target_index;
 #define mccompcurname  Guide_start_arm
 #define mccompcurtype  Arm
 #define mccompcurindex 3
-#line 40 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Arm.comp"
+#line 40 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Arm.comp"
 {
   /* A bit ugly; hard-coded dimensions. */
-  magnify("");
+  
   line(0,0,0,0.2,0,0);
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 13593 "./generic_full_elliptic.c"
+#line 13731 "./generic_full_elliptic.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -13665,12 +13803,12 @@ MCNUM my = mccGuide_ell_my;
 MCNUM segno = mccGuide_ell_segno;
 MCNUM curvature = mccGuide_ell_curvature;
 MCNUM curvature_v = mccGuide_ell_curvature_v;
-#line 624 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
+#line 624 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_tapering.comp"
 {
   double x;
   int i,ii;
 
-  magnify("xy");
+  
 
   for (ii=0; ii < segno; ii++)
   {
@@ -13698,7 +13836,7 @@ MCNUM curvature_v = mccGuide_ell_curvature_v;
   }
 
 }
-#line 13696 "./generic_full_elliptic.c"
+#line 13834 "./generic_full_elliptic.c"
 }   /* End of Guide_ell=Guide_tapering() SETTING parameter declarations. */
 #undef rotation_v
 #undef rotation_h
@@ -13777,7 +13915,8 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 489 "/usr/share/mcstas/2.4.1/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+int nowritefile = mccSample_nowritefile;
+#line 493 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
@@ -13786,7 +13925,7 @@ char* username3 = mccSample_username3;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 13784 "./generic_full_elliptic.c"
+#line 13923 "./generic_full_elliptic.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -13808,4 +13947,6 @@ char* username3 = mccSample_username3;
 #undef rectangle
 #undef box
 #undef circle
+#undef cylinder
+#undef sphere
 /* end of generated C code ./generic_full_elliptic.c */

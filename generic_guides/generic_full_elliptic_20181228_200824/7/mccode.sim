@@ -1,0 +1,58 @@
+McStas simulation description file for Full_ellipse.
+Date:    Fri Dec 28 20:09:19 2018
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: Full_ellipse
+  File: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_full_elliptic_20181228_200824/7/mccode
+  Source: generic_full_elliptic.instr
+  Parameters:  guide_length(double) left_foc(double) right_foc(double) m_side(double) m_top(double) sample_height(double) R0(double) alpha(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_full_elliptic_20181228_200824/7
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: generic_full_elliptic.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1546027267
+  Directory: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_full_elliptic_20181228_200824/7
+  Nodes: 4
+  Param: guide_length=100
+  Param: left_foc=1
+  Param: right_foc=0.5
+  Param: m_side=2
+  Param: m_top=6
+  Param: sample_height=0.01
+  Param: R0=0.99
+  Param: alpha=3.3
+  Param: guide_start_width=0.03
+  Param: guide_start_height=0.00666667
+  Param: source_lambda_min=12
+  Param: source_lambda_max=12.1
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Fri Dec 28 20:09:26 2018 (1546016966)
+  type: array_1d(20)
+  Source: Full_ellipse (generic_full_elliptic.instr)
+  component: Sample
+  position: 0 0 102.32
+  title: y [m] monitor
+  Ncount: 1000000
+  filename: Sample_1546016959.y
+  statistics: X0=-2.78857e-06; dX=0.00285114;
+  signal: Min=416786; Max=465559; Mean=432727;
+  values: 8.65455e+06 29028.4 128026
+  xvar: y
+  yvar: (I,I_err)
+  xlabel: y [m]
+  ylabel: Intensity [n/s/bin]
+  xlimits: -0.005 0.005
+  variables: y I I_err N
+end data

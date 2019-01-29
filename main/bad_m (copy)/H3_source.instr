@@ -1,0 +1,88 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: PIK H3 beamtube 
+*
+* %Identification
+* Written by: P. Konik
+* Date: 16.02.17
+* Origin: PNPI
+* Release: McStas 2.3
+* Version: 2.0
+*
+* PIK reactor beamtube H3 facing cold neutron source. Handles additionaly the thermal regime of CNS and no CNS at all situation.
+*
+* %Parameters
+* guide_start_width: [m] Initial width of guide (where to focus neutrons from source)
+* guide_start_height: [m]  Initial height of guide (where to focus neutrons from source)
+* source_lambda_min: [AA] Minimal wavelength to create
+* source_lambda_max: [AA] Maximal wavelength to create
+* cold_regime: [num] 1 corresponds to normal operation, 0 corresponds to thermal regime, -1 corresponds to no container situation
+*
+* %End
+*******************************************************************************/
+
+DEFINE INSTRUMENT H3(guide_start_width = 0.03, guide_start_height = 0.03, source_lambda_min = 0.1, source_lambda_max = 20, cold_regime=1)
+
+DECLARE
+%{
+//[Cold source parameters
+double source_height = 0.2, source_width = 0.12;
+double source_I1 = 5.38e12, source_I2= 2.50e12, source_I3 = 9.51e12;
+double source_T1 = 204.6, source_T2 = 73.9; source_T3 = 23.9;
+
+//Thermal regime parameters
+double source_thermal_T1 = 312.2;
+double source_thermal_I1 = 2.25e13;
+
+//No contaiber parameters
+double source_no_T1 = 306.4;
+double source_no_I1 = 7.05e12; 
+
+//Distance to neutron guides
+double guide_start_dist = 1.82;
+
+//Reflection parameters
+double R0 = 0.99, alpha = 3.3;
+%}
+
+INITIALIZE
+%{
+//thermal regime of CNS
+if (cold_regime==0){
+	source_T1 = source_thermal_T1;
+	source_I1 = source_thermal_I1;
+	source_I2 = 0;
+	source_I3 = 0;};
+
+//no container presented
+if (cold_regime==-1){
+	source_T1 = source_no_T1;
+	source_I1 = source_no_I1;
+	source_I2 = 0;
+	source_I3 = 0;};	
+%}
+
+TRACE
+
+COMPONENT Origin = Progress_bar()
+  AT (0,0,0) ABSOLUTE
+
+
+COMPONENT H3 = Source_gen(
+    dist = guide_start_dist, focus_xw = guide_start_width,
+    focus_yh = guide_start_height, I1 = source_I1, yheight = source_height,
+    xwidth = source_width, T1 = source_T1, Lmin = source_lambda_min,
+    Lmax = source_lambda_max, T2 = source_T2, I2 = source_I2, T3 = source_T3,
+    I3 = source_I3)
+  AT (0, 0, 0) RELATIVE Origin
+
+COMPONENT Guide_start_arm = Arm(
+    )
+  AT (0, 0, guide_start_dist) RELATIVE Origin
+
+FINALLY
+%{
+%}
+
+END

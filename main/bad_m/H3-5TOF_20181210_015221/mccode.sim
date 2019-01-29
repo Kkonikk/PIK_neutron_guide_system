@@ -1,0 +1,84 @@
+McStas simulation description file for H34SANS2.
+Date:    Mon Dec 10 01:52:22 2018
+Program: McStas 2.4.1 - Jun. 26, 2017
+
+begin instrument: H34SANS2
+  File: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/main/good_m/H3-5TOF_20181210_015221/mccode
+  Source: H3-5TOF.instr
+  Parameters: 
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/main/good_m/H3-5TOF_20181210_015221
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.4.1 - Jun. 26, 2017
+  Instrument: H3-5TOF.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1544401512
+  Directory: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/main/good_m/H3-5TOF_20181210_015221
+end simulation
+
+begin data
+  Date: Mon Dec 10 01:52:48 2018 (1544395968)
+  type: array_1d(100)
+  Source: H34SANS2 (H3-5TOF.instr)
+  component: Mon_lam_ge
+  position: 1.25189 0 109.728
+  title: Wavelength [Angs] monitor
+  Ncount: 1000000
+  filename: H3-4_SANS_2.L
+  statistics: X0=8.53563; dX=3.56169;
+  signal: Min=0; Max=8.12739e+07; Mean=2.37153e+07;
+  values: 2.37153e+09 1.93232e+07 376277
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: 0 20
+  variables: L I I_err N
+end data
+
+begin data
+  Date: Mon Dec 10 01:52:48 2018 (1544395968)
+  type: array_1d(60)
+  Source: H34SANS2 (H3-5TOF.instr)
+  component: Mon_dx_ge
+  position: 1.25189 0 109.728
+  title: Hor. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-4_SANS_2.hd
+  statistics: X0=-0.00142306; dX=0.523648;
+  signal: Min=1.01331e-42; Max=1.88248e+08; Mean=4.07102e+07;
+  values: 2.44261e+09 1.93249e+07 428402
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -3 3
+  variables: hd I I_err N
+end data
+
+begin data
+  Date: Mon Dec 10 01:52:48 2018 (1544395968)
+  type: array_1d(60)
+  Source: H34SANS2 (H3-5TOF.instr)
+  component: Mon_dy_ge
+  position: 1.25189 0 109.728
+  title: Vert. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-4_SANS_2.vd
+  statistics: X0=0.00122099; dX=0.545598;
+  signal: Min=2.9091e-89; Max=1.78528e+08; Mean=4.07102e+07;
+  values: 2.44261e+09 1.93249e+07 439727
+  xvar: vd
+  yvar: (I,I_err)
+  xlabel: Vert. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -3 3
+  variables: vd I I_err N
+end data

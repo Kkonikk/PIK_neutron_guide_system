@@ -1,0 +1,24 @@
+# Instrument-source: 'generic_full_elliptic.instr'
+# Date: Fri Dec 28 20 31 2018
+# Ncount: 1000000
+# Numpoints: 2
+# Param: left_foc = 0.5
+# type: multiarray_1d(2)
+# title: Scan of left_foc
+# xlabel: 'left_foc'
+# ylabel: 'Intensity'
+# xvars: left_foc
+# yvars: (Sample_I,Sample_ERR)
+# xlimits: 0.5 2
+# filename: mccode.dat
+# variables: left_foc Sample_I Sample_ERR
+0.5 4.11813E+8 5.98898E+6
+0.6666666666666666666666666667 4.82749E+8 6.59574E+6
+0.8333333333333333333333333333 5.09943E+8 6.8452E+6
+1.0 5.25851E+8 7.00171E+6
+1.166666666666666666666666667 5.47099E+8 7.16778E+6
+1.333333333333333333333333333 5.5249E+8 7.23088E+6
+1.5 5.68802E+8 7.3809E+6
+1.666666666666666666666666667 5.60707E+8 7.3469E+6
+1.833333333333333333333333333 5.61359E+8 7.39088E+6
+2.0 5.65042E+8 7.41072E+6
