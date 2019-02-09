@@ -1,0 +1,60 @@
+McStas simulation description file for generic_expander.
+Date:    Tue Jan 29 17:18:24 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: generic_expander
+  File: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_expander_20190129_171823/mccode
+  Source: ../generic_guides/generic_expander.instr
+  Parameters:  guide_sample_dist(double) guide_length(double) guide_exp_length(double) guide_exit_width(double) guide_exit_height(double) m_str_side(double) m_top(double) sample_height(double) sample_width(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_expander_20190129_171823
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: ../generic_guides/generic_expander.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1548781589
+  Directory: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_expander_20190129_171823
+  Param: guide_sample_dist=4
+  Param: guide_length=90
+  Param: guide_exp_length=10
+  Param: guide_exit_width=0.15
+  Param: guide_exit_height=0.05
+  Param: m_str_side=1
+  Param: m_top=1
+  Param: sample_height=0.03
+  Param: sample_width=0.03
+  Param: guide_start_width=0.05
+  Param: guide_start_height=0.05
+  Param: source_lambda_min=19.9
+  Param: source_lambda_max=20
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Tue Jan 29 17:18:36 2019 (1548771516)
+  type: array_2d(100, 100)
+  Source: generic_expander (../generic_guides/generic_expander.instr)
+  component: Sample
+  position: 0 0 95.82
+  title:  Intensity Divergence Divergence Monitor (Square) per bin
+  Ncount: 1000000
+  filename: Sample_1548771504.hd_vd
+  statistics: X0=-0.00278218; dX=0.243935; Y0=0.00239353; dY=0.229715;
+  signal: Min=0; Max=987.047; Mean=118.791;
+  values: 1.18791e+06 12542 9282
+  xvar: Ho
+  yvar: Ve
+  xlabel: Hor. Divergence [deg]
+  ylabel: Vert. Divergence [deg]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: -0.5 0.5 -0.5 0.5
+  variables: I I_err N
+end data

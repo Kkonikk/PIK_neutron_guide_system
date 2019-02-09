@@ -1,0 +1,24 @@
+# Instrument-source: 'generic_start_expander.instr'
+# Date: Tue Jan 29 17 48 2019
+# Ncount: 1000000
+# Numpoints: 2
+# Param: guide_exp_length = 1
+# type: multiarray_1d(2)
+# title: Scan of guide_exp_length
+# xlabel: 'guide_exp_length'
+# ylabel: 'Intensity'
+# xvars: guide_exp_length
+# yvars: (Sample_I,Sample_ERR)
+# xlimits: 1 10
+# filename: mccode.dat
+# variables: guide_exp_length Sample_I Sample_ERR
+1 4.45382E+7 253811
+2 4.74207E+7 260731
+3 5.00429E+7 268668
+4 5.11875E+7 271684
+5 5.21083E+7 274148
+6 5.31372E+7 276748
+7 5.32786E+7 276672
+8 5.39085E+7 278200
+9 5.43628E+7 279033
+10 5.43422E+7 278942

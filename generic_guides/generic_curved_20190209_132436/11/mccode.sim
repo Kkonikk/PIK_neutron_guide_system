@@ -1,0 +1,60 @@
+McStas simulation description file for generic_curved.
+Date:    Sat Feb  9 13:25:42 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: generic_curved
+  File: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_curved_20190209_132436/11/mccode
+  Source: generic_curved.instr
+  Parameters:  R_curv(double) l_bender(double) l_straight(double) n_chan(double) sample_width(double) sample_height(double) m_out(double) m_in(double) m_str_side(double) m_top(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_curved_20190209_132436/11
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: generic_curved.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1549710596
+  Directory: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_curved_20190209_132436/11
+  Nodes: 4
+  Param: R_curv=1200
+  Param: l_bender=20
+  Param: l_straight=30
+  Param: n_chan=1
+  Param: sample_width=0.05
+  Param: sample_height=0.05
+  Param: m_out=2
+  Param: m_in=1
+  Param: m_str_side=1
+  Param: m_top=1
+  Param: guide_start_width=0.05
+  Param: guide_start_height=0.05
+  Param: source_lambda_min=2
+  Param: source_lambda_max=2.1
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Sat Feb  9 13:25:42 2019 (1549707942)
+  type: array_1d(100)
+  Source: generic_curved (generic_curved.instr)
+  component: Sample
+  position: 0.660139 0 51.825
+  title: x [m] monitor
+  Ncount: 1000000
+  filename: Sample_1549707942.x
+  statistics: X0=-0.000544238; dX=0.0144545;
+  signal: Min=1.38919e+06; Max=2.98352e+06; Mean=2.13774e+06;
+  values: 2.13774e+08 3.24378e+06 39155
+  xvar: x
+  yvar: (I,I_err)
+  xlabel: x [m]
+  ylabel: Intensity [n/s/bin]
+  xlimits: -0.025 0.025
+  variables: x I I_err N
+end data

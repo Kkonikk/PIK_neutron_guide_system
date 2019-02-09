@@ -1,0 +1,30 @@
+# Instrument-source: 'generic_straight.instr'
+# Date: Sun Feb 03 22 41 2019
+# Ncount: 100000
+# Numpoints: 2
+# Param: guide_length = 25
+# type: multiarray_1d(2)
+# title: Scan of guide_length
+# xlabel: 'guide_length'
+# ylabel: 'Intensity'
+# xvars: guide_length
+# yvars: (Sample_I,Sample_ERR)
+# xlimits: 100 25
+# filename: mccode.dat
+# variables: guide_length Sample_I Sample_ERR
+25 5.55461E+9 8.8701E+7
+30 5.41273E+9 8.66319E+7
+35 5.29412E+9 8.53539E+7
+40 5.00908E+9 8.20406E+7
+45 5.01157E+9 8.20699E+7
+50 4.76303E+9 7.92685E+7
+55 4.72652E+9 7.87698E+7
+60 4.51866E+9 7.63246E+7
+65 4.32501E+9 7.41561E+7
+70 4.3704E+9 7.42757E+7
+75 4.23966E+9 7.26865E+7
+80 4.18112E+9 7.20918E+7
+85 4.12287E+9 7.11667E+7
+90 3.91706E+9 6.91398E+7
+95 3.8352E+9 6.78279E+7
+100 3.83902E+9 6.80657E+7

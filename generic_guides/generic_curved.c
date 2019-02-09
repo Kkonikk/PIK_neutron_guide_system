@@ -2,14 +2,14 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: generic_curved.instr (generic_curved)
- * Date:       Tue Jan 29 16:23:59 2019
- * File:       generic_curved.c
- * Compile:    cc -o generic_curved.exe generic_curved.c 
+ * Date:       Sat Feb  9 13:26:32 2019
+ * File:       ./generic_curved.c
+ * Compile:    cc -o generic_curved.out ./generic_curved.c 
  * CFLAGS=
  */
 
 
-#define MCCODE_STRING "McStas 2.4.1 - Jun. 26, 2017"
+#define MCCODE_STRING "McStas 2.5 - Dec. 12, 2018"
 #define FLAVOR "mcstas"
 #define FLAVOR_UPPER "MCSTAS"
 #define MC_USE_DEFAULT_MAIN
@@ -29,7 +29,7 @@
 * %Identification
 * Written by: KN
 * Date:    Aug 29, 1997
-* Release: McStas 2.4.1
+* Release: McStas 2.5
 * Version: $Revision$
 *
 * Runtime system header for McStas/McXtrace.
@@ -107,15 +107,15 @@
 
 /* the version string is replaced when building distribution with mkdist */
 #ifndef MCCODE_STRING
-#define MCCODE_STRING "McStas 2.4.1 - Jun. 26, 2017"
+#define MCCODE_STRING "McStas 2.5 - Dec. 12, 2018"
 #endif
 
 #ifndef MCCODE_DATE
-#define MCCODE_DATE "Jun. 26, 2017"
+#define MCCODE_DATE "Dec. 12, 2018"
 #endif
 
 #ifndef MCCODE_VERSION
-#define MCCODE_VERSION "2.4.1"
+#define MCCODE_VERSION "2.5"
 #endif
 
 #ifndef MCCODE_NAME
@@ -346,7 +346,7 @@ unsigned long long mcget_run_num(void);           /* wrapper to get mcrun_num=0:
 #endif
 
 #ifdef DEBUG
-#define mcDEBUG_INSTR() if(!mcdotrace); else { printf("INSTRUMENT:\n"); printf("Instrument '%s' (%s)\n", mcinstrument_name, mcinstrument_source); }
+#define mcDEBUG_INSTR() if(!mcdotrace); else { printf("\nINSTRUMENT:\n"); printf("Instrument '%s' (%s)\n", mcinstrument_name, mcinstrument_source); }
 #define mcDEBUG_COMPONENT(name,c,t) if(!mcdotrace); else {\
   printf("COMPONENT: \"%s\"\n" \
          "POS: %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g\n", \
@@ -393,6 +393,10 @@ void mcdis_rectangle(char* plane, double x, double y, double z,
 void mcdis_box(double x, double y, double z,
 	       double width, double height, double length);
 void mcdis_circle(char *plane, double x, double y, double z, double r);
+void mcdis_Circle(double x, double y, double z, double r, double nx, double ny, double nz);
+void mcdis_cylinder( double x, double y, double z,
+        double r, double height, int N, double nx, double ny, double nz);
+void mcdis_sphere(double x, double y, double z, double r, int N);
 
 /* selection of random number generator. default is MT */
 #ifndef MC_RAND_ALG
@@ -688,7 +692,7 @@ NXhandle nxhandle;
 #endif /* MCCODE_R_H */
 /* End of file "mccode-r.h". */
 
-#line 691 "generic_curved.c"
+#line 695 "./generic_curved.c"
 
 #line 1 "mcstas-r.h"
 /*******************************************************************************
@@ -921,7 +925,7 @@ void mcsetstate(double x, double y, double z, double vx, double vy, double vz,
 #endif /* MCSTAS_R_H */
 /* End of file "mcstas-r.h". */
 
-#line 924 "generic_curved.c"
+#line 928 "./generic_curved.c"
 
 #line 1 "mccode-r.c"
 /*******************************************************************************
@@ -970,9 +974,13 @@ void mcsetstate(double x, double y, double z, double vx, double vy, double vz,
 // UNIX specific headers (non-Windows)
 #if defined(__unix__) || defined(__APPLE__)
 #include <unistd.h>
-#include <sys/stat.h>
 #endif
 
+#include <sys/stat.h>
+
+#ifdef _WIN32 
+# define  mkdir( D, M )   _mkdir( D ) 
+#endif 
 
 #ifndef DANSE
 #ifdef MC_ANCIENT_COMPATIBILITY
@@ -1028,8 +1036,8 @@ int mc_MPI_Sum(double *sbuf, long count)
     while (offset < count) {
       if (!length || offset+length > count-1) length=count-offset;
       else length=MPI_REDUCE_BLOCKSIZE;
-      if (MPI_Allreduce((double*)(sbuf+offset), (double*)(rbuf+offset),
-              length, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD) != MPI_SUCCESS)
+      if (MPI_Reduce((double*)(sbuf+offset), (double*)(rbuf+offset),
+              length, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD) != MPI_SUCCESS)
         return MPI_ERR_COUNT;
       offset += length;
     }
@@ -1856,16 +1864,17 @@ static void mcruninfo_out(char *pre, FILE *f)
 
   /* output parameter string ================================================ */
   for(i = 0; i < mcnumipar; i++) {
-    if (mcget_run_num() || (mcinputtable[i].val && strlen(mcinputtable[i].val))) {
-      if (mcinputtable[i].par == NULL)
-        strncpy(Parameters, (mcinputtable[i].val ? mcinputtable[i].val : ""), CHAR_BUF_LENGTH);
-      else
-        (*mcinputtypes[mcinputtable[i].type].printer)(Parameters, mcinputtable[i].par);
-
-      fprintf(f, "%sParam: %s=%s\n", pre, mcinputtable[i].name, Parameters);
-    }
+      if (mcinputtable[i].par){
+	/* Parameters with a default value */
+	if(mcinputtable[i].val && strlen(mcinputtable[i].val)){
+	  (*mcinputtypes[mcinputtable[i].type].printer)(Parameters, mcinputtable[i].par);
+	  fprintf(f, "%sParam: %s=%s\n", pre, mcinputtable[i].name, Parameters);
+        /* ... and those without */
+	}else{
+	  fprintf(f, "%sParam: %s=NULL\n", pre, mcinputtable[i].name);
+	}
+      } 
   }
-  fflush(f);
 } /* mcruninfo_out */
 
 /*******************************************************************************
@@ -2193,7 +2202,7 @@ static int nxstr(char type, NXhandle *f, char *tag, char *format, ...)
 *******************************************************************************/
 char *mcinfo_readfile(char *filename)
 {
-  FILE *f = fopen(filename, "r");
+  FILE *f = fopen(filename, "rb");
   if (!f) return(NULL);
   fseek(f, 0, SEEK_END);
   long fsize = ftell(f);
@@ -2667,8 +2676,9 @@ MCDETECTOR mcdetector_out_0D_nexus(MCDETECTOR detector)
   return(detector);
 } /* mcdetector_out_0D_ascii */
 
-MCDETECTOR mcdetector_out_1D_nexus(MCDETECTOR detector)
+MCDETECTOR mcdetector_out_1D_nexus(MCDETECTOR detector_inc)
 {
+  MCDETECTOR detector = detector_inc;
   MPI_MASTER(
   mcdatainfo_out_nexus(nxhandle, detector);
   mcdetector_out_data_nexus(nxhandle, detector);
@@ -2676,8 +2686,9 @@ MCDETECTOR mcdetector_out_1D_nexus(MCDETECTOR detector)
   return(detector);
 } /* mcdetector_out_1D_ascii */
 
-MCDETECTOR mcdetector_out_2D_nexus(MCDETECTOR detector)
+MCDETECTOR mcdetector_out_2D_nexus(MCDETECTOR detector_inc)
 {
+  MCDETECTOR detector = detector_inc;
   MPI_MASTER(
   mcdatainfo_out_nexus(nxhandle, detector);
   mcdetector_out_data_nexus(nxhandle, detector);
@@ -3070,7 +3081,7 @@ mcsetseed(char *arg)
 *******************************************************************************/
 
 void mcdis_magnify(char *what){
-  printf("MCDISPLAY: magnify('%s')\n", what);
+  // Do nothing here, better use interactive zoom from the tools
 }
 
 void mcdis_line(double x1, double y1, double z1,
@@ -3159,6 +3170,86 @@ void mcdis_box(double x, double y, double z,
 
 void mcdis_circle(char *plane, double x, double y, double z, double r){
   printf("MCDISPLAY: circle('%s',%g,%g,%g,%g)\n", plane, x, y, z, r);
+}
+
+/* Draws a circle with center (x,y,z), radius (r), and in the plane
+ * with normal (nx,ny,nz)*/
+void mcdis_Circle(double x, double y, double z, double r, double nx, double ny, double nz){
+    int i;
+    if(nx==0 && ny && nz==0){
+        for (i=0;i<24; i++){
+            mcdis_line(x+r*sin(i*2*M_PI/24),y,z+r*cos(i*2*M_PI/24),
+                    x+r*sin((i+1)*2*M_PI/24),y,z+r*cos((i+1)*2*M_PI/24));
+        }
+    }else{
+        double mx,my,mz;
+        /*generate perpendicular vector using (nx,ny,nz) and (0,1,0)*/
+        vec_prod(mx,my,mz, 0,1,0, nx,ny,nz);
+        NORM(mx,my,mz);
+        /*draw circle*/
+        for (i=0;i<24; i++){
+            double ux,uy,uz;
+            double wx,wy,wz;
+            rotate(ux,uy,uz, mx,my,mz, i*2*M_PI/24, nx,ny,nz);
+            rotate(wx,wy,wz, mx,my,mz, (i+1)*2*M_PI/24, nx,ny,nz);
+            mcdis_line(x+ux*r,y+uy*r,z+uz*r,
+                    x+wx*r,y+wy*r,z+wz*r);
+        }
+    }
+}
+
+/* Draws a cylinder with center at (x,y,z) with extent (r,height).
+ * The cylinder axis is along the vector nx,ny,nz.
+ * N determines how many vertical lines are drawn.*/
+void mcdis_cylinder( double x, double y, double z,
+        double r, double height, int N, double nx, double ny, double nz){
+    int i;
+    /*no lines make little sense - so trigger the default*/
+    if(N<=0) N=5;
+
+    NORM(nx,ny,nz);
+    double h_2=height/2.0;
+    mcdis_Circle(x+nx*h_2,y+ny*h_2,z+nz*h_2,r,nx,ny,nz);
+    mcdis_Circle(x-nx*h_2,y-ny*h_2,z-nz*h_2,r,nx,ny,nz);
+
+    double mx,my,mz;
+    /*generate perpendicular vector using (nx,ny,nz) and (0,1,0)*/
+    if(nx==0 && ny && nz==0){
+        mx=my=0;mz=1;
+    }else{
+        vec_prod(mx,my,mz, 0,1,0, nx,ny,nz);
+        NORM(mx,my,mz);
+    }
+    /*draw circle*/
+    for (i=0; i<24; i++){
+        double ux,uy,uz;
+        rotate(ux,uy,uz, mx,my,mz, i*2*M_PI/24, nx,ny,nz);
+        mcdis_line(x+nx*h_2+ux*r, y+ny*h_2+uy*r, z+nz*h_2+uz*r,
+                 x-nx*h_2+ux*r, y-ny*h_2+uy*r, z-nz*h_2+uz*r);
+    }
+}
+
+/* draws a sphere with center at (x,y,z) with extent (r)
+ * The sphere is drawn using N longitudes and N latitudes.*/
+void mcdis_sphere(double x, double y, double z, double r, int N){
+    double nx,ny,nz;
+    int i;
+    /*no lines make little sense - so trigger the default*/
+    if(N<=0) N=5;
+
+    nx=0;ny=0;nz=1;
+    mcdis_Circle(x,y,z,r,nx,ny,nz);
+    for (i=1;i<N;i++){
+        rotate(nx,ny,nz, nx,ny,nz, M_PI/N, 0,1,0);
+        mcdis_Circle(x,y,z,r,nx,ny,nz);
+    }
+    /*lastly draw a great circle perpendicular to all N circles*/
+    //mcdis_Circle(x,y,z,radius,1,0,0);
+
+    for (i=1;i<=N;i++){
+        double yy=-r+ 2*r*((double)i/(N+1));
+        mcdis_Circle(x,y+yy ,z,  sqrt(r*r-yy*yy) ,0,1,0);
+    }
 }
 
 /* SECTION: coordinates handling ============================================ */
@@ -4432,7 +4523,7 @@ mcparseoptions(int argc, char *argv[])
     else if(!strncmp("--ncount=", argv[i], 9))
       mcsetn_arg(&argv[i][9]);
     else if(!strcmp("-d", argv[i]) && (i + 1) < argc)
-      usedir=argv[++i];  /* will create directory after parsing all arguments (end of this function) */
+      usedir=argv[++i];  /* will create directory after parsing all arguments (end of this function) */
     else if(!strncmp("-d", argv[i], 2))
       usedir=&argv[i][2];
     else if(!strcmp("--dir", argv[i]) && (i + 1) < argc)
@@ -4515,7 +4606,7 @@ mcparseoptions(int argc, char *argv[])
 #ifdef USE_MPI
   if (mcdotrace) mpi_node_count=1; /* disable threading when in trace mode */
 #endif
-  if (usedir && strlen(usedir)) mcuse_dir(usedir);
+  if (usedir && strlen(usedir) && !mcdisable_output_files) mcuse_dir(usedir);
 } /* mcparseoptions */
 
 #ifndef NOSIGNALS
@@ -4853,7 +4944,7 @@ void neutronics_main_(float *inx, float *iny, float *inz, float *invx, float *in
 /* End of file "mccode-r.c". */
 /* End of file "mccode-r.c". */
 
-#line 4856 "generic_curved.c"
+#line 4947 "./generic_curved.c"
 
 #line 1 "mcstas-r.c"
 /*******************************************************************************
@@ -5213,13 +5304,13 @@ plane_intersect(double *t, double x, double y, double z,
 #endif /* !MCSTAS_H */
 /* End of file "mcstas-r.c". */
 
-#line 5216 "generic_curved.c"
+#line 5307 "./generic_curved.c"
 #ifdef MC_TRACE_ENABLED
 int mctraceenabled = 1;
 #else
 int mctraceenabled = 0;
 #endif
-#define MCSTAS "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\"
+#define MCSTAS "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../"
 int mcdefaultmain = 1;
 char mcinstrument_name[] = "generic_curved";
 char mcinstrument_source[] = "generic_curved.instr";
@@ -5232,7 +5323,7 @@ void mcfinally(void);
 void mcdisplay(void);
 
 /* Shared user declarations for all components 'Source_gen'. */
-#line 140 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 140 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -5412,10 +5503,11 @@ double z11, double z12, double z21, double z22);
 *******************************************************************************/
 void * Table_File_List_Handler(t_Read_table_file_actions action, void *item, void *item_modifier){
 
-    /* logic here is Read_Table should include a call to FIND. If found the return value shoud just be used as
-     * if the table had been read. If not found then read the table and STORE.
-     * Table_Free should include a call to GC. If this returns non-NULL then we shoudl proceed with freeing the memory
-     * associated with the table item - otherwise do nothing since there are more references that may need it.*/ 
+    /* logic here is Read_Table should include a call to FIND. If found the return value should just be used as
+     * if the table had been read from disk. If not found then read the table and STORE.
+     * Table_Free should include a call to GC. If this returns non-NULL then we should proceed with freeing the memory
+     * associated with the table item - otherwise only decrement the reference counter since there are more references
+     * that may need it.*/
 
     static t_Read_table_file_item read_table_file_list[1024];  
     static int read_table_file_count=0;
@@ -5455,11 +5547,12 @@ void * Table_File_List_Handler(t_Read_table_file_actions action, void *item, voi
                         tr->table_ref->block_number == ((t_Table *)item)->block_number){
                     /*matching item found*/
                     if (tr->ref_count>1){
-                        /*the item is found - no garbage collection needed*/
+                        /*the item is found and no garbage collection needed*/
                         tr->ref_count--;
                         return NULL;
                     }else{
-                        /* The item is found - move remaining list items up one slot,
+                        /* The item is found and the reference counter is 1.
+                         * This means we should garbage collect. Move remaining list items up one slot,
                          * and return the table for garbage collection by caller*/
                         while (tr->table_ref!=NULL){
                             *tr=*(tr+1);
@@ -5471,9 +5564,11 @@ void * Table_File_List_Handler(t_Read_table_file_actions action, void *item, voi
                 }
                 tr++;
             }
-            return (void *)0x1 ;/*item not found*/ 
-    } 
-
+            /* item not found, and so should be garbage collected. This could be the case if freeing a
+             * Table that has been constructed from code - not read from file. Return 0x1 to flag it for
+             * collection.*/
+            return (void *) 0x1 ;
+    }
 }
 
 /* Access functions to the handler*/
@@ -5657,7 +5752,7 @@ void *Table_File_List_store(t_Table *tab){
     t_Table *tab_p= Table_File_List_find(name,block_number,begin);
     if ( tab_p!=NULL ){
         /*table was found in the Table_File_List*/
-        printf("Reusing input file '%s' (Table_Read_Offset)\n", name);
+        // printf("Reusing input file '%s' (Table_Read_Offset)\n", name);
         *Table=*tab_p;
         return Table->rows*Table->columns;
     }
@@ -6158,7 +6253,7 @@ double Table_Value(t_Table Table, double X, long j)
   // Fall back to linear search, if no-one else has set X1, X2 correctly
   if (!((X1 <= X) && (X < X2))) {
     /* look for index surrounding X in the table -> Index */
-    for (Index=1; Index < Table.rows-1; Index++) {
+    for (Index=1; Index <= Table.rows-1; Index++) {
         X1 = Table_Index(Table, Index-1,0);
         X2 = Table_Index(Table, Index  ,0);
         if ((X1 <= X) && (X < X2)) break;
@@ -6231,7 +6326,9 @@ double Table_Value(t_Table Table, double X, long j)
 
 /*******************************************************************************
 * void Table_Free(t_Table *Table)
-*   ACTION: free a single Table
+*   ACTION: free a single Table. First Call Table_File_list_gc. If this returns
+*   non-zero it means there are more refernces to the table, and so the table
+*   should not bee freed.
 *   return: empty Table
 *******************************************************************************/
   void Table_Free(t_Table *Table)
@@ -6465,7 +6562,7 @@ MCDETECTOR Table_Write(t_Table Table, char *file, char *xl, char *yl,
     long allocated=256;
     long nelements=1;
 
-    /* fisrt allocate an initial empty t_Table array */
+    /* first allocate an initial empty t_Table array */
     Table_Array = (t_Table *)malloc(allocated*sizeof(t_Table));
     if (!Table_Array) {
       fprintf(stderr, "Error: Can not allocate memory %li (Table_Read_Array).\n",
@@ -6485,21 +6582,24 @@ MCDETECTOR Table_Write(t_Table Table, char *file, char *xl, char *yl,
       /* access file at offset and get following block. Block number is from the set offset
        * hence the hardcoded 1 - i.e. the next block counted from offset.*/
       nelements = Table_Read_Offset(&Table, File, 1, &offset,0);
-      /* if t_Table array is not long enough, expand and realocate */
-      if (block_number >= allocated-1) {
-        allocated += 256;
-        Table_Array = (t_Table *)realloc(Table_Array,
-           allocated*sizeof(t_Table));
-        if (!Table_Array) {
-          fprintf(stderr, "Error: Can not re-allocate memory %li (Table_Read_Array).\n",
-              allocated*sizeof(t_Table));
-          *blocks = 0;
-          return (NULL);
-        }
+      /*if the block is empty - don't store it*/
+      if (nelements>0){
+          /* if t_Table array is not long enough, expand and realocate */
+          if (block_number >= allocated-1) {
+              allocated += 256;
+              Table_Array = (t_Table *)realloc(Table_Array,
+                      allocated*sizeof(t_Table));
+              if (!Table_Array) {
+                  fprintf(stderr, "Error: Can not re-allocate memory %li (Table_Read_Array).\n",
+                          allocated*sizeof(t_Table));
+                  *blocks = 0;
+                  return (NULL);
+              }
+          }
+          /* store it into t_Table array */
+          //snprintf(Table.filename, 1024, "%s#%li", File, block_number-1);
+          Table_Array[block_number-1] = Table;
       }
-      /* store it into t_Table array */
-      //snprintf(Table.filename, 1024, "%s#%li", File, block_number-1);
-      Table_Array[block_number-1] = Table;
       /* continues until we find an empty block */
     }
     /* send back number of extracted blocks */
@@ -6517,11 +6617,10 @@ MCDETECTOR Table_Write(t_Table Table, char *file, char *xl, char *yl,
 *******************************************************************************/
   void Table_Free_Array(t_Table *Table)
   {
-    long index=0;
+    long index;
     if (!Table) return;
-    while (Table[index].data || Table[index].header){
+    for (index=0;index < Table[0].array_length; index++){
             Table_Free(&Table[index]);
-            index++;
     }
     free(Table);
   } /* end Table_Free_Array */
@@ -6701,10 +6800,10 @@ char *str_dup_numeric(char *orig)
   }
 #endif
 
-#line 6704 "generic_curved.c"
+#line 6803 "./generic_curved.c"
 
 /* Shared user declarations for all components 'Guide_gravity'. */
-#line 124 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 124 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 /*****************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -7057,10 +7156,10 @@ void TableReflecFunc(double mc_pol_q, t_Table *mc_pol_par, double *mc_pol_r) {
 
 
 #endif
-#line 7060 "generic_curved.c"
+#line 7159 "./generic_curved.c"
 
 /* Shared user declarations for all components 'Monitor_nD'. */
-#line 212 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#line 214 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -7233,7 +7332,7 @@ void TableReflecFunc(double mc_pol_q, t_Table *mc_pol_par, double *mc_pol_r) {
 /* ========================================================================= */
 
 void Monitor_nD_Init(MonitornD_Defines_type *, MonitornD_Variables_type *, MCNUM, MCNUM, MCNUM, MCNUM, MCNUM, MCNUM, MCNUM, MCNUM, MCNUM, int);
-double Monitor_nD_Trace(MonitornD_Defines_type *, MonitornD_Variables_type *);
+int Monitor_nD_Trace(MonitornD_Defines_type *, MonitornD_Variables_type *);
 MCDETECTOR Monitor_nD_Save(MonitornD_Defines_type *, MonitornD_Variables_type *);
 void Monitor_nD_Finally(MonitornD_Defines_type *, MonitornD_Variables_type *);
 void Monitor_nD_McDisplay(MonitornD_Defines_type *,
@@ -7397,7 +7496,13 @@ void Monitor_nD_Init(MonitornD_Defines_type *DEFS,
     Vars->Flag_Binary_List  = 0;   /* save list as a binary file (smaller) */
     Vars->Coord_Number      = 0;   /* total number of variables to monitor, plus intensity (0) */
     Vars->Coord_NumberNoPixel=0;   /* same but without counting PixelID */
-    Vars->Buffer_Block      = 10000;     /* Buffer size for list or auto limits */
+
+/* Allow to specify size of Monitor_nD buffer via a define*/
+#ifndef MONND_BUFSIZ
+    Vars->Buffer_Block      = 100000;     /* Buffer size for list or auto limits */
+#else
+	Vars->Buffer_Block      = MONND_BUFSIZ;     /* Buffer size for list or auto limits */	
+#endif
     Vars->Neutron_Counter   = 0;   /* event counter, simulation total counts is mcget_ncount() */
     Vars->Buffer_Counter    = 0;   /* index in Buffer size (for realloc) */
     Vars->Buffer_Size       = 0;
@@ -7993,12 +8098,14 @@ void Monitor_nD_Init(MonitornD_Defines_type *DEFS,
 
 /* ========================================================================= */
 /* Monitor_nD_Trace: this routine is used to monitor one propagating neutron */
+/* return values: 0=neutron was absorbed, -1=neutron was outside bounds, 1=neutron was measured*/
 /* ========================================================================= */
 
-double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *Vars)
+int Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *Vars)
 {
 
   double  XY=0, pp=0;
+  int     retval;
   long    i =0, j =0;
   double  Coord[MONnD_COORD_NMAX];
   long    Coord_Index[MONnD_COORD_NMAX];
@@ -8056,9 +8163,9 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
     }
   } /* end if Buffer realloc */
 
+  char    outsidebounds=0;
   while (!While_End)
   { /* we generate Coord[] and Coord_index[] from Buffer (auto limits) or passing neutron */
-    char    outsidebounds=0;
     if ((Vars->Flag_Auto_Limits == 2) && (Vars->Coord_Number > 0))
     { /* Vars->Flag_Auto_Limits == 2: read back from Buffer (Buffer is filled or auto limits have been computed) */
       if (While_Buffer < Vars->Buffer_Block)
@@ -8264,8 +8371,8 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
               if (Coord_Index[i] >= Vars->Coord_Bin[i]) Coord_Index[i] = Vars->Coord_Bin[i] - 1;
               if (Coord_Index[i] < 0) Coord_Index[i] = 0;
             }
-            if (0 > Coord_Index[i] || Coord_Index[i] >= Vars->Coord_Bin[i])
-              outsidebounds=1;
+            //if (0 > Coord_Index[i] || Coord_Index[i] >= Vars->Coord_Bin[i])
+            //  outsidebounds=1;
           } /* else will get Index later from Buffer when Flag_Auto_Limits == 2 */
         }
         
@@ -8282,7 +8389,7 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
         pp /= Vars->area;
 
       /* 2D case : Vars->Coord_Number==2 and !Vars->Flag_Multiple and !Vars->Flag_List */
-      if ( Vars->Coord_NumberNoPixel == 2 && !Vars->Flag_Multiple && !outsidebounds)
+      if ( Vars->Coord_NumberNoPixel == 2 && !Vars->Flag_Multiple)
       { /* Dim : Vars->Coord_Bin[1]*Vars->Coord_Bin[2] matrix */
         
         i = Coord_Index[1];
@@ -8296,9 +8403,8 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
           }
         } else {
           outsidebounds=1; 
-          if (Vars->Flag_Absorb) pp=0;
         }
-      } else if (!outsidebounds) {
+      } else {
         /* 1D and n1D case : Vars->Flag_Multiple */
         /* Dim : Vars->Coord_Number*Vars->Coord_Bin[i] vectors (intensity is not included) */
           
@@ -8309,10 +8415,10 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
               Vars->Mon2D_N[i-1][j]++;
               Vars->Mon2D_p[i-1][j]  += pp;
               Vars->Mon2D_p2[i-1][j] += pp*pp;
-            } 
+            }
           } else { 
-            outsidebounds=1; 
-            if (Vars->Flag_Absorb) { pp=0; break; }
+            outsidebounds=1;
+            break;
           }
         }
       }
@@ -8338,8 +8444,16 @@ double Monitor_nD_Trace(MonitornD_Defines_type *DEFS, MonitornD_Variables_type *
   Vars->Nsum++;
   Vars->psum  += pp;
   Vars->p2sum += pp*pp;
-  
-  return pp;
+
+  /*determine return value: 1:neutron was in bounds and measured, -1: outside bounds, 0: outside bounds, should be absorbed.*/
+  if(outsidebounds){
+      if(Vars->Flag_Absorb){
+          return 0;
+      }else{
+          return -1;
+      }
+  }
+  return 1;
 } /* end Monitor_nD_Trace */
 
 /* ========================================================================= */
@@ -8863,8 +8977,8 @@ void Monitor_nD_McDisplay(MonitornD_Defines_type *DEFS,
       
       /* check width and height of elements (sphere) to make sure the nb
          of plates remains limited */
-      if (width < 10  && NH > 1) { width = 10;  NH=(hdiv_max-hdiv_min)/width; }
-      if (height < 10 && NV > 1) { height = 10; NV=(vdiv_max-vdiv_min)/height; }
+      if (width < 10  && NH > 1) { width = 10;  NH=(hdiv_max-hdiv_min)/width; width=(hdiv_max-hdiv_min)/NH; }
+      if (height < 10 && NV > 1) { height = 10; NV=(vdiv_max-vdiv_min)/height; height= (vdiv_max-vdiv_min)/NV; }
       
       mcdis_magnify("xyz");
       for(ih = 0; ih < NH; ih++)
@@ -9347,6 +9461,13 @@ FILE *off_getBlocksIndex(char* filename, long* vtxSize, long* polySize )
   {
     fprintf(stderr, "Error: Can not read 1st line in file %s (interoff/off_getBlocksIndex)\n", filename);
     exit(1);
+  }
+  if (strlen(line)>5)
+  {
+      fprintf(stderr,"Error: First line in %s is too long (=%d). Possibly the line is not terminated by '\\n'.\n" 
+              "       The first line is required to be exactly 'OFF', '3' or 'ply'.\n",filename,strlen(line));
+      fclose(f);
+      return(NULL);
   }
 
   if (strncmp(line,"OFF",3) && strncmp(line,"3",1) && strncmp(line,"ply",1))
@@ -9970,7 +10091,7 @@ void off_display(off_struct data)
 
 /* end of interoff-lib.c */
 
-#line 9973 "generic_curved.c"
+#line 10094 "./generic_curved.c"
 
 /* Instrument parameters. */
 MCNUM mcipR_curv;
@@ -10030,7 +10151,7 @@ struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
 #define source_lambda_min mcipsource_lambda_min
 #define source_lambda_max mcipsource_lambda_max
 #define cold_regime mcipcold_regime
-#line 29 "../main/H3_source.instr"
+#line 29 "H3_source.instr"
 //[Cold source parameters
 double source_height = 0.2, source_width = 0.12;
 double source_I1 = 5.38e12, source_I2= 2.50e12, source_I3 = 9.51e12;
@@ -10051,7 +10172,7 @@ double guide_start_dist = 1.82;
 double R0 = 0.99, alpha = 3.3;
 //rotation of one guide element
 double rot,l_sect;
-#line 10054 "generic_curved.c"
+#line 10175 "./generic_curved.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -13790,6 +13911,7 @@ char mccSample_geometry[16384];
 char mccSample_username1[16384];
 char mccSample_username2[16384];
 char mccSample_username3[16384];
+int mccSample_nowritefile;
 
 /* User component declarations. */
 
@@ -13805,7 +13927,7 @@ char mccSample_username3[16384];
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 44 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 44 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 #ifndef PROGRESS_BAR
 #define PROGRESS_BAR
 #else
@@ -13816,7 +13938,7 @@ double IntermediateCnts;
 time_t StartTime;
 time_t EndTime;
 time_t CurrentTime;
-#line 13819 "generic_curved.c"
+#line 13941 "./generic_curved.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -13880,7 +14002,7 @@ time_t CurrentTime;
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 184 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 184 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 
   double p_in;
   double lambda1;  /* first Maxwellian source */
@@ -13900,7 +14022,7 @@ time_t CurrentTime;
   double pTable_dymin;
   double pTable_dymax;
 
-#line 13903 "generic_curved.c"
+#line 14025 "./generic_curved.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -14000,10 +14122,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_nu
 #define phase mccGuide_curved_phase
 #define reflect mccGuide_curved_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14006 "generic_curved.c"
+#line 14128 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14084,10 +14206,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_5_nu
 #define phase mccGuide_curved_5_phase
 #define reflect mccGuide_curved_5_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14090 "generic_curved.c"
+#line 14212 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14168,10 +14290,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_6_nu
 #define phase mccGuide_curved_6_phase
 #define reflect mccGuide_curved_6_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14174 "generic_curved.c"
+#line 14296 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14252,10 +14374,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_7_nu
 #define phase mccGuide_curved_7_phase
 #define reflect mccGuide_curved_7_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14258 "generic_curved.c"
+#line 14380 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14336,10 +14458,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_8_nu
 #define phase mccGuide_curved_8_phase
 #define reflect mccGuide_curved_8_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14342 "generic_curved.c"
+#line 14464 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14420,10 +14542,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_9_nu
 #define phase mccGuide_curved_9_phase
 #define reflect mccGuide_curved_9_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14426 "generic_curved.c"
+#line 14548 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14504,10 +14626,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_10_nu
 #define phase mccGuide_curved_10_phase
 #define reflect mccGuide_curved_10_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14510 "generic_curved.c"
+#line 14632 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14588,10 +14710,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_11_nu
 #define phase mccGuide_curved_11_phase
 #define reflect mccGuide_curved_11_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14594 "generic_curved.c"
+#line 14716 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14672,10 +14794,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_12_nu
 #define phase mccGuide_curved_12_phase
 #define reflect mccGuide_curved_12_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14678 "generic_curved.c"
+#line 14800 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14756,10 +14878,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_13_nu
 #define phase mccGuide_curved_13_phase
 #define reflect mccGuide_curved_13_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14762 "generic_curved.c"
+#line 14884 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14840,10 +14962,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_14_nu
 #define phase mccGuide_curved_14_phase
 #define reflect mccGuide_curved_14_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14846 "generic_curved.c"
+#line 14968 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14924,10 +15046,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_15_nu
 #define phase mccGuide_curved_15_phase
 #define reflect mccGuide_curved_15_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14930 "generic_curved.c"
+#line 15052 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15008,10 +15130,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_16_nu
 #define phase mccGuide_curved_16_phase
 #define reflect mccGuide_curved_16_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15014 "generic_curved.c"
+#line 15136 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15092,10 +15214,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_17_nu
 #define phase mccGuide_curved_17_phase
 #define reflect mccGuide_curved_17_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15098 "generic_curved.c"
+#line 15220 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15176,10 +15298,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_18_nu
 #define phase mccGuide_curved_18_phase
 #define reflect mccGuide_curved_18_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15182 "generic_curved.c"
+#line 15304 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15260,10 +15382,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_19_nu
 #define phase mccGuide_curved_19_phase
 #define reflect mccGuide_curved_19_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15266 "generic_curved.c"
+#line 15388 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15344,10 +15466,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_20_nu
 #define phase mccGuide_curved_20_phase
 #define reflect mccGuide_curved_20_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15350 "generic_curved.c"
+#line 15472 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15428,10 +15550,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_21_nu
 #define phase mccGuide_curved_21_phase
 #define reflect mccGuide_curved_21_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15434 "generic_curved.c"
+#line 15556 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15512,10 +15634,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_22_nu
 #define phase mccGuide_curved_22_phase
 #define reflect mccGuide_curved_22_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15518 "generic_curved.c"
+#line 15640 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15596,10 +15718,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_23_nu
 #define phase mccGuide_curved_23_phase
 #define reflect mccGuide_curved_23_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15602 "generic_curved.c"
+#line 15724 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15680,10 +15802,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_24_nu
 #define phase mccGuide_curved_24_phase
 #define reflect mccGuide_curved_24_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15686 "generic_curved.c"
+#line 15808 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15764,10 +15886,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_25_nu
 #define phase mccGuide_curved_25_phase
 #define reflect mccGuide_curved_25_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15770 "generic_curved.c"
+#line 15892 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15848,10 +15970,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_26_nu
 #define phase mccGuide_curved_26_phase
 #define reflect mccGuide_curved_26_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15854 "generic_curved.c"
+#line 15976 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15932,10 +16054,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_27_nu
 #define phase mccGuide_curved_27_phase
 #define reflect mccGuide_curved_27_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15938 "generic_curved.c"
+#line 16060 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16016,10 +16138,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_28_nu
 #define phase mccGuide_curved_28_phase
 #define reflect mccGuide_curved_28_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16022 "generic_curved.c"
+#line 16144 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16100,10 +16222,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_29_nu
 #define phase mccGuide_curved_29_phase
 #define reflect mccGuide_curved_29_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16106 "generic_curved.c"
+#line 16228 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16184,10 +16306,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_30_nu
 #define phase mccGuide_curved_30_phase
 #define reflect mccGuide_curved_30_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16190 "generic_curved.c"
+#line 16312 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16268,10 +16390,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_31_nu
 #define phase mccGuide_curved_31_phase
 #define reflect mccGuide_curved_31_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16274 "generic_curved.c"
+#line 16396 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16352,10 +16474,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_32_nu
 #define phase mccGuide_curved_32_phase
 #define reflect mccGuide_curved_32_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16358 "generic_curved.c"
+#line 16480 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16436,10 +16558,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_33_nu
 #define phase mccGuide_curved_33_phase
 #define reflect mccGuide_curved_33_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16442 "generic_curved.c"
+#line 16564 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16520,10 +16642,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_34_nu
 #define phase mccGuide_curved_34_phase
 #define reflect mccGuide_curved_34_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16526 "generic_curved.c"
+#line 16648 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16604,10 +16726,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_35_nu
 #define phase mccGuide_curved_35_phase
 #define reflect mccGuide_curved_35_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16610 "generic_curved.c"
+#line 16732 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16688,10 +16810,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_36_nu
 #define phase mccGuide_curved_36_phase
 #define reflect mccGuide_curved_36_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16694 "generic_curved.c"
+#line 16816 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16772,10 +16894,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_37_nu
 #define phase mccGuide_curved_37_phase
 #define reflect mccGuide_curved_37_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16778 "generic_curved.c"
+#line 16900 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16856,10 +16978,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_38_nu
 #define phase mccGuide_curved_38_phase
 #define reflect mccGuide_curved_38_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16862 "generic_curved.c"
+#line 16984 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16940,10 +17062,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_39_nu
 #define phase mccGuide_curved_39_phase
 #define reflect mccGuide_curved_39_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16946 "generic_curved.c"
+#line 17068 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17024,10 +17146,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_40_nu
 #define phase mccGuide_curved_40_phase
 #define reflect mccGuide_curved_40_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17030 "generic_curved.c"
+#line 17152 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17108,10 +17230,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_41_nu
 #define phase mccGuide_curved_41_phase
 #define reflect mccGuide_curved_41_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17114 "generic_curved.c"
+#line 17236 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17192,10 +17314,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_42_nu
 #define phase mccGuide_curved_42_phase
 #define reflect mccGuide_curved_42_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17198 "generic_curved.c"
+#line 17320 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17276,10 +17398,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_43_nu
 #define phase mccGuide_curved_43_phase
 #define reflect mccGuide_curved_43_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17282 "generic_curved.c"
+#line 17404 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17360,10 +17482,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_44_nu
 #define phase mccGuide_curved_44_phase
 #define reflect mccGuide_curved_44_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17366 "generic_curved.c"
+#line 17488 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17444,10 +17566,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_45_nu
 #define phase mccGuide_curved_45_phase
 #define reflect mccGuide_curved_45_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17450 "generic_curved.c"
+#line 17572 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17528,10 +17650,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_46_nu
 #define phase mccGuide_curved_46_phase
 #define reflect mccGuide_curved_46_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17534 "generic_curved.c"
+#line 17656 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17612,10 +17734,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_47_nu
 #define phase mccGuide_curved_47_phase
 #define reflect mccGuide_curved_47_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17618 "generic_curved.c"
+#line 17740 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17696,10 +17818,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_48_nu
 #define phase mccGuide_curved_48_phase
 #define reflect mccGuide_curved_48_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17702 "generic_curved.c"
+#line 17824 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17780,10 +17902,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_49_nu
 #define phase mccGuide_curved_49_phase
 #define reflect mccGuide_curved_49_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17786 "generic_curved.c"
+#line 17908 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17864,10 +17986,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_50_nu
 #define phase mccGuide_curved_50_phase
 #define reflect mccGuide_curved_50_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17870 "generic_curved.c"
+#line 17992 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -17948,10 +18070,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_51_nu
 #define phase mccGuide_curved_51_phase
 #define reflect mccGuide_curved_51_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 17954 "generic_curved.c"
+#line 18076 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18032,10 +18154,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_52_nu
 #define phase mccGuide_curved_52_phase
 #define reflect mccGuide_curved_52_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18038 "generic_curved.c"
+#line 18160 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18116,10 +18238,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_53_nu
 #define phase mccGuide_curved_53_phase
 #define reflect mccGuide_curved_53_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18122 "generic_curved.c"
+#line 18244 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18200,10 +18322,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_54_nu
 #define phase mccGuide_curved_54_phase
 #define reflect mccGuide_curved_54_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18206 "generic_curved.c"
+#line 18328 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18284,10 +18406,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_55_nu
 #define phase mccGuide_curved_55_phase
 #define reflect mccGuide_curved_55_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18290 "generic_curved.c"
+#line 18412 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18368,10 +18490,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_56_nu
 #define phase mccGuide_curved_56_phase
 #define reflect mccGuide_curved_56_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18374 "generic_curved.c"
+#line 18496 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18452,10 +18574,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_57_nu
 #define phase mccGuide_curved_57_phase
 #define reflect mccGuide_curved_57_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18458 "generic_curved.c"
+#line 18580 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18536,10 +18658,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_58_nu
 #define phase mccGuide_curved_58_phase
 #define reflect mccGuide_curved_58_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18542 "generic_curved.c"
+#line 18664 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18620,10 +18742,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_59_nu
 #define phase mccGuide_curved_59_phase
 #define reflect mccGuide_curved_59_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18626 "generic_curved.c"
+#line 18748 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18704,10 +18826,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_60_nu
 #define phase mccGuide_curved_60_phase
 #define reflect mccGuide_curved_60_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18710 "generic_curved.c"
+#line 18832 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18788,10 +18910,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_61_nu
 #define phase mccGuide_curved_61_phase
 #define reflect mccGuide_curved_61_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18794 "generic_curved.c"
+#line 18916 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18872,10 +18994,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_62_nu
 #define phase mccGuide_curved_62_phase
 #define reflect mccGuide_curved_62_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18878 "generic_curved.c"
+#line 19000 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -18956,10 +19078,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_63_nu
 #define phase mccGuide_curved_63_phase
 #define reflect mccGuide_curved_63_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 18962 "generic_curved.c"
+#line 19084 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19040,10 +19162,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_64_nu
 #define phase mccGuide_curved_64_phase
 #define reflect mccGuide_curved_64_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19046 "generic_curved.c"
+#line 19168 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19124,10 +19246,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_65_nu
 #define phase mccGuide_curved_65_phase
 #define reflect mccGuide_curved_65_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19130 "generic_curved.c"
+#line 19252 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19208,10 +19330,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_66_nu
 #define phase mccGuide_curved_66_phase
 #define reflect mccGuide_curved_66_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19214 "generic_curved.c"
+#line 19336 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19292,10 +19414,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_67_nu
 #define phase mccGuide_curved_67_phase
 #define reflect mccGuide_curved_67_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19298 "generic_curved.c"
+#line 19420 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19376,10 +19498,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_68_nu
 #define phase mccGuide_curved_68_phase
 #define reflect mccGuide_curved_68_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19382 "generic_curved.c"
+#line 19504 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19460,10 +19582,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_69_nu
 #define phase mccGuide_curved_69_phase
 #define reflect mccGuide_curved_69_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19466 "generic_curved.c"
+#line 19588 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19544,10 +19666,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_70_nu
 #define phase mccGuide_curved_70_phase
 #define reflect mccGuide_curved_70_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19550 "generic_curved.c"
+#line 19672 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19628,10 +19750,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_71_nu
 #define phase mccGuide_curved_71_phase
 #define reflect mccGuide_curved_71_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19634 "generic_curved.c"
+#line 19756 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19712,10 +19834,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_72_nu
 #define phase mccGuide_curved_72_phase
 #define reflect mccGuide_curved_72_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19718 "generic_curved.c"
+#line 19840 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19796,10 +19918,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_73_nu
 #define phase mccGuide_curved_73_phase
 #define reflect mccGuide_curved_73_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19802 "generic_curved.c"
+#line 19924 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19880,10 +20002,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_74_nu
 #define phase mccGuide_curved_74_phase
 #define reflect mccGuide_curved_74_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19886 "generic_curved.c"
+#line 20008 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -19964,10 +20086,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_75_nu
 #define phase mccGuide_curved_75_phase
 #define reflect mccGuide_curved_75_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 19970 "generic_curved.c"
+#line 20092 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20048,10 +20170,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_76_nu
 #define phase mccGuide_curved_76_phase
 #define reflect mccGuide_curved_76_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20054 "generic_curved.c"
+#line 20176 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20132,10 +20254,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_77_nu
 #define phase mccGuide_curved_77_phase
 #define reflect mccGuide_curved_77_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20138 "generic_curved.c"
+#line 20260 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20216,10 +20338,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_78_nu
 #define phase mccGuide_curved_78_phase
 #define reflect mccGuide_curved_78_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20222 "generic_curved.c"
+#line 20344 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20300,10 +20422,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_79_nu
 #define phase mccGuide_curved_79_phase
 #define reflect mccGuide_curved_79_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20306 "generic_curved.c"
+#line 20428 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20384,10 +20506,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_80_nu
 #define phase mccGuide_curved_80_phase
 #define reflect mccGuide_curved_80_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20390 "generic_curved.c"
+#line 20512 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20468,10 +20590,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_81_nu
 #define phase mccGuide_curved_81_phase
 #define reflect mccGuide_curved_81_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20474 "generic_curved.c"
+#line 20596 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20552,10 +20674,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_82_nu
 #define phase mccGuide_curved_82_phase
 #define reflect mccGuide_curved_82_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20558 "generic_curved.c"
+#line 20680 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20636,10 +20758,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_83_nu
 #define phase mccGuide_curved_83_phase
 #define reflect mccGuide_curved_83_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20642 "generic_curved.c"
+#line 20764 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20720,10 +20842,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_84_nu
 #define phase mccGuide_curved_84_phase
 #define reflect mccGuide_curved_84_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20726 "generic_curved.c"
+#line 20848 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20804,10 +20926,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_85_nu
 #define phase mccGuide_curved_85_phase
 #define reflect mccGuide_curved_85_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20810 "generic_curved.c"
+#line 20932 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20888,10 +21010,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_86_nu
 #define phase mccGuide_curved_86_phase
 #define reflect mccGuide_curved_86_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20894 "generic_curved.c"
+#line 21016 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -20972,10 +21094,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_87_nu
 #define phase mccGuide_curved_87_phase
 #define reflect mccGuide_curved_87_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 20978 "generic_curved.c"
+#line 21100 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21056,10 +21178,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_88_nu
 #define phase mccGuide_curved_88_phase
 #define reflect mccGuide_curved_88_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21062 "generic_curved.c"
+#line 21184 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21140,10 +21262,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_89_nu
 #define phase mccGuide_curved_89_phase
 #define reflect mccGuide_curved_89_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21146 "generic_curved.c"
+#line 21268 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21224,10 +21346,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_90_nu
 #define phase mccGuide_curved_90_phase
 #define reflect mccGuide_curved_90_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21230 "generic_curved.c"
+#line 21352 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21308,10 +21430,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_91_nu
 #define phase mccGuide_curved_91_phase
 #define reflect mccGuide_curved_91_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21314 "generic_curved.c"
+#line 21436 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21392,10 +21514,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_92_nu
 #define phase mccGuide_curved_92_phase
 #define reflect mccGuide_curved_92_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21398 "generic_curved.c"
+#line 21520 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21476,10 +21598,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_93_nu
 #define phase mccGuide_curved_93_phase
 #define reflect mccGuide_curved_93_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21482 "generic_curved.c"
+#line 21604 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21560,10 +21682,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_94_nu
 #define phase mccGuide_curved_94_phase
 #define reflect mccGuide_curved_94_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21566 "generic_curved.c"
+#line 21688 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21644,10 +21766,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_95_nu
 #define phase mccGuide_curved_95_phase
 #define reflect mccGuide_curved_95_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21650 "generic_curved.c"
+#line 21772 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21728,10 +21850,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_96_nu
 #define phase mccGuide_curved_96_phase
 #define reflect mccGuide_curved_96_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21734 "generic_curved.c"
+#line 21856 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21812,10 +21934,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_97_nu
 #define phase mccGuide_curved_97_phase
 #define reflect mccGuide_curved_97_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21818 "generic_curved.c"
+#line 21940 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21896,10 +22018,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_98_nu
 #define phase mccGuide_curved_98_phase
 #define reflect mccGuide_curved_98_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21902 "generic_curved.c"
+#line 22024 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -21980,10 +22102,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_99_nu
 #define phase mccGuide_curved_99_phase
 #define reflect mccGuide_curved_99_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 21986 "generic_curved.c"
+#line 22108 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -22064,10 +22186,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_100_nu
 #define phase mccGuide_curved_100_phase
 #define reflect mccGuide_curved_100_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 22070 "generic_curved.c"
+#line 22192 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -22148,10 +22270,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_101_nu
 #define phase mccGuide_curved_101_phase
 #define reflect mccGuide_curved_101_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 22154 "generic_curved.c"
+#line 22276 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -22232,10 +22354,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_102_nu
 #define phase mccGuide_curved_102_phase
 #define reflect mccGuide_curved_102_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 22238 "generic_curved.c"
+#line 22360 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -22316,10 +22438,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_103_nu
 #define phase mccGuide_curved_103_phase
 #define reflect mccGuide_curved_103_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 22322 "generic_curved.c"
+#line 22444 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -22400,10 +22522,10 @@ time_t CurrentTime;
 #define nu mccGuide_straight_nu
 #define phase mccGuide_straight_phase
 #define reflect mccGuide_straight_reflect
-#line 334 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 334 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 22406 "generic_curved.c"
+#line 22528 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -22475,12 +22597,14 @@ time_t CurrentTime;
 #define username1 mccSample_username1
 #define username2 mccSample_username2
 #define username3 mccSample_username3
-#line 220 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#define nowritefile mccSample_nowritefile
+#line 222 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 22483 "generic_curved.c"
+#line 22606 "./generic_curved.c"
+#undef nowritefile
 #undef username3
 #undef username2
 #undef username1
@@ -22747,7 +22871,7 @@ void mcinit(void) {
 #define source_lambda_min mcipsource_lambda_min
 #define source_lambda_max mcipsource_lambda_max
 #define cold_regime mcipcold_regime
-#line 50 "../main/H3_source.instr"
+#line 50 "H3_source.instr"
 {
 //thermal regime of CNS
 if (cold_regime==0){
@@ -22769,7 +22893,7 @@ rot = l_sect/R_curv*RAD2DEG;
 
 	
 }
-#line 22772 "generic_curved.c"
+#line 22896 "./generic_curved.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
@@ -22810,14 +22934,14 @@ rot = l_sect/R_curv*RAD2DEG;
   mccOrigin_flag_save = 0;
 #line 39 "generic_curved.instr"
   mccOrigin_minutes = 0;
-#line 22813 "generic_curved.c"
+#line 22937 "./generic_curved.c"
 
   SIG_MESSAGE("Origin (Init:Place/Rotate)");
   rot_set_rotation(mcrotaOrigin,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22820 "generic_curved.c"
+#line 22944 "./generic_curved.c"
   rot_copy(mcrotrOrigin, mcrotaOrigin);
   mcposaOrigin = coords_set(
 #line 69 "generic_curved.instr"
@@ -22826,7 +22950,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 69 "generic_curved.instr"
     0);
-#line 22829 "generic_curved.c"
+#line 22953 "./generic_curved.c"
   mctc1 = coords_neg(mcposaOrigin);
   mcposrOrigin = rot_apply(mcrotaOrigin, mctc1);
   mcDEBUG_COMPONENT("Origin", mcposaOrigin, mcrotaOrigin)
@@ -22897,14 +23021,14 @@ rot = l_sect/R_curv*RAD2DEG;
   mccH3_zdepth = 0;
 #line 134 "generic_curved.instr"
   mccH3_target_index = + 1;
-#line 22900 "generic_curved.c"
+#line 23024 "./generic_curved.c"
 
   SIG_MESSAGE("H3 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22907 "generic_curved.c"
+#line 23031 "./generic_curved.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaH3);
   rot_transpose(mcrotaOrigin, mctr1);
   rot_mul(mcrotaH3, mctr1, mcrotrH3);
@@ -22915,7 +23039,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 78 "generic_curved.instr"
     0);
-#line 22918 "generic_curved.c"
+#line 23042 "./generic_curved.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaH3 = coords_add(mcposaOrigin, mctc2);
@@ -22935,7 +23059,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22938 "generic_curved.c"
+#line 23062 "./generic_curved.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaGuide_start_arm);
   rot_transpose(mcrotaH3, mctr1);
   rot_mul(mcrotaGuide_start_arm, mctr1, mcrotrGuide_start_arm);
@@ -22946,7 +23070,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 82 "generic_curved.instr"
     guide_start_dist);
-#line 22949 "generic_curved.c"
+#line 23073 "./generic_curved.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_start_arm = coords_add(mcposaOrigin, mctc2);
@@ -23028,14 +23152,14 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_reflect[0]='\0';
-#line 23031 "generic_curved.c"
+#line 23155 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 23038 "generic_curved.c"
+#line 23162 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaGuide_curved);
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   rot_mul(mcrotaGuide_curved, mctr1, mcrotrGuide_curved);
@@ -23046,7 +23170,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 53 "generic_curved.instr"
     0);
-#line 23049 "generic_curved.c"
+#line 23173 "./generic_curved.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved = coords_add(mcposaGuide_start_arm, mctc2);
@@ -23128,7 +23252,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_5_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_5_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_5_reflect[0]='\0';
-#line 23131 "generic_curved.c"
+#line 23255 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_5 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -23138,7 +23262,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 57 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 23141 "generic_curved.c"
+#line 23265 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved, mcrotaGuide_curved_5);
   rot_transpose(mcrotaGuide_curved, mctr1);
   rot_mul(mcrotaGuide_curved_5, mctr1, mcrotrGuide_curved_5);
@@ -23149,7 +23273,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 56 "generic_curved.instr"
     l_sect);
-#line 23152 "generic_curved.c"
+#line 23276 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_5 = coords_add(mcposaGuide_curved, mctc2);
@@ -23231,7 +23355,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_6_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_6_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_6_reflect[0]='\0';
-#line 23234 "generic_curved.c"
+#line 23358 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_6 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -23241,7 +23365,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 61 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 23244 "generic_curved.c"
+#line 23368 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_5, mcrotaGuide_curved_6);
   rot_transpose(mcrotaGuide_curved_5, mctr1);
   rot_mul(mcrotaGuide_curved_6, mctr1, mcrotrGuide_curved_6);
@@ -23252,7 +23376,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 60 "generic_curved.instr"
     l_sect);
-#line 23255 "generic_curved.c"
+#line 23379 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_5, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_6 = coords_add(mcposaGuide_curved_5, mctc2);
@@ -23334,7 +23458,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_7_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_7_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_7_reflect[0]='\0';
-#line 23337 "generic_curved.c"
+#line 23461 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_7 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -23344,7 +23468,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 65 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 23347 "generic_curved.c"
+#line 23471 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_6, mcrotaGuide_curved_7);
   rot_transpose(mcrotaGuide_curved_6, mctr1);
   rot_mul(mcrotaGuide_curved_7, mctr1, mcrotrGuide_curved_7);
@@ -23355,7 +23479,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 64 "generic_curved.instr"
     l_sect);
-#line 23358 "generic_curved.c"
+#line 23482 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_6, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_7 = coords_add(mcposaGuide_curved_6, mctc2);
@@ -23437,7 +23561,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_8_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_8_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_8_reflect[0]='\0';
-#line 23440 "generic_curved.c"
+#line 23564 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_8 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -23447,7 +23571,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 69 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 23450 "generic_curved.c"
+#line 23574 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_7, mcrotaGuide_curved_8);
   rot_transpose(mcrotaGuide_curved_7, mctr1);
   rot_mul(mcrotaGuide_curved_8, mctr1, mcrotrGuide_curved_8);
@@ -23458,7 +23582,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 68 "generic_curved.instr"
     l_sect);
-#line 23461 "generic_curved.c"
+#line 23585 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_7, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_8 = coords_add(mcposaGuide_curved_7, mctc2);
@@ -23540,7 +23664,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_9_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_9_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_9_reflect[0]='\0';
-#line 23543 "generic_curved.c"
+#line 23667 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_9 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -23550,7 +23674,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 73 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 23553 "generic_curved.c"
+#line 23677 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_8, mcrotaGuide_curved_9);
   rot_transpose(mcrotaGuide_curved_8, mctr1);
   rot_mul(mcrotaGuide_curved_9, mctr1, mcrotrGuide_curved_9);
@@ -23561,7 +23685,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 72 "generic_curved.instr"
     l_sect);
-#line 23564 "generic_curved.c"
+#line 23688 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_8, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_9 = coords_add(mcposaGuide_curved_8, mctc2);
@@ -23643,7 +23767,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_10_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_10_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_10_reflect[0]='\0';
-#line 23646 "generic_curved.c"
+#line 23770 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_10 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -23653,7 +23777,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 77 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 23656 "generic_curved.c"
+#line 23780 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_9, mcrotaGuide_curved_10);
   rot_transpose(mcrotaGuide_curved_9, mctr1);
   rot_mul(mcrotaGuide_curved_10, mctr1, mcrotrGuide_curved_10);
@@ -23664,7 +23788,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 76 "generic_curved.instr"
     l_sect);
-#line 23667 "generic_curved.c"
+#line 23791 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_9, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_10 = coords_add(mcposaGuide_curved_9, mctc2);
@@ -23746,7 +23870,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_11_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_11_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_11_reflect[0]='\0';
-#line 23749 "generic_curved.c"
+#line 23873 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_11 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -23756,7 +23880,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 81 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 23759 "generic_curved.c"
+#line 23883 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_10, mcrotaGuide_curved_11);
   rot_transpose(mcrotaGuide_curved_10, mctr1);
   rot_mul(mcrotaGuide_curved_11, mctr1, mcrotrGuide_curved_11);
@@ -23767,7 +23891,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 80 "generic_curved.instr"
     l_sect);
-#line 23770 "generic_curved.c"
+#line 23894 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_10, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_11 = coords_add(mcposaGuide_curved_10, mctc2);
@@ -23849,7 +23973,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_12_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_12_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_12_reflect[0]='\0';
-#line 23852 "generic_curved.c"
+#line 23976 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_12 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -23859,7 +23983,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 85 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 23862 "generic_curved.c"
+#line 23986 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_11, mcrotaGuide_curved_12);
   rot_transpose(mcrotaGuide_curved_11, mctr1);
   rot_mul(mcrotaGuide_curved_12, mctr1, mcrotrGuide_curved_12);
@@ -23870,7 +23994,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 84 "generic_curved.instr"
     l_sect);
-#line 23873 "generic_curved.c"
+#line 23997 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_11, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_12 = coords_add(mcposaGuide_curved_11, mctc2);
@@ -23952,7 +24076,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_13_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_13_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_13_reflect[0]='\0';
-#line 23955 "generic_curved.c"
+#line 24079 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_13 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -23962,7 +24086,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 89 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 23965 "generic_curved.c"
+#line 24089 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_12, mcrotaGuide_curved_13);
   rot_transpose(mcrotaGuide_curved_12, mctr1);
   rot_mul(mcrotaGuide_curved_13, mctr1, mcrotrGuide_curved_13);
@@ -23973,7 +24097,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 88 "generic_curved.instr"
     l_sect);
-#line 23976 "generic_curved.c"
+#line 24100 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_12, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_13 = coords_add(mcposaGuide_curved_12, mctc2);
@@ -24055,7 +24179,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_14_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_14_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_14_reflect[0]='\0';
-#line 24058 "generic_curved.c"
+#line 24182 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_14 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -24065,7 +24189,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 93 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 24068 "generic_curved.c"
+#line 24192 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_13, mcrotaGuide_curved_14);
   rot_transpose(mcrotaGuide_curved_13, mctr1);
   rot_mul(mcrotaGuide_curved_14, mctr1, mcrotrGuide_curved_14);
@@ -24076,7 +24200,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 92 "generic_curved.instr"
     l_sect);
-#line 24079 "generic_curved.c"
+#line 24203 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_13, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_14 = coords_add(mcposaGuide_curved_13, mctc2);
@@ -24158,7 +24282,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_15_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_15_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_15_reflect[0]='\0';
-#line 24161 "generic_curved.c"
+#line 24285 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_15 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -24168,7 +24292,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 97 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 24171 "generic_curved.c"
+#line 24295 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_14, mcrotaGuide_curved_15);
   rot_transpose(mcrotaGuide_curved_14, mctr1);
   rot_mul(mcrotaGuide_curved_15, mctr1, mcrotrGuide_curved_15);
@@ -24179,7 +24303,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 96 "generic_curved.instr"
     l_sect);
-#line 24182 "generic_curved.c"
+#line 24306 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_14, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_15 = coords_add(mcposaGuide_curved_14, mctc2);
@@ -24261,7 +24385,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_16_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_16_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_16_reflect[0]='\0';
-#line 24264 "generic_curved.c"
+#line 24388 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_16 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -24271,7 +24395,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 101 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 24274 "generic_curved.c"
+#line 24398 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_15, mcrotaGuide_curved_16);
   rot_transpose(mcrotaGuide_curved_15, mctr1);
   rot_mul(mcrotaGuide_curved_16, mctr1, mcrotrGuide_curved_16);
@@ -24282,7 +24406,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 100 "generic_curved.instr"
     l_sect);
-#line 24285 "generic_curved.c"
+#line 24409 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_15, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_16 = coords_add(mcposaGuide_curved_15, mctc2);
@@ -24364,7 +24488,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_17_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_17_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_17_reflect[0]='\0';
-#line 24367 "generic_curved.c"
+#line 24491 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_17 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -24374,7 +24498,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 105 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 24377 "generic_curved.c"
+#line 24501 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_16, mcrotaGuide_curved_17);
   rot_transpose(mcrotaGuide_curved_16, mctr1);
   rot_mul(mcrotaGuide_curved_17, mctr1, mcrotrGuide_curved_17);
@@ -24385,7 +24509,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 104 "generic_curved.instr"
     l_sect);
-#line 24388 "generic_curved.c"
+#line 24512 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_16, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_17 = coords_add(mcposaGuide_curved_16, mctc2);
@@ -24467,7 +24591,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_18_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_18_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_18_reflect[0]='\0';
-#line 24470 "generic_curved.c"
+#line 24594 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_18 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -24477,7 +24601,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 109 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 24480 "generic_curved.c"
+#line 24604 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_17, mcrotaGuide_curved_18);
   rot_transpose(mcrotaGuide_curved_17, mctr1);
   rot_mul(mcrotaGuide_curved_18, mctr1, mcrotrGuide_curved_18);
@@ -24488,7 +24612,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 108 "generic_curved.instr"
     l_sect);
-#line 24491 "generic_curved.c"
+#line 24615 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_17, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_18 = coords_add(mcposaGuide_curved_17, mctc2);
@@ -24570,7 +24694,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_19_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_19_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_19_reflect[0]='\0';
-#line 24573 "generic_curved.c"
+#line 24697 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_19 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -24580,7 +24704,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 113 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 24583 "generic_curved.c"
+#line 24707 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_18, mcrotaGuide_curved_19);
   rot_transpose(mcrotaGuide_curved_18, mctr1);
   rot_mul(mcrotaGuide_curved_19, mctr1, mcrotrGuide_curved_19);
@@ -24591,7 +24715,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 112 "generic_curved.instr"
     l_sect);
-#line 24594 "generic_curved.c"
+#line 24718 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_18, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_19 = coords_add(mcposaGuide_curved_18, mctc2);
@@ -24673,7 +24797,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_20_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_20_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_20_reflect[0]='\0';
-#line 24676 "generic_curved.c"
+#line 24800 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_20 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -24683,7 +24807,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 117 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 24686 "generic_curved.c"
+#line 24810 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_19, mcrotaGuide_curved_20);
   rot_transpose(mcrotaGuide_curved_19, mctr1);
   rot_mul(mcrotaGuide_curved_20, mctr1, mcrotrGuide_curved_20);
@@ -24694,7 +24818,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 116 "generic_curved.instr"
     l_sect);
-#line 24697 "generic_curved.c"
+#line 24821 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_19, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_20 = coords_add(mcposaGuide_curved_19, mctc2);
@@ -24776,7 +24900,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_21_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_21_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_21_reflect[0]='\0';
-#line 24779 "generic_curved.c"
+#line 24903 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_21 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -24786,7 +24910,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 121 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 24789 "generic_curved.c"
+#line 24913 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_20, mcrotaGuide_curved_21);
   rot_transpose(mcrotaGuide_curved_20, mctr1);
   rot_mul(mcrotaGuide_curved_21, mctr1, mcrotrGuide_curved_21);
@@ -24797,7 +24921,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 120 "generic_curved.instr"
     l_sect);
-#line 24800 "generic_curved.c"
+#line 24924 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_20, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_21 = coords_add(mcposaGuide_curved_20, mctc2);
@@ -24879,7 +25003,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_22_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_22_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_22_reflect[0]='\0';
-#line 24882 "generic_curved.c"
+#line 25006 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_22 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -24889,7 +25013,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 125 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 24892 "generic_curved.c"
+#line 25016 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_21, mcrotaGuide_curved_22);
   rot_transpose(mcrotaGuide_curved_21, mctr1);
   rot_mul(mcrotaGuide_curved_22, mctr1, mcrotrGuide_curved_22);
@@ -24900,7 +25024,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 124 "generic_curved.instr"
     l_sect);
-#line 24903 "generic_curved.c"
+#line 25027 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_21, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_22 = coords_add(mcposaGuide_curved_21, mctc2);
@@ -24982,7 +25106,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_23_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_23_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_23_reflect[0]='\0';
-#line 24985 "generic_curved.c"
+#line 25109 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_23 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -24992,7 +25116,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 129 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 24995 "generic_curved.c"
+#line 25119 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_22, mcrotaGuide_curved_23);
   rot_transpose(mcrotaGuide_curved_22, mctr1);
   rot_mul(mcrotaGuide_curved_23, mctr1, mcrotrGuide_curved_23);
@@ -25003,7 +25127,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 128 "generic_curved.instr"
     l_sect);
-#line 25006 "generic_curved.c"
+#line 25130 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_22, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_23 = coords_add(mcposaGuide_curved_22, mctc2);
@@ -25085,7 +25209,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_24_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_24_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_24_reflect[0]='\0';
-#line 25088 "generic_curved.c"
+#line 25212 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_24 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -25095,7 +25219,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 133 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 25098 "generic_curved.c"
+#line 25222 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_23, mcrotaGuide_curved_24);
   rot_transpose(mcrotaGuide_curved_23, mctr1);
   rot_mul(mcrotaGuide_curved_24, mctr1, mcrotrGuide_curved_24);
@@ -25106,7 +25230,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 132 "generic_curved.instr"
     l_sect);
-#line 25109 "generic_curved.c"
+#line 25233 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_23, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_24 = coords_add(mcposaGuide_curved_23, mctc2);
@@ -25188,7 +25312,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_25_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_25_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_25_reflect[0]='\0';
-#line 25191 "generic_curved.c"
+#line 25315 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_25 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -25198,7 +25322,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 137 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 25201 "generic_curved.c"
+#line 25325 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_24, mcrotaGuide_curved_25);
   rot_transpose(mcrotaGuide_curved_24, mctr1);
   rot_mul(mcrotaGuide_curved_25, mctr1, mcrotrGuide_curved_25);
@@ -25209,7 +25333,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 136 "generic_curved.instr"
     l_sect);
-#line 25212 "generic_curved.c"
+#line 25336 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_24, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_25 = coords_add(mcposaGuide_curved_24, mctc2);
@@ -25291,7 +25415,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_26_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_26_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_26_reflect[0]='\0';
-#line 25294 "generic_curved.c"
+#line 25418 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_26 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -25301,7 +25425,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 141 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 25304 "generic_curved.c"
+#line 25428 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_25, mcrotaGuide_curved_26);
   rot_transpose(mcrotaGuide_curved_25, mctr1);
   rot_mul(mcrotaGuide_curved_26, mctr1, mcrotrGuide_curved_26);
@@ -25312,7 +25436,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 140 "generic_curved.instr"
     l_sect);
-#line 25315 "generic_curved.c"
+#line 25439 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_25, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_26 = coords_add(mcposaGuide_curved_25, mctc2);
@@ -25394,7 +25518,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_27_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_27_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_27_reflect[0]='\0';
-#line 25397 "generic_curved.c"
+#line 25521 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_27 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -25404,7 +25528,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 145 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 25407 "generic_curved.c"
+#line 25531 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_26, mcrotaGuide_curved_27);
   rot_transpose(mcrotaGuide_curved_26, mctr1);
   rot_mul(mcrotaGuide_curved_27, mctr1, mcrotrGuide_curved_27);
@@ -25415,7 +25539,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 144 "generic_curved.instr"
     l_sect);
-#line 25418 "generic_curved.c"
+#line 25542 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_26, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_27 = coords_add(mcposaGuide_curved_26, mctc2);
@@ -25497,7 +25621,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_28_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_28_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_28_reflect[0]='\0';
-#line 25500 "generic_curved.c"
+#line 25624 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_28 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -25507,7 +25631,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 149 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 25510 "generic_curved.c"
+#line 25634 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_27, mcrotaGuide_curved_28);
   rot_transpose(mcrotaGuide_curved_27, mctr1);
   rot_mul(mcrotaGuide_curved_28, mctr1, mcrotrGuide_curved_28);
@@ -25518,7 +25642,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 148 "generic_curved.instr"
     l_sect);
-#line 25521 "generic_curved.c"
+#line 25645 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_27, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_28 = coords_add(mcposaGuide_curved_27, mctc2);
@@ -25600,7 +25724,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_29_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_29_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_29_reflect[0]='\0';
-#line 25603 "generic_curved.c"
+#line 25727 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_29 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -25610,7 +25734,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 153 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 25613 "generic_curved.c"
+#line 25737 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_28, mcrotaGuide_curved_29);
   rot_transpose(mcrotaGuide_curved_28, mctr1);
   rot_mul(mcrotaGuide_curved_29, mctr1, mcrotrGuide_curved_29);
@@ -25621,7 +25745,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 152 "generic_curved.instr"
     l_sect);
-#line 25624 "generic_curved.c"
+#line 25748 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_28, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_29 = coords_add(mcposaGuide_curved_28, mctc2);
@@ -25703,7 +25827,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_30_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_30_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_30_reflect[0]='\0';
-#line 25706 "generic_curved.c"
+#line 25830 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_30 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -25713,7 +25837,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 157 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 25716 "generic_curved.c"
+#line 25840 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_29, mcrotaGuide_curved_30);
   rot_transpose(mcrotaGuide_curved_29, mctr1);
   rot_mul(mcrotaGuide_curved_30, mctr1, mcrotrGuide_curved_30);
@@ -25724,7 +25848,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 156 "generic_curved.instr"
     l_sect);
-#line 25727 "generic_curved.c"
+#line 25851 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_29, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_30 = coords_add(mcposaGuide_curved_29, mctc2);
@@ -25806,7 +25930,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_31_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_31_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_31_reflect[0]='\0';
-#line 25809 "generic_curved.c"
+#line 25933 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_31 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -25816,7 +25940,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 161 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 25819 "generic_curved.c"
+#line 25943 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_30, mcrotaGuide_curved_31);
   rot_transpose(mcrotaGuide_curved_30, mctr1);
   rot_mul(mcrotaGuide_curved_31, mctr1, mcrotrGuide_curved_31);
@@ -25827,7 +25951,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 160 "generic_curved.instr"
     l_sect);
-#line 25830 "generic_curved.c"
+#line 25954 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_30, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_31 = coords_add(mcposaGuide_curved_30, mctc2);
@@ -25909,7 +26033,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_32_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_32_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_32_reflect[0]='\0';
-#line 25912 "generic_curved.c"
+#line 26036 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_32 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -25919,7 +26043,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 165 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 25922 "generic_curved.c"
+#line 26046 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_31, mcrotaGuide_curved_32);
   rot_transpose(mcrotaGuide_curved_31, mctr1);
   rot_mul(mcrotaGuide_curved_32, mctr1, mcrotrGuide_curved_32);
@@ -25930,7 +26054,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 164 "generic_curved.instr"
     l_sect);
-#line 25933 "generic_curved.c"
+#line 26057 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_31, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_32 = coords_add(mcposaGuide_curved_31, mctc2);
@@ -26012,7 +26136,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_33_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_33_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_33_reflect[0]='\0';
-#line 26015 "generic_curved.c"
+#line 26139 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_33 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -26022,7 +26146,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 169 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 26025 "generic_curved.c"
+#line 26149 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_32, mcrotaGuide_curved_33);
   rot_transpose(mcrotaGuide_curved_32, mctr1);
   rot_mul(mcrotaGuide_curved_33, mctr1, mcrotrGuide_curved_33);
@@ -26033,7 +26157,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 168 "generic_curved.instr"
     l_sect);
-#line 26036 "generic_curved.c"
+#line 26160 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_32, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_33 = coords_add(mcposaGuide_curved_32, mctc2);
@@ -26115,7 +26239,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_34_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_34_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_34_reflect[0]='\0';
-#line 26118 "generic_curved.c"
+#line 26242 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_34 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -26125,7 +26249,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 173 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 26128 "generic_curved.c"
+#line 26252 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_33, mcrotaGuide_curved_34);
   rot_transpose(mcrotaGuide_curved_33, mctr1);
   rot_mul(mcrotaGuide_curved_34, mctr1, mcrotrGuide_curved_34);
@@ -26136,7 +26260,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 172 "generic_curved.instr"
     l_sect);
-#line 26139 "generic_curved.c"
+#line 26263 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_33, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_34 = coords_add(mcposaGuide_curved_33, mctc2);
@@ -26218,7 +26342,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_35_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_35_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_35_reflect[0]='\0';
-#line 26221 "generic_curved.c"
+#line 26345 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_35 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -26228,7 +26352,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 177 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 26231 "generic_curved.c"
+#line 26355 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_34, mcrotaGuide_curved_35);
   rot_transpose(mcrotaGuide_curved_34, mctr1);
   rot_mul(mcrotaGuide_curved_35, mctr1, mcrotrGuide_curved_35);
@@ -26239,7 +26363,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 176 "generic_curved.instr"
     l_sect);
-#line 26242 "generic_curved.c"
+#line 26366 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_34, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_35 = coords_add(mcposaGuide_curved_34, mctc2);
@@ -26321,7 +26445,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_36_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_36_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_36_reflect[0]='\0';
-#line 26324 "generic_curved.c"
+#line 26448 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_36 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -26331,7 +26455,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 181 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 26334 "generic_curved.c"
+#line 26458 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_35, mcrotaGuide_curved_36);
   rot_transpose(mcrotaGuide_curved_35, mctr1);
   rot_mul(mcrotaGuide_curved_36, mctr1, mcrotrGuide_curved_36);
@@ -26342,7 +26466,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 180 "generic_curved.instr"
     l_sect);
-#line 26345 "generic_curved.c"
+#line 26469 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_35, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_36 = coords_add(mcposaGuide_curved_35, mctc2);
@@ -26424,7 +26548,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_37_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_37_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_37_reflect[0]='\0';
-#line 26427 "generic_curved.c"
+#line 26551 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_37 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -26434,7 +26558,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 185 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 26437 "generic_curved.c"
+#line 26561 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_36, mcrotaGuide_curved_37);
   rot_transpose(mcrotaGuide_curved_36, mctr1);
   rot_mul(mcrotaGuide_curved_37, mctr1, mcrotrGuide_curved_37);
@@ -26445,7 +26569,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 184 "generic_curved.instr"
     l_sect);
-#line 26448 "generic_curved.c"
+#line 26572 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_36, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_37 = coords_add(mcposaGuide_curved_36, mctc2);
@@ -26527,7 +26651,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_38_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_38_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_38_reflect[0]='\0';
-#line 26530 "generic_curved.c"
+#line 26654 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_38 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -26537,7 +26661,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 189 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 26540 "generic_curved.c"
+#line 26664 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_37, mcrotaGuide_curved_38);
   rot_transpose(mcrotaGuide_curved_37, mctr1);
   rot_mul(mcrotaGuide_curved_38, mctr1, mcrotrGuide_curved_38);
@@ -26548,7 +26672,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 188 "generic_curved.instr"
     l_sect);
-#line 26551 "generic_curved.c"
+#line 26675 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_37, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_38 = coords_add(mcposaGuide_curved_37, mctc2);
@@ -26630,7 +26754,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_39_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_39_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_39_reflect[0]='\0';
-#line 26633 "generic_curved.c"
+#line 26757 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_39 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -26640,7 +26764,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 193 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 26643 "generic_curved.c"
+#line 26767 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_38, mcrotaGuide_curved_39);
   rot_transpose(mcrotaGuide_curved_38, mctr1);
   rot_mul(mcrotaGuide_curved_39, mctr1, mcrotrGuide_curved_39);
@@ -26651,7 +26775,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 192 "generic_curved.instr"
     l_sect);
-#line 26654 "generic_curved.c"
+#line 26778 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_38, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_39 = coords_add(mcposaGuide_curved_38, mctc2);
@@ -26733,7 +26857,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_40_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_40_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_40_reflect[0]='\0';
-#line 26736 "generic_curved.c"
+#line 26860 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_40 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -26743,7 +26867,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 197 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 26746 "generic_curved.c"
+#line 26870 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_39, mcrotaGuide_curved_40);
   rot_transpose(mcrotaGuide_curved_39, mctr1);
   rot_mul(mcrotaGuide_curved_40, mctr1, mcrotrGuide_curved_40);
@@ -26754,7 +26878,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 196 "generic_curved.instr"
     l_sect);
-#line 26757 "generic_curved.c"
+#line 26881 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_39, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_40 = coords_add(mcposaGuide_curved_39, mctc2);
@@ -26836,7 +26960,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_41_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_41_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_41_reflect[0]='\0';
-#line 26839 "generic_curved.c"
+#line 26963 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_41 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -26846,7 +26970,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 201 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 26849 "generic_curved.c"
+#line 26973 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_40, mcrotaGuide_curved_41);
   rot_transpose(mcrotaGuide_curved_40, mctr1);
   rot_mul(mcrotaGuide_curved_41, mctr1, mcrotrGuide_curved_41);
@@ -26857,7 +26981,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 200 "generic_curved.instr"
     l_sect);
-#line 26860 "generic_curved.c"
+#line 26984 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_40, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_41 = coords_add(mcposaGuide_curved_40, mctc2);
@@ -26939,7 +27063,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_42_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_42_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_42_reflect[0]='\0';
-#line 26942 "generic_curved.c"
+#line 27066 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_42 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -26949,7 +27073,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 205 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 26952 "generic_curved.c"
+#line 27076 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_41, mcrotaGuide_curved_42);
   rot_transpose(mcrotaGuide_curved_41, mctr1);
   rot_mul(mcrotaGuide_curved_42, mctr1, mcrotrGuide_curved_42);
@@ -26960,7 +27084,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 204 "generic_curved.instr"
     l_sect);
-#line 26963 "generic_curved.c"
+#line 27087 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_41, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_42 = coords_add(mcposaGuide_curved_41, mctc2);
@@ -27042,7 +27166,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_43_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_43_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_43_reflect[0]='\0';
-#line 27045 "generic_curved.c"
+#line 27169 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_43 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -27052,7 +27176,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 209 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 27055 "generic_curved.c"
+#line 27179 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_42, mcrotaGuide_curved_43);
   rot_transpose(mcrotaGuide_curved_42, mctr1);
   rot_mul(mcrotaGuide_curved_43, mctr1, mcrotrGuide_curved_43);
@@ -27063,7 +27187,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 208 "generic_curved.instr"
     l_sect);
-#line 27066 "generic_curved.c"
+#line 27190 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_42, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_43 = coords_add(mcposaGuide_curved_42, mctc2);
@@ -27145,7 +27269,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_44_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_44_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_44_reflect[0]='\0';
-#line 27148 "generic_curved.c"
+#line 27272 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_44 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -27155,7 +27279,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 213 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 27158 "generic_curved.c"
+#line 27282 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_43, mcrotaGuide_curved_44);
   rot_transpose(mcrotaGuide_curved_43, mctr1);
   rot_mul(mcrotaGuide_curved_44, mctr1, mcrotrGuide_curved_44);
@@ -27166,7 +27290,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 212 "generic_curved.instr"
     l_sect);
-#line 27169 "generic_curved.c"
+#line 27293 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_43, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_44 = coords_add(mcposaGuide_curved_43, mctc2);
@@ -27248,7 +27372,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_45_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_45_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_45_reflect[0]='\0';
-#line 27251 "generic_curved.c"
+#line 27375 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_45 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -27258,7 +27382,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 217 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 27261 "generic_curved.c"
+#line 27385 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_44, mcrotaGuide_curved_45);
   rot_transpose(mcrotaGuide_curved_44, mctr1);
   rot_mul(mcrotaGuide_curved_45, mctr1, mcrotrGuide_curved_45);
@@ -27269,7 +27393,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 216 "generic_curved.instr"
     l_sect);
-#line 27272 "generic_curved.c"
+#line 27396 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_44, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_45 = coords_add(mcposaGuide_curved_44, mctc2);
@@ -27351,7 +27475,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_46_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_46_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_46_reflect[0]='\0';
-#line 27354 "generic_curved.c"
+#line 27478 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_46 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -27361,7 +27485,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 221 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 27364 "generic_curved.c"
+#line 27488 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_45, mcrotaGuide_curved_46);
   rot_transpose(mcrotaGuide_curved_45, mctr1);
   rot_mul(mcrotaGuide_curved_46, mctr1, mcrotrGuide_curved_46);
@@ -27372,7 +27496,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 220 "generic_curved.instr"
     l_sect);
-#line 27375 "generic_curved.c"
+#line 27499 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_45, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_46 = coords_add(mcposaGuide_curved_45, mctc2);
@@ -27454,7 +27578,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_47_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_47_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_47_reflect[0]='\0';
-#line 27457 "generic_curved.c"
+#line 27581 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_47 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -27464,7 +27588,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 225 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 27467 "generic_curved.c"
+#line 27591 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_46, mcrotaGuide_curved_47);
   rot_transpose(mcrotaGuide_curved_46, mctr1);
   rot_mul(mcrotaGuide_curved_47, mctr1, mcrotrGuide_curved_47);
@@ -27475,7 +27599,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 224 "generic_curved.instr"
     l_sect);
-#line 27478 "generic_curved.c"
+#line 27602 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_46, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_47 = coords_add(mcposaGuide_curved_46, mctc2);
@@ -27557,7 +27681,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_48_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_48_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_48_reflect[0]='\0';
-#line 27560 "generic_curved.c"
+#line 27684 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_48 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -27567,7 +27691,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 229 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 27570 "generic_curved.c"
+#line 27694 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_47, mcrotaGuide_curved_48);
   rot_transpose(mcrotaGuide_curved_47, mctr1);
   rot_mul(mcrotaGuide_curved_48, mctr1, mcrotrGuide_curved_48);
@@ -27578,7 +27702,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 228 "generic_curved.instr"
     l_sect);
-#line 27581 "generic_curved.c"
+#line 27705 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_47, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_48 = coords_add(mcposaGuide_curved_47, mctc2);
@@ -27660,7 +27784,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_49_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_49_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_49_reflect[0]='\0';
-#line 27663 "generic_curved.c"
+#line 27787 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_49 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -27670,7 +27794,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 233 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 27673 "generic_curved.c"
+#line 27797 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_48, mcrotaGuide_curved_49);
   rot_transpose(mcrotaGuide_curved_48, mctr1);
   rot_mul(mcrotaGuide_curved_49, mctr1, mcrotrGuide_curved_49);
@@ -27681,7 +27805,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 232 "generic_curved.instr"
     l_sect);
-#line 27684 "generic_curved.c"
+#line 27808 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_48, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_49 = coords_add(mcposaGuide_curved_48, mctc2);
@@ -27763,7 +27887,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_50_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_50_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_50_reflect[0]='\0';
-#line 27766 "generic_curved.c"
+#line 27890 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_50 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -27773,7 +27897,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 237 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 27776 "generic_curved.c"
+#line 27900 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_49, mcrotaGuide_curved_50);
   rot_transpose(mcrotaGuide_curved_49, mctr1);
   rot_mul(mcrotaGuide_curved_50, mctr1, mcrotrGuide_curved_50);
@@ -27784,7 +27908,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 236 "generic_curved.instr"
     l_sect);
-#line 27787 "generic_curved.c"
+#line 27911 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_49, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_50 = coords_add(mcposaGuide_curved_49, mctc2);
@@ -27866,7 +27990,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_51_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_51_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_51_reflect[0]='\0';
-#line 27869 "generic_curved.c"
+#line 27993 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_51 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -27876,7 +28000,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 241 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 27879 "generic_curved.c"
+#line 28003 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_50, mcrotaGuide_curved_51);
   rot_transpose(mcrotaGuide_curved_50, mctr1);
   rot_mul(mcrotaGuide_curved_51, mctr1, mcrotrGuide_curved_51);
@@ -27887,7 +28011,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 240 "generic_curved.instr"
     l_sect);
-#line 27890 "generic_curved.c"
+#line 28014 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_50, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_51 = coords_add(mcposaGuide_curved_50, mctc2);
@@ -27969,7 +28093,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_52_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_52_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_52_reflect[0]='\0';
-#line 27972 "generic_curved.c"
+#line 28096 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_52 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -27979,7 +28103,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 245 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 27982 "generic_curved.c"
+#line 28106 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_51, mcrotaGuide_curved_52);
   rot_transpose(mcrotaGuide_curved_51, mctr1);
   rot_mul(mcrotaGuide_curved_52, mctr1, mcrotrGuide_curved_52);
@@ -27990,7 +28114,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 244 "generic_curved.instr"
     l_sect);
-#line 27993 "generic_curved.c"
+#line 28117 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_51, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_52 = coords_add(mcposaGuide_curved_51, mctc2);
@@ -28072,7 +28196,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_53_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_53_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_53_reflect[0]='\0';
-#line 28075 "generic_curved.c"
+#line 28199 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_53 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -28082,7 +28206,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 249 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 28085 "generic_curved.c"
+#line 28209 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_52, mcrotaGuide_curved_53);
   rot_transpose(mcrotaGuide_curved_52, mctr1);
   rot_mul(mcrotaGuide_curved_53, mctr1, mcrotrGuide_curved_53);
@@ -28093,7 +28217,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 248 "generic_curved.instr"
     l_sect);
-#line 28096 "generic_curved.c"
+#line 28220 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_52, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_53 = coords_add(mcposaGuide_curved_52, mctc2);
@@ -28175,7 +28299,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_54_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_54_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_54_reflect[0]='\0';
-#line 28178 "generic_curved.c"
+#line 28302 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_54 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -28185,7 +28309,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 253 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 28188 "generic_curved.c"
+#line 28312 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_53, mcrotaGuide_curved_54);
   rot_transpose(mcrotaGuide_curved_53, mctr1);
   rot_mul(mcrotaGuide_curved_54, mctr1, mcrotrGuide_curved_54);
@@ -28196,7 +28320,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 252 "generic_curved.instr"
     l_sect);
-#line 28199 "generic_curved.c"
+#line 28323 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_53, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_54 = coords_add(mcposaGuide_curved_53, mctc2);
@@ -28278,7 +28402,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_55_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_55_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_55_reflect[0]='\0';
-#line 28281 "generic_curved.c"
+#line 28405 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_55 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -28288,7 +28412,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 257 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 28291 "generic_curved.c"
+#line 28415 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_54, mcrotaGuide_curved_55);
   rot_transpose(mcrotaGuide_curved_54, mctr1);
   rot_mul(mcrotaGuide_curved_55, mctr1, mcrotrGuide_curved_55);
@@ -28299,7 +28423,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 256 "generic_curved.instr"
     l_sect);
-#line 28302 "generic_curved.c"
+#line 28426 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_54, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_55 = coords_add(mcposaGuide_curved_54, mctc2);
@@ -28381,7 +28505,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_56_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_56_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_56_reflect[0]='\0';
-#line 28384 "generic_curved.c"
+#line 28508 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_56 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -28391,7 +28515,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 261 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 28394 "generic_curved.c"
+#line 28518 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_55, mcrotaGuide_curved_56);
   rot_transpose(mcrotaGuide_curved_55, mctr1);
   rot_mul(mcrotaGuide_curved_56, mctr1, mcrotrGuide_curved_56);
@@ -28402,7 +28526,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 260 "generic_curved.instr"
     l_sect);
-#line 28405 "generic_curved.c"
+#line 28529 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_55, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_56 = coords_add(mcposaGuide_curved_55, mctc2);
@@ -28484,7 +28608,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_57_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_57_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_57_reflect[0]='\0';
-#line 28487 "generic_curved.c"
+#line 28611 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_57 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -28494,7 +28618,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 265 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 28497 "generic_curved.c"
+#line 28621 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_56, mcrotaGuide_curved_57);
   rot_transpose(mcrotaGuide_curved_56, mctr1);
   rot_mul(mcrotaGuide_curved_57, mctr1, mcrotrGuide_curved_57);
@@ -28505,7 +28629,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 264 "generic_curved.instr"
     l_sect);
-#line 28508 "generic_curved.c"
+#line 28632 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_56, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_57 = coords_add(mcposaGuide_curved_56, mctc2);
@@ -28587,7 +28711,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_58_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_58_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_58_reflect[0]='\0';
-#line 28590 "generic_curved.c"
+#line 28714 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_58 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -28597,7 +28721,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 269 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 28600 "generic_curved.c"
+#line 28724 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_57, mcrotaGuide_curved_58);
   rot_transpose(mcrotaGuide_curved_57, mctr1);
   rot_mul(mcrotaGuide_curved_58, mctr1, mcrotrGuide_curved_58);
@@ -28608,7 +28732,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 268 "generic_curved.instr"
     l_sect);
-#line 28611 "generic_curved.c"
+#line 28735 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_57, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_58 = coords_add(mcposaGuide_curved_57, mctc2);
@@ -28690,7 +28814,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_59_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_59_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_59_reflect[0]='\0';
-#line 28693 "generic_curved.c"
+#line 28817 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_59 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -28700,7 +28824,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 273 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 28703 "generic_curved.c"
+#line 28827 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_58, mcrotaGuide_curved_59);
   rot_transpose(mcrotaGuide_curved_58, mctr1);
   rot_mul(mcrotaGuide_curved_59, mctr1, mcrotrGuide_curved_59);
@@ -28711,7 +28835,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 272 "generic_curved.instr"
     l_sect);
-#line 28714 "generic_curved.c"
+#line 28838 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_58, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_59 = coords_add(mcposaGuide_curved_58, mctc2);
@@ -28793,7 +28917,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_60_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_60_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_60_reflect[0]='\0';
-#line 28796 "generic_curved.c"
+#line 28920 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_60 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -28803,7 +28927,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 277 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 28806 "generic_curved.c"
+#line 28930 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_59, mcrotaGuide_curved_60);
   rot_transpose(mcrotaGuide_curved_59, mctr1);
   rot_mul(mcrotaGuide_curved_60, mctr1, mcrotrGuide_curved_60);
@@ -28814,7 +28938,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 276 "generic_curved.instr"
     l_sect);
-#line 28817 "generic_curved.c"
+#line 28941 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_59, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_60 = coords_add(mcposaGuide_curved_59, mctc2);
@@ -28896,7 +29020,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_61_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_61_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_61_reflect[0]='\0';
-#line 28899 "generic_curved.c"
+#line 29023 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_61 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -28906,7 +29030,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 281 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 28909 "generic_curved.c"
+#line 29033 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_60, mcrotaGuide_curved_61);
   rot_transpose(mcrotaGuide_curved_60, mctr1);
   rot_mul(mcrotaGuide_curved_61, mctr1, mcrotrGuide_curved_61);
@@ -28917,7 +29041,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 280 "generic_curved.instr"
     l_sect);
-#line 28920 "generic_curved.c"
+#line 29044 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_60, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_61 = coords_add(mcposaGuide_curved_60, mctc2);
@@ -28999,7 +29123,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_62_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_62_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_62_reflect[0]='\0';
-#line 29002 "generic_curved.c"
+#line 29126 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_62 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -29009,7 +29133,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 285 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 29012 "generic_curved.c"
+#line 29136 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_61, mcrotaGuide_curved_62);
   rot_transpose(mcrotaGuide_curved_61, mctr1);
   rot_mul(mcrotaGuide_curved_62, mctr1, mcrotrGuide_curved_62);
@@ -29020,7 +29144,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 284 "generic_curved.instr"
     l_sect);
-#line 29023 "generic_curved.c"
+#line 29147 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_61, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_62 = coords_add(mcposaGuide_curved_61, mctc2);
@@ -29102,7 +29226,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_63_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_63_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_63_reflect[0]='\0';
-#line 29105 "generic_curved.c"
+#line 29229 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_63 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -29112,7 +29236,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 289 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 29115 "generic_curved.c"
+#line 29239 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_62, mcrotaGuide_curved_63);
   rot_transpose(mcrotaGuide_curved_62, mctr1);
   rot_mul(mcrotaGuide_curved_63, mctr1, mcrotrGuide_curved_63);
@@ -29123,7 +29247,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 288 "generic_curved.instr"
     l_sect);
-#line 29126 "generic_curved.c"
+#line 29250 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_62, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_63 = coords_add(mcposaGuide_curved_62, mctc2);
@@ -29205,7 +29329,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_64_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_64_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_64_reflect[0]='\0';
-#line 29208 "generic_curved.c"
+#line 29332 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_64 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -29215,7 +29339,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 293 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 29218 "generic_curved.c"
+#line 29342 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_63, mcrotaGuide_curved_64);
   rot_transpose(mcrotaGuide_curved_63, mctr1);
   rot_mul(mcrotaGuide_curved_64, mctr1, mcrotrGuide_curved_64);
@@ -29226,7 +29350,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 292 "generic_curved.instr"
     l_sect);
-#line 29229 "generic_curved.c"
+#line 29353 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_63, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_64 = coords_add(mcposaGuide_curved_63, mctc2);
@@ -29308,7 +29432,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_65_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_65_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_65_reflect[0]='\0';
-#line 29311 "generic_curved.c"
+#line 29435 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_65 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -29318,7 +29442,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 297 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 29321 "generic_curved.c"
+#line 29445 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_64, mcrotaGuide_curved_65);
   rot_transpose(mcrotaGuide_curved_64, mctr1);
   rot_mul(mcrotaGuide_curved_65, mctr1, mcrotrGuide_curved_65);
@@ -29329,7 +29453,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 296 "generic_curved.instr"
     l_sect);
-#line 29332 "generic_curved.c"
+#line 29456 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_64, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_65 = coords_add(mcposaGuide_curved_64, mctc2);
@@ -29411,7 +29535,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_66_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_66_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_66_reflect[0]='\0';
-#line 29414 "generic_curved.c"
+#line 29538 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_66 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -29421,7 +29545,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 301 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 29424 "generic_curved.c"
+#line 29548 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_65, mcrotaGuide_curved_66);
   rot_transpose(mcrotaGuide_curved_65, mctr1);
   rot_mul(mcrotaGuide_curved_66, mctr1, mcrotrGuide_curved_66);
@@ -29432,7 +29556,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 300 "generic_curved.instr"
     l_sect);
-#line 29435 "generic_curved.c"
+#line 29559 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_65, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_66 = coords_add(mcposaGuide_curved_65, mctc2);
@@ -29514,7 +29638,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_67_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_67_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_67_reflect[0]='\0';
-#line 29517 "generic_curved.c"
+#line 29641 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_67 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -29524,7 +29648,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 305 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 29527 "generic_curved.c"
+#line 29651 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_66, mcrotaGuide_curved_67);
   rot_transpose(mcrotaGuide_curved_66, mctr1);
   rot_mul(mcrotaGuide_curved_67, mctr1, mcrotrGuide_curved_67);
@@ -29535,7 +29659,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 304 "generic_curved.instr"
     l_sect);
-#line 29538 "generic_curved.c"
+#line 29662 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_66, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_67 = coords_add(mcposaGuide_curved_66, mctc2);
@@ -29617,7 +29741,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_68_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_68_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_68_reflect[0]='\0';
-#line 29620 "generic_curved.c"
+#line 29744 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_68 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -29627,7 +29751,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 309 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 29630 "generic_curved.c"
+#line 29754 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_67, mcrotaGuide_curved_68);
   rot_transpose(mcrotaGuide_curved_67, mctr1);
   rot_mul(mcrotaGuide_curved_68, mctr1, mcrotrGuide_curved_68);
@@ -29638,7 +29762,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 308 "generic_curved.instr"
     l_sect);
-#line 29641 "generic_curved.c"
+#line 29765 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_67, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_68 = coords_add(mcposaGuide_curved_67, mctc2);
@@ -29720,7 +29844,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_69_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_69_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_69_reflect[0]='\0';
-#line 29723 "generic_curved.c"
+#line 29847 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_69 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -29730,7 +29854,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 313 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 29733 "generic_curved.c"
+#line 29857 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_68, mcrotaGuide_curved_69);
   rot_transpose(mcrotaGuide_curved_68, mctr1);
   rot_mul(mcrotaGuide_curved_69, mctr1, mcrotrGuide_curved_69);
@@ -29741,7 +29865,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 312 "generic_curved.instr"
     l_sect);
-#line 29744 "generic_curved.c"
+#line 29868 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_68, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_69 = coords_add(mcposaGuide_curved_68, mctc2);
@@ -29823,7 +29947,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_70_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_70_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_70_reflect[0]='\0';
-#line 29826 "generic_curved.c"
+#line 29950 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_70 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -29833,7 +29957,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 317 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 29836 "generic_curved.c"
+#line 29960 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_69, mcrotaGuide_curved_70);
   rot_transpose(mcrotaGuide_curved_69, mctr1);
   rot_mul(mcrotaGuide_curved_70, mctr1, mcrotrGuide_curved_70);
@@ -29844,7 +29968,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 316 "generic_curved.instr"
     l_sect);
-#line 29847 "generic_curved.c"
+#line 29971 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_69, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_70 = coords_add(mcposaGuide_curved_69, mctc2);
@@ -29926,7 +30050,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_71_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_71_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_71_reflect[0]='\0';
-#line 29929 "generic_curved.c"
+#line 30053 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_71 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -29936,7 +30060,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 321 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 29939 "generic_curved.c"
+#line 30063 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_70, mcrotaGuide_curved_71);
   rot_transpose(mcrotaGuide_curved_70, mctr1);
   rot_mul(mcrotaGuide_curved_71, mctr1, mcrotrGuide_curved_71);
@@ -29947,7 +30071,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 320 "generic_curved.instr"
     l_sect);
-#line 29950 "generic_curved.c"
+#line 30074 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_70, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_71 = coords_add(mcposaGuide_curved_70, mctc2);
@@ -30029,7 +30153,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_72_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_72_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_72_reflect[0]='\0';
-#line 30032 "generic_curved.c"
+#line 30156 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_72 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -30039,7 +30163,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 325 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 30042 "generic_curved.c"
+#line 30166 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_71, mcrotaGuide_curved_72);
   rot_transpose(mcrotaGuide_curved_71, mctr1);
   rot_mul(mcrotaGuide_curved_72, mctr1, mcrotrGuide_curved_72);
@@ -30050,7 +30174,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 324 "generic_curved.instr"
     l_sect);
-#line 30053 "generic_curved.c"
+#line 30177 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_71, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_72 = coords_add(mcposaGuide_curved_71, mctc2);
@@ -30132,7 +30256,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_73_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_73_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_73_reflect[0]='\0';
-#line 30135 "generic_curved.c"
+#line 30259 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_73 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -30142,7 +30266,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 329 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 30145 "generic_curved.c"
+#line 30269 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_72, mcrotaGuide_curved_73);
   rot_transpose(mcrotaGuide_curved_72, mctr1);
   rot_mul(mcrotaGuide_curved_73, mctr1, mcrotrGuide_curved_73);
@@ -30153,7 +30277,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 328 "generic_curved.instr"
     l_sect);
-#line 30156 "generic_curved.c"
+#line 30280 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_72, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_73 = coords_add(mcposaGuide_curved_72, mctc2);
@@ -30235,7 +30359,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_74_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_74_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_74_reflect[0]='\0';
-#line 30238 "generic_curved.c"
+#line 30362 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_74 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -30245,7 +30369,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 333 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 30248 "generic_curved.c"
+#line 30372 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_73, mcrotaGuide_curved_74);
   rot_transpose(mcrotaGuide_curved_73, mctr1);
   rot_mul(mcrotaGuide_curved_74, mctr1, mcrotrGuide_curved_74);
@@ -30256,7 +30380,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 332 "generic_curved.instr"
     l_sect);
-#line 30259 "generic_curved.c"
+#line 30383 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_73, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_74 = coords_add(mcposaGuide_curved_73, mctc2);
@@ -30338,7 +30462,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_75_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_75_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_75_reflect[0]='\0';
-#line 30341 "generic_curved.c"
+#line 30465 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_75 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -30348,7 +30472,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 337 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 30351 "generic_curved.c"
+#line 30475 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_74, mcrotaGuide_curved_75);
   rot_transpose(mcrotaGuide_curved_74, mctr1);
   rot_mul(mcrotaGuide_curved_75, mctr1, mcrotrGuide_curved_75);
@@ -30359,7 +30483,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 336 "generic_curved.instr"
     l_sect);
-#line 30362 "generic_curved.c"
+#line 30486 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_74, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_75 = coords_add(mcposaGuide_curved_74, mctc2);
@@ -30441,7 +30565,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_76_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_76_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_76_reflect[0]='\0';
-#line 30444 "generic_curved.c"
+#line 30568 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_76 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -30451,7 +30575,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 341 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 30454 "generic_curved.c"
+#line 30578 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_75, mcrotaGuide_curved_76);
   rot_transpose(mcrotaGuide_curved_75, mctr1);
   rot_mul(mcrotaGuide_curved_76, mctr1, mcrotrGuide_curved_76);
@@ -30462,7 +30586,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 340 "generic_curved.instr"
     l_sect);
-#line 30465 "generic_curved.c"
+#line 30589 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_75, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_76 = coords_add(mcposaGuide_curved_75, mctc2);
@@ -30544,7 +30668,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_77_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_77_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_77_reflect[0]='\0';
-#line 30547 "generic_curved.c"
+#line 30671 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_77 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -30554,7 +30678,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 345 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 30557 "generic_curved.c"
+#line 30681 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_76, mcrotaGuide_curved_77);
   rot_transpose(mcrotaGuide_curved_76, mctr1);
   rot_mul(mcrotaGuide_curved_77, mctr1, mcrotrGuide_curved_77);
@@ -30565,7 +30689,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 344 "generic_curved.instr"
     l_sect);
-#line 30568 "generic_curved.c"
+#line 30692 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_76, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_77 = coords_add(mcposaGuide_curved_76, mctc2);
@@ -30647,7 +30771,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_78_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_78_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_78_reflect[0]='\0';
-#line 30650 "generic_curved.c"
+#line 30774 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_78 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -30657,7 +30781,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 349 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 30660 "generic_curved.c"
+#line 30784 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_77, mcrotaGuide_curved_78);
   rot_transpose(mcrotaGuide_curved_77, mctr1);
   rot_mul(mcrotaGuide_curved_78, mctr1, mcrotrGuide_curved_78);
@@ -30668,7 +30792,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 348 "generic_curved.instr"
     l_sect);
-#line 30671 "generic_curved.c"
+#line 30795 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_77, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_78 = coords_add(mcposaGuide_curved_77, mctc2);
@@ -30750,7 +30874,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_79_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_79_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_79_reflect[0]='\0';
-#line 30753 "generic_curved.c"
+#line 30877 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_79 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -30760,7 +30884,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 353 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 30763 "generic_curved.c"
+#line 30887 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_78, mcrotaGuide_curved_79);
   rot_transpose(mcrotaGuide_curved_78, mctr1);
   rot_mul(mcrotaGuide_curved_79, mctr1, mcrotrGuide_curved_79);
@@ -30771,7 +30895,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 352 "generic_curved.instr"
     l_sect);
-#line 30774 "generic_curved.c"
+#line 30898 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_78, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_79 = coords_add(mcposaGuide_curved_78, mctc2);
@@ -30853,7 +30977,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_80_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_80_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_80_reflect[0]='\0';
-#line 30856 "generic_curved.c"
+#line 30980 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_80 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -30863,7 +30987,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 357 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 30866 "generic_curved.c"
+#line 30990 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_79, mcrotaGuide_curved_80);
   rot_transpose(mcrotaGuide_curved_79, mctr1);
   rot_mul(mcrotaGuide_curved_80, mctr1, mcrotrGuide_curved_80);
@@ -30874,7 +30998,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 356 "generic_curved.instr"
     l_sect);
-#line 30877 "generic_curved.c"
+#line 31001 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_79, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_80 = coords_add(mcposaGuide_curved_79, mctc2);
@@ -30956,7 +31080,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_81_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_81_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_81_reflect[0]='\0';
-#line 30959 "generic_curved.c"
+#line 31083 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_81 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -30966,7 +31090,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 361 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 30969 "generic_curved.c"
+#line 31093 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_80, mcrotaGuide_curved_81);
   rot_transpose(mcrotaGuide_curved_80, mctr1);
   rot_mul(mcrotaGuide_curved_81, mctr1, mcrotrGuide_curved_81);
@@ -30977,7 +31101,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 360 "generic_curved.instr"
     l_sect);
-#line 30980 "generic_curved.c"
+#line 31104 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_80, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_81 = coords_add(mcposaGuide_curved_80, mctc2);
@@ -31059,7 +31183,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_82_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_82_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_82_reflect[0]='\0';
-#line 31062 "generic_curved.c"
+#line 31186 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_82 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -31069,7 +31193,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 365 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 31072 "generic_curved.c"
+#line 31196 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_81, mcrotaGuide_curved_82);
   rot_transpose(mcrotaGuide_curved_81, mctr1);
   rot_mul(mcrotaGuide_curved_82, mctr1, mcrotrGuide_curved_82);
@@ -31080,7 +31204,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 364 "generic_curved.instr"
     l_sect);
-#line 31083 "generic_curved.c"
+#line 31207 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_81, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_82 = coords_add(mcposaGuide_curved_81, mctc2);
@@ -31162,7 +31286,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_83_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_83_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_83_reflect[0]='\0';
-#line 31165 "generic_curved.c"
+#line 31289 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_83 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -31172,7 +31296,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 369 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 31175 "generic_curved.c"
+#line 31299 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_82, mcrotaGuide_curved_83);
   rot_transpose(mcrotaGuide_curved_82, mctr1);
   rot_mul(mcrotaGuide_curved_83, mctr1, mcrotrGuide_curved_83);
@@ -31183,7 +31307,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 368 "generic_curved.instr"
     l_sect);
-#line 31186 "generic_curved.c"
+#line 31310 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_82, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_83 = coords_add(mcposaGuide_curved_82, mctc2);
@@ -31265,7 +31389,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_84_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_84_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_84_reflect[0]='\0';
-#line 31268 "generic_curved.c"
+#line 31392 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_84 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -31275,7 +31399,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 373 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 31278 "generic_curved.c"
+#line 31402 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_83, mcrotaGuide_curved_84);
   rot_transpose(mcrotaGuide_curved_83, mctr1);
   rot_mul(mcrotaGuide_curved_84, mctr1, mcrotrGuide_curved_84);
@@ -31286,7 +31410,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 372 "generic_curved.instr"
     l_sect);
-#line 31289 "generic_curved.c"
+#line 31413 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_83, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_84 = coords_add(mcposaGuide_curved_83, mctc2);
@@ -31368,7 +31492,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_85_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_85_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_85_reflect[0]='\0';
-#line 31371 "generic_curved.c"
+#line 31495 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_85 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -31378,7 +31502,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 377 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 31381 "generic_curved.c"
+#line 31505 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_84, mcrotaGuide_curved_85);
   rot_transpose(mcrotaGuide_curved_84, mctr1);
   rot_mul(mcrotaGuide_curved_85, mctr1, mcrotrGuide_curved_85);
@@ -31389,7 +31513,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 376 "generic_curved.instr"
     l_sect);
-#line 31392 "generic_curved.c"
+#line 31516 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_84, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_85 = coords_add(mcposaGuide_curved_84, mctc2);
@@ -31471,7 +31595,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_86_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_86_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_86_reflect[0]='\0';
-#line 31474 "generic_curved.c"
+#line 31598 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_86 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -31481,7 +31605,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 381 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 31484 "generic_curved.c"
+#line 31608 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_85, mcrotaGuide_curved_86);
   rot_transpose(mcrotaGuide_curved_85, mctr1);
   rot_mul(mcrotaGuide_curved_86, mctr1, mcrotrGuide_curved_86);
@@ -31492,7 +31616,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 380 "generic_curved.instr"
     l_sect);
-#line 31495 "generic_curved.c"
+#line 31619 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_85, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_86 = coords_add(mcposaGuide_curved_85, mctc2);
@@ -31574,7 +31698,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_87_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_87_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_87_reflect[0]='\0';
-#line 31577 "generic_curved.c"
+#line 31701 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_87 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -31584,7 +31708,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 385 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 31587 "generic_curved.c"
+#line 31711 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_86, mcrotaGuide_curved_87);
   rot_transpose(mcrotaGuide_curved_86, mctr1);
   rot_mul(mcrotaGuide_curved_87, mctr1, mcrotrGuide_curved_87);
@@ -31595,7 +31719,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 384 "generic_curved.instr"
     l_sect);
-#line 31598 "generic_curved.c"
+#line 31722 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_86, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_87 = coords_add(mcposaGuide_curved_86, mctc2);
@@ -31677,7 +31801,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_88_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_88_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_88_reflect[0]='\0';
-#line 31680 "generic_curved.c"
+#line 31804 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_88 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -31687,7 +31811,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 389 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 31690 "generic_curved.c"
+#line 31814 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_87, mcrotaGuide_curved_88);
   rot_transpose(mcrotaGuide_curved_87, mctr1);
   rot_mul(mcrotaGuide_curved_88, mctr1, mcrotrGuide_curved_88);
@@ -31698,7 +31822,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 388 "generic_curved.instr"
     l_sect);
-#line 31701 "generic_curved.c"
+#line 31825 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_87, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_88 = coords_add(mcposaGuide_curved_87, mctc2);
@@ -31780,7 +31904,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_89_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_89_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_89_reflect[0]='\0';
-#line 31783 "generic_curved.c"
+#line 31907 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_89 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -31790,7 +31914,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 393 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 31793 "generic_curved.c"
+#line 31917 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_88, mcrotaGuide_curved_89);
   rot_transpose(mcrotaGuide_curved_88, mctr1);
   rot_mul(mcrotaGuide_curved_89, mctr1, mcrotrGuide_curved_89);
@@ -31801,7 +31925,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 392 "generic_curved.instr"
     l_sect);
-#line 31804 "generic_curved.c"
+#line 31928 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_88, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_89 = coords_add(mcposaGuide_curved_88, mctc2);
@@ -31883,7 +32007,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_90_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_90_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_90_reflect[0]='\0';
-#line 31886 "generic_curved.c"
+#line 32010 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_90 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -31893,7 +32017,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 397 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 31896 "generic_curved.c"
+#line 32020 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_89, mcrotaGuide_curved_90);
   rot_transpose(mcrotaGuide_curved_89, mctr1);
   rot_mul(mcrotaGuide_curved_90, mctr1, mcrotrGuide_curved_90);
@@ -31904,7 +32028,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 396 "generic_curved.instr"
     l_sect);
-#line 31907 "generic_curved.c"
+#line 32031 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_89, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_90 = coords_add(mcposaGuide_curved_89, mctc2);
@@ -31986,7 +32110,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_91_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_91_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_91_reflect[0]='\0';
-#line 31989 "generic_curved.c"
+#line 32113 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_91 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -31996,7 +32120,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 401 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 31999 "generic_curved.c"
+#line 32123 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_90, mcrotaGuide_curved_91);
   rot_transpose(mcrotaGuide_curved_90, mctr1);
   rot_mul(mcrotaGuide_curved_91, mctr1, mcrotrGuide_curved_91);
@@ -32007,7 +32131,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 400 "generic_curved.instr"
     l_sect);
-#line 32010 "generic_curved.c"
+#line 32134 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_90, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_91 = coords_add(mcposaGuide_curved_90, mctc2);
@@ -32089,7 +32213,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_92_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_92_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_92_reflect[0]='\0';
-#line 32092 "generic_curved.c"
+#line 32216 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_92 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -32099,7 +32223,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 405 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 32102 "generic_curved.c"
+#line 32226 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_91, mcrotaGuide_curved_92);
   rot_transpose(mcrotaGuide_curved_91, mctr1);
   rot_mul(mcrotaGuide_curved_92, mctr1, mcrotrGuide_curved_92);
@@ -32110,7 +32234,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 404 "generic_curved.instr"
     l_sect);
-#line 32113 "generic_curved.c"
+#line 32237 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_91, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_92 = coords_add(mcposaGuide_curved_91, mctc2);
@@ -32192,7 +32316,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_93_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_93_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_93_reflect[0]='\0';
-#line 32195 "generic_curved.c"
+#line 32319 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_93 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -32202,7 +32326,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 409 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 32205 "generic_curved.c"
+#line 32329 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_92, mcrotaGuide_curved_93);
   rot_transpose(mcrotaGuide_curved_92, mctr1);
   rot_mul(mcrotaGuide_curved_93, mctr1, mcrotrGuide_curved_93);
@@ -32213,7 +32337,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 408 "generic_curved.instr"
     l_sect);
-#line 32216 "generic_curved.c"
+#line 32340 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_92, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_93 = coords_add(mcposaGuide_curved_92, mctc2);
@@ -32295,7 +32419,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_94_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_94_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_94_reflect[0]='\0';
-#line 32298 "generic_curved.c"
+#line 32422 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_94 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -32305,7 +32429,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 413 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 32308 "generic_curved.c"
+#line 32432 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_93, mcrotaGuide_curved_94);
   rot_transpose(mcrotaGuide_curved_93, mctr1);
   rot_mul(mcrotaGuide_curved_94, mctr1, mcrotrGuide_curved_94);
@@ -32316,7 +32440,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 412 "generic_curved.instr"
     l_sect);
-#line 32319 "generic_curved.c"
+#line 32443 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_93, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_94 = coords_add(mcposaGuide_curved_93, mctc2);
@@ -32398,7 +32522,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_95_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_95_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_95_reflect[0]='\0';
-#line 32401 "generic_curved.c"
+#line 32525 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_95 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -32408,7 +32532,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 417 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 32411 "generic_curved.c"
+#line 32535 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_94, mcrotaGuide_curved_95);
   rot_transpose(mcrotaGuide_curved_94, mctr1);
   rot_mul(mcrotaGuide_curved_95, mctr1, mcrotrGuide_curved_95);
@@ -32419,7 +32543,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 416 "generic_curved.instr"
     l_sect);
-#line 32422 "generic_curved.c"
+#line 32546 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_94, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_95 = coords_add(mcposaGuide_curved_94, mctc2);
@@ -32501,7 +32625,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_96_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_96_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_96_reflect[0]='\0';
-#line 32504 "generic_curved.c"
+#line 32628 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_96 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -32511,7 +32635,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 421 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 32514 "generic_curved.c"
+#line 32638 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_95, mcrotaGuide_curved_96);
   rot_transpose(mcrotaGuide_curved_95, mctr1);
   rot_mul(mcrotaGuide_curved_96, mctr1, mcrotrGuide_curved_96);
@@ -32522,7 +32646,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 420 "generic_curved.instr"
     l_sect);
-#line 32525 "generic_curved.c"
+#line 32649 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_95, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_96 = coords_add(mcposaGuide_curved_95, mctc2);
@@ -32604,7 +32728,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_97_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_97_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_97_reflect[0]='\0';
-#line 32607 "generic_curved.c"
+#line 32731 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_97 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -32614,7 +32738,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 425 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 32617 "generic_curved.c"
+#line 32741 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_96, mcrotaGuide_curved_97);
   rot_transpose(mcrotaGuide_curved_96, mctr1);
   rot_mul(mcrotaGuide_curved_97, mctr1, mcrotrGuide_curved_97);
@@ -32625,7 +32749,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 424 "generic_curved.instr"
     l_sect);
-#line 32628 "generic_curved.c"
+#line 32752 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_96, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_97 = coords_add(mcposaGuide_curved_96, mctc2);
@@ -32707,7 +32831,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_98_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_98_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_98_reflect[0]='\0';
-#line 32710 "generic_curved.c"
+#line 32834 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_98 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -32717,7 +32841,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 429 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 32720 "generic_curved.c"
+#line 32844 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_97, mcrotaGuide_curved_98);
   rot_transpose(mcrotaGuide_curved_97, mctr1);
   rot_mul(mcrotaGuide_curved_98, mctr1, mcrotrGuide_curved_98);
@@ -32728,7 +32852,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 428 "generic_curved.instr"
     l_sect);
-#line 32731 "generic_curved.c"
+#line 32855 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_97, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_98 = coords_add(mcposaGuide_curved_97, mctc2);
@@ -32810,7 +32934,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_99_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_99_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_99_reflect[0]='\0';
-#line 32813 "generic_curved.c"
+#line 32937 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_99 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -32820,7 +32944,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 433 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 32823 "generic_curved.c"
+#line 32947 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_98, mcrotaGuide_curved_99);
   rot_transpose(mcrotaGuide_curved_98, mctr1);
   rot_mul(mcrotaGuide_curved_99, mctr1, mcrotrGuide_curved_99);
@@ -32831,7 +32955,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 432 "generic_curved.instr"
     l_sect);
-#line 32834 "generic_curved.c"
+#line 32958 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_98, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_99 = coords_add(mcposaGuide_curved_98, mctc2);
@@ -32913,7 +33037,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_100_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_100_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_100_reflect[0]='\0';
-#line 32916 "generic_curved.c"
+#line 33040 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_100 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -32923,7 +33047,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 437 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 32926 "generic_curved.c"
+#line 33050 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_99, mcrotaGuide_curved_100);
   rot_transpose(mcrotaGuide_curved_99, mctr1);
   rot_mul(mcrotaGuide_curved_100, mctr1, mcrotrGuide_curved_100);
@@ -32934,7 +33058,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 436 "generic_curved.instr"
     l_sect);
-#line 32937 "generic_curved.c"
+#line 33061 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_99, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_100 = coords_add(mcposaGuide_curved_99, mctc2);
@@ -33016,7 +33140,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_101_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_101_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_101_reflect[0]='\0';
-#line 33019 "generic_curved.c"
+#line 33143 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_101 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -33026,7 +33150,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 441 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 33029 "generic_curved.c"
+#line 33153 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_100, mcrotaGuide_curved_101);
   rot_transpose(mcrotaGuide_curved_100, mctr1);
   rot_mul(mcrotaGuide_curved_101, mctr1, mcrotrGuide_curved_101);
@@ -33037,7 +33161,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 440 "generic_curved.instr"
     l_sect);
-#line 33040 "generic_curved.c"
+#line 33164 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_100, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_101 = coords_add(mcposaGuide_curved_100, mctc2);
@@ -33119,7 +33243,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_102_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_102_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_102_reflect[0]='\0';
-#line 33122 "generic_curved.c"
+#line 33246 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_102 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -33129,7 +33253,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 445 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 33132 "generic_curved.c"
+#line 33256 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_101, mcrotaGuide_curved_102);
   rot_transpose(mcrotaGuide_curved_101, mctr1);
   rot_mul(mcrotaGuide_curved_102, mctr1, mcrotrGuide_curved_102);
@@ -33140,7 +33264,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 444 "generic_curved.instr"
     l_sect);
-#line 33143 "generic_curved.c"
+#line 33267 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_101, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_102 = coords_add(mcposaGuide_curved_101, mctc2);
@@ -33222,7 +33346,7 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_curved_103_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_curved_103_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_103_reflect[0]='\0';
-#line 33225 "generic_curved.c"
+#line 33349 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_curved_103 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -33232,7 +33356,7 @@ rot = l_sect/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 449 "generic_curved.instr"
     (0)*DEG2RAD);
-#line 33235 "generic_curved.c"
+#line 33359 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_102, mcrotaGuide_curved_103);
   rot_transpose(mcrotaGuide_curved_102, mctr1);
   rot_mul(mcrotaGuide_curved_103, mctr1, mcrotrGuide_curved_103);
@@ -33243,7 +33367,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 448 "generic_curved.instr"
     l_sect);
-#line 33246 "generic_curved.c"
+#line 33370 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_102, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_103 = coords_add(mcposaGuide_curved_102, mctc2);
@@ -33325,14 +33449,14 @@ rot = l_sect/R_curv*RAD2DEG;
   mccGuide_straight_phase = 0;
 #line 119 "generic_curved.instr"
   if("NULL") strncpy(mccGuide_straight_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_straight_reflect[0]='\0';
-#line 33328 "generic_curved.c"
+#line 33452 "./generic_curved.c"
 
   SIG_MESSAGE("Guide_straight (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 33335 "generic_curved.c"
+#line 33459 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_curved_103, mcrotaGuide_straight);
   rot_transpose(mcrotaGuide_curved_103, mctr1);
   rot_mul(mcrotaGuide_straight, mctr1, mcrotrGuide_straight);
@@ -33343,7 +33467,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 454 "generic_curved.instr"
     l_sect);
-#line 33346 "generic_curved.c"
+#line 33470 "./generic_curved.c"
   rot_transpose(mcrotaGuide_curved_103, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_straight = coords_add(mcposaGuide_curved_103, mctc2);
@@ -33361,50 +33485,52 @@ rot = l_sect/R_curv*RAD2DEG;
   mccSample_xwidth = mcipsample_width;
 #line 465 "generic_curved.instr"
   mccSample_yheight = mcipsample_height;
-#line 200 "generic_curved.instr"
+#line 201 "generic_curved.instr"
   mccSample_zdepth = 0;
-#line 201 "generic_curved.instr"
+#line 202 "generic_curved.instr"
   mccSample_xmin = 0;
-#line 201 "generic_curved.instr"
+#line 202 "generic_curved.instr"
   mccSample_xmax = 0;
-#line 201 "generic_curved.instr"
+#line 202 "generic_curved.instr"
   mccSample_ymin = 0;
-#line 201 "generic_curved.instr"
+#line 202 "generic_curved.instr"
   mccSample_ymax = 0;
-#line 201 "generic_curved.instr"
+#line 202 "generic_curved.instr"
   mccSample_zmin = 0;
-#line 201 "generic_curved.instr"
+#line 202 "generic_curved.instr"
   mccSample_zmax = 0;
 #line 466 "generic_curved.instr"
   mccSample_bins = 100;
-#line 202 "generic_curved.instr"
+#line 203 "generic_curved.instr"
   mccSample_min = -1e40;
-#line 202 "generic_curved.instr"
+#line 203 "generic_curved.instr"
   mccSample_max = 1e40;
-#line 202 "generic_curved.instr"
+#line 203 "generic_curved.instr"
   mccSample_restore_neutron = 0;
-#line 202 "generic_curved.instr"
+#line 203 "generic_curved.instr"
   mccSample_radius = 0;
 #line 467 "generic_curved.instr"
   if("x") strncpy(mccSample_options, "x" ? "x" : "", 16384); else mccSample_options[0]='\0';
-#line 203 "generic_curved.instr"
+#line 204 "generic_curved.instr"
   if("NULL") strncpy(mccSample_filename, "NULL" ? "NULL" : "", 16384); else mccSample_filename[0]='\0';
-#line 203 "generic_curved.instr"
+#line 204 "generic_curved.instr"
   if("NULL") strncpy(mccSample_geometry, "NULL" ? "NULL" : "", 16384); else mccSample_geometry[0]='\0';
-#line 204 "generic_curved.instr"
+#line 205 "generic_curved.instr"
   if("NULL") strncpy(mccSample_username1, "NULL" ? "NULL" : "", 16384); else mccSample_username1[0]='\0';
-#line 204 "generic_curved.instr"
+#line 205 "generic_curved.instr"
   if("NULL") strncpy(mccSample_username2, "NULL" ? "NULL" : "", 16384); else mccSample_username2[0]='\0';
-#line 204 "generic_curved.instr"
+#line 205 "generic_curved.instr"
   if("NULL") strncpy(mccSample_username3, "NULL" ? "NULL" : "", 16384); else mccSample_username3[0]='\0';
-#line 33400 "generic_curved.c"
+#line 206 "generic_curved.instr"
+  mccSample_nowritefile = 0;
+#line 33526 "./generic_curved.c"
 
   SIG_MESSAGE("Sample (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 33407 "generic_curved.c"
+#line 33533 "./generic_curved.c"
   rot_mul(mctr1, mcrotaGuide_straight, mcrotaSample);
   rot_transpose(mcrotaGuide_straight, mctr1);
   rot_mul(mcrotaSample, mctr1, mcrotrSample);
@@ -33415,7 +33541,7 @@ rot = l_sect/R_curv*RAD2DEG;
     0,
 #line 468 "generic_curved.instr"
     mcipl_straight + 0.01);
-#line 33418 "generic_curved.c"
+#line 33544 "./generic_curved.c"
   rot_transpose(mcrotaGuide_straight, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaSample = coords_add(mcposaGuide_straight, mctc2);
@@ -33440,7 +33566,7 @@ rot = l_sect/R_curv*RAD2DEG;
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 57 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 57 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
 IntermediateCnts=0;
 StartTime=0;
@@ -33452,7 +33578,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
     percent=1e5*100.0/mcget_ncount();
   }
 }
-#line 33455 "generic_curved.c"
+#line 33581 "./generic_curved.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -33517,7 +33643,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 206 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 206 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   pTable_xsum=0;
   pTable_ysum=0;
@@ -33789,7 +33915,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
       printf("Source_gen: component %s unactivated", NAME_CURRENT_COMP);
   );
 }
-#line 33792 "generic_curved.c"
+#line 33918 "./generic_curved.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -33885,7 +34011,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_nu
 #define phase mccGuide_curved_phase
 #define reflect mccGuide_curved_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -33937,7 +34063,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 33940 "generic_curved.c"
+#line 34066 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -34019,7 +34145,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_5_nu
 #define phase mccGuide_curved_5_phase
 #define reflect mccGuide_curved_5_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34071,7 +34197,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 34074 "generic_curved.c"
+#line 34200 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -34153,7 +34279,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_6_nu
 #define phase mccGuide_curved_6_phase
 #define reflect mccGuide_curved_6_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34205,7 +34331,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 34208 "generic_curved.c"
+#line 34334 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -34287,7 +34413,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_7_nu
 #define phase mccGuide_curved_7_phase
 #define reflect mccGuide_curved_7_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34339,7 +34465,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 34342 "generic_curved.c"
+#line 34468 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -34421,7 +34547,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_8_nu
 #define phase mccGuide_curved_8_phase
 #define reflect mccGuide_curved_8_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34473,7 +34599,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 34476 "generic_curved.c"
+#line 34602 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -34555,7 +34681,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_9_nu
 #define phase mccGuide_curved_9_phase
 #define reflect mccGuide_curved_9_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34607,7 +34733,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 34610 "generic_curved.c"
+#line 34736 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -34689,7 +34815,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_10_nu
 #define phase mccGuide_curved_10_phase
 #define reflect mccGuide_curved_10_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34741,7 +34867,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 34744 "generic_curved.c"
+#line 34870 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -34823,7 +34949,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_11_nu
 #define phase mccGuide_curved_11_phase
 #define reflect mccGuide_curved_11_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34875,7 +35001,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 34878 "generic_curved.c"
+#line 35004 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -34957,7 +35083,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_12_nu
 #define phase mccGuide_curved_12_phase
 #define reflect mccGuide_curved_12_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35009,7 +35135,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 35012 "generic_curved.c"
+#line 35138 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -35091,7 +35217,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_13_nu
 #define phase mccGuide_curved_13_phase
 #define reflect mccGuide_curved_13_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35143,7 +35269,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 35146 "generic_curved.c"
+#line 35272 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -35225,7 +35351,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_14_nu
 #define phase mccGuide_curved_14_phase
 #define reflect mccGuide_curved_14_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35277,7 +35403,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 35280 "generic_curved.c"
+#line 35406 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -35359,7 +35485,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_15_nu
 #define phase mccGuide_curved_15_phase
 #define reflect mccGuide_curved_15_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35411,7 +35537,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 35414 "generic_curved.c"
+#line 35540 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -35493,7 +35619,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_16_nu
 #define phase mccGuide_curved_16_phase
 #define reflect mccGuide_curved_16_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35545,7 +35671,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 35548 "generic_curved.c"
+#line 35674 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -35627,7 +35753,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_17_nu
 #define phase mccGuide_curved_17_phase
 #define reflect mccGuide_curved_17_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35679,7 +35805,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 35682 "generic_curved.c"
+#line 35808 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -35761,7 +35887,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_18_nu
 #define phase mccGuide_curved_18_phase
 #define reflect mccGuide_curved_18_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35813,7 +35939,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 35816 "generic_curved.c"
+#line 35942 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -35895,7 +36021,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_19_nu
 #define phase mccGuide_curved_19_phase
 #define reflect mccGuide_curved_19_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35947,7 +36073,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 35950 "generic_curved.c"
+#line 36076 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -36029,7 +36155,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_20_nu
 #define phase mccGuide_curved_20_phase
 #define reflect mccGuide_curved_20_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36081,7 +36207,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 36084 "generic_curved.c"
+#line 36210 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -36163,7 +36289,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_21_nu
 #define phase mccGuide_curved_21_phase
 #define reflect mccGuide_curved_21_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36215,7 +36341,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 36218 "generic_curved.c"
+#line 36344 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -36297,7 +36423,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_22_nu
 #define phase mccGuide_curved_22_phase
 #define reflect mccGuide_curved_22_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36349,7 +36475,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 36352 "generic_curved.c"
+#line 36478 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -36431,7 +36557,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_23_nu
 #define phase mccGuide_curved_23_phase
 #define reflect mccGuide_curved_23_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36483,7 +36609,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 36486 "generic_curved.c"
+#line 36612 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -36565,7 +36691,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_24_nu
 #define phase mccGuide_curved_24_phase
 #define reflect mccGuide_curved_24_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36617,7 +36743,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 36620 "generic_curved.c"
+#line 36746 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -36699,7 +36825,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_25_nu
 #define phase mccGuide_curved_25_phase
 #define reflect mccGuide_curved_25_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36751,7 +36877,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 36754 "generic_curved.c"
+#line 36880 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -36833,7 +36959,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_26_nu
 #define phase mccGuide_curved_26_phase
 #define reflect mccGuide_curved_26_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36885,7 +37011,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 36888 "generic_curved.c"
+#line 37014 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -36967,7 +37093,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_27_nu
 #define phase mccGuide_curved_27_phase
 #define reflect mccGuide_curved_27_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37019,7 +37145,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 37022 "generic_curved.c"
+#line 37148 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -37101,7 +37227,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_28_nu
 #define phase mccGuide_curved_28_phase
 #define reflect mccGuide_curved_28_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37153,7 +37279,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 37156 "generic_curved.c"
+#line 37282 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -37235,7 +37361,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_29_nu
 #define phase mccGuide_curved_29_phase
 #define reflect mccGuide_curved_29_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37287,7 +37413,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 37290 "generic_curved.c"
+#line 37416 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -37369,7 +37495,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_30_nu
 #define phase mccGuide_curved_30_phase
 #define reflect mccGuide_curved_30_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37421,7 +37547,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 37424 "generic_curved.c"
+#line 37550 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -37503,7 +37629,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_31_nu
 #define phase mccGuide_curved_31_phase
 #define reflect mccGuide_curved_31_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37555,7 +37681,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 37558 "generic_curved.c"
+#line 37684 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -37637,7 +37763,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_32_nu
 #define phase mccGuide_curved_32_phase
 #define reflect mccGuide_curved_32_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37689,7 +37815,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 37692 "generic_curved.c"
+#line 37818 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -37771,7 +37897,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_33_nu
 #define phase mccGuide_curved_33_phase
 #define reflect mccGuide_curved_33_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37823,7 +37949,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 37826 "generic_curved.c"
+#line 37952 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -37905,7 +38031,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_34_nu
 #define phase mccGuide_curved_34_phase
 #define reflect mccGuide_curved_34_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37957,7 +38083,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 37960 "generic_curved.c"
+#line 38086 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -38039,7 +38165,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_35_nu
 #define phase mccGuide_curved_35_phase
 #define reflect mccGuide_curved_35_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38091,7 +38217,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 38094 "generic_curved.c"
+#line 38220 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -38173,7 +38299,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_36_nu
 #define phase mccGuide_curved_36_phase
 #define reflect mccGuide_curved_36_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38225,7 +38351,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 38228 "generic_curved.c"
+#line 38354 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -38307,7 +38433,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_37_nu
 #define phase mccGuide_curved_37_phase
 #define reflect mccGuide_curved_37_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38359,7 +38485,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 38362 "generic_curved.c"
+#line 38488 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -38441,7 +38567,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_38_nu
 #define phase mccGuide_curved_38_phase
 #define reflect mccGuide_curved_38_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38493,7 +38619,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 38496 "generic_curved.c"
+#line 38622 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -38575,7 +38701,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_39_nu
 #define phase mccGuide_curved_39_phase
 #define reflect mccGuide_curved_39_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38627,7 +38753,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 38630 "generic_curved.c"
+#line 38756 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -38709,7 +38835,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_40_nu
 #define phase mccGuide_curved_40_phase
 #define reflect mccGuide_curved_40_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38761,7 +38887,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 38764 "generic_curved.c"
+#line 38890 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -38843,7 +38969,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_41_nu
 #define phase mccGuide_curved_41_phase
 #define reflect mccGuide_curved_41_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38895,7 +39021,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 38898 "generic_curved.c"
+#line 39024 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -38977,7 +39103,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_42_nu
 #define phase mccGuide_curved_42_phase
 #define reflect mccGuide_curved_42_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39029,7 +39155,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 39032 "generic_curved.c"
+#line 39158 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -39111,7 +39237,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_43_nu
 #define phase mccGuide_curved_43_phase
 #define reflect mccGuide_curved_43_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39163,7 +39289,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 39166 "generic_curved.c"
+#line 39292 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -39245,7 +39371,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_44_nu
 #define phase mccGuide_curved_44_phase
 #define reflect mccGuide_curved_44_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39297,7 +39423,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 39300 "generic_curved.c"
+#line 39426 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -39379,7 +39505,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_45_nu
 #define phase mccGuide_curved_45_phase
 #define reflect mccGuide_curved_45_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39431,7 +39557,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 39434 "generic_curved.c"
+#line 39560 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -39513,7 +39639,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_46_nu
 #define phase mccGuide_curved_46_phase
 #define reflect mccGuide_curved_46_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39565,7 +39691,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 39568 "generic_curved.c"
+#line 39694 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -39647,7 +39773,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_47_nu
 #define phase mccGuide_curved_47_phase
 #define reflect mccGuide_curved_47_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39699,7 +39825,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 39702 "generic_curved.c"
+#line 39828 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -39781,7 +39907,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_48_nu
 #define phase mccGuide_curved_48_phase
 #define reflect mccGuide_curved_48_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39833,7 +39959,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 39836 "generic_curved.c"
+#line 39962 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -39915,7 +40041,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_49_nu
 #define phase mccGuide_curved_49_phase
 #define reflect mccGuide_curved_49_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39967,7 +40093,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 39970 "generic_curved.c"
+#line 40096 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -40049,7 +40175,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_50_nu
 #define phase mccGuide_curved_50_phase
 #define reflect mccGuide_curved_50_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40101,7 +40227,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 40104 "generic_curved.c"
+#line 40230 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -40183,7 +40309,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_51_nu
 #define phase mccGuide_curved_51_phase
 #define reflect mccGuide_curved_51_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40235,7 +40361,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 40238 "generic_curved.c"
+#line 40364 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -40317,7 +40443,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_52_nu
 #define phase mccGuide_curved_52_phase
 #define reflect mccGuide_curved_52_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40369,7 +40495,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 40372 "generic_curved.c"
+#line 40498 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -40451,7 +40577,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_53_nu
 #define phase mccGuide_curved_53_phase
 #define reflect mccGuide_curved_53_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40503,7 +40629,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 40506 "generic_curved.c"
+#line 40632 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -40585,7 +40711,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_54_nu
 #define phase mccGuide_curved_54_phase
 #define reflect mccGuide_curved_54_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40637,7 +40763,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 40640 "generic_curved.c"
+#line 40766 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -40719,7 +40845,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_55_nu
 #define phase mccGuide_curved_55_phase
 #define reflect mccGuide_curved_55_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40771,7 +40897,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 40774 "generic_curved.c"
+#line 40900 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -40853,7 +40979,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_56_nu
 #define phase mccGuide_curved_56_phase
 #define reflect mccGuide_curved_56_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40905,7 +41031,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 40908 "generic_curved.c"
+#line 41034 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -40987,7 +41113,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_57_nu
 #define phase mccGuide_curved_57_phase
 #define reflect mccGuide_curved_57_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41039,7 +41165,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 41042 "generic_curved.c"
+#line 41168 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -41121,7 +41247,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_58_nu
 #define phase mccGuide_curved_58_phase
 #define reflect mccGuide_curved_58_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41173,7 +41299,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 41176 "generic_curved.c"
+#line 41302 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -41255,7 +41381,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_59_nu
 #define phase mccGuide_curved_59_phase
 #define reflect mccGuide_curved_59_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41307,7 +41433,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 41310 "generic_curved.c"
+#line 41436 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -41389,7 +41515,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_60_nu
 #define phase mccGuide_curved_60_phase
 #define reflect mccGuide_curved_60_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41441,7 +41567,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 41444 "generic_curved.c"
+#line 41570 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -41523,7 +41649,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_61_nu
 #define phase mccGuide_curved_61_phase
 #define reflect mccGuide_curved_61_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41575,7 +41701,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 41578 "generic_curved.c"
+#line 41704 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -41657,7 +41783,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_62_nu
 #define phase mccGuide_curved_62_phase
 #define reflect mccGuide_curved_62_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41709,7 +41835,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 41712 "generic_curved.c"
+#line 41838 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -41791,7 +41917,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_63_nu
 #define phase mccGuide_curved_63_phase
 #define reflect mccGuide_curved_63_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41843,7 +41969,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 41846 "generic_curved.c"
+#line 41972 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -41925,7 +42051,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_64_nu
 #define phase mccGuide_curved_64_phase
 #define reflect mccGuide_curved_64_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41977,7 +42103,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 41980 "generic_curved.c"
+#line 42106 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -42059,7 +42185,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_65_nu
 #define phase mccGuide_curved_65_phase
 #define reflect mccGuide_curved_65_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42111,7 +42237,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 42114 "generic_curved.c"
+#line 42240 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -42193,7 +42319,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_66_nu
 #define phase mccGuide_curved_66_phase
 #define reflect mccGuide_curved_66_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42245,7 +42371,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 42248 "generic_curved.c"
+#line 42374 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -42327,7 +42453,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_67_nu
 #define phase mccGuide_curved_67_phase
 #define reflect mccGuide_curved_67_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42379,7 +42505,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 42382 "generic_curved.c"
+#line 42508 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -42461,7 +42587,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_68_nu
 #define phase mccGuide_curved_68_phase
 #define reflect mccGuide_curved_68_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42513,7 +42639,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 42516 "generic_curved.c"
+#line 42642 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -42595,7 +42721,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_69_nu
 #define phase mccGuide_curved_69_phase
 #define reflect mccGuide_curved_69_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42647,7 +42773,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 42650 "generic_curved.c"
+#line 42776 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -42729,7 +42855,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_70_nu
 #define phase mccGuide_curved_70_phase
 #define reflect mccGuide_curved_70_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42781,7 +42907,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 42784 "generic_curved.c"
+#line 42910 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -42863,7 +42989,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_71_nu
 #define phase mccGuide_curved_71_phase
 #define reflect mccGuide_curved_71_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42915,7 +43041,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 42918 "generic_curved.c"
+#line 43044 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -42997,7 +43123,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_72_nu
 #define phase mccGuide_curved_72_phase
 #define reflect mccGuide_curved_72_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43049,7 +43175,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 43052 "generic_curved.c"
+#line 43178 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -43131,7 +43257,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_73_nu
 #define phase mccGuide_curved_73_phase
 #define reflect mccGuide_curved_73_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43183,7 +43309,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 43186 "generic_curved.c"
+#line 43312 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -43265,7 +43391,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_74_nu
 #define phase mccGuide_curved_74_phase
 #define reflect mccGuide_curved_74_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43317,7 +43443,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 43320 "generic_curved.c"
+#line 43446 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -43399,7 +43525,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_75_nu
 #define phase mccGuide_curved_75_phase
 #define reflect mccGuide_curved_75_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43451,7 +43577,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 43454 "generic_curved.c"
+#line 43580 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -43533,7 +43659,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_76_nu
 #define phase mccGuide_curved_76_phase
 #define reflect mccGuide_curved_76_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43585,7 +43711,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 43588 "generic_curved.c"
+#line 43714 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -43667,7 +43793,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_77_nu
 #define phase mccGuide_curved_77_phase
 #define reflect mccGuide_curved_77_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43719,7 +43845,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 43722 "generic_curved.c"
+#line 43848 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -43801,7 +43927,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_78_nu
 #define phase mccGuide_curved_78_phase
 #define reflect mccGuide_curved_78_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43853,7 +43979,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 43856 "generic_curved.c"
+#line 43982 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -43935,7 +44061,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_79_nu
 #define phase mccGuide_curved_79_phase
 #define reflect mccGuide_curved_79_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43987,7 +44113,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 43990 "generic_curved.c"
+#line 44116 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -44069,7 +44195,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_80_nu
 #define phase mccGuide_curved_80_phase
 #define reflect mccGuide_curved_80_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44121,7 +44247,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 44124 "generic_curved.c"
+#line 44250 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -44203,7 +44329,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_81_nu
 #define phase mccGuide_curved_81_phase
 #define reflect mccGuide_curved_81_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44255,7 +44381,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 44258 "generic_curved.c"
+#line 44384 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -44337,7 +44463,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_82_nu
 #define phase mccGuide_curved_82_phase
 #define reflect mccGuide_curved_82_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44389,7 +44515,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 44392 "generic_curved.c"
+#line 44518 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -44471,7 +44597,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_83_nu
 #define phase mccGuide_curved_83_phase
 #define reflect mccGuide_curved_83_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44523,7 +44649,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 44526 "generic_curved.c"
+#line 44652 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -44605,7 +44731,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_84_nu
 #define phase mccGuide_curved_84_phase
 #define reflect mccGuide_curved_84_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44657,7 +44783,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 44660 "generic_curved.c"
+#line 44786 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -44739,7 +44865,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_85_nu
 #define phase mccGuide_curved_85_phase
 #define reflect mccGuide_curved_85_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44791,7 +44917,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 44794 "generic_curved.c"
+#line 44920 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -44873,7 +44999,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_86_nu
 #define phase mccGuide_curved_86_phase
 #define reflect mccGuide_curved_86_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44925,7 +45051,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 44928 "generic_curved.c"
+#line 45054 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -45007,7 +45133,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_87_nu
 #define phase mccGuide_curved_87_phase
 #define reflect mccGuide_curved_87_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45059,7 +45185,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 45062 "generic_curved.c"
+#line 45188 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -45141,7 +45267,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_88_nu
 #define phase mccGuide_curved_88_phase
 #define reflect mccGuide_curved_88_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45193,7 +45319,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 45196 "generic_curved.c"
+#line 45322 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -45275,7 +45401,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_89_nu
 #define phase mccGuide_curved_89_phase
 #define reflect mccGuide_curved_89_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45327,7 +45453,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 45330 "generic_curved.c"
+#line 45456 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -45409,7 +45535,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_90_nu
 #define phase mccGuide_curved_90_phase
 #define reflect mccGuide_curved_90_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45461,7 +45587,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 45464 "generic_curved.c"
+#line 45590 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -45543,7 +45669,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_91_nu
 #define phase mccGuide_curved_91_phase
 #define reflect mccGuide_curved_91_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45595,7 +45721,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 45598 "generic_curved.c"
+#line 45724 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -45677,7 +45803,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_92_nu
 #define phase mccGuide_curved_92_phase
 #define reflect mccGuide_curved_92_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45729,7 +45855,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 45732 "generic_curved.c"
+#line 45858 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -45811,7 +45937,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_93_nu
 #define phase mccGuide_curved_93_phase
 #define reflect mccGuide_curved_93_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45863,7 +45989,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 45866 "generic_curved.c"
+#line 45992 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -45945,7 +46071,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_94_nu
 #define phase mccGuide_curved_94_phase
 #define reflect mccGuide_curved_94_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45997,7 +46123,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 46000 "generic_curved.c"
+#line 46126 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -46079,7 +46205,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_95_nu
 #define phase mccGuide_curved_95_phase
 #define reflect mccGuide_curved_95_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46131,7 +46257,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 46134 "generic_curved.c"
+#line 46260 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -46213,7 +46339,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_96_nu
 #define phase mccGuide_curved_96_phase
 #define reflect mccGuide_curved_96_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46265,7 +46391,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 46268 "generic_curved.c"
+#line 46394 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -46347,7 +46473,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_97_nu
 #define phase mccGuide_curved_97_phase
 #define reflect mccGuide_curved_97_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46399,7 +46525,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 46402 "generic_curved.c"
+#line 46528 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -46481,7 +46607,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_98_nu
 #define phase mccGuide_curved_98_phase
 #define reflect mccGuide_curved_98_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46533,7 +46659,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 46536 "generic_curved.c"
+#line 46662 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -46615,7 +46741,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_99_nu
 #define phase mccGuide_curved_99_phase
 #define reflect mccGuide_curved_99_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46667,7 +46793,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 46670 "generic_curved.c"
+#line 46796 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -46749,7 +46875,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_100_nu
 #define phase mccGuide_curved_100_phase
 #define reflect mccGuide_curved_100_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46801,7 +46927,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 46804 "generic_curved.c"
+#line 46930 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -46883,7 +47009,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_101_nu
 #define phase mccGuide_curved_101_phase
 #define reflect mccGuide_curved_101_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46935,7 +47061,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 46938 "generic_curved.c"
+#line 47064 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -47017,7 +47143,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_102_nu
 #define phase mccGuide_curved_102_phase
 #define reflect mccGuide_curved_102_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -47069,7 +47195,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 47072 "generic_curved.c"
+#line 47198 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -47151,7 +47277,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_103_nu
 #define phase mccGuide_curved_103_phase
 #define reflect mccGuide_curved_103_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -47203,7 +47329,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 47206 "generic_curved.c"
+#line 47332 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -47285,7 +47411,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_straight_nu
 #define phase mccGuide_straight_phase
 #define reflect mccGuide_straight_reflect
-#line 339 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 339 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -47337,7 +47463,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 47340 "generic_curved.c"
+#line 47466 "./generic_curved.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -47410,7 +47536,8 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define username1 mccSample_username1
 #define username2 mccSample_username2
 #define username3 mccSample_username3
-#line 227 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+#define nowritefile mccSample_nowritefile
+#line 229 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -47489,7 +47616,8 @@ MPI_MASTER(
 );
 #endif
 }
-#line 47492 "generic_curved.c"
+#line 47619 "./generic_curved.c"
+#undef nowritefile
 #undef username3
 #undef username2
 #undef username1
@@ -47630,7 +47758,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 70 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 70 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
   double ncount;
   ncount = mcget_run_num();
@@ -47674,7 +47802,7 @@ MCNUM minutes = mccOrigin_minutes;
     if (flag_save) mcsave(NULL);
   }
 }
-#line 47677 "generic_curved.c"
+#line 47805 "./generic_curved.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -47831,7 +47959,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 479 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 479 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   double dx=0,dy=0,xf,yf,rf,pdir,chi,v,r, lambda;
   double Maxwell;
@@ -47922,7 +48050,7 @@ int target_index = mccH3_target_index;
     SCATTER;
   }
 }
-#line 47925 "generic_curved.c"
+#line 48053 "./generic_curved.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -48184,7 +48312,7 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -48353,7 +48481,7 @@ char* reflect = mccGuide_curved_reflect;
 
   } /* if l */
 }
-#line 48356 "generic_curved.c"
+#line 48484 "./generic_curved.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48497,7 +48625,7 @@ MCNUM nelements = mccGuide_curved_5_nelements;
 MCNUM nu = mccGuide_curved_5_nu;
 MCNUM phase = mccGuide_curved_5_phase;
 char* reflect = mccGuide_curved_5_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -48666,7 +48794,7 @@ char* reflect = mccGuide_curved_5_reflect;
 
   } /* if l */
 }
-#line 48669 "generic_curved.c"
+#line 48797 "./generic_curved.c"
 }   /* End of Guide_curved_5=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48810,7 +48938,7 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -48979,7 +49107,7 @@ char* reflect = mccGuide_curved_6_reflect;
 
   } /* if l */
 }
-#line 48982 "generic_curved.c"
+#line 49110 "./generic_curved.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49123,7 +49251,7 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -49292,7 +49420,7 @@ char* reflect = mccGuide_curved_7_reflect;
 
   } /* if l */
 }
-#line 49295 "generic_curved.c"
+#line 49423 "./generic_curved.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49436,7 +49564,7 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -49605,7 +49733,7 @@ char* reflect = mccGuide_curved_8_reflect;
 
   } /* if l */
 }
-#line 49608 "generic_curved.c"
+#line 49736 "./generic_curved.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49749,7 +49877,7 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -49918,7 +50046,7 @@ char* reflect = mccGuide_curved_9_reflect;
 
   } /* if l */
 }
-#line 49921 "generic_curved.c"
+#line 50049 "./generic_curved.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50062,7 +50190,7 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -50231,7 +50359,7 @@ char* reflect = mccGuide_curved_10_reflect;
 
   } /* if l */
 }
-#line 50234 "generic_curved.c"
+#line 50362 "./generic_curved.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50375,7 +50503,7 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -50544,7 +50672,7 @@ char* reflect = mccGuide_curved_11_reflect;
 
   } /* if l */
 }
-#line 50547 "generic_curved.c"
+#line 50675 "./generic_curved.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50688,7 +50816,7 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -50857,7 +50985,7 @@ char* reflect = mccGuide_curved_12_reflect;
 
   } /* if l */
 }
-#line 50860 "generic_curved.c"
+#line 50988 "./generic_curved.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51001,7 +51129,7 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -51170,7 +51298,7 @@ char* reflect = mccGuide_curved_13_reflect;
 
   } /* if l */
 }
-#line 51173 "generic_curved.c"
+#line 51301 "./generic_curved.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51314,7 +51442,7 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -51483,7 +51611,7 @@ char* reflect = mccGuide_curved_14_reflect;
 
   } /* if l */
 }
-#line 51486 "generic_curved.c"
+#line 51614 "./generic_curved.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51627,7 +51755,7 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -51796,7 +51924,7 @@ char* reflect = mccGuide_curved_15_reflect;
 
   } /* if l */
 }
-#line 51799 "generic_curved.c"
+#line 51927 "./generic_curved.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51940,7 +52068,7 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -52109,7 +52237,7 @@ char* reflect = mccGuide_curved_16_reflect;
 
   } /* if l */
 }
-#line 52112 "generic_curved.c"
+#line 52240 "./generic_curved.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52253,7 +52381,7 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -52422,7 +52550,7 @@ char* reflect = mccGuide_curved_17_reflect;
 
   } /* if l */
 }
-#line 52425 "generic_curved.c"
+#line 52553 "./generic_curved.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52566,7 +52694,7 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -52735,7 +52863,7 @@ char* reflect = mccGuide_curved_18_reflect;
 
   } /* if l */
 }
-#line 52738 "generic_curved.c"
+#line 52866 "./generic_curved.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52879,7 +53007,7 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -53048,7 +53176,7 @@ char* reflect = mccGuide_curved_19_reflect;
 
   } /* if l */
 }
-#line 53051 "generic_curved.c"
+#line 53179 "./generic_curved.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53192,7 +53320,7 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -53361,7 +53489,7 @@ char* reflect = mccGuide_curved_20_reflect;
 
   } /* if l */
 }
-#line 53364 "generic_curved.c"
+#line 53492 "./generic_curved.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53505,7 +53633,7 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -53674,7 +53802,7 @@ char* reflect = mccGuide_curved_21_reflect;
 
   } /* if l */
 }
-#line 53677 "generic_curved.c"
+#line 53805 "./generic_curved.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53818,7 +53946,7 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -53987,7 +54115,7 @@ char* reflect = mccGuide_curved_22_reflect;
 
   } /* if l */
 }
-#line 53990 "generic_curved.c"
+#line 54118 "./generic_curved.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54131,7 +54259,7 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -54300,7 +54428,7 @@ char* reflect = mccGuide_curved_23_reflect;
 
   } /* if l */
 }
-#line 54303 "generic_curved.c"
+#line 54431 "./generic_curved.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54444,7 +54572,7 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -54613,7 +54741,7 @@ char* reflect = mccGuide_curved_24_reflect;
 
   } /* if l */
 }
-#line 54616 "generic_curved.c"
+#line 54744 "./generic_curved.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54757,7 +54885,7 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -54926,7 +55054,7 @@ char* reflect = mccGuide_curved_25_reflect;
 
   } /* if l */
 }
-#line 54929 "generic_curved.c"
+#line 55057 "./generic_curved.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55070,7 +55198,7 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -55239,7 +55367,7 @@ char* reflect = mccGuide_curved_26_reflect;
 
   } /* if l */
 }
-#line 55242 "generic_curved.c"
+#line 55370 "./generic_curved.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55383,7 +55511,7 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -55552,7 +55680,7 @@ char* reflect = mccGuide_curved_27_reflect;
 
   } /* if l */
 }
-#line 55555 "generic_curved.c"
+#line 55683 "./generic_curved.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55696,7 +55824,7 @@ MCNUM nelements = mccGuide_curved_28_nelements;
 MCNUM nu = mccGuide_curved_28_nu;
 MCNUM phase = mccGuide_curved_28_phase;
 char* reflect = mccGuide_curved_28_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -55865,7 +55993,7 @@ char* reflect = mccGuide_curved_28_reflect;
 
   } /* if l */
 }
-#line 55868 "generic_curved.c"
+#line 55996 "./generic_curved.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56009,7 +56137,7 @@ MCNUM nelements = mccGuide_curved_29_nelements;
 MCNUM nu = mccGuide_curved_29_nu;
 MCNUM phase = mccGuide_curved_29_phase;
 char* reflect = mccGuide_curved_29_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -56178,7 +56306,7 @@ char* reflect = mccGuide_curved_29_reflect;
 
   } /* if l */
 }
-#line 56181 "generic_curved.c"
+#line 56309 "./generic_curved.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56322,7 +56450,7 @@ MCNUM nelements = mccGuide_curved_30_nelements;
 MCNUM nu = mccGuide_curved_30_nu;
 MCNUM phase = mccGuide_curved_30_phase;
 char* reflect = mccGuide_curved_30_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -56491,7 +56619,7 @@ char* reflect = mccGuide_curved_30_reflect;
 
   } /* if l */
 }
-#line 56494 "generic_curved.c"
+#line 56622 "./generic_curved.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56635,7 +56763,7 @@ MCNUM nelements = mccGuide_curved_31_nelements;
 MCNUM nu = mccGuide_curved_31_nu;
 MCNUM phase = mccGuide_curved_31_phase;
 char* reflect = mccGuide_curved_31_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -56804,7 +56932,7 @@ char* reflect = mccGuide_curved_31_reflect;
 
   } /* if l */
 }
-#line 56807 "generic_curved.c"
+#line 56935 "./generic_curved.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56948,7 +57076,7 @@ MCNUM nelements = mccGuide_curved_32_nelements;
 MCNUM nu = mccGuide_curved_32_nu;
 MCNUM phase = mccGuide_curved_32_phase;
 char* reflect = mccGuide_curved_32_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -57117,7 +57245,7 @@ char* reflect = mccGuide_curved_32_reflect;
 
   } /* if l */
 }
-#line 57120 "generic_curved.c"
+#line 57248 "./generic_curved.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57261,7 +57389,7 @@ MCNUM nelements = mccGuide_curved_33_nelements;
 MCNUM nu = mccGuide_curved_33_nu;
 MCNUM phase = mccGuide_curved_33_phase;
 char* reflect = mccGuide_curved_33_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -57430,7 +57558,7 @@ char* reflect = mccGuide_curved_33_reflect;
 
   } /* if l */
 }
-#line 57433 "generic_curved.c"
+#line 57561 "./generic_curved.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57574,7 +57702,7 @@ MCNUM nelements = mccGuide_curved_34_nelements;
 MCNUM nu = mccGuide_curved_34_nu;
 MCNUM phase = mccGuide_curved_34_phase;
 char* reflect = mccGuide_curved_34_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -57743,7 +57871,7 @@ char* reflect = mccGuide_curved_34_reflect;
 
   } /* if l */
 }
-#line 57746 "generic_curved.c"
+#line 57874 "./generic_curved.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57887,7 +58015,7 @@ MCNUM nelements = mccGuide_curved_35_nelements;
 MCNUM nu = mccGuide_curved_35_nu;
 MCNUM phase = mccGuide_curved_35_phase;
 char* reflect = mccGuide_curved_35_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -58056,7 +58184,7 @@ char* reflect = mccGuide_curved_35_reflect;
 
   } /* if l */
 }
-#line 58059 "generic_curved.c"
+#line 58187 "./generic_curved.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58200,7 +58328,7 @@ MCNUM nelements = mccGuide_curved_36_nelements;
 MCNUM nu = mccGuide_curved_36_nu;
 MCNUM phase = mccGuide_curved_36_phase;
 char* reflect = mccGuide_curved_36_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -58369,7 +58497,7 @@ char* reflect = mccGuide_curved_36_reflect;
 
   } /* if l */
 }
-#line 58372 "generic_curved.c"
+#line 58500 "./generic_curved.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58513,7 +58641,7 @@ MCNUM nelements = mccGuide_curved_37_nelements;
 MCNUM nu = mccGuide_curved_37_nu;
 MCNUM phase = mccGuide_curved_37_phase;
 char* reflect = mccGuide_curved_37_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -58682,7 +58810,7 @@ char* reflect = mccGuide_curved_37_reflect;
 
   } /* if l */
 }
-#line 58685 "generic_curved.c"
+#line 58813 "./generic_curved.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58826,7 +58954,7 @@ MCNUM nelements = mccGuide_curved_38_nelements;
 MCNUM nu = mccGuide_curved_38_nu;
 MCNUM phase = mccGuide_curved_38_phase;
 char* reflect = mccGuide_curved_38_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -58995,7 +59123,7 @@ char* reflect = mccGuide_curved_38_reflect;
 
   } /* if l */
 }
-#line 58998 "generic_curved.c"
+#line 59126 "./generic_curved.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -59139,7 +59267,7 @@ MCNUM nelements = mccGuide_curved_39_nelements;
 MCNUM nu = mccGuide_curved_39_nu;
 MCNUM phase = mccGuide_curved_39_phase;
 char* reflect = mccGuide_curved_39_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -59308,7 +59436,7 @@ char* reflect = mccGuide_curved_39_reflect;
 
   } /* if l */
 }
-#line 59311 "generic_curved.c"
+#line 59439 "./generic_curved.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -59452,7 +59580,7 @@ MCNUM nelements = mccGuide_curved_40_nelements;
 MCNUM nu = mccGuide_curved_40_nu;
 MCNUM phase = mccGuide_curved_40_phase;
 char* reflect = mccGuide_curved_40_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -59621,7 +59749,7 @@ char* reflect = mccGuide_curved_40_reflect;
 
   } /* if l */
 }
-#line 59624 "generic_curved.c"
+#line 59752 "./generic_curved.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -59765,7 +59893,7 @@ MCNUM nelements = mccGuide_curved_41_nelements;
 MCNUM nu = mccGuide_curved_41_nu;
 MCNUM phase = mccGuide_curved_41_phase;
 char* reflect = mccGuide_curved_41_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -59934,7 +60062,7 @@ char* reflect = mccGuide_curved_41_reflect;
 
   } /* if l */
 }
-#line 59937 "generic_curved.c"
+#line 60065 "./generic_curved.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -60078,7 +60206,7 @@ MCNUM nelements = mccGuide_curved_42_nelements;
 MCNUM nu = mccGuide_curved_42_nu;
 MCNUM phase = mccGuide_curved_42_phase;
 char* reflect = mccGuide_curved_42_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -60247,7 +60375,7 @@ char* reflect = mccGuide_curved_42_reflect;
 
   } /* if l */
 }
-#line 60250 "generic_curved.c"
+#line 60378 "./generic_curved.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -60391,7 +60519,7 @@ MCNUM nelements = mccGuide_curved_43_nelements;
 MCNUM nu = mccGuide_curved_43_nu;
 MCNUM phase = mccGuide_curved_43_phase;
 char* reflect = mccGuide_curved_43_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -60560,7 +60688,7 @@ char* reflect = mccGuide_curved_43_reflect;
 
   } /* if l */
 }
-#line 60563 "generic_curved.c"
+#line 60691 "./generic_curved.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -60704,7 +60832,7 @@ MCNUM nelements = mccGuide_curved_44_nelements;
 MCNUM nu = mccGuide_curved_44_nu;
 MCNUM phase = mccGuide_curved_44_phase;
 char* reflect = mccGuide_curved_44_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -60873,7 +61001,7 @@ char* reflect = mccGuide_curved_44_reflect;
 
   } /* if l */
 }
-#line 60876 "generic_curved.c"
+#line 61004 "./generic_curved.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -61017,7 +61145,7 @@ MCNUM nelements = mccGuide_curved_45_nelements;
 MCNUM nu = mccGuide_curved_45_nu;
 MCNUM phase = mccGuide_curved_45_phase;
 char* reflect = mccGuide_curved_45_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -61186,7 +61314,7 @@ char* reflect = mccGuide_curved_45_reflect;
 
   } /* if l */
 }
-#line 61189 "generic_curved.c"
+#line 61317 "./generic_curved.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -61330,7 +61458,7 @@ MCNUM nelements = mccGuide_curved_46_nelements;
 MCNUM nu = mccGuide_curved_46_nu;
 MCNUM phase = mccGuide_curved_46_phase;
 char* reflect = mccGuide_curved_46_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -61499,7 +61627,7 @@ char* reflect = mccGuide_curved_46_reflect;
 
   } /* if l */
 }
-#line 61502 "generic_curved.c"
+#line 61630 "./generic_curved.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -61643,7 +61771,7 @@ MCNUM nelements = mccGuide_curved_47_nelements;
 MCNUM nu = mccGuide_curved_47_nu;
 MCNUM phase = mccGuide_curved_47_phase;
 char* reflect = mccGuide_curved_47_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -61812,7 +61940,7 @@ char* reflect = mccGuide_curved_47_reflect;
 
   } /* if l */
 }
-#line 61815 "generic_curved.c"
+#line 61943 "./generic_curved.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -61956,7 +62084,7 @@ MCNUM nelements = mccGuide_curved_48_nelements;
 MCNUM nu = mccGuide_curved_48_nu;
 MCNUM phase = mccGuide_curved_48_phase;
 char* reflect = mccGuide_curved_48_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -62125,7 +62253,7 @@ char* reflect = mccGuide_curved_48_reflect;
 
   } /* if l */
 }
-#line 62128 "generic_curved.c"
+#line 62256 "./generic_curved.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -62269,7 +62397,7 @@ MCNUM nelements = mccGuide_curved_49_nelements;
 MCNUM nu = mccGuide_curved_49_nu;
 MCNUM phase = mccGuide_curved_49_phase;
 char* reflect = mccGuide_curved_49_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -62438,7 +62566,7 @@ char* reflect = mccGuide_curved_49_reflect;
 
   } /* if l */
 }
-#line 62441 "generic_curved.c"
+#line 62569 "./generic_curved.c"
 }   /* End of Guide_curved_49=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -62582,7 +62710,7 @@ MCNUM nelements = mccGuide_curved_50_nelements;
 MCNUM nu = mccGuide_curved_50_nu;
 MCNUM phase = mccGuide_curved_50_phase;
 char* reflect = mccGuide_curved_50_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -62751,7 +62879,7 @@ char* reflect = mccGuide_curved_50_reflect;
 
   } /* if l */
 }
-#line 62754 "generic_curved.c"
+#line 62882 "./generic_curved.c"
 }   /* End of Guide_curved_50=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -62895,7 +63023,7 @@ MCNUM nelements = mccGuide_curved_51_nelements;
 MCNUM nu = mccGuide_curved_51_nu;
 MCNUM phase = mccGuide_curved_51_phase;
 char* reflect = mccGuide_curved_51_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -63064,7 +63192,7 @@ char* reflect = mccGuide_curved_51_reflect;
 
   } /* if l */
 }
-#line 63067 "generic_curved.c"
+#line 63195 "./generic_curved.c"
 }   /* End of Guide_curved_51=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -63208,7 +63336,7 @@ MCNUM nelements = mccGuide_curved_52_nelements;
 MCNUM nu = mccGuide_curved_52_nu;
 MCNUM phase = mccGuide_curved_52_phase;
 char* reflect = mccGuide_curved_52_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -63377,7 +63505,7 @@ char* reflect = mccGuide_curved_52_reflect;
 
   } /* if l */
 }
-#line 63380 "generic_curved.c"
+#line 63508 "./generic_curved.c"
 }   /* End of Guide_curved_52=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -63521,7 +63649,7 @@ MCNUM nelements = mccGuide_curved_53_nelements;
 MCNUM nu = mccGuide_curved_53_nu;
 MCNUM phase = mccGuide_curved_53_phase;
 char* reflect = mccGuide_curved_53_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -63690,7 +63818,7 @@ char* reflect = mccGuide_curved_53_reflect;
 
   } /* if l */
 }
-#line 63693 "generic_curved.c"
+#line 63821 "./generic_curved.c"
 }   /* End of Guide_curved_53=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -63834,7 +63962,7 @@ MCNUM nelements = mccGuide_curved_54_nelements;
 MCNUM nu = mccGuide_curved_54_nu;
 MCNUM phase = mccGuide_curved_54_phase;
 char* reflect = mccGuide_curved_54_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -64003,7 +64131,7 @@ char* reflect = mccGuide_curved_54_reflect;
 
   } /* if l */
 }
-#line 64006 "generic_curved.c"
+#line 64134 "./generic_curved.c"
 }   /* End of Guide_curved_54=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -64147,7 +64275,7 @@ MCNUM nelements = mccGuide_curved_55_nelements;
 MCNUM nu = mccGuide_curved_55_nu;
 MCNUM phase = mccGuide_curved_55_phase;
 char* reflect = mccGuide_curved_55_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -64316,7 +64444,7 @@ char* reflect = mccGuide_curved_55_reflect;
 
   } /* if l */
 }
-#line 64319 "generic_curved.c"
+#line 64447 "./generic_curved.c"
 }   /* End of Guide_curved_55=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -64460,7 +64588,7 @@ MCNUM nelements = mccGuide_curved_56_nelements;
 MCNUM nu = mccGuide_curved_56_nu;
 MCNUM phase = mccGuide_curved_56_phase;
 char* reflect = mccGuide_curved_56_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -64629,7 +64757,7 @@ char* reflect = mccGuide_curved_56_reflect;
 
   } /* if l */
 }
-#line 64632 "generic_curved.c"
+#line 64760 "./generic_curved.c"
 }   /* End of Guide_curved_56=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -64773,7 +64901,7 @@ MCNUM nelements = mccGuide_curved_57_nelements;
 MCNUM nu = mccGuide_curved_57_nu;
 MCNUM phase = mccGuide_curved_57_phase;
 char* reflect = mccGuide_curved_57_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -64942,7 +65070,7 @@ char* reflect = mccGuide_curved_57_reflect;
 
   } /* if l */
 }
-#line 64945 "generic_curved.c"
+#line 65073 "./generic_curved.c"
 }   /* End of Guide_curved_57=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -65086,7 +65214,7 @@ MCNUM nelements = mccGuide_curved_58_nelements;
 MCNUM nu = mccGuide_curved_58_nu;
 MCNUM phase = mccGuide_curved_58_phase;
 char* reflect = mccGuide_curved_58_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -65255,7 +65383,7 @@ char* reflect = mccGuide_curved_58_reflect;
 
   } /* if l */
 }
-#line 65258 "generic_curved.c"
+#line 65386 "./generic_curved.c"
 }   /* End of Guide_curved_58=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -65399,7 +65527,7 @@ MCNUM nelements = mccGuide_curved_59_nelements;
 MCNUM nu = mccGuide_curved_59_nu;
 MCNUM phase = mccGuide_curved_59_phase;
 char* reflect = mccGuide_curved_59_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -65568,7 +65696,7 @@ char* reflect = mccGuide_curved_59_reflect;
 
   } /* if l */
 }
-#line 65571 "generic_curved.c"
+#line 65699 "./generic_curved.c"
 }   /* End of Guide_curved_59=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -65712,7 +65840,7 @@ MCNUM nelements = mccGuide_curved_60_nelements;
 MCNUM nu = mccGuide_curved_60_nu;
 MCNUM phase = mccGuide_curved_60_phase;
 char* reflect = mccGuide_curved_60_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -65881,7 +66009,7 @@ char* reflect = mccGuide_curved_60_reflect;
 
   } /* if l */
 }
-#line 65884 "generic_curved.c"
+#line 66012 "./generic_curved.c"
 }   /* End of Guide_curved_60=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -66025,7 +66153,7 @@ MCNUM nelements = mccGuide_curved_61_nelements;
 MCNUM nu = mccGuide_curved_61_nu;
 MCNUM phase = mccGuide_curved_61_phase;
 char* reflect = mccGuide_curved_61_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -66194,7 +66322,7 @@ char* reflect = mccGuide_curved_61_reflect;
 
   } /* if l */
 }
-#line 66197 "generic_curved.c"
+#line 66325 "./generic_curved.c"
 }   /* End of Guide_curved_61=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -66338,7 +66466,7 @@ MCNUM nelements = mccGuide_curved_62_nelements;
 MCNUM nu = mccGuide_curved_62_nu;
 MCNUM phase = mccGuide_curved_62_phase;
 char* reflect = mccGuide_curved_62_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -66507,7 +66635,7 @@ char* reflect = mccGuide_curved_62_reflect;
 
   } /* if l */
 }
-#line 66510 "generic_curved.c"
+#line 66638 "./generic_curved.c"
 }   /* End of Guide_curved_62=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -66651,7 +66779,7 @@ MCNUM nelements = mccGuide_curved_63_nelements;
 MCNUM nu = mccGuide_curved_63_nu;
 MCNUM phase = mccGuide_curved_63_phase;
 char* reflect = mccGuide_curved_63_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -66820,7 +66948,7 @@ char* reflect = mccGuide_curved_63_reflect;
 
   } /* if l */
 }
-#line 66823 "generic_curved.c"
+#line 66951 "./generic_curved.c"
 }   /* End of Guide_curved_63=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -66964,7 +67092,7 @@ MCNUM nelements = mccGuide_curved_64_nelements;
 MCNUM nu = mccGuide_curved_64_nu;
 MCNUM phase = mccGuide_curved_64_phase;
 char* reflect = mccGuide_curved_64_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -67133,7 +67261,7 @@ char* reflect = mccGuide_curved_64_reflect;
 
   } /* if l */
 }
-#line 67136 "generic_curved.c"
+#line 67264 "./generic_curved.c"
 }   /* End of Guide_curved_64=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -67277,7 +67405,7 @@ MCNUM nelements = mccGuide_curved_65_nelements;
 MCNUM nu = mccGuide_curved_65_nu;
 MCNUM phase = mccGuide_curved_65_phase;
 char* reflect = mccGuide_curved_65_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -67446,7 +67574,7 @@ char* reflect = mccGuide_curved_65_reflect;
 
   } /* if l */
 }
-#line 67449 "generic_curved.c"
+#line 67577 "./generic_curved.c"
 }   /* End of Guide_curved_65=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -67590,7 +67718,7 @@ MCNUM nelements = mccGuide_curved_66_nelements;
 MCNUM nu = mccGuide_curved_66_nu;
 MCNUM phase = mccGuide_curved_66_phase;
 char* reflect = mccGuide_curved_66_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -67759,7 +67887,7 @@ char* reflect = mccGuide_curved_66_reflect;
 
   } /* if l */
 }
-#line 67762 "generic_curved.c"
+#line 67890 "./generic_curved.c"
 }   /* End of Guide_curved_66=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -67903,7 +68031,7 @@ MCNUM nelements = mccGuide_curved_67_nelements;
 MCNUM nu = mccGuide_curved_67_nu;
 MCNUM phase = mccGuide_curved_67_phase;
 char* reflect = mccGuide_curved_67_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -68072,7 +68200,7 @@ char* reflect = mccGuide_curved_67_reflect;
 
   } /* if l */
 }
-#line 68075 "generic_curved.c"
+#line 68203 "./generic_curved.c"
 }   /* End of Guide_curved_67=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -68216,7 +68344,7 @@ MCNUM nelements = mccGuide_curved_68_nelements;
 MCNUM nu = mccGuide_curved_68_nu;
 MCNUM phase = mccGuide_curved_68_phase;
 char* reflect = mccGuide_curved_68_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -68385,7 +68513,7 @@ char* reflect = mccGuide_curved_68_reflect;
 
   } /* if l */
 }
-#line 68388 "generic_curved.c"
+#line 68516 "./generic_curved.c"
 }   /* End of Guide_curved_68=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -68529,7 +68657,7 @@ MCNUM nelements = mccGuide_curved_69_nelements;
 MCNUM nu = mccGuide_curved_69_nu;
 MCNUM phase = mccGuide_curved_69_phase;
 char* reflect = mccGuide_curved_69_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -68698,7 +68826,7 @@ char* reflect = mccGuide_curved_69_reflect;
 
   } /* if l */
 }
-#line 68701 "generic_curved.c"
+#line 68829 "./generic_curved.c"
 }   /* End of Guide_curved_69=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -68842,7 +68970,7 @@ MCNUM nelements = mccGuide_curved_70_nelements;
 MCNUM nu = mccGuide_curved_70_nu;
 MCNUM phase = mccGuide_curved_70_phase;
 char* reflect = mccGuide_curved_70_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -69011,7 +69139,7 @@ char* reflect = mccGuide_curved_70_reflect;
 
   } /* if l */
 }
-#line 69014 "generic_curved.c"
+#line 69142 "./generic_curved.c"
 }   /* End of Guide_curved_70=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -69155,7 +69283,7 @@ MCNUM nelements = mccGuide_curved_71_nelements;
 MCNUM nu = mccGuide_curved_71_nu;
 MCNUM phase = mccGuide_curved_71_phase;
 char* reflect = mccGuide_curved_71_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -69324,7 +69452,7 @@ char* reflect = mccGuide_curved_71_reflect;
 
   } /* if l */
 }
-#line 69327 "generic_curved.c"
+#line 69455 "./generic_curved.c"
 }   /* End of Guide_curved_71=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -69468,7 +69596,7 @@ MCNUM nelements = mccGuide_curved_72_nelements;
 MCNUM nu = mccGuide_curved_72_nu;
 MCNUM phase = mccGuide_curved_72_phase;
 char* reflect = mccGuide_curved_72_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -69637,7 +69765,7 @@ char* reflect = mccGuide_curved_72_reflect;
 
   } /* if l */
 }
-#line 69640 "generic_curved.c"
+#line 69768 "./generic_curved.c"
 }   /* End of Guide_curved_72=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -69781,7 +69909,7 @@ MCNUM nelements = mccGuide_curved_73_nelements;
 MCNUM nu = mccGuide_curved_73_nu;
 MCNUM phase = mccGuide_curved_73_phase;
 char* reflect = mccGuide_curved_73_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -69950,7 +70078,7 @@ char* reflect = mccGuide_curved_73_reflect;
 
   } /* if l */
 }
-#line 69953 "generic_curved.c"
+#line 70081 "./generic_curved.c"
 }   /* End of Guide_curved_73=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -70094,7 +70222,7 @@ MCNUM nelements = mccGuide_curved_74_nelements;
 MCNUM nu = mccGuide_curved_74_nu;
 MCNUM phase = mccGuide_curved_74_phase;
 char* reflect = mccGuide_curved_74_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -70263,7 +70391,7 @@ char* reflect = mccGuide_curved_74_reflect;
 
   } /* if l */
 }
-#line 70266 "generic_curved.c"
+#line 70394 "./generic_curved.c"
 }   /* End of Guide_curved_74=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -70407,7 +70535,7 @@ MCNUM nelements = mccGuide_curved_75_nelements;
 MCNUM nu = mccGuide_curved_75_nu;
 MCNUM phase = mccGuide_curved_75_phase;
 char* reflect = mccGuide_curved_75_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -70576,7 +70704,7 @@ char* reflect = mccGuide_curved_75_reflect;
 
   } /* if l */
 }
-#line 70579 "generic_curved.c"
+#line 70707 "./generic_curved.c"
 }   /* End of Guide_curved_75=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -70720,7 +70848,7 @@ MCNUM nelements = mccGuide_curved_76_nelements;
 MCNUM nu = mccGuide_curved_76_nu;
 MCNUM phase = mccGuide_curved_76_phase;
 char* reflect = mccGuide_curved_76_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -70889,7 +71017,7 @@ char* reflect = mccGuide_curved_76_reflect;
 
   } /* if l */
 }
-#line 70892 "generic_curved.c"
+#line 71020 "./generic_curved.c"
 }   /* End of Guide_curved_76=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -71033,7 +71161,7 @@ MCNUM nelements = mccGuide_curved_77_nelements;
 MCNUM nu = mccGuide_curved_77_nu;
 MCNUM phase = mccGuide_curved_77_phase;
 char* reflect = mccGuide_curved_77_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -71202,7 +71330,7 @@ char* reflect = mccGuide_curved_77_reflect;
 
   } /* if l */
 }
-#line 71205 "generic_curved.c"
+#line 71333 "./generic_curved.c"
 }   /* End of Guide_curved_77=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -71346,7 +71474,7 @@ MCNUM nelements = mccGuide_curved_78_nelements;
 MCNUM nu = mccGuide_curved_78_nu;
 MCNUM phase = mccGuide_curved_78_phase;
 char* reflect = mccGuide_curved_78_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -71515,7 +71643,7 @@ char* reflect = mccGuide_curved_78_reflect;
 
   } /* if l */
 }
-#line 71518 "generic_curved.c"
+#line 71646 "./generic_curved.c"
 }   /* End of Guide_curved_78=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -71659,7 +71787,7 @@ MCNUM nelements = mccGuide_curved_79_nelements;
 MCNUM nu = mccGuide_curved_79_nu;
 MCNUM phase = mccGuide_curved_79_phase;
 char* reflect = mccGuide_curved_79_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -71828,7 +71956,7 @@ char* reflect = mccGuide_curved_79_reflect;
 
   } /* if l */
 }
-#line 71831 "generic_curved.c"
+#line 71959 "./generic_curved.c"
 }   /* End of Guide_curved_79=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -71972,7 +72100,7 @@ MCNUM nelements = mccGuide_curved_80_nelements;
 MCNUM nu = mccGuide_curved_80_nu;
 MCNUM phase = mccGuide_curved_80_phase;
 char* reflect = mccGuide_curved_80_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -72141,7 +72269,7 @@ char* reflect = mccGuide_curved_80_reflect;
 
   } /* if l */
 }
-#line 72144 "generic_curved.c"
+#line 72272 "./generic_curved.c"
 }   /* End of Guide_curved_80=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -72285,7 +72413,7 @@ MCNUM nelements = mccGuide_curved_81_nelements;
 MCNUM nu = mccGuide_curved_81_nu;
 MCNUM phase = mccGuide_curved_81_phase;
 char* reflect = mccGuide_curved_81_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -72454,7 +72582,7 @@ char* reflect = mccGuide_curved_81_reflect;
 
   } /* if l */
 }
-#line 72457 "generic_curved.c"
+#line 72585 "./generic_curved.c"
 }   /* End of Guide_curved_81=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -72598,7 +72726,7 @@ MCNUM nelements = mccGuide_curved_82_nelements;
 MCNUM nu = mccGuide_curved_82_nu;
 MCNUM phase = mccGuide_curved_82_phase;
 char* reflect = mccGuide_curved_82_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -72767,7 +72895,7 @@ char* reflect = mccGuide_curved_82_reflect;
 
   } /* if l */
 }
-#line 72770 "generic_curved.c"
+#line 72898 "./generic_curved.c"
 }   /* End of Guide_curved_82=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -72911,7 +73039,7 @@ MCNUM nelements = mccGuide_curved_83_nelements;
 MCNUM nu = mccGuide_curved_83_nu;
 MCNUM phase = mccGuide_curved_83_phase;
 char* reflect = mccGuide_curved_83_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -73080,7 +73208,7 @@ char* reflect = mccGuide_curved_83_reflect;
 
   } /* if l */
 }
-#line 73083 "generic_curved.c"
+#line 73211 "./generic_curved.c"
 }   /* End of Guide_curved_83=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -73224,7 +73352,7 @@ MCNUM nelements = mccGuide_curved_84_nelements;
 MCNUM nu = mccGuide_curved_84_nu;
 MCNUM phase = mccGuide_curved_84_phase;
 char* reflect = mccGuide_curved_84_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -73393,7 +73521,7 @@ char* reflect = mccGuide_curved_84_reflect;
 
   } /* if l */
 }
-#line 73396 "generic_curved.c"
+#line 73524 "./generic_curved.c"
 }   /* End of Guide_curved_84=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -73537,7 +73665,7 @@ MCNUM nelements = mccGuide_curved_85_nelements;
 MCNUM nu = mccGuide_curved_85_nu;
 MCNUM phase = mccGuide_curved_85_phase;
 char* reflect = mccGuide_curved_85_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -73706,7 +73834,7 @@ char* reflect = mccGuide_curved_85_reflect;
 
   } /* if l */
 }
-#line 73709 "generic_curved.c"
+#line 73837 "./generic_curved.c"
 }   /* End of Guide_curved_85=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -73850,7 +73978,7 @@ MCNUM nelements = mccGuide_curved_86_nelements;
 MCNUM nu = mccGuide_curved_86_nu;
 MCNUM phase = mccGuide_curved_86_phase;
 char* reflect = mccGuide_curved_86_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -74019,7 +74147,7 @@ char* reflect = mccGuide_curved_86_reflect;
 
   } /* if l */
 }
-#line 74022 "generic_curved.c"
+#line 74150 "./generic_curved.c"
 }   /* End of Guide_curved_86=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -74163,7 +74291,7 @@ MCNUM nelements = mccGuide_curved_87_nelements;
 MCNUM nu = mccGuide_curved_87_nu;
 MCNUM phase = mccGuide_curved_87_phase;
 char* reflect = mccGuide_curved_87_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -74332,7 +74460,7 @@ char* reflect = mccGuide_curved_87_reflect;
 
   } /* if l */
 }
-#line 74335 "generic_curved.c"
+#line 74463 "./generic_curved.c"
 }   /* End of Guide_curved_87=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -74476,7 +74604,7 @@ MCNUM nelements = mccGuide_curved_88_nelements;
 MCNUM nu = mccGuide_curved_88_nu;
 MCNUM phase = mccGuide_curved_88_phase;
 char* reflect = mccGuide_curved_88_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -74645,7 +74773,7 @@ char* reflect = mccGuide_curved_88_reflect;
 
   } /* if l */
 }
-#line 74648 "generic_curved.c"
+#line 74776 "./generic_curved.c"
 }   /* End of Guide_curved_88=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -74789,7 +74917,7 @@ MCNUM nelements = mccGuide_curved_89_nelements;
 MCNUM nu = mccGuide_curved_89_nu;
 MCNUM phase = mccGuide_curved_89_phase;
 char* reflect = mccGuide_curved_89_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -74958,7 +75086,7 @@ char* reflect = mccGuide_curved_89_reflect;
 
   } /* if l */
 }
-#line 74961 "generic_curved.c"
+#line 75089 "./generic_curved.c"
 }   /* End of Guide_curved_89=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -75102,7 +75230,7 @@ MCNUM nelements = mccGuide_curved_90_nelements;
 MCNUM nu = mccGuide_curved_90_nu;
 MCNUM phase = mccGuide_curved_90_phase;
 char* reflect = mccGuide_curved_90_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -75271,7 +75399,7 @@ char* reflect = mccGuide_curved_90_reflect;
 
   } /* if l */
 }
-#line 75274 "generic_curved.c"
+#line 75402 "./generic_curved.c"
 }   /* End of Guide_curved_90=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -75415,7 +75543,7 @@ MCNUM nelements = mccGuide_curved_91_nelements;
 MCNUM nu = mccGuide_curved_91_nu;
 MCNUM phase = mccGuide_curved_91_phase;
 char* reflect = mccGuide_curved_91_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -75584,7 +75712,7 @@ char* reflect = mccGuide_curved_91_reflect;
 
   } /* if l */
 }
-#line 75587 "generic_curved.c"
+#line 75715 "./generic_curved.c"
 }   /* End of Guide_curved_91=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -75728,7 +75856,7 @@ MCNUM nelements = mccGuide_curved_92_nelements;
 MCNUM nu = mccGuide_curved_92_nu;
 MCNUM phase = mccGuide_curved_92_phase;
 char* reflect = mccGuide_curved_92_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -75897,7 +76025,7 @@ char* reflect = mccGuide_curved_92_reflect;
 
   } /* if l */
 }
-#line 75900 "generic_curved.c"
+#line 76028 "./generic_curved.c"
 }   /* End of Guide_curved_92=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -76041,7 +76169,7 @@ MCNUM nelements = mccGuide_curved_93_nelements;
 MCNUM nu = mccGuide_curved_93_nu;
 MCNUM phase = mccGuide_curved_93_phase;
 char* reflect = mccGuide_curved_93_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -76210,7 +76338,7 @@ char* reflect = mccGuide_curved_93_reflect;
 
   } /* if l */
 }
-#line 76213 "generic_curved.c"
+#line 76341 "./generic_curved.c"
 }   /* End of Guide_curved_93=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -76354,7 +76482,7 @@ MCNUM nelements = mccGuide_curved_94_nelements;
 MCNUM nu = mccGuide_curved_94_nu;
 MCNUM phase = mccGuide_curved_94_phase;
 char* reflect = mccGuide_curved_94_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -76523,7 +76651,7 @@ char* reflect = mccGuide_curved_94_reflect;
 
   } /* if l */
 }
-#line 76526 "generic_curved.c"
+#line 76654 "./generic_curved.c"
 }   /* End of Guide_curved_94=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -76667,7 +76795,7 @@ MCNUM nelements = mccGuide_curved_95_nelements;
 MCNUM nu = mccGuide_curved_95_nu;
 MCNUM phase = mccGuide_curved_95_phase;
 char* reflect = mccGuide_curved_95_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -76836,7 +76964,7 @@ char* reflect = mccGuide_curved_95_reflect;
 
   } /* if l */
 }
-#line 76839 "generic_curved.c"
+#line 76967 "./generic_curved.c"
 }   /* End of Guide_curved_95=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -76980,7 +77108,7 @@ MCNUM nelements = mccGuide_curved_96_nelements;
 MCNUM nu = mccGuide_curved_96_nu;
 MCNUM phase = mccGuide_curved_96_phase;
 char* reflect = mccGuide_curved_96_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -77149,7 +77277,7 @@ char* reflect = mccGuide_curved_96_reflect;
 
   } /* if l */
 }
-#line 77152 "generic_curved.c"
+#line 77280 "./generic_curved.c"
 }   /* End of Guide_curved_96=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -77293,7 +77421,7 @@ MCNUM nelements = mccGuide_curved_97_nelements;
 MCNUM nu = mccGuide_curved_97_nu;
 MCNUM phase = mccGuide_curved_97_phase;
 char* reflect = mccGuide_curved_97_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -77462,7 +77590,7 @@ char* reflect = mccGuide_curved_97_reflect;
 
   } /* if l */
 }
-#line 77465 "generic_curved.c"
+#line 77593 "./generic_curved.c"
 }   /* End of Guide_curved_97=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -77606,7 +77734,7 @@ MCNUM nelements = mccGuide_curved_98_nelements;
 MCNUM nu = mccGuide_curved_98_nu;
 MCNUM phase = mccGuide_curved_98_phase;
 char* reflect = mccGuide_curved_98_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -77775,7 +77903,7 @@ char* reflect = mccGuide_curved_98_reflect;
 
   } /* if l */
 }
-#line 77778 "generic_curved.c"
+#line 77906 "./generic_curved.c"
 }   /* End of Guide_curved_98=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -77919,7 +78047,7 @@ MCNUM nelements = mccGuide_curved_99_nelements;
 MCNUM nu = mccGuide_curved_99_nu;
 MCNUM phase = mccGuide_curved_99_phase;
 char* reflect = mccGuide_curved_99_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -78088,7 +78216,7 @@ char* reflect = mccGuide_curved_99_reflect;
 
   } /* if l */
 }
-#line 78091 "generic_curved.c"
+#line 78219 "./generic_curved.c"
 }   /* End of Guide_curved_99=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -78232,7 +78360,7 @@ MCNUM nelements = mccGuide_curved_100_nelements;
 MCNUM nu = mccGuide_curved_100_nu;
 MCNUM phase = mccGuide_curved_100_phase;
 char* reflect = mccGuide_curved_100_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -78401,7 +78529,7 @@ char* reflect = mccGuide_curved_100_reflect;
 
   } /* if l */
 }
-#line 78404 "generic_curved.c"
+#line 78532 "./generic_curved.c"
 }   /* End of Guide_curved_100=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -78545,7 +78673,7 @@ MCNUM nelements = mccGuide_curved_101_nelements;
 MCNUM nu = mccGuide_curved_101_nu;
 MCNUM phase = mccGuide_curved_101_phase;
 char* reflect = mccGuide_curved_101_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -78714,7 +78842,7 @@ char* reflect = mccGuide_curved_101_reflect;
 
   } /* if l */
 }
-#line 78717 "generic_curved.c"
+#line 78845 "./generic_curved.c"
 }   /* End of Guide_curved_101=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -78858,7 +78986,7 @@ MCNUM nelements = mccGuide_curved_102_nelements;
 MCNUM nu = mccGuide_curved_102_nu;
 MCNUM phase = mccGuide_curved_102_phase;
 char* reflect = mccGuide_curved_102_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -79027,7 +79155,7 @@ char* reflect = mccGuide_curved_102_reflect;
 
   } /* if l */
 }
-#line 79030 "generic_curved.c"
+#line 79158 "./generic_curved.c"
 }   /* End of Guide_curved_102=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -79171,7 +79299,7 @@ MCNUM nelements = mccGuide_curved_103_nelements;
 MCNUM nu = mccGuide_curved_103_nu;
 MCNUM phase = mccGuide_curved_103_phase;
 char* reflect = mccGuide_curved_103_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -79340,7 +79468,7 @@ char* reflect = mccGuide_curved_103_reflect;
 
   } /* if l */
 }
-#line 79343 "generic_curved.c"
+#line 79471 "./generic_curved.c"
 }   /* End of Guide_curved_103=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -79484,7 +79612,7 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 392 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 392 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -79653,7 +79781,7 @@ char* reflect = mccGuide_straight_reflect;
 
   } /* if l */
 }
-#line 79656 "generic_curved.c"
+#line 79784 "./generic_curved.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -79788,7 +79916,8 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 307 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+int nowritefile = mccSample_nowritefile;
+#line 309 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -79934,7 +80063,7 @@ char* username3 = mccSample_username3;
     if (pp==0.0)
     { ABSORB;
     }
-    else
+    else if(pp==1)
     {
       SCATTER;
     }
@@ -79957,7 +80086,7 @@ char* username3 = mccSample_username3;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 79960 "generic_curved.c"
+#line 80089 "./generic_curved.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -80056,7 +80185,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 115 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 115 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
   MPI_MASTER(fprintf(stdout, "\nSave [%s]\n", mcinstrument_name););
   if (profile && strlen(profile) && strcmp(profile,"NULL") && strcmp(profile,"0")) {
@@ -80073,7 +80202,7 @@ MCNUM minutes = mccOrigin_minutes;
 
   }
 }
-#line 80076 "generic_curved.c"
+#line 80205 "./generic_curved.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -80116,12 +80245,13 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 477 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+int nowritefile = mccSample_nowritefile;
+#line 479 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 80124 "generic_curved.c"
+#line 80254 "./generic_curved.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -80155,7 +80285,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 133 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 133 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
   time_t NowTime;
   time(&NowTime);
@@ -80168,7 +80298,7 @@ MCNUM minutes = mccOrigin_minutes;
     fprintf(stdout, "%g [min] ", difftime(NowTime,StartTime)/60.0);
   fprintf(stdout, "\n");
 }
-#line 80171 "generic_curved.c"
+#line 80301 "./generic_curved.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -80234,13 +80364,13 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   Table_Free(&pTable);
   Table_Free(&pTable_x);
   Table_Free(&pTable_y);
 }
-#line 80242 "generic_curved.c"
+#line 80372 "./generic_curved.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -80311,14 +80441,14 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80318 "generic_curved.c"
+#line 80448 "./generic_curved.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -80371,14 +80501,14 @@ MCNUM nelements = mccGuide_curved_5_nelements;
 MCNUM nu = mccGuide_curved_5_nu;
 MCNUM phase = mccGuide_curved_5_phase;
 char* reflect = mccGuide_curved_5_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80377 "generic_curved.c"
+#line 80507 "./generic_curved.c"
 }   /* End of Guide_curved_5=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -80431,14 +80561,14 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80436 "generic_curved.c"
+#line 80566 "./generic_curved.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -80491,14 +80621,14 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80495 "generic_curved.c"
+#line 80625 "./generic_curved.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -80551,14 +80681,14 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80554 "generic_curved.c"
+#line 80684 "./generic_curved.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -80611,14 +80741,14 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80613 "generic_curved.c"
+#line 80743 "./generic_curved.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -80671,14 +80801,14 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80672 "generic_curved.c"
+#line 80802 "./generic_curved.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -80731,14 +80861,14 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80731 "generic_curved.c"
+#line 80861 "./generic_curved.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -80791,14 +80921,14 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80790 "generic_curved.c"
+#line 80920 "./generic_curved.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -80851,14 +80981,14 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80849 "generic_curved.c"
+#line 80979 "./generic_curved.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -80911,14 +81041,14 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80908 "generic_curved.c"
+#line 81038 "./generic_curved.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -80971,14 +81101,14 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 80967 "generic_curved.c"
+#line 81097 "./generic_curved.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81031,14 +81161,14 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81026 "generic_curved.c"
+#line 81156 "./generic_curved.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81091,14 +81221,14 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81085 "generic_curved.c"
+#line 81215 "./generic_curved.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81151,14 +81281,14 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81144 "generic_curved.c"
+#line 81274 "./generic_curved.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81211,14 +81341,14 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81203 "generic_curved.c"
+#line 81333 "./generic_curved.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81271,14 +81401,14 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81262 "generic_curved.c"
+#line 81392 "./generic_curved.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81331,14 +81461,14 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81321 "generic_curved.c"
+#line 81451 "./generic_curved.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81391,14 +81521,14 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81380 "generic_curved.c"
+#line 81510 "./generic_curved.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81451,14 +81581,14 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81439 "generic_curved.c"
+#line 81569 "./generic_curved.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81511,14 +81641,14 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81498 "generic_curved.c"
+#line 81628 "./generic_curved.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81571,14 +81701,14 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81557 "generic_curved.c"
+#line 81687 "./generic_curved.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81631,14 +81761,14 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81616 "generic_curved.c"
+#line 81746 "./generic_curved.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81691,14 +81821,14 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81675 "generic_curved.c"
+#line 81805 "./generic_curved.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81751,14 +81881,14 @@ MCNUM nelements = mccGuide_curved_28_nelements;
 MCNUM nu = mccGuide_curved_28_nu;
 MCNUM phase = mccGuide_curved_28_phase;
 char* reflect = mccGuide_curved_28_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81734 "generic_curved.c"
+#line 81864 "./generic_curved.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81811,14 +81941,14 @@ MCNUM nelements = mccGuide_curved_29_nelements;
 MCNUM nu = mccGuide_curved_29_nu;
 MCNUM phase = mccGuide_curved_29_phase;
 char* reflect = mccGuide_curved_29_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81793 "generic_curved.c"
+#line 81923 "./generic_curved.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81871,14 +82001,14 @@ MCNUM nelements = mccGuide_curved_30_nelements;
 MCNUM nu = mccGuide_curved_30_nu;
 MCNUM phase = mccGuide_curved_30_phase;
 char* reflect = mccGuide_curved_30_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81852 "generic_curved.c"
+#line 81982 "./generic_curved.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81931,14 +82061,14 @@ MCNUM nelements = mccGuide_curved_31_nelements;
 MCNUM nu = mccGuide_curved_31_nu;
 MCNUM phase = mccGuide_curved_31_phase;
 char* reflect = mccGuide_curved_31_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81911 "generic_curved.c"
+#line 82041 "./generic_curved.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -81991,14 +82121,14 @@ MCNUM nelements = mccGuide_curved_32_nelements;
 MCNUM nu = mccGuide_curved_32_nu;
 MCNUM phase = mccGuide_curved_32_phase;
 char* reflect = mccGuide_curved_32_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 81970 "generic_curved.c"
+#line 82100 "./generic_curved.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82051,14 +82181,14 @@ MCNUM nelements = mccGuide_curved_33_nelements;
 MCNUM nu = mccGuide_curved_33_nu;
 MCNUM phase = mccGuide_curved_33_phase;
 char* reflect = mccGuide_curved_33_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82029 "generic_curved.c"
+#line 82159 "./generic_curved.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82111,14 +82241,14 @@ MCNUM nelements = mccGuide_curved_34_nelements;
 MCNUM nu = mccGuide_curved_34_nu;
 MCNUM phase = mccGuide_curved_34_phase;
 char* reflect = mccGuide_curved_34_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82088 "generic_curved.c"
+#line 82218 "./generic_curved.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82171,14 +82301,14 @@ MCNUM nelements = mccGuide_curved_35_nelements;
 MCNUM nu = mccGuide_curved_35_nu;
 MCNUM phase = mccGuide_curved_35_phase;
 char* reflect = mccGuide_curved_35_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82147 "generic_curved.c"
+#line 82277 "./generic_curved.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82231,14 +82361,14 @@ MCNUM nelements = mccGuide_curved_36_nelements;
 MCNUM nu = mccGuide_curved_36_nu;
 MCNUM phase = mccGuide_curved_36_phase;
 char* reflect = mccGuide_curved_36_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82206 "generic_curved.c"
+#line 82336 "./generic_curved.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82291,14 +82421,14 @@ MCNUM nelements = mccGuide_curved_37_nelements;
 MCNUM nu = mccGuide_curved_37_nu;
 MCNUM phase = mccGuide_curved_37_phase;
 char* reflect = mccGuide_curved_37_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82265 "generic_curved.c"
+#line 82395 "./generic_curved.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82351,14 +82481,14 @@ MCNUM nelements = mccGuide_curved_38_nelements;
 MCNUM nu = mccGuide_curved_38_nu;
 MCNUM phase = mccGuide_curved_38_phase;
 char* reflect = mccGuide_curved_38_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82324 "generic_curved.c"
+#line 82454 "./generic_curved.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82411,14 +82541,14 @@ MCNUM nelements = mccGuide_curved_39_nelements;
 MCNUM nu = mccGuide_curved_39_nu;
 MCNUM phase = mccGuide_curved_39_phase;
 char* reflect = mccGuide_curved_39_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82383 "generic_curved.c"
+#line 82513 "./generic_curved.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82471,14 +82601,14 @@ MCNUM nelements = mccGuide_curved_40_nelements;
 MCNUM nu = mccGuide_curved_40_nu;
 MCNUM phase = mccGuide_curved_40_phase;
 char* reflect = mccGuide_curved_40_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82442 "generic_curved.c"
+#line 82572 "./generic_curved.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82531,14 +82661,14 @@ MCNUM nelements = mccGuide_curved_41_nelements;
 MCNUM nu = mccGuide_curved_41_nu;
 MCNUM phase = mccGuide_curved_41_phase;
 char* reflect = mccGuide_curved_41_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82501 "generic_curved.c"
+#line 82631 "./generic_curved.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82591,14 +82721,14 @@ MCNUM nelements = mccGuide_curved_42_nelements;
 MCNUM nu = mccGuide_curved_42_nu;
 MCNUM phase = mccGuide_curved_42_phase;
 char* reflect = mccGuide_curved_42_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82560 "generic_curved.c"
+#line 82690 "./generic_curved.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82651,14 +82781,14 @@ MCNUM nelements = mccGuide_curved_43_nelements;
 MCNUM nu = mccGuide_curved_43_nu;
 MCNUM phase = mccGuide_curved_43_phase;
 char* reflect = mccGuide_curved_43_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82619 "generic_curved.c"
+#line 82749 "./generic_curved.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82711,14 +82841,14 @@ MCNUM nelements = mccGuide_curved_44_nelements;
 MCNUM nu = mccGuide_curved_44_nu;
 MCNUM phase = mccGuide_curved_44_phase;
 char* reflect = mccGuide_curved_44_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82678 "generic_curved.c"
+#line 82808 "./generic_curved.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82771,14 +82901,14 @@ MCNUM nelements = mccGuide_curved_45_nelements;
 MCNUM nu = mccGuide_curved_45_nu;
 MCNUM phase = mccGuide_curved_45_phase;
 char* reflect = mccGuide_curved_45_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82737 "generic_curved.c"
+#line 82867 "./generic_curved.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82831,14 +82961,14 @@ MCNUM nelements = mccGuide_curved_46_nelements;
 MCNUM nu = mccGuide_curved_46_nu;
 MCNUM phase = mccGuide_curved_46_phase;
 char* reflect = mccGuide_curved_46_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82796 "generic_curved.c"
+#line 82926 "./generic_curved.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82891,14 +83021,14 @@ MCNUM nelements = mccGuide_curved_47_nelements;
 MCNUM nu = mccGuide_curved_47_nu;
 MCNUM phase = mccGuide_curved_47_phase;
 char* reflect = mccGuide_curved_47_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82855 "generic_curved.c"
+#line 82985 "./generic_curved.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -82951,14 +83081,14 @@ MCNUM nelements = mccGuide_curved_48_nelements;
 MCNUM nu = mccGuide_curved_48_nu;
 MCNUM phase = mccGuide_curved_48_phase;
 char* reflect = mccGuide_curved_48_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82914 "generic_curved.c"
+#line 83044 "./generic_curved.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83011,14 +83141,14 @@ MCNUM nelements = mccGuide_curved_49_nelements;
 MCNUM nu = mccGuide_curved_49_nu;
 MCNUM phase = mccGuide_curved_49_phase;
 char* reflect = mccGuide_curved_49_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 82973 "generic_curved.c"
+#line 83103 "./generic_curved.c"
 }   /* End of Guide_curved_49=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83071,14 +83201,14 @@ MCNUM nelements = mccGuide_curved_50_nelements;
 MCNUM nu = mccGuide_curved_50_nu;
 MCNUM phase = mccGuide_curved_50_phase;
 char* reflect = mccGuide_curved_50_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83032 "generic_curved.c"
+#line 83162 "./generic_curved.c"
 }   /* End of Guide_curved_50=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83131,14 +83261,14 @@ MCNUM nelements = mccGuide_curved_51_nelements;
 MCNUM nu = mccGuide_curved_51_nu;
 MCNUM phase = mccGuide_curved_51_phase;
 char* reflect = mccGuide_curved_51_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83091 "generic_curved.c"
+#line 83221 "./generic_curved.c"
 }   /* End of Guide_curved_51=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83191,14 +83321,14 @@ MCNUM nelements = mccGuide_curved_52_nelements;
 MCNUM nu = mccGuide_curved_52_nu;
 MCNUM phase = mccGuide_curved_52_phase;
 char* reflect = mccGuide_curved_52_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83150 "generic_curved.c"
+#line 83280 "./generic_curved.c"
 }   /* End of Guide_curved_52=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83251,14 +83381,14 @@ MCNUM nelements = mccGuide_curved_53_nelements;
 MCNUM nu = mccGuide_curved_53_nu;
 MCNUM phase = mccGuide_curved_53_phase;
 char* reflect = mccGuide_curved_53_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83209 "generic_curved.c"
+#line 83339 "./generic_curved.c"
 }   /* End of Guide_curved_53=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83311,14 +83441,14 @@ MCNUM nelements = mccGuide_curved_54_nelements;
 MCNUM nu = mccGuide_curved_54_nu;
 MCNUM phase = mccGuide_curved_54_phase;
 char* reflect = mccGuide_curved_54_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83268 "generic_curved.c"
+#line 83398 "./generic_curved.c"
 }   /* End of Guide_curved_54=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83371,14 +83501,14 @@ MCNUM nelements = mccGuide_curved_55_nelements;
 MCNUM nu = mccGuide_curved_55_nu;
 MCNUM phase = mccGuide_curved_55_phase;
 char* reflect = mccGuide_curved_55_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83327 "generic_curved.c"
+#line 83457 "./generic_curved.c"
 }   /* End of Guide_curved_55=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83431,14 +83561,14 @@ MCNUM nelements = mccGuide_curved_56_nelements;
 MCNUM nu = mccGuide_curved_56_nu;
 MCNUM phase = mccGuide_curved_56_phase;
 char* reflect = mccGuide_curved_56_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83386 "generic_curved.c"
+#line 83516 "./generic_curved.c"
 }   /* End of Guide_curved_56=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83491,14 +83621,14 @@ MCNUM nelements = mccGuide_curved_57_nelements;
 MCNUM nu = mccGuide_curved_57_nu;
 MCNUM phase = mccGuide_curved_57_phase;
 char* reflect = mccGuide_curved_57_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83445 "generic_curved.c"
+#line 83575 "./generic_curved.c"
 }   /* End of Guide_curved_57=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83551,14 +83681,14 @@ MCNUM nelements = mccGuide_curved_58_nelements;
 MCNUM nu = mccGuide_curved_58_nu;
 MCNUM phase = mccGuide_curved_58_phase;
 char* reflect = mccGuide_curved_58_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83504 "generic_curved.c"
+#line 83634 "./generic_curved.c"
 }   /* End of Guide_curved_58=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83611,14 +83741,14 @@ MCNUM nelements = mccGuide_curved_59_nelements;
 MCNUM nu = mccGuide_curved_59_nu;
 MCNUM phase = mccGuide_curved_59_phase;
 char* reflect = mccGuide_curved_59_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83563 "generic_curved.c"
+#line 83693 "./generic_curved.c"
 }   /* End of Guide_curved_59=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83671,14 +83801,14 @@ MCNUM nelements = mccGuide_curved_60_nelements;
 MCNUM nu = mccGuide_curved_60_nu;
 MCNUM phase = mccGuide_curved_60_phase;
 char* reflect = mccGuide_curved_60_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83622 "generic_curved.c"
+#line 83752 "./generic_curved.c"
 }   /* End of Guide_curved_60=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83731,14 +83861,14 @@ MCNUM nelements = mccGuide_curved_61_nelements;
 MCNUM nu = mccGuide_curved_61_nu;
 MCNUM phase = mccGuide_curved_61_phase;
 char* reflect = mccGuide_curved_61_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83681 "generic_curved.c"
+#line 83811 "./generic_curved.c"
 }   /* End of Guide_curved_61=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83791,14 +83921,14 @@ MCNUM nelements = mccGuide_curved_62_nelements;
 MCNUM nu = mccGuide_curved_62_nu;
 MCNUM phase = mccGuide_curved_62_phase;
 char* reflect = mccGuide_curved_62_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83740 "generic_curved.c"
+#line 83870 "./generic_curved.c"
 }   /* End of Guide_curved_62=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83851,14 +83981,14 @@ MCNUM nelements = mccGuide_curved_63_nelements;
 MCNUM nu = mccGuide_curved_63_nu;
 MCNUM phase = mccGuide_curved_63_phase;
 char* reflect = mccGuide_curved_63_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83799 "generic_curved.c"
+#line 83929 "./generic_curved.c"
 }   /* End of Guide_curved_63=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83911,14 +84041,14 @@ MCNUM nelements = mccGuide_curved_64_nelements;
 MCNUM nu = mccGuide_curved_64_nu;
 MCNUM phase = mccGuide_curved_64_phase;
 char* reflect = mccGuide_curved_64_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83858 "generic_curved.c"
+#line 83988 "./generic_curved.c"
 }   /* End of Guide_curved_64=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -83971,14 +84101,14 @@ MCNUM nelements = mccGuide_curved_65_nelements;
 MCNUM nu = mccGuide_curved_65_nu;
 MCNUM phase = mccGuide_curved_65_phase;
 char* reflect = mccGuide_curved_65_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83917 "generic_curved.c"
+#line 84047 "./generic_curved.c"
 }   /* End of Guide_curved_65=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84031,14 +84161,14 @@ MCNUM nelements = mccGuide_curved_66_nelements;
 MCNUM nu = mccGuide_curved_66_nu;
 MCNUM phase = mccGuide_curved_66_phase;
 char* reflect = mccGuide_curved_66_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 83976 "generic_curved.c"
+#line 84106 "./generic_curved.c"
 }   /* End of Guide_curved_66=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84091,14 +84221,14 @@ MCNUM nelements = mccGuide_curved_67_nelements;
 MCNUM nu = mccGuide_curved_67_nu;
 MCNUM phase = mccGuide_curved_67_phase;
 char* reflect = mccGuide_curved_67_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84035 "generic_curved.c"
+#line 84165 "./generic_curved.c"
 }   /* End of Guide_curved_67=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84151,14 +84281,14 @@ MCNUM nelements = mccGuide_curved_68_nelements;
 MCNUM nu = mccGuide_curved_68_nu;
 MCNUM phase = mccGuide_curved_68_phase;
 char* reflect = mccGuide_curved_68_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84094 "generic_curved.c"
+#line 84224 "./generic_curved.c"
 }   /* End of Guide_curved_68=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84211,14 +84341,14 @@ MCNUM nelements = mccGuide_curved_69_nelements;
 MCNUM nu = mccGuide_curved_69_nu;
 MCNUM phase = mccGuide_curved_69_phase;
 char* reflect = mccGuide_curved_69_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84153 "generic_curved.c"
+#line 84283 "./generic_curved.c"
 }   /* End of Guide_curved_69=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84271,14 +84401,14 @@ MCNUM nelements = mccGuide_curved_70_nelements;
 MCNUM nu = mccGuide_curved_70_nu;
 MCNUM phase = mccGuide_curved_70_phase;
 char* reflect = mccGuide_curved_70_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84212 "generic_curved.c"
+#line 84342 "./generic_curved.c"
 }   /* End of Guide_curved_70=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84331,14 +84461,14 @@ MCNUM nelements = mccGuide_curved_71_nelements;
 MCNUM nu = mccGuide_curved_71_nu;
 MCNUM phase = mccGuide_curved_71_phase;
 char* reflect = mccGuide_curved_71_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84271 "generic_curved.c"
+#line 84401 "./generic_curved.c"
 }   /* End of Guide_curved_71=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84391,14 +84521,14 @@ MCNUM nelements = mccGuide_curved_72_nelements;
 MCNUM nu = mccGuide_curved_72_nu;
 MCNUM phase = mccGuide_curved_72_phase;
 char* reflect = mccGuide_curved_72_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84330 "generic_curved.c"
+#line 84460 "./generic_curved.c"
 }   /* End of Guide_curved_72=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84451,14 +84581,14 @@ MCNUM nelements = mccGuide_curved_73_nelements;
 MCNUM nu = mccGuide_curved_73_nu;
 MCNUM phase = mccGuide_curved_73_phase;
 char* reflect = mccGuide_curved_73_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84389 "generic_curved.c"
+#line 84519 "./generic_curved.c"
 }   /* End of Guide_curved_73=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84511,14 +84641,14 @@ MCNUM nelements = mccGuide_curved_74_nelements;
 MCNUM nu = mccGuide_curved_74_nu;
 MCNUM phase = mccGuide_curved_74_phase;
 char* reflect = mccGuide_curved_74_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84448 "generic_curved.c"
+#line 84578 "./generic_curved.c"
 }   /* End of Guide_curved_74=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84571,14 +84701,14 @@ MCNUM nelements = mccGuide_curved_75_nelements;
 MCNUM nu = mccGuide_curved_75_nu;
 MCNUM phase = mccGuide_curved_75_phase;
 char* reflect = mccGuide_curved_75_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84507 "generic_curved.c"
+#line 84637 "./generic_curved.c"
 }   /* End of Guide_curved_75=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84631,14 +84761,14 @@ MCNUM nelements = mccGuide_curved_76_nelements;
 MCNUM nu = mccGuide_curved_76_nu;
 MCNUM phase = mccGuide_curved_76_phase;
 char* reflect = mccGuide_curved_76_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84566 "generic_curved.c"
+#line 84696 "./generic_curved.c"
 }   /* End of Guide_curved_76=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84691,14 +84821,14 @@ MCNUM nelements = mccGuide_curved_77_nelements;
 MCNUM nu = mccGuide_curved_77_nu;
 MCNUM phase = mccGuide_curved_77_phase;
 char* reflect = mccGuide_curved_77_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84625 "generic_curved.c"
+#line 84755 "./generic_curved.c"
 }   /* End of Guide_curved_77=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84751,14 +84881,14 @@ MCNUM nelements = mccGuide_curved_78_nelements;
 MCNUM nu = mccGuide_curved_78_nu;
 MCNUM phase = mccGuide_curved_78_phase;
 char* reflect = mccGuide_curved_78_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84684 "generic_curved.c"
+#line 84814 "./generic_curved.c"
 }   /* End of Guide_curved_78=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84811,14 +84941,14 @@ MCNUM nelements = mccGuide_curved_79_nelements;
 MCNUM nu = mccGuide_curved_79_nu;
 MCNUM phase = mccGuide_curved_79_phase;
 char* reflect = mccGuide_curved_79_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84743 "generic_curved.c"
+#line 84873 "./generic_curved.c"
 }   /* End of Guide_curved_79=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84871,14 +85001,14 @@ MCNUM nelements = mccGuide_curved_80_nelements;
 MCNUM nu = mccGuide_curved_80_nu;
 MCNUM phase = mccGuide_curved_80_phase;
 char* reflect = mccGuide_curved_80_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84802 "generic_curved.c"
+#line 84932 "./generic_curved.c"
 }   /* End of Guide_curved_80=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84931,14 +85061,14 @@ MCNUM nelements = mccGuide_curved_81_nelements;
 MCNUM nu = mccGuide_curved_81_nu;
 MCNUM phase = mccGuide_curved_81_phase;
 char* reflect = mccGuide_curved_81_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84861 "generic_curved.c"
+#line 84991 "./generic_curved.c"
 }   /* End of Guide_curved_81=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -84991,14 +85121,14 @@ MCNUM nelements = mccGuide_curved_82_nelements;
 MCNUM nu = mccGuide_curved_82_nu;
 MCNUM phase = mccGuide_curved_82_phase;
 char* reflect = mccGuide_curved_82_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84920 "generic_curved.c"
+#line 85050 "./generic_curved.c"
 }   /* End of Guide_curved_82=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85051,14 +85181,14 @@ MCNUM nelements = mccGuide_curved_83_nelements;
 MCNUM nu = mccGuide_curved_83_nu;
 MCNUM phase = mccGuide_curved_83_phase;
 char* reflect = mccGuide_curved_83_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 84979 "generic_curved.c"
+#line 85109 "./generic_curved.c"
 }   /* End of Guide_curved_83=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85111,14 +85241,14 @@ MCNUM nelements = mccGuide_curved_84_nelements;
 MCNUM nu = mccGuide_curved_84_nu;
 MCNUM phase = mccGuide_curved_84_phase;
 char* reflect = mccGuide_curved_84_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85038 "generic_curved.c"
+#line 85168 "./generic_curved.c"
 }   /* End of Guide_curved_84=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85171,14 +85301,14 @@ MCNUM nelements = mccGuide_curved_85_nelements;
 MCNUM nu = mccGuide_curved_85_nu;
 MCNUM phase = mccGuide_curved_85_phase;
 char* reflect = mccGuide_curved_85_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85097 "generic_curved.c"
+#line 85227 "./generic_curved.c"
 }   /* End of Guide_curved_85=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85231,14 +85361,14 @@ MCNUM nelements = mccGuide_curved_86_nelements;
 MCNUM nu = mccGuide_curved_86_nu;
 MCNUM phase = mccGuide_curved_86_phase;
 char* reflect = mccGuide_curved_86_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85156 "generic_curved.c"
+#line 85286 "./generic_curved.c"
 }   /* End of Guide_curved_86=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85291,14 +85421,14 @@ MCNUM nelements = mccGuide_curved_87_nelements;
 MCNUM nu = mccGuide_curved_87_nu;
 MCNUM phase = mccGuide_curved_87_phase;
 char* reflect = mccGuide_curved_87_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85215 "generic_curved.c"
+#line 85345 "./generic_curved.c"
 }   /* End of Guide_curved_87=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85351,14 +85481,14 @@ MCNUM nelements = mccGuide_curved_88_nelements;
 MCNUM nu = mccGuide_curved_88_nu;
 MCNUM phase = mccGuide_curved_88_phase;
 char* reflect = mccGuide_curved_88_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85274 "generic_curved.c"
+#line 85404 "./generic_curved.c"
 }   /* End of Guide_curved_88=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85411,14 +85541,14 @@ MCNUM nelements = mccGuide_curved_89_nelements;
 MCNUM nu = mccGuide_curved_89_nu;
 MCNUM phase = mccGuide_curved_89_phase;
 char* reflect = mccGuide_curved_89_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85333 "generic_curved.c"
+#line 85463 "./generic_curved.c"
 }   /* End of Guide_curved_89=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85471,14 +85601,14 @@ MCNUM nelements = mccGuide_curved_90_nelements;
 MCNUM nu = mccGuide_curved_90_nu;
 MCNUM phase = mccGuide_curved_90_phase;
 char* reflect = mccGuide_curved_90_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85392 "generic_curved.c"
+#line 85522 "./generic_curved.c"
 }   /* End of Guide_curved_90=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85531,14 +85661,14 @@ MCNUM nelements = mccGuide_curved_91_nelements;
 MCNUM nu = mccGuide_curved_91_nu;
 MCNUM phase = mccGuide_curved_91_phase;
 char* reflect = mccGuide_curved_91_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85451 "generic_curved.c"
+#line 85581 "./generic_curved.c"
 }   /* End of Guide_curved_91=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85591,14 +85721,14 @@ MCNUM nelements = mccGuide_curved_92_nelements;
 MCNUM nu = mccGuide_curved_92_nu;
 MCNUM phase = mccGuide_curved_92_phase;
 char* reflect = mccGuide_curved_92_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85510 "generic_curved.c"
+#line 85640 "./generic_curved.c"
 }   /* End of Guide_curved_92=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85651,14 +85781,14 @@ MCNUM nelements = mccGuide_curved_93_nelements;
 MCNUM nu = mccGuide_curved_93_nu;
 MCNUM phase = mccGuide_curved_93_phase;
 char* reflect = mccGuide_curved_93_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85569 "generic_curved.c"
+#line 85699 "./generic_curved.c"
 }   /* End of Guide_curved_93=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85711,14 +85841,14 @@ MCNUM nelements = mccGuide_curved_94_nelements;
 MCNUM nu = mccGuide_curved_94_nu;
 MCNUM phase = mccGuide_curved_94_phase;
 char* reflect = mccGuide_curved_94_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85628 "generic_curved.c"
+#line 85758 "./generic_curved.c"
 }   /* End of Guide_curved_94=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85771,14 +85901,14 @@ MCNUM nelements = mccGuide_curved_95_nelements;
 MCNUM nu = mccGuide_curved_95_nu;
 MCNUM phase = mccGuide_curved_95_phase;
 char* reflect = mccGuide_curved_95_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85687 "generic_curved.c"
+#line 85817 "./generic_curved.c"
 }   /* End of Guide_curved_95=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85831,14 +85961,14 @@ MCNUM nelements = mccGuide_curved_96_nelements;
 MCNUM nu = mccGuide_curved_96_nu;
 MCNUM phase = mccGuide_curved_96_phase;
 char* reflect = mccGuide_curved_96_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85746 "generic_curved.c"
+#line 85876 "./generic_curved.c"
 }   /* End of Guide_curved_96=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85891,14 +86021,14 @@ MCNUM nelements = mccGuide_curved_97_nelements;
 MCNUM nu = mccGuide_curved_97_nu;
 MCNUM phase = mccGuide_curved_97_phase;
 char* reflect = mccGuide_curved_97_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85805 "generic_curved.c"
+#line 85935 "./generic_curved.c"
 }   /* End of Guide_curved_97=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -85951,14 +86081,14 @@ MCNUM nelements = mccGuide_curved_98_nelements;
 MCNUM nu = mccGuide_curved_98_nu;
 MCNUM phase = mccGuide_curved_98_phase;
 char* reflect = mccGuide_curved_98_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85864 "generic_curved.c"
+#line 85994 "./generic_curved.c"
 }   /* End of Guide_curved_98=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -86011,14 +86141,14 @@ MCNUM nelements = mccGuide_curved_99_nelements;
 MCNUM nu = mccGuide_curved_99_nu;
 MCNUM phase = mccGuide_curved_99_phase;
 char* reflect = mccGuide_curved_99_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85923 "generic_curved.c"
+#line 86053 "./generic_curved.c"
 }   /* End of Guide_curved_99=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -86071,14 +86201,14 @@ MCNUM nelements = mccGuide_curved_100_nelements;
 MCNUM nu = mccGuide_curved_100_nu;
 MCNUM phase = mccGuide_curved_100_phase;
 char* reflect = mccGuide_curved_100_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 85982 "generic_curved.c"
+#line 86112 "./generic_curved.c"
 }   /* End of Guide_curved_100=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -86131,14 +86261,14 @@ MCNUM nelements = mccGuide_curved_101_nelements;
 MCNUM nu = mccGuide_curved_101_nu;
 MCNUM phase = mccGuide_curved_101_phase;
 char* reflect = mccGuide_curved_101_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 86041 "generic_curved.c"
+#line 86171 "./generic_curved.c"
 }   /* End of Guide_curved_101=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -86191,14 +86321,14 @@ MCNUM nelements = mccGuide_curved_102_nelements;
 MCNUM nu = mccGuide_curved_102_nu;
 MCNUM phase = mccGuide_curved_102_phase;
 char* reflect = mccGuide_curved_102_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 86100 "generic_curved.c"
+#line 86230 "./generic_curved.c"
 }   /* End of Guide_curved_102=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -86251,14 +86381,14 @@ MCNUM nelements = mccGuide_curved_103_nelements;
 MCNUM nu = mccGuide_curved_103_nu;
 MCNUM phase = mccGuide_curved_103_phase;
 char* reflect = mccGuide_curved_103_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 86159 "generic_curved.c"
+#line 86289 "./generic_curved.c"
 }   /* End of Guide_curved_103=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -86311,14 +86441,14 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 562 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 562 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 86218 "generic_curved.c"
+#line 86348 "./generic_curved.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -86362,12 +86492,15 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 483 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+int nowritefile = mccSample_nowritefile;
+#line 485 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* free pointers */
-  Monitor_nD_Finally(&DEFS, &Vars);
+  if (!nowritefile) {
+    Monitor_nD_Finally(&DEFS, &Vars);
+  }
 }
-#line 86266 "generic_curved.c"
+#line 86399 "./generic_curved.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -86392,6 +86525,8 @@ char* username3 = mccSample_username3;
 #define rectangle mcdis_rectangle
 #define box mcdis_box
 #define circle mcdis_circle
+#define cylinder mcdis_cylinder
+#define sphere mcdis_sphere
 void mcdisplay(void) {
   printf("MCDISPLAY: start\n");
   /* Components MCDISPLAY code. */
@@ -86411,11 +86546,11 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 147 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\misc\\Progress_bar.comp"
+#line 147 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
-  magnify("");
+  
 }
-#line 86313 "generic_curved.c"
+#line 86448 "./generic_curved.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -86479,7 +86614,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 578 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\sources\\Source_gen.comp"
+#line 578 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   double xmin;
   double xmax;
@@ -86488,7 +86623,7 @@ int target_index = mccH3_target_index;
 
   if (radius)
   {
-    magnify("xy");
+    
     circle("xy",0,0,0,radius);
     if (zdepth) {
       circle("xy",0,0,-zdepth/2,radius);
@@ -86500,7 +86635,7 @@ int target_index = mccH3_target_index;
     xmin = -xwidth/2; xmax = xwidth/2;
     ymin = -yheight/2; ymax = yheight/2;
 
-    magnify("xy");
+    
     multiline(5, (double)xmin, (double)ymin, 0.0,
              (double)xmax, (double)ymin, 0.0,
              (double)xmax, (double)ymax, 0.0,
@@ -86528,7 +86663,7 @@ int target_index = mccH3_target_index;
     dashed_line(0,0,0, -focus_xw/2, focus_yh/2,dist, 4);
   }
 }
-#line 86426 "generic_curved.c"
+#line 86561 "./generic_curved.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -86557,15 +86692,15 @@ int target_index = mccH3_target_index;
 #define mccompcurname  Guide_start_arm
 #define mccompcurtype  Arm
 #define mccompcurindex 3
-#line 40 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Arm.comp"
+#line 40 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Arm.comp"
 {
   /* A bit ugly; hard-coded dimensions. */
-  magnify("");
+  
   line(0,0,0,0.2,0,0);
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 86463 "generic_curved.c"
+#line 86598 "./generic_curved.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -86613,7 +86748,7 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -86622,7 +86757,7 @@ char* reflect = mccGuide_curved_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -86669,14 +86804,14 @@ char* reflect = mccGuide_curved_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 86574 "generic_curved.c"
+#line 86709 "./generic_curved.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -86727,7 +86862,7 @@ MCNUM nelements = mccGuide_curved_5_nelements;
 MCNUM nu = mccGuide_curved_5_nu;
 MCNUM phase = mccGuide_curved_5_phase;
 char* reflect = mccGuide_curved_5_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -86736,7 +86871,7 @@ char* reflect = mccGuide_curved_5_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -86783,14 +86918,14 @@ char* reflect = mccGuide_curved_5_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 86688 "generic_curved.c"
+#line 86823 "./generic_curved.c"
 }   /* End of Guide_curved_5=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -86841,7 +86976,7 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -86850,7 +86985,7 @@ char* reflect = mccGuide_curved_6_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -86897,14 +87032,14 @@ char* reflect = mccGuide_curved_6_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 86802 "generic_curved.c"
+#line 86937 "./generic_curved.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -86955,7 +87090,7 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -86964,7 +87099,7 @@ char* reflect = mccGuide_curved_7_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -87011,14 +87146,14 @@ char* reflect = mccGuide_curved_7_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 86916 "generic_curved.c"
+#line 87051 "./generic_curved.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -87069,7 +87204,7 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87078,7 +87213,7 @@ char* reflect = mccGuide_curved_8_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -87125,14 +87260,14 @@ char* reflect = mccGuide_curved_8_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 87030 "generic_curved.c"
+#line 87165 "./generic_curved.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -87183,7 +87318,7 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87192,7 +87327,7 @@ char* reflect = mccGuide_curved_9_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -87239,14 +87374,14 @@ char* reflect = mccGuide_curved_9_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 87144 "generic_curved.c"
+#line 87279 "./generic_curved.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -87297,7 +87432,7 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87306,7 +87441,7 @@ char* reflect = mccGuide_curved_10_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -87353,14 +87488,14 @@ char* reflect = mccGuide_curved_10_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 87258 "generic_curved.c"
+#line 87393 "./generic_curved.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -87411,7 +87546,7 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87420,7 +87555,7 @@ char* reflect = mccGuide_curved_11_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -87467,14 +87602,14 @@ char* reflect = mccGuide_curved_11_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 87372 "generic_curved.c"
+#line 87507 "./generic_curved.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -87525,7 +87660,7 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87534,7 +87669,7 @@ char* reflect = mccGuide_curved_12_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -87581,14 +87716,14 @@ char* reflect = mccGuide_curved_12_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 87486 "generic_curved.c"
+#line 87621 "./generic_curved.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -87639,7 +87774,7 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87648,7 +87783,7 @@ char* reflect = mccGuide_curved_13_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -87695,14 +87830,14 @@ char* reflect = mccGuide_curved_13_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 87600 "generic_curved.c"
+#line 87735 "./generic_curved.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -87753,7 +87888,7 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87762,7 +87897,7 @@ char* reflect = mccGuide_curved_14_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -87809,14 +87944,14 @@ char* reflect = mccGuide_curved_14_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 87714 "generic_curved.c"
+#line 87849 "./generic_curved.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -87867,7 +88002,7 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87876,7 +88011,7 @@ char* reflect = mccGuide_curved_15_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -87923,14 +88058,14 @@ char* reflect = mccGuide_curved_15_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 87828 "generic_curved.c"
+#line 87963 "./generic_curved.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -87981,7 +88116,7 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87990,7 +88125,7 @@ char* reflect = mccGuide_curved_16_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -88037,14 +88172,14 @@ char* reflect = mccGuide_curved_16_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 87942 "generic_curved.c"
+#line 88077 "./generic_curved.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -88095,7 +88230,7 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88104,7 +88239,7 @@ char* reflect = mccGuide_curved_17_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -88151,14 +88286,14 @@ char* reflect = mccGuide_curved_17_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 88056 "generic_curved.c"
+#line 88191 "./generic_curved.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -88209,7 +88344,7 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88218,7 +88353,7 @@ char* reflect = mccGuide_curved_18_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -88265,14 +88400,14 @@ char* reflect = mccGuide_curved_18_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 88170 "generic_curved.c"
+#line 88305 "./generic_curved.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -88323,7 +88458,7 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88332,7 +88467,7 @@ char* reflect = mccGuide_curved_19_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -88379,14 +88514,14 @@ char* reflect = mccGuide_curved_19_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 88284 "generic_curved.c"
+#line 88419 "./generic_curved.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -88437,7 +88572,7 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88446,7 +88581,7 @@ char* reflect = mccGuide_curved_20_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -88493,14 +88628,14 @@ char* reflect = mccGuide_curved_20_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 88398 "generic_curved.c"
+#line 88533 "./generic_curved.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -88551,7 +88686,7 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88560,7 +88695,7 @@ char* reflect = mccGuide_curved_21_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -88607,14 +88742,14 @@ char* reflect = mccGuide_curved_21_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 88512 "generic_curved.c"
+#line 88647 "./generic_curved.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -88665,7 +88800,7 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88674,7 +88809,7 @@ char* reflect = mccGuide_curved_22_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -88721,14 +88856,14 @@ char* reflect = mccGuide_curved_22_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 88626 "generic_curved.c"
+#line 88761 "./generic_curved.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -88779,7 +88914,7 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88788,7 +88923,7 @@ char* reflect = mccGuide_curved_23_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -88835,14 +88970,14 @@ char* reflect = mccGuide_curved_23_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 88740 "generic_curved.c"
+#line 88875 "./generic_curved.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -88893,7 +89028,7 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88902,7 +89037,7 @@ char* reflect = mccGuide_curved_24_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -88949,14 +89084,14 @@ char* reflect = mccGuide_curved_24_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 88854 "generic_curved.c"
+#line 88989 "./generic_curved.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -89007,7 +89142,7 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89016,7 +89151,7 @@ char* reflect = mccGuide_curved_25_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -89063,14 +89198,14 @@ char* reflect = mccGuide_curved_25_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 88968 "generic_curved.c"
+#line 89103 "./generic_curved.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -89121,7 +89256,7 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89130,7 +89265,7 @@ char* reflect = mccGuide_curved_26_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -89177,14 +89312,14 @@ char* reflect = mccGuide_curved_26_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 89082 "generic_curved.c"
+#line 89217 "./generic_curved.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -89235,7 +89370,7 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89244,7 +89379,7 @@ char* reflect = mccGuide_curved_27_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -89291,14 +89426,14 @@ char* reflect = mccGuide_curved_27_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 89196 "generic_curved.c"
+#line 89331 "./generic_curved.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -89349,7 +89484,7 @@ MCNUM nelements = mccGuide_curved_28_nelements;
 MCNUM nu = mccGuide_curved_28_nu;
 MCNUM phase = mccGuide_curved_28_phase;
 char* reflect = mccGuide_curved_28_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89358,7 +89493,7 @@ char* reflect = mccGuide_curved_28_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -89405,14 +89540,14 @@ char* reflect = mccGuide_curved_28_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 89310 "generic_curved.c"
+#line 89445 "./generic_curved.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -89463,7 +89598,7 @@ MCNUM nelements = mccGuide_curved_29_nelements;
 MCNUM nu = mccGuide_curved_29_nu;
 MCNUM phase = mccGuide_curved_29_phase;
 char* reflect = mccGuide_curved_29_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89472,7 +89607,7 @@ char* reflect = mccGuide_curved_29_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -89519,14 +89654,14 @@ char* reflect = mccGuide_curved_29_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 89424 "generic_curved.c"
+#line 89559 "./generic_curved.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -89577,7 +89712,7 @@ MCNUM nelements = mccGuide_curved_30_nelements;
 MCNUM nu = mccGuide_curved_30_nu;
 MCNUM phase = mccGuide_curved_30_phase;
 char* reflect = mccGuide_curved_30_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89586,7 +89721,7 @@ char* reflect = mccGuide_curved_30_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -89633,14 +89768,14 @@ char* reflect = mccGuide_curved_30_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 89538 "generic_curved.c"
+#line 89673 "./generic_curved.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -89691,7 +89826,7 @@ MCNUM nelements = mccGuide_curved_31_nelements;
 MCNUM nu = mccGuide_curved_31_nu;
 MCNUM phase = mccGuide_curved_31_phase;
 char* reflect = mccGuide_curved_31_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89700,7 +89835,7 @@ char* reflect = mccGuide_curved_31_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -89747,14 +89882,14 @@ char* reflect = mccGuide_curved_31_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 89652 "generic_curved.c"
+#line 89787 "./generic_curved.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -89805,7 +89940,7 @@ MCNUM nelements = mccGuide_curved_32_nelements;
 MCNUM nu = mccGuide_curved_32_nu;
 MCNUM phase = mccGuide_curved_32_phase;
 char* reflect = mccGuide_curved_32_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89814,7 +89949,7 @@ char* reflect = mccGuide_curved_32_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -89861,14 +89996,14 @@ char* reflect = mccGuide_curved_32_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 89766 "generic_curved.c"
+#line 89901 "./generic_curved.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -89919,7 +90054,7 @@ MCNUM nelements = mccGuide_curved_33_nelements;
 MCNUM nu = mccGuide_curved_33_nu;
 MCNUM phase = mccGuide_curved_33_phase;
 char* reflect = mccGuide_curved_33_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89928,7 +90063,7 @@ char* reflect = mccGuide_curved_33_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -89975,14 +90110,14 @@ char* reflect = mccGuide_curved_33_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 89880 "generic_curved.c"
+#line 90015 "./generic_curved.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -90033,7 +90168,7 @@ MCNUM nelements = mccGuide_curved_34_nelements;
 MCNUM nu = mccGuide_curved_34_nu;
 MCNUM phase = mccGuide_curved_34_phase;
 char* reflect = mccGuide_curved_34_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90042,7 +90177,7 @@ char* reflect = mccGuide_curved_34_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -90089,14 +90224,14 @@ char* reflect = mccGuide_curved_34_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 89994 "generic_curved.c"
+#line 90129 "./generic_curved.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -90147,7 +90282,7 @@ MCNUM nelements = mccGuide_curved_35_nelements;
 MCNUM nu = mccGuide_curved_35_nu;
 MCNUM phase = mccGuide_curved_35_phase;
 char* reflect = mccGuide_curved_35_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90156,7 +90291,7 @@ char* reflect = mccGuide_curved_35_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -90203,14 +90338,14 @@ char* reflect = mccGuide_curved_35_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 90108 "generic_curved.c"
+#line 90243 "./generic_curved.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -90261,7 +90396,7 @@ MCNUM nelements = mccGuide_curved_36_nelements;
 MCNUM nu = mccGuide_curved_36_nu;
 MCNUM phase = mccGuide_curved_36_phase;
 char* reflect = mccGuide_curved_36_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90270,7 +90405,7 @@ char* reflect = mccGuide_curved_36_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -90317,14 +90452,14 @@ char* reflect = mccGuide_curved_36_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 90222 "generic_curved.c"
+#line 90357 "./generic_curved.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -90375,7 +90510,7 @@ MCNUM nelements = mccGuide_curved_37_nelements;
 MCNUM nu = mccGuide_curved_37_nu;
 MCNUM phase = mccGuide_curved_37_phase;
 char* reflect = mccGuide_curved_37_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90384,7 +90519,7 @@ char* reflect = mccGuide_curved_37_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -90431,14 +90566,14 @@ char* reflect = mccGuide_curved_37_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 90336 "generic_curved.c"
+#line 90471 "./generic_curved.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -90489,7 +90624,7 @@ MCNUM nelements = mccGuide_curved_38_nelements;
 MCNUM nu = mccGuide_curved_38_nu;
 MCNUM phase = mccGuide_curved_38_phase;
 char* reflect = mccGuide_curved_38_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90498,7 +90633,7 @@ char* reflect = mccGuide_curved_38_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -90545,14 +90680,14 @@ char* reflect = mccGuide_curved_38_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 90450 "generic_curved.c"
+#line 90585 "./generic_curved.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -90603,7 +90738,7 @@ MCNUM nelements = mccGuide_curved_39_nelements;
 MCNUM nu = mccGuide_curved_39_nu;
 MCNUM phase = mccGuide_curved_39_phase;
 char* reflect = mccGuide_curved_39_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90612,7 +90747,7 @@ char* reflect = mccGuide_curved_39_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -90659,14 +90794,14 @@ char* reflect = mccGuide_curved_39_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 90564 "generic_curved.c"
+#line 90699 "./generic_curved.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -90717,7 +90852,7 @@ MCNUM nelements = mccGuide_curved_40_nelements;
 MCNUM nu = mccGuide_curved_40_nu;
 MCNUM phase = mccGuide_curved_40_phase;
 char* reflect = mccGuide_curved_40_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90726,7 +90861,7 @@ char* reflect = mccGuide_curved_40_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -90773,14 +90908,14 @@ char* reflect = mccGuide_curved_40_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 90678 "generic_curved.c"
+#line 90813 "./generic_curved.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -90831,7 +90966,7 @@ MCNUM nelements = mccGuide_curved_41_nelements;
 MCNUM nu = mccGuide_curved_41_nu;
 MCNUM phase = mccGuide_curved_41_phase;
 char* reflect = mccGuide_curved_41_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90840,7 +90975,7 @@ char* reflect = mccGuide_curved_41_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -90887,14 +91022,14 @@ char* reflect = mccGuide_curved_41_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 90792 "generic_curved.c"
+#line 90927 "./generic_curved.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -90945,7 +91080,7 @@ MCNUM nelements = mccGuide_curved_42_nelements;
 MCNUM nu = mccGuide_curved_42_nu;
 MCNUM phase = mccGuide_curved_42_phase;
 char* reflect = mccGuide_curved_42_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90954,7 +91089,7 @@ char* reflect = mccGuide_curved_42_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -91001,14 +91136,14 @@ char* reflect = mccGuide_curved_42_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 90906 "generic_curved.c"
+#line 91041 "./generic_curved.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -91059,7 +91194,7 @@ MCNUM nelements = mccGuide_curved_43_nelements;
 MCNUM nu = mccGuide_curved_43_nu;
 MCNUM phase = mccGuide_curved_43_phase;
 char* reflect = mccGuide_curved_43_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91068,7 +91203,7 @@ char* reflect = mccGuide_curved_43_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -91115,14 +91250,14 @@ char* reflect = mccGuide_curved_43_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 91020 "generic_curved.c"
+#line 91155 "./generic_curved.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -91173,7 +91308,7 @@ MCNUM nelements = mccGuide_curved_44_nelements;
 MCNUM nu = mccGuide_curved_44_nu;
 MCNUM phase = mccGuide_curved_44_phase;
 char* reflect = mccGuide_curved_44_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91182,7 +91317,7 @@ char* reflect = mccGuide_curved_44_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -91229,14 +91364,14 @@ char* reflect = mccGuide_curved_44_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 91134 "generic_curved.c"
+#line 91269 "./generic_curved.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -91287,7 +91422,7 @@ MCNUM nelements = mccGuide_curved_45_nelements;
 MCNUM nu = mccGuide_curved_45_nu;
 MCNUM phase = mccGuide_curved_45_phase;
 char* reflect = mccGuide_curved_45_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91296,7 +91431,7 @@ char* reflect = mccGuide_curved_45_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -91343,14 +91478,14 @@ char* reflect = mccGuide_curved_45_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 91248 "generic_curved.c"
+#line 91383 "./generic_curved.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -91401,7 +91536,7 @@ MCNUM nelements = mccGuide_curved_46_nelements;
 MCNUM nu = mccGuide_curved_46_nu;
 MCNUM phase = mccGuide_curved_46_phase;
 char* reflect = mccGuide_curved_46_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91410,7 +91545,7 @@ char* reflect = mccGuide_curved_46_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -91457,14 +91592,14 @@ char* reflect = mccGuide_curved_46_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 91362 "generic_curved.c"
+#line 91497 "./generic_curved.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -91515,7 +91650,7 @@ MCNUM nelements = mccGuide_curved_47_nelements;
 MCNUM nu = mccGuide_curved_47_nu;
 MCNUM phase = mccGuide_curved_47_phase;
 char* reflect = mccGuide_curved_47_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91524,7 +91659,7 @@ char* reflect = mccGuide_curved_47_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -91571,14 +91706,14 @@ char* reflect = mccGuide_curved_47_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 91476 "generic_curved.c"
+#line 91611 "./generic_curved.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -91629,7 +91764,7 @@ MCNUM nelements = mccGuide_curved_48_nelements;
 MCNUM nu = mccGuide_curved_48_nu;
 MCNUM phase = mccGuide_curved_48_phase;
 char* reflect = mccGuide_curved_48_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91638,7 +91773,7 @@ char* reflect = mccGuide_curved_48_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -91685,14 +91820,14 @@ char* reflect = mccGuide_curved_48_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 91590 "generic_curved.c"
+#line 91725 "./generic_curved.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -91743,7 +91878,7 @@ MCNUM nelements = mccGuide_curved_49_nelements;
 MCNUM nu = mccGuide_curved_49_nu;
 MCNUM phase = mccGuide_curved_49_phase;
 char* reflect = mccGuide_curved_49_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91752,7 +91887,7 @@ char* reflect = mccGuide_curved_49_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -91799,14 +91934,14 @@ char* reflect = mccGuide_curved_49_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 91704 "generic_curved.c"
+#line 91839 "./generic_curved.c"
 }   /* End of Guide_curved_49=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -91857,7 +91992,7 @@ MCNUM nelements = mccGuide_curved_50_nelements;
 MCNUM nu = mccGuide_curved_50_nu;
 MCNUM phase = mccGuide_curved_50_phase;
 char* reflect = mccGuide_curved_50_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91866,7 +92001,7 @@ char* reflect = mccGuide_curved_50_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -91913,14 +92048,14 @@ char* reflect = mccGuide_curved_50_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 91818 "generic_curved.c"
+#line 91953 "./generic_curved.c"
 }   /* End of Guide_curved_50=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -91971,7 +92106,7 @@ MCNUM nelements = mccGuide_curved_51_nelements;
 MCNUM nu = mccGuide_curved_51_nu;
 MCNUM phase = mccGuide_curved_51_phase;
 char* reflect = mccGuide_curved_51_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91980,7 +92115,7 @@ char* reflect = mccGuide_curved_51_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -92027,14 +92162,14 @@ char* reflect = mccGuide_curved_51_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 91932 "generic_curved.c"
+#line 92067 "./generic_curved.c"
 }   /* End of Guide_curved_51=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -92085,7 +92220,7 @@ MCNUM nelements = mccGuide_curved_52_nelements;
 MCNUM nu = mccGuide_curved_52_nu;
 MCNUM phase = mccGuide_curved_52_phase;
 char* reflect = mccGuide_curved_52_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92094,7 +92229,7 @@ char* reflect = mccGuide_curved_52_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -92141,14 +92276,14 @@ char* reflect = mccGuide_curved_52_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 92046 "generic_curved.c"
+#line 92181 "./generic_curved.c"
 }   /* End of Guide_curved_52=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -92199,7 +92334,7 @@ MCNUM nelements = mccGuide_curved_53_nelements;
 MCNUM nu = mccGuide_curved_53_nu;
 MCNUM phase = mccGuide_curved_53_phase;
 char* reflect = mccGuide_curved_53_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92208,7 +92343,7 @@ char* reflect = mccGuide_curved_53_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -92255,14 +92390,14 @@ char* reflect = mccGuide_curved_53_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 92160 "generic_curved.c"
+#line 92295 "./generic_curved.c"
 }   /* End of Guide_curved_53=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -92313,7 +92448,7 @@ MCNUM nelements = mccGuide_curved_54_nelements;
 MCNUM nu = mccGuide_curved_54_nu;
 MCNUM phase = mccGuide_curved_54_phase;
 char* reflect = mccGuide_curved_54_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92322,7 +92457,7 @@ char* reflect = mccGuide_curved_54_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -92369,14 +92504,14 @@ char* reflect = mccGuide_curved_54_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 92274 "generic_curved.c"
+#line 92409 "./generic_curved.c"
 }   /* End of Guide_curved_54=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -92427,7 +92562,7 @@ MCNUM nelements = mccGuide_curved_55_nelements;
 MCNUM nu = mccGuide_curved_55_nu;
 MCNUM phase = mccGuide_curved_55_phase;
 char* reflect = mccGuide_curved_55_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92436,7 +92571,7 @@ char* reflect = mccGuide_curved_55_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -92483,14 +92618,14 @@ char* reflect = mccGuide_curved_55_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 92388 "generic_curved.c"
+#line 92523 "./generic_curved.c"
 }   /* End of Guide_curved_55=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -92541,7 +92676,7 @@ MCNUM nelements = mccGuide_curved_56_nelements;
 MCNUM nu = mccGuide_curved_56_nu;
 MCNUM phase = mccGuide_curved_56_phase;
 char* reflect = mccGuide_curved_56_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92550,7 +92685,7 @@ char* reflect = mccGuide_curved_56_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -92597,14 +92732,14 @@ char* reflect = mccGuide_curved_56_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 92502 "generic_curved.c"
+#line 92637 "./generic_curved.c"
 }   /* End of Guide_curved_56=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -92655,7 +92790,7 @@ MCNUM nelements = mccGuide_curved_57_nelements;
 MCNUM nu = mccGuide_curved_57_nu;
 MCNUM phase = mccGuide_curved_57_phase;
 char* reflect = mccGuide_curved_57_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92664,7 +92799,7 @@ char* reflect = mccGuide_curved_57_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -92711,14 +92846,14 @@ char* reflect = mccGuide_curved_57_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 92616 "generic_curved.c"
+#line 92751 "./generic_curved.c"
 }   /* End of Guide_curved_57=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -92769,7 +92904,7 @@ MCNUM nelements = mccGuide_curved_58_nelements;
 MCNUM nu = mccGuide_curved_58_nu;
 MCNUM phase = mccGuide_curved_58_phase;
 char* reflect = mccGuide_curved_58_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92778,7 +92913,7 @@ char* reflect = mccGuide_curved_58_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -92825,14 +92960,14 @@ char* reflect = mccGuide_curved_58_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 92730 "generic_curved.c"
+#line 92865 "./generic_curved.c"
 }   /* End of Guide_curved_58=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -92883,7 +93018,7 @@ MCNUM nelements = mccGuide_curved_59_nelements;
 MCNUM nu = mccGuide_curved_59_nu;
 MCNUM phase = mccGuide_curved_59_phase;
 char* reflect = mccGuide_curved_59_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92892,7 +93027,7 @@ char* reflect = mccGuide_curved_59_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -92939,14 +93074,14 @@ char* reflect = mccGuide_curved_59_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 92844 "generic_curved.c"
+#line 92979 "./generic_curved.c"
 }   /* End of Guide_curved_59=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -92997,7 +93132,7 @@ MCNUM nelements = mccGuide_curved_60_nelements;
 MCNUM nu = mccGuide_curved_60_nu;
 MCNUM phase = mccGuide_curved_60_phase;
 char* reflect = mccGuide_curved_60_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93006,7 +93141,7 @@ char* reflect = mccGuide_curved_60_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -93053,14 +93188,14 @@ char* reflect = mccGuide_curved_60_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 92958 "generic_curved.c"
+#line 93093 "./generic_curved.c"
 }   /* End of Guide_curved_60=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -93111,7 +93246,7 @@ MCNUM nelements = mccGuide_curved_61_nelements;
 MCNUM nu = mccGuide_curved_61_nu;
 MCNUM phase = mccGuide_curved_61_phase;
 char* reflect = mccGuide_curved_61_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93120,7 +93255,7 @@ char* reflect = mccGuide_curved_61_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -93167,14 +93302,14 @@ char* reflect = mccGuide_curved_61_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 93072 "generic_curved.c"
+#line 93207 "./generic_curved.c"
 }   /* End of Guide_curved_61=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -93225,7 +93360,7 @@ MCNUM nelements = mccGuide_curved_62_nelements;
 MCNUM nu = mccGuide_curved_62_nu;
 MCNUM phase = mccGuide_curved_62_phase;
 char* reflect = mccGuide_curved_62_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93234,7 +93369,7 @@ char* reflect = mccGuide_curved_62_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -93281,14 +93416,14 @@ char* reflect = mccGuide_curved_62_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 93186 "generic_curved.c"
+#line 93321 "./generic_curved.c"
 }   /* End of Guide_curved_62=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -93339,7 +93474,7 @@ MCNUM nelements = mccGuide_curved_63_nelements;
 MCNUM nu = mccGuide_curved_63_nu;
 MCNUM phase = mccGuide_curved_63_phase;
 char* reflect = mccGuide_curved_63_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93348,7 +93483,7 @@ char* reflect = mccGuide_curved_63_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -93395,14 +93530,14 @@ char* reflect = mccGuide_curved_63_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 93300 "generic_curved.c"
+#line 93435 "./generic_curved.c"
 }   /* End of Guide_curved_63=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -93453,7 +93588,7 @@ MCNUM nelements = mccGuide_curved_64_nelements;
 MCNUM nu = mccGuide_curved_64_nu;
 MCNUM phase = mccGuide_curved_64_phase;
 char* reflect = mccGuide_curved_64_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93462,7 +93597,7 @@ char* reflect = mccGuide_curved_64_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -93509,14 +93644,14 @@ char* reflect = mccGuide_curved_64_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 93414 "generic_curved.c"
+#line 93549 "./generic_curved.c"
 }   /* End of Guide_curved_64=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -93567,7 +93702,7 @@ MCNUM nelements = mccGuide_curved_65_nelements;
 MCNUM nu = mccGuide_curved_65_nu;
 MCNUM phase = mccGuide_curved_65_phase;
 char* reflect = mccGuide_curved_65_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93576,7 +93711,7 @@ char* reflect = mccGuide_curved_65_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -93623,14 +93758,14 @@ char* reflect = mccGuide_curved_65_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 93528 "generic_curved.c"
+#line 93663 "./generic_curved.c"
 }   /* End of Guide_curved_65=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -93681,7 +93816,7 @@ MCNUM nelements = mccGuide_curved_66_nelements;
 MCNUM nu = mccGuide_curved_66_nu;
 MCNUM phase = mccGuide_curved_66_phase;
 char* reflect = mccGuide_curved_66_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93690,7 +93825,7 @@ char* reflect = mccGuide_curved_66_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -93737,14 +93872,14 @@ char* reflect = mccGuide_curved_66_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 93642 "generic_curved.c"
+#line 93777 "./generic_curved.c"
 }   /* End of Guide_curved_66=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -93795,7 +93930,7 @@ MCNUM nelements = mccGuide_curved_67_nelements;
 MCNUM nu = mccGuide_curved_67_nu;
 MCNUM phase = mccGuide_curved_67_phase;
 char* reflect = mccGuide_curved_67_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93804,7 +93939,7 @@ char* reflect = mccGuide_curved_67_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -93851,14 +93986,14 @@ char* reflect = mccGuide_curved_67_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 93756 "generic_curved.c"
+#line 93891 "./generic_curved.c"
 }   /* End of Guide_curved_67=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -93909,7 +94044,7 @@ MCNUM nelements = mccGuide_curved_68_nelements;
 MCNUM nu = mccGuide_curved_68_nu;
 MCNUM phase = mccGuide_curved_68_phase;
 char* reflect = mccGuide_curved_68_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93918,7 +94053,7 @@ char* reflect = mccGuide_curved_68_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -93965,14 +94100,14 @@ char* reflect = mccGuide_curved_68_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 93870 "generic_curved.c"
+#line 94005 "./generic_curved.c"
 }   /* End of Guide_curved_68=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -94023,7 +94158,7 @@ MCNUM nelements = mccGuide_curved_69_nelements;
 MCNUM nu = mccGuide_curved_69_nu;
 MCNUM phase = mccGuide_curved_69_phase;
 char* reflect = mccGuide_curved_69_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94032,7 +94167,7 @@ char* reflect = mccGuide_curved_69_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -94079,14 +94214,14 @@ char* reflect = mccGuide_curved_69_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 93984 "generic_curved.c"
+#line 94119 "./generic_curved.c"
 }   /* End of Guide_curved_69=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -94137,7 +94272,7 @@ MCNUM nelements = mccGuide_curved_70_nelements;
 MCNUM nu = mccGuide_curved_70_nu;
 MCNUM phase = mccGuide_curved_70_phase;
 char* reflect = mccGuide_curved_70_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94146,7 +94281,7 @@ char* reflect = mccGuide_curved_70_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -94193,14 +94328,14 @@ char* reflect = mccGuide_curved_70_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 94098 "generic_curved.c"
+#line 94233 "./generic_curved.c"
 }   /* End of Guide_curved_70=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -94251,7 +94386,7 @@ MCNUM nelements = mccGuide_curved_71_nelements;
 MCNUM nu = mccGuide_curved_71_nu;
 MCNUM phase = mccGuide_curved_71_phase;
 char* reflect = mccGuide_curved_71_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94260,7 +94395,7 @@ char* reflect = mccGuide_curved_71_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -94307,14 +94442,14 @@ char* reflect = mccGuide_curved_71_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 94212 "generic_curved.c"
+#line 94347 "./generic_curved.c"
 }   /* End of Guide_curved_71=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -94365,7 +94500,7 @@ MCNUM nelements = mccGuide_curved_72_nelements;
 MCNUM nu = mccGuide_curved_72_nu;
 MCNUM phase = mccGuide_curved_72_phase;
 char* reflect = mccGuide_curved_72_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94374,7 +94509,7 @@ char* reflect = mccGuide_curved_72_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -94421,14 +94556,14 @@ char* reflect = mccGuide_curved_72_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 94326 "generic_curved.c"
+#line 94461 "./generic_curved.c"
 }   /* End of Guide_curved_72=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -94479,7 +94614,7 @@ MCNUM nelements = mccGuide_curved_73_nelements;
 MCNUM nu = mccGuide_curved_73_nu;
 MCNUM phase = mccGuide_curved_73_phase;
 char* reflect = mccGuide_curved_73_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94488,7 +94623,7 @@ char* reflect = mccGuide_curved_73_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -94535,14 +94670,14 @@ char* reflect = mccGuide_curved_73_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 94440 "generic_curved.c"
+#line 94575 "./generic_curved.c"
 }   /* End of Guide_curved_73=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -94593,7 +94728,7 @@ MCNUM nelements = mccGuide_curved_74_nelements;
 MCNUM nu = mccGuide_curved_74_nu;
 MCNUM phase = mccGuide_curved_74_phase;
 char* reflect = mccGuide_curved_74_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94602,7 +94737,7 @@ char* reflect = mccGuide_curved_74_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -94649,14 +94784,14 @@ char* reflect = mccGuide_curved_74_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 94554 "generic_curved.c"
+#line 94689 "./generic_curved.c"
 }   /* End of Guide_curved_74=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -94707,7 +94842,7 @@ MCNUM nelements = mccGuide_curved_75_nelements;
 MCNUM nu = mccGuide_curved_75_nu;
 MCNUM phase = mccGuide_curved_75_phase;
 char* reflect = mccGuide_curved_75_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94716,7 +94851,7 @@ char* reflect = mccGuide_curved_75_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -94763,14 +94898,14 @@ char* reflect = mccGuide_curved_75_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 94668 "generic_curved.c"
+#line 94803 "./generic_curved.c"
 }   /* End of Guide_curved_75=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -94821,7 +94956,7 @@ MCNUM nelements = mccGuide_curved_76_nelements;
 MCNUM nu = mccGuide_curved_76_nu;
 MCNUM phase = mccGuide_curved_76_phase;
 char* reflect = mccGuide_curved_76_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94830,7 +94965,7 @@ char* reflect = mccGuide_curved_76_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -94877,14 +95012,14 @@ char* reflect = mccGuide_curved_76_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 94782 "generic_curved.c"
+#line 94917 "./generic_curved.c"
 }   /* End of Guide_curved_76=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -94935,7 +95070,7 @@ MCNUM nelements = mccGuide_curved_77_nelements;
 MCNUM nu = mccGuide_curved_77_nu;
 MCNUM phase = mccGuide_curved_77_phase;
 char* reflect = mccGuide_curved_77_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94944,7 +95079,7 @@ char* reflect = mccGuide_curved_77_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -94991,14 +95126,14 @@ char* reflect = mccGuide_curved_77_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 94896 "generic_curved.c"
+#line 95031 "./generic_curved.c"
 }   /* End of Guide_curved_77=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -95049,7 +95184,7 @@ MCNUM nelements = mccGuide_curved_78_nelements;
 MCNUM nu = mccGuide_curved_78_nu;
 MCNUM phase = mccGuide_curved_78_phase;
 char* reflect = mccGuide_curved_78_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95058,7 +95193,7 @@ char* reflect = mccGuide_curved_78_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -95105,14 +95240,14 @@ char* reflect = mccGuide_curved_78_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 95010 "generic_curved.c"
+#line 95145 "./generic_curved.c"
 }   /* End of Guide_curved_78=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -95163,7 +95298,7 @@ MCNUM nelements = mccGuide_curved_79_nelements;
 MCNUM nu = mccGuide_curved_79_nu;
 MCNUM phase = mccGuide_curved_79_phase;
 char* reflect = mccGuide_curved_79_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95172,7 +95307,7 @@ char* reflect = mccGuide_curved_79_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -95219,14 +95354,14 @@ char* reflect = mccGuide_curved_79_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 95124 "generic_curved.c"
+#line 95259 "./generic_curved.c"
 }   /* End of Guide_curved_79=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -95277,7 +95412,7 @@ MCNUM nelements = mccGuide_curved_80_nelements;
 MCNUM nu = mccGuide_curved_80_nu;
 MCNUM phase = mccGuide_curved_80_phase;
 char* reflect = mccGuide_curved_80_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95286,7 +95421,7 @@ char* reflect = mccGuide_curved_80_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -95333,14 +95468,14 @@ char* reflect = mccGuide_curved_80_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 95238 "generic_curved.c"
+#line 95373 "./generic_curved.c"
 }   /* End of Guide_curved_80=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -95391,7 +95526,7 @@ MCNUM nelements = mccGuide_curved_81_nelements;
 MCNUM nu = mccGuide_curved_81_nu;
 MCNUM phase = mccGuide_curved_81_phase;
 char* reflect = mccGuide_curved_81_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95400,7 +95535,7 @@ char* reflect = mccGuide_curved_81_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -95447,14 +95582,14 @@ char* reflect = mccGuide_curved_81_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 95352 "generic_curved.c"
+#line 95487 "./generic_curved.c"
 }   /* End of Guide_curved_81=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -95505,7 +95640,7 @@ MCNUM nelements = mccGuide_curved_82_nelements;
 MCNUM nu = mccGuide_curved_82_nu;
 MCNUM phase = mccGuide_curved_82_phase;
 char* reflect = mccGuide_curved_82_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95514,7 +95649,7 @@ char* reflect = mccGuide_curved_82_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -95561,14 +95696,14 @@ char* reflect = mccGuide_curved_82_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 95466 "generic_curved.c"
+#line 95601 "./generic_curved.c"
 }   /* End of Guide_curved_82=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -95619,7 +95754,7 @@ MCNUM nelements = mccGuide_curved_83_nelements;
 MCNUM nu = mccGuide_curved_83_nu;
 MCNUM phase = mccGuide_curved_83_phase;
 char* reflect = mccGuide_curved_83_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95628,7 +95763,7 @@ char* reflect = mccGuide_curved_83_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -95675,14 +95810,14 @@ char* reflect = mccGuide_curved_83_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 95580 "generic_curved.c"
+#line 95715 "./generic_curved.c"
 }   /* End of Guide_curved_83=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -95733,7 +95868,7 @@ MCNUM nelements = mccGuide_curved_84_nelements;
 MCNUM nu = mccGuide_curved_84_nu;
 MCNUM phase = mccGuide_curved_84_phase;
 char* reflect = mccGuide_curved_84_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95742,7 +95877,7 @@ char* reflect = mccGuide_curved_84_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -95789,14 +95924,14 @@ char* reflect = mccGuide_curved_84_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 95694 "generic_curved.c"
+#line 95829 "./generic_curved.c"
 }   /* End of Guide_curved_84=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -95847,7 +95982,7 @@ MCNUM nelements = mccGuide_curved_85_nelements;
 MCNUM nu = mccGuide_curved_85_nu;
 MCNUM phase = mccGuide_curved_85_phase;
 char* reflect = mccGuide_curved_85_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95856,7 +95991,7 @@ char* reflect = mccGuide_curved_85_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -95903,14 +96038,14 @@ char* reflect = mccGuide_curved_85_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 95808 "generic_curved.c"
+#line 95943 "./generic_curved.c"
 }   /* End of Guide_curved_85=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -95961,7 +96096,7 @@ MCNUM nelements = mccGuide_curved_86_nelements;
 MCNUM nu = mccGuide_curved_86_nu;
 MCNUM phase = mccGuide_curved_86_phase;
 char* reflect = mccGuide_curved_86_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95970,7 +96105,7 @@ char* reflect = mccGuide_curved_86_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -96017,14 +96152,14 @@ char* reflect = mccGuide_curved_86_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 95922 "generic_curved.c"
+#line 96057 "./generic_curved.c"
 }   /* End of Guide_curved_86=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -96075,7 +96210,7 @@ MCNUM nelements = mccGuide_curved_87_nelements;
 MCNUM nu = mccGuide_curved_87_nu;
 MCNUM phase = mccGuide_curved_87_phase;
 char* reflect = mccGuide_curved_87_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96084,7 +96219,7 @@ char* reflect = mccGuide_curved_87_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -96131,14 +96266,14 @@ char* reflect = mccGuide_curved_87_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 96036 "generic_curved.c"
+#line 96171 "./generic_curved.c"
 }   /* End of Guide_curved_87=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -96189,7 +96324,7 @@ MCNUM nelements = mccGuide_curved_88_nelements;
 MCNUM nu = mccGuide_curved_88_nu;
 MCNUM phase = mccGuide_curved_88_phase;
 char* reflect = mccGuide_curved_88_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96198,7 +96333,7 @@ char* reflect = mccGuide_curved_88_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -96245,14 +96380,14 @@ char* reflect = mccGuide_curved_88_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 96150 "generic_curved.c"
+#line 96285 "./generic_curved.c"
 }   /* End of Guide_curved_88=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -96303,7 +96438,7 @@ MCNUM nelements = mccGuide_curved_89_nelements;
 MCNUM nu = mccGuide_curved_89_nu;
 MCNUM phase = mccGuide_curved_89_phase;
 char* reflect = mccGuide_curved_89_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96312,7 +96447,7 @@ char* reflect = mccGuide_curved_89_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -96359,14 +96494,14 @@ char* reflect = mccGuide_curved_89_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 96264 "generic_curved.c"
+#line 96399 "./generic_curved.c"
 }   /* End of Guide_curved_89=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -96417,7 +96552,7 @@ MCNUM nelements = mccGuide_curved_90_nelements;
 MCNUM nu = mccGuide_curved_90_nu;
 MCNUM phase = mccGuide_curved_90_phase;
 char* reflect = mccGuide_curved_90_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96426,7 +96561,7 @@ char* reflect = mccGuide_curved_90_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -96473,14 +96608,14 @@ char* reflect = mccGuide_curved_90_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 96378 "generic_curved.c"
+#line 96513 "./generic_curved.c"
 }   /* End of Guide_curved_90=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -96531,7 +96666,7 @@ MCNUM nelements = mccGuide_curved_91_nelements;
 MCNUM nu = mccGuide_curved_91_nu;
 MCNUM phase = mccGuide_curved_91_phase;
 char* reflect = mccGuide_curved_91_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96540,7 +96675,7 @@ char* reflect = mccGuide_curved_91_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -96587,14 +96722,14 @@ char* reflect = mccGuide_curved_91_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 96492 "generic_curved.c"
+#line 96627 "./generic_curved.c"
 }   /* End of Guide_curved_91=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -96645,7 +96780,7 @@ MCNUM nelements = mccGuide_curved_92_nelements;
 MCNUM nu = mccGuide_curved_92_nu;
 MCNUM phase = mccGuide_curved_92_phase;
 char* reflect = mccGuide_curved_92_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96654,7 +96789,7 @@ char* reflect = mccGuide_curved_92_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -96701,14 +96836,14 @@ char* reflect = mccGuide_curved_92_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 96606 "generic_curved.c"
+#line 96741 "./generic_curved.c"
 }   /* End of Guide_curved_92=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -96759,7 +96894,7 @@ MCNUM nelements = mccGuide_curved_93_nelements;
 MCNUM nu = mccGuide_curved_93_nu;
 MCNUM phase = mccGuide_curved_93_phase;
 char* reflect = mccGuide_curved_93_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96768,7 +96903,7 @@ char* reflect = mccGuide_curved_93_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -96815,14 +96950,14 @@ char* reflect = mccGuide_curved_93_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 96720 "generic_curved.c"
+#line 96855 "./generic_curved.c"
 }   /* End of Guide_curved_93=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -96873,7 +97008,7 @@ MCNUM nelements = mccGuide_curved_94_nelements;
 MCNUM nu = mccGuide_curved_94_nu;
 MCNUM phase = mccGuide_curved_94_phase;
 char* reflect = mccGuide_curved_94_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96882,7 +97017,7 @@ char* reflect = mccGuide_curved_94_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -96929,14 +97064,14 @@ char* reflect = mccGuide_curved_94_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 96834 "generic_curved.c"
+#line 96969 "./generic_curved.c"
 }   /* End of Guide_curved_94=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -96987,7 +97122,7 @@ MCNUM nelements = mccGuide_curved_95_nelements;
 MCNUM nu = mccGuide_curved_95_nu;
 MCNUM phase = mccGuide_curved_95_phase;
 char* reflect = mccGuide_curved_95_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96996,7 +97131,7 @@ char* reflect = mccGuide_curved_95_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -97043,14 +97178,14 @@ char* reflect = mccGuide_curved_95_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 96948 "generic_curved.c"
+#line 97083 "./generic_curved.c"
 }   /* End of Guide_curved_95=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -97101,7 +97236,7 @@ MCNUM nelements = mccGuide_curved_96_nelements;
 MCNUM nu = mccGuide_curved_96_nu;
 MCNUM phase = mccGuide_curved_96_phase;
 char* reflect = mccGuide_curved_96_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97110,7 +97245,7 @@ char* reflect = mccGuide_curved_96_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -97157,14 +97292,14 @@ char* reflect = mccGuide_curved_96_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 97062 "generic_curved.c"
+#line 97197 "./generic_curved.c"
 }   /* End of Guide_curved_96=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -97215,7 +97350,7 @@ MCNUM nelements = mccGuide_curved_97_nelements;
 MCNUM nu = mccGuide_curved_97_nu;
 MCNUM phase = mccGuide_curved_97_phase;
 char* reflect = mccGuide_curved_97_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97224,7 +97359,7 @@ char* reflect = mccGuide_curved_97_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -97271,14 +97406,14 @@ char* reflect = mccGuide_curved_97_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 97176 "generic_curved.c"
+#line 97311 "./generic_curved.c"
 }   /* End of Guide_curved_97=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -97329,7 +97464,7 @@ MCNUM nelements = mccGuide_curved_98_nelements;
 MCNUM nu = mccGuide_curved_98_nu;
 MCNUM phase = mccGuide_curved_98_phase;
 char* reflect = mccGuide_curved_98_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97338,7 +97473,7 @@ char* reflect = mccGuide_curved_98_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -97385,14 +97520,14 @@ char* reflect = mccGuide_curved_98_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 97290 "generic_curved.c"
+#line 97425 "./generic_curved.c"
 }   /* End of Guide_curved_98=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -97443,7 +97578,7 @@ MCNUM nelements = mccGuide_curved_99_nelements;
 MCNUM nu = mccGuide_curved_99_nu;
 MCNUM phase = mccGuide_curved_99_phase;
 char* reflect = mccGuide_curved_99_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97452,7 +97587,7 @@ char* reflect = mccGuide_curved_99_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -97499,14 +97634,14 @@ char* reflect = mccGuide_curved_99_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 97404 "generic_curved.c"
+#line 97539 "./generic_curved.c"
 }   /* End of Guide_curved_99=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -97557,7 +97692,7 @@ MCNUM nelements = mccGuide_curved_100_nelements;
 MCNUM nu = mccGuide_curved_100_nu;
 MCNUM phase = mccGuide_curved_100_phase;
 char* reflect = mccGuide_curved_100_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97566,7 +97701,7 @@ char* reflect = mccGuide_curved_100_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -97613,14 +97748,14 @@ char* reflect = mccGuide_curved_100_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 97518 "generic_curved.c"
+#line 97653 "./generic_curved.c"
 }   /* End of Guide_curved_100=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -97671,7 +97806,7 @@ MCNUM nelements = mccGuide_curved_101_nelements;
 MCNUM nu = mccGuide_curved_101_nu;
 MCNUM phase = mccGuide_curved_101_phase;
 char* reflect = mccGuide_curved_101_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97680,7 +97815,7 @@ char* reflect = mccGuide_curved_101_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -97727,14 +97862,14 @@ char* reflect = mccGuide_curved_101_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 97632 "generic_curved.c"
+#line 97767 "./generic_curved.c"
 }   /* End of Guide_curved_101=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -97785,7 +97920,7 @@ MCNUM nelements = mccGuide_curved_102_nelements;
 MCNUM nu = mccGuide_curved_102_nu;
 MCNUM phase = mccGuide_curved_102_phase;
 char* reflect = mccGuide_curved_102_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97794,7 +97929,7 @@ char* reflect = mccGuide_curved_102_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -97841,14 +97976,14 @@ char* reflect = mccGuide_curved_102_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 97746 "generic_curved.c"
+#line 97881 "./generic_curved.c"
 }   /* End of Guide_curved_102=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -97899,7 +98034,7 @@ MCNUM nelements = mccGuide_curved_103_nelements;
 MCNUM nu = mccGuide_curved_103_nu;
 MCNUM phase = mccGuide_curved_103_phase;
 char* reflect = mccGuide_curved_103_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97908,7 +98043,7 @@ char* reflect = mccGuide_curved_103_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -97955,14 +98090,14 @@ char* reflect = mccGuide_curved_103_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 97860 "generic_curved.c"
+#line 97995 "./generic_curved.c"
 }   /* End of Guide_curved_103=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -98013,7 +98148,7 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 571 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\optics\\Guide_gravity.comp"
+#line 571 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -98022,7 +98157,7 @@ char* reflect = mccGuide_straight_reflect;
     double y1,y2,y3,y4;
     double nel = (nelements > 11 ? 11 : nelements);
 
-    magnify("xy");
+    
     for (n=0; n<nel; n++)
     {
       double z0, z1;
@@ -98069,14 +98204,14 @@ char* reflect = mccGuide_straight_reflect;
   }
   else {
     /* A bit ugly; hard-coded dimensions. */
-    magnify("");
+    
     line(0,0,0,0.2,0,0);
     line(0,0,0,0,0.2,0);
     line(0,0,0,0,0,0.2);
   }
 
 }
-#line 97974 "generic_curved.c"
+#line 98109 "./generic_curved.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -98118,7 +98253,8 @@ char* geometry = mccSample_geometry;
 char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
-#line 489 "C:\\mcstas-2.4.1\\lib\\tools\\Python\\mcrun\\..\\mccodelib\\..\\..\\..\\monitors\\Monitor_nD.comp"
+int nowritefile = mccSample_nowritefile;
+#line 493 "/usr/share/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
@@ -98127,7 +98263,7 @@ char* username3 = mccSample_username3;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 98025 "generic_curved.c"
+#line 98161 "./generic_curved.c"
 }   /* End of Sample=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -98149,4 +98285,6 @@ char* username3 = mccSample_username3;
 #undef rectangle
 #undef box
 #undef circle
-/* end of generated C code generic_curved.c */
+#undef cylinder
+#undef sphere
+/* end of generated C code ./generic_curved.c */

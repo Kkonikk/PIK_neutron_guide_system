@@ -1,0 +1,27 @@
+begin instrument:
+  Creator: mcstas 2.5
+  Source: generic_curved.instr
+  Parameters:  R_curv
+  Trace_enabled: no
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation
+Date: Tue Jan 29 18 18 2019
+Ncount: 1000000
+Numpoints: 2
+Param: R_curv = 100, R_curv = 2000
+end simulation
+
+begin data
+type: multiarray_1d(2)
+title: Scan of R_curv
+xvars: R_curv
+yvars: (Sample_I,Sample_ERR)
+xlabel: 'R_curv'
+ylabel: 'Intensity'
+xlimits: 100 2000
+filename: mccode.dat
+variables: R_curv Sample_I Sample_ERR
+end data

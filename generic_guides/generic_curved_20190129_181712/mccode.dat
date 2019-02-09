@@ -1,0 +1,34 @@
+# Instrument-source: 'generic_curved.instr'
+# Date: Tue Jan 29 18 18 2019
+# Ncount: 1000000
+# Numpoints: 2
+# Param: R_curv = 100
+# type: multiarray_1d(2)
+# title: Scan of R_curv
+# xlabel: 'R_curv'
+# ylabel: 'Intensity'
+# xvars: R_curv
+# yvars: (Sample_I,Sample_ERR)
+# xlimits: 100 2000
+# filename: mccode.dat
+# variables: R_curv Sample_I Sample_ERR
+100 384377 89343.1
+200 1.05825E+6 179331
+300 3.1197E+6 337661
+400 5.13875E+6 457964
+500 6.08581E+6 513407
+600 9.11067E+6 637165
+700 1.12865E+7 712461
+800 1.31924E+7 793745
+900 1.26024E+7 783870
+1000 1.44282E+7 854228
+1100 1.50687E+7 879500
+1200 1.62052E+7 913643
+1300 1.43433E+7 864368
+1400 1.42071E+7 862087
+1500 1.62445E+7 928662
+1600 1.42857E+7 869939
+1700 1.48702E+7 890587
+1800 1.5834E+7 921608
+1900 1.52772E+7 903583
+2000 1.65954E+7 944096

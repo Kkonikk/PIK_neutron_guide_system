@@ -1,0 +1,85 @@
+McStas simulation description file for generic_expander.
+Date:    Tue Jan 29 17:56:33 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: generic_expander
+  File: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_start_expander_20190129_175629/mccode
+  Source: generic_start_expander.instr
+  Parameters:  m_str_side_exp(double) m_top_exp(double) guide_sample_dist(double) guide_length(double) guide_exp_length(double) guide_exit_width(double) guide_exit_height(double) m_str_side(double) m_top(double) sample_height(double) sample_width(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_start_expander_20190129_175629
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: generic_start_expander.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1548793428
+  Directory: /media/konik/a09e43d5-7f1d-47d7-b0ae-2df53071d43b/JOB/PIK_neutron_guide_system/generic_guides/generic_start_expander_20190129_175629
+  Nodes: 4
+  Param: m_str_side_exp=2
+  Param: m_top_exp=4
+  Param: guide_sample_dist=0.5
+  Param: guide_length=100
+  Param: guide_exp_length=5
+  Param: guide_exit_width=0.05
+  Param: guide_exit_height=0.25
+  Param: m_str_side=2
+  Param: m_top=3
+  Param: sample_height=0.01
+  Param: sample_width=0.01
+  Param: guide_start_width=0.05
+  Param: guide_start_height=0.2
+  Param: source_lambda_min=12
+  Param: source_lambda_max=12.1
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Tue Jan 29 17:56:35 2019 (1548773795)
+  type: array_2d(100, 100)
+  Source: generic_expander (generic_start_expander.instr)
+  component: Sample0
+  position: 0 0 6.83
+  title:  Intensity Position Position Monitor (Square) per bin
+  Ncount: 1000000
+  filename: Sample0_1548773793.x_y
+  statistics: X0=7.23829e-06; dX=0.0143718; Y0=-0.000346938; dY=0.0722767;
+  signal: Min=2469.45; Max=6854.12; Mean=4730.4;
+  values: 4.7304e+07 49368.2 994331
+  xvar: x 
+  yvar: y 
+  xlabel: x [m]
+  ylabel: y [m]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: -0.025 0.025 -0.125 0.125
+  variables: I I_err N
+end data
+
+begin data
+  Date: Tue Jan 29 17:56:35 2019 (1548773795)
+  type: array_2d(100, 100)
+  Source: generic_expander (generic_start_expander.instr)
+  component: Sample
+  position: 0 0 102.34
+  title:  Intensity Position Position Monitor (Square) per bin
+  Ncount: 1000000
+  filename: Sample_1548773793.x_y
+  statistics: X0=7.51355e-07; dX=0.0133384; Y0=-0.000587203; dY=0.0699612;
+  signal: Min=242.654; Max=3080.32; Mean=1769.91;
+  values: 1.76991e+07 26252.6 771238
+  xvar: x 
+  yvar: y 
+  xlabel: x [m]
+  ylabel: y [m]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: -0.025 0.025 -0.125 0.125
+  variables: I I_err N
+end data
