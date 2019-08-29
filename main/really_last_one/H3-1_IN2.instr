@@ -1,0 +1,74 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: PIK H3 beamtube 
+*
+* %Identification
+* Written by: K.Pavlov
+* Date: 07.09.18
+* Origin: PNPI
+* Release: McStas 2.3
+* Version: 2.0
+*
+* PIK reactor beamtube H3 facing cold neutron source. Handles additionaly the thermal regime of CNS and no CNS at all situation.
+*
+* %Parameters
+* guide_start_width: [m] Initial width of guide (where to focus neutrons from source)
+* guide_start_height: [m]  Initial height of guide (where to focus neutrons from source)
+* source_lambda_min: [AA] Minimal wavelength to create
+* source_lambda_max: [AA] Maximal wavelength to create
+* cold_regime: [num] 1 corresponds to normal operation, 0 corresponds to thermal regime, -1 corresponds to no container situation
+*
+* %End
+*******************************************************************************/
+
+DEFINE INSTRUMENT H3_1()
+
+DECLARE
+%{
+double m=3;
+%}
+
+INITIALIZE
+%{
+	
+%}
+
+TRACE
+
+%include "H3_source.instr"
+
+COMPONENT Guide_metal = Guide_gravity(
+    w1 = guide_start_width, h1 = guide_start_height, l = 20, mright=m, mleft=m, mtop=m, mbottom=m, R0=R0, alpha=alpha)
+  AT (0, 0, 0) RELATIVE Guide_start_arm
+
+COMPONENT Monlam = Monitor_nD(
+    xwidth = 0.09, yheight = 0.16, options = "lambda bins = 100 limits = [0 20] per cm2", filename = "H3-1_IN2.lam")
+  AT (0, 0, 20.0001) RELATIVE PREVIOUS
+
+COMPONENT Monx = Monitor_nD(
+    xwidth = 0.09, yheight = 0.16, options = "x bins = 100 per cm2", filename = "H3-1_IN2.x")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mony = Monitor_nD(
+    xwidth = 0.09, yheight = 0.16, options = "y bins = 100 per cm2", filename = "H3-1_IN2.y")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mondx = Monitor_nD(
+    xwidth = 0.09, yheight = 0.16, options = "dx bins = 100 limits = [-3 3] per cm2", filename = "H3-1_IN2.dx")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mondy = Monitor_nD(
+    xwidth = 0.09, yheight = 0.16, options = "dy bins = 100 limits = [-5 5] per cm2", filename = "H3-1_IN2.dy")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+FINALLY
+%{
+%}
+
+END
+
+
+
+
+

@@ -1,0 +1,129 @@
+McStas simulation description file for H3_0.
+Date:    Thu Aug 29 19:51:13 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_0
+  File: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-0_DEDM_20190829_195113/mccode
+  Source: H3-0_DEDM.instr
+  Parameters:  guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-0_DEDM_20190829_195113
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H3-0_DEDM.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1567158095
+  Directory: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-0_DEDM_20190829_195113
+  Param: guide_start_width=0.03
+  Param: guide_start_height=0.03
+  Param: source_lambda_min=0.1
+  Param: source_lambda_max=20
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Thu Aug 29 19:51:16 2019 (1567097476)
+  type: array_1d(100)
+  Source: H3_0 (H3-0_DEDM.instr)
+  component: Monlam
+  position: -0.371547 0 11.3101
+  title: Wavelength [Angs] monitor
+  Ncount: 1000000
+  filename: H3-0_DEDM.lam
+  statistics: X0=7.7008; dX=3.38175;
+  signal: Min=0; Max=7.29593e+07; Mean=2.14166e+07;
+  values: 2.14166e+09 7.34867e+06 725122
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: 0 20
+  variables: L I I_err N
+end data
+
+begin data
+  Date: Thu Aug 29 19:51:16 2019 (1567097476)
+  type: array_1d(100)
+  Source: H3_0 (H3-0_DEDM.instr)
+  component: Monx
+  position: -0.371547 0 11.3101
+  title: x [m] monitor
+  Ncount: 1000000
+  filename: H3-0_DEDM.x
+  statistics: X0=0.0020499; dX=0.00842165;
+  signal: Min=0; Max=4.0268e+07; Mean=2.14166e+07;
+  values: 2.14166e+09 7.34867e+06 725122
+  xvar: x
+  yvar: (I,I_err)
+  xlabel: x [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.02 0.02
+  variables: x I I_err N
+end data
+
+begin data
+  Date: Thu Aug 29 19:51:16 2019 (1567097476)
+  type: array_1d(100)
+  Source: H3_0 (H3-0_DEDM.instr)
+  component: Mony
+  position: -0.371547 0 11.3101
+  title: y [m] monitor
+  Ncount: 1000000
+  filename: H3-0_DEDM.y
+  statistics: X0=3.91413e-05; dX=0.00866905;
+  signal: Min=0; Max=8.23517e+07; Mean=2.14166e+07;
+  values: 2.14166e+09 7.34867e+06 725122
+  xvar: y
+  yvar: (I,I_err)
+  xlabel: y [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.055 0.055
+  variables: y I I_err N
+end data
+
+begin data
+  Date: Thu Aug 29 19:51:16 2019 (1567097476)
+  type: array_1d(100)
+  Source: H3_0 (H3-0_DEDM.instr)
+  component: Mondx
+  position: -0.371547 0 11.3101
+  title: Hor. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-0_DEDM.dx
+  statistics: X0=-0.0944033; dX=0.817143;
+  signal: Min=1591.09; Max=5.87495e+07; Mean=2.14131e+07;
+  values: 2.14131e+09 7.34866e+06 722269
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -3 3
+  variables: hd I I_err N
+end data
+
+begin data
+  Date: Thu Aug 29 19:51:16 2019 (1567097476)
+  type: array_1d(100)
+  Source: H3_0 (H3-0_DEDM.instr)
+  component: Mondy
+  position: -0.371547 0 11.3101
+  title: Vert. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-0_DEDM.dy
+  statistics: X0=0.000123666; dX=0.79987;
+  signal: Min=0; Max=1.02341e+08; Mean=2.14166e+07;
+  values: 2.14166e+09 7.34867e+06 725122
+  xvar: vd
+  yvar: (I,I_err)
+  xlabel: Vert. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -5 5
+  variables: vd I I_err N
+end data
