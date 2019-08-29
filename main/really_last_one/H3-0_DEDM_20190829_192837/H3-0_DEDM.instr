@@ -1,0 +1,158 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: PIK H3 beamtube 
+*
+* %Identification
+* Written by: K.Pavlov
+* Date: 07.09.18
+* Origin: PNPI
+* Release: McStas 2.3
+* Version: 2.0
+*
+* PIK reactor beamtube H3 facing cold neutron source. Handles additionaly the thermal regime of CNS and no CNS at all situation.
+*
+* %Parameters
+* guide_start_width: [m] Initial width of guide (where to focus neutrons from source)
+* guide_start_height: [m]  Initial height of guide (where to focus neutrons from source)
+* source_lambda_min: [AA] Minimal wavelength to create
+* source_lambda_max: [AA] Maximal wavelength to create
+* cold_regime: [num] 1 corresponds to normal operation, 0 corresponds to thermal regime, -1 corresponds to no container situation
+*
+* %End
+*******************************************************************************/
+
+DEFINE INSTRUMENT H3_0(n=1)
+
+DECLARE
+%{
+double m_out=3, m=2;
+
+double R_curv=115;
+
+//rotation of one guide element
+double rot;
+%}
+
+INITIALIZE
+%{
+
+//handling rotation
+
+rot = 0.5/R_curv*RAD2DEG;
+	
+%}
+
+TRACE
+
+%include "H3_source.instr"
+
+//curved part 10m
+COMPONENT Guide_metal = Guide_gravity(
+    w1 = guide_start_width, h1 = guide_start_height, l = 0.5, mright=m, mleft=m, mtop=m, mbottom=m, R0=R0, alpha=alpha, nslit=n)
+  AT (0, 0, 0) RELATIVE Guide_start_arm
+
+COMPONENT Guide_curved = Guide_gravity(
+    w1 = guide_start_width, h1 = guide_start_height, l = 0.5, mright=m, mleft=m_out, mtop=m, mbottom=m, R0=R0, alpha=alpha,nslit=n)
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0, rot, 0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+
+COMPONENT Monlam = Monitor_nD(
+    xwidth = 0.03, yheight = 0.1, options = "lambda bins = 100 limits = [0 20] per cm2", filename = "H3-0_DEDM.lam")
+  AT (0, 0, 0.5001) RELATIVE PREVIOUS
+
+COMPONENT Monx = Monitor_nD(
+    xwidth = 0.03, yheight = 0.1, options = "x bins = 100 per cm2", filename = "H3-0_DEDM.x")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mony = Monitor_nD(
+    xwidth = 0.03, yheight = 0.1, options = "y bins = 100 per cm2", filename = "H3-0_DEDM.y")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mondx = Monitor_nD(
+    xwidth = 0.03, yheight = 0.1, options = "dx bins = 100 limits = [-3 3] per cm2", filename = "H3-0_DEDM.dx")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mondy = Monitor_nD(
+    xwidth = 0.03, yheight = 0.1, options = "dy bins = 100 limits = [-5 5] per cm2", filename = "H3-0_DEDM.dy")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+FINALLY
+%{
+%}
+
+END
+
+
+
+
+

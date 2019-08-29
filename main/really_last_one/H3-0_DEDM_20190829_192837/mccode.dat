@@ -1,0 +1,19 @@
+# Instrument-source: 'H3-0_DEDM.instr'
+# Date: Thu Aug 29 19 28 2019
+# Ncount: 1000000
+# Numpoints: 2
+# Param: n = 1
+# type: multiarray_1d(2)
+# title: Scan of n
+# xlabel: 'n'
+# ylabel: 'Intensity'
+# xvars: n
+# yvars: (Monlam_I,Monlam_ERR) (Monx_I,Monx_ERR) (Mony_I,Mony_ERR) (Mondx_I,Mondx_ERR) (Mondy_I,Mondy_ERR)
+# xlimits: 1 5
+# filename: mccode.dat
+# variables: n Monlam_I Monlam_ERR Monx_I Monx_ERR Mony_I Mony_ERR Mondx_I Mondx_ERR Mondy_I Mondy_ERR
+1 1.81615E+7 80610 1.81615E+7 80610 1.81615E+7 80610 1.81615E+7 80610 1.81615E+7 80610
+2 3.27611E+7 109011 3.27611E+7 109011 3.27611E+7 109011 3.27611E+7 109011 3.27611E+7 109011
+3 2.97295E+7 106308 2.97295E+7 106308 2.97295E+7 106308 2.97295E+7 106308 2.97295E+7 106308
+4 3.34267E+7 109510 3.34267E+7 109510 3.34267E+7 109510 3.34267E+7 109510 3.34267E+7 109510
+5 2.76794E+7 101440 2.76794E+7 101440 2.76794E+7 101440 2.76794E+7 101440 2.76794E+7 101440
