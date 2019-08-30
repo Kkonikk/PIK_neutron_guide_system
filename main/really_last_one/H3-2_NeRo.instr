@@ -26,8 +26,7 @@ DEFINE INSTRUMENT H3_2()
 
 DECLARE
 %{
-double m_out=3, m=2;
-
+double m=2, m_out=3;
 double R_curv=900;
 
 //rotation of one guide element

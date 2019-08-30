@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: H3-2_NeRo.instr (H3_2)
- * Date:       Thu Aug 29 20:17:24 2019
+ * Date:       Fri Aug 30 20:12:17 2019
  * File:       ./H3-2_NeRo.c
  * Compile:    cc -o H3_2.out ./H3-2_NeRo.c 
  * CFLAGS=
@@ -10094,17 +10094,19 @@ void off_display(off_struct data)
 #line 10094 "./H3-2_NeRo.c"
 
 /* Instrument parameters. */
+MCNUM mcipm_out;
 MCNUM mcipguide_start_width;
 MCNUM mcipguide_start_height;
 MCNUM mcipsource_lambda_min;
 MCNUM mcipsource_lambda_max;
 MCNUM mcipcold_regime;
 
-#define mcNUMIPAR 5
-int mcnumipar = 5;
+#define mcNUMIPAR 6
+int mcnumipar = 6;
 struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
-  "guide_start_width", &mcipguide_start_width, instr_type_double, "0.03", 
-  "guide_start_height", &mcipguide_start_height, instr_type_double, "0.03", 
+  "m_out", &mcipm_out, instr_type_double, "3", 
+  "guide_start_width", &mcipguide_start_width, instr_type_double, "0.06", 
+  "guide_start_height", &mcipguide_start_height, instr_type_double, "0.2", 
   "source_lambda_min", &mcipsource_lambda_min, instr_type_double, "0.1", 
   "source_lambda_max", &mcipsource_lambda_max, instr_type_double, "20", 
   "cold_regime", &mcipcold_regime, instr_type_double, "1", 
@@ -10116,6 +10118,7 @@ struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
 #define mccompcurtype  INSTRUMENT
 #define mccompcurindex 0
 #define mcposaH3_2 coords_set(0,0,0)
+#define m_out mcipm_out
 #define guide_start_width mcipguide_start_width
 #define guide_start_height mcipguide_start_height
 #define source_lambda_min mcipsource_lambda_min
@@ -10140,18 +10143,18 @@ double guide_start_dist = 1.82;
 
 //Reflection parameters
 double R0 = 0.99, alpha = 3.3;
-double m_out=3, m=2;
-
+double m=2;
 double R_curv=900;
 
 //rotation of one guide element
 double rot;
-#line 10149 "./H3-2_NeRo.c"
+#line 10151 "./H3-2_NeRo.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
 #undef guide_start_height
 #undef guide_start_width
+#undef m_out
 #undef mcposaH3_2
 #undef mccompcurindex
 #undef mccompcurtype
@@ -12210,7 +12213,7 @@ double IntermediateCnts;
 time_t StartTime;
 time_t EndTime;
 time_t CurrentTime;
-#line 12213 "./H3-2_NeRo.c"
+#line 12216 "./H3-2_NeRo.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -12294,7 +12297,7 @@ time_t CurrentTime;
   double pTable_dymin;
   double pTable_dymax;
 
-#line 12297 "./H3-2_NeRo.c"
+#line 12300 "./H3-2_NeRo.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -12397,7 +12400,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12400 "./H3-2_NeRo.c"
+#line 12403 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12481,7 +12484,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12484 "./H3-2_NeRo.c"
+#line 12487 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12565,7 +12568,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12568 "./H3-2_NeRo.c"
+#line 12571 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12649,7 +12652,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12652 "./H3-2_NeRo.c"
+#line 12655 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12733,7 +12736,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12736 "./H3-2_NeRo.c"
+#line 12739 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12817,7 +12820,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12820 "./H3-2_NeRo.c"
+#line 12823 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12901,7 +12904,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12904 "./H3-2_NeRo.c"
+#line 12907 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12985,7 +12988,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12988 "./H3-2_NeRo.c"
+#line 12991 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13069,7 +13072,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13072 "./H3-2_NeRo.c"
+#line 13075 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13153,7 +13156,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13156 "./H3-2_NeRo.c"
+#line 13159 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13237,7 +13240,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13240 "./H3-2_NeRo.c"
+#line 13243 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13321,7 +13324,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13324 "./H3-2_NeRo.c"
+#line 13327 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13405,7 +13408,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13408 "./H3-2_NeRo.c"
+#line 13411 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13489,7 +13492,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13492 "./H3-2_NeRo.c"
+#line 13495 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13573,7 +13576,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13576 "./H3-2_NeRo.c"
+#line 13579 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13657,7 +13660,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13660 "./H3-2_NeRo.c"
+#line 13663 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13741,7 +13744,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13744 "./H3-2_NeRo.c"
+#line 13747 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13825,7 +13828,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13828 "./H3-2_NeRo.c"
+#line 13831 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13909,7 +13912,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13912 "./H3-2_NeRo.c"
+#line 13915 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13993,7 +13996,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13996 "./H3-2_NeRo.c"
+#line 13999 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14077,7 +14080,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14080 "./H3-2_NeRo.c"
+#line 14083 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14161,7 +14164,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14164 "./H3-2_NeRo.c"
+#line 14167 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14245,7 +14248,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14248 "./H3-2_NeRo.c"
+#line 14251 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14329,7 +14332,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14332 "./H3-2_NeRo.c"
+#line 14335 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14413,7 +14416,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14416 "./H3-2_NeRo.c"
+#line 14419 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14497,7 +14500,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14500 "./H3-2_NeRo.c"
+#line 14503 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14581,7 +14584,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14584 "./H3-2_NeRo.c"
+#line 14587 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14665,7 +14668,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14668 "./H3-2_NeRo.c"
+#line 14671 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14749,7 +14752,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14752 "./H3-2_NeRo.c"
+#line 14755 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14833,7 +14836,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14836 "./H3-2_NeRo.c"
+#line 14839 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14917,7 +14920,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14920 "./H3-2_NeRo.c"
+#line 14923 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15001,7 +15004,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15004 "./H3-2_NeRo.c"
+#line 15007 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15085,7 +15088,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15088 "./H3-2_NeRo.c"
+#line 15091 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15169,7 +15172,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15172 "./H3-2_NeRo.c"
+#line 15175 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15253,7 +15256,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15256 "./H3-2_NeRo.c"
+#line 15259 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15337,7 +15340,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15340 "./H3-2_NeRo.c"
+#line 15343 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15421,7 +15424,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15424 "./H3-2_NeRo.c"
+#line 15427 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15505,7 +15508,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15508 "./H3-2_NeRo.c"
+#line 15511 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15589,7 +15592,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15592 "./H3-2_NeRo.c"
+#line 15595 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15673,7 +15676,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15676 "./H3-2_NeRo.c"
+#line 15679 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15757,7 +15760,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15760 "./H3-2_NeRo.c"
+#line 15763 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15841,7 +15844,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15844 "./H3-2_NeRo.c"
+#line 15847 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15925,7 +15928,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15928 "./H3-2_NeRo.c"
+#line 15931 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16009,7 +16012,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16012 "./H3-2_NeRo.c"
+#line 16015 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16093,7 +16096,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16096 "./H3-2_NeRo.c"
+#line 16099 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16177,7 +16180,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16180 "./H3-2_NeRo.c"
+#line 16183 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16261,7 +16264,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16264 "./H3-2_NeRo.c"
+#line 16267 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16345,7 +16348,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16348 "./H3-2_NeRo.c"
+#line 16351 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16429,7 +16432,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16432 "./H3-2_NeRo.c"
+#line 16435 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16513,7 +16516,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16516 "./H3-2_NeRo.c"
+#line 16519 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16597,7 +16600,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16600 "./H3-2_NeRo.c"
+#line 16603 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16675,7 +16678,7 @@ time_t CurrentTime;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16678 "./H3-2_NeRo.c"
+#line 16681 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16745,7 +16748,7 @@ time_t CurrentTime;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16748 "./H3-2_NeRo.c"
+#line 16751 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16815,7 +16818,7 @@ time_t CurrentTime;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16818 "./H3-2_NeRo.c"
+#line 16821 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16885,7 +16888,7 @@ time_t CurrentTime;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16888 "./H3-2_NeRo.c"
+#line 16891 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16955,7 +16958,7 @@ time_t CurrentTime;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16958 "./H3-2_NeRo.c"
+#line 16961 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -17116,6 +17119,7 @@ void mcinit(void) {
 #define mccompcurtype  INSTRUMENT
 #define mccompcurindex 0
 #define mcposaH3_2 coords_set(0,0,0)
+#define m_out mcipm_out
 #define guide_start_width mcipguide_start_width
 #define guide_start_height mcipguide_start_height
 #define source_lambda_min mcipsource_lambda_min
@@ -17142,12 +17146,13 @@ if (cold_regime==-1){
 rot = 0.5/R_curv*RAD2DEG;
 	
 }
-#line 17145 "./H3-2_NeRo.c"
+#line 17149 "./H3-2_NeRo.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
 #undef guide_start_height
 #undef guide_start_width
+#undef m_out
 #undef mcposaH3_2
 #undef mccompcurindex
 #undef mccompcurtype
@@ -17173,14 +17178,14 @@ rot = 0.5/R_curv*RAD2DEG;
   mccOrigin_flag_save = 0;
 #line 39 "H3-2_NeRo.instr"
   mccOrigin_minutes = 0;
-#line 17176 "./H3-2_NeRo.c"
+#line 17181 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Origin (Init:Place/Rotate)");
   rot_set_rotation(mcrotaOrigin,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 17183 "./H3-2_NeRo.c"
+#line 17188 "./H3-2_NeRo.c"
   rot_copy(mcrotrOrigin, mcrotaOrigin);
   mcposaOrigin = coords_set(
 #line 69 "H3-2_NeRo.instr"
@@ -17189,7 +17194,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 69 "H3-2_NeRo.instr"
     0);
-#line 17192 "./H3-2_NeRo.c"
+#line 17197 "./H3-2_NeRo.c"
   mctc1 = coords_neg(mcposaOrigin);
   mcposrOrigin = rot_apply(mcrotaOrigin, mctc1);
   mcDEBUG_COMPONENT("Origin", mcposaOrigin, mcrotaOrigin)
@@ -17260,14 +17265,14 @@ rot = 0.5/R_curv*RAD2DEG;
   mccH3_zdepth = 0;
 #line 134 "H3-2_NeRo.instr"
   mccH3_target_index = + 1;
-#line 17263 "./H3-2_NeRo.c"
+#line 17268 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("H3 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 17270 "./H3-2_NeRo.c"
+#line 17275 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaH3);
   rot_transpose(mcrotaOrigin, mctr1);
   rot_mul(mcrotaH3, mctr1, mcrotrH3);
@@ -17278,7 +17283,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 78 "H3-2_NeRo.instr"
     0);
-#line 17281 "./H3-2_NeRo.c"
+#line 17286 "./H3-2_NeRo.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaH3 = coords_add(mcposaOrigin, mctc2);
@@ -17298,7 +17303,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 17301 "./H3-2_NeRo.c"
+#line 17306 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaGuide_start_arm);
   rot_transpose(mcrotaH3, mctr1);
   rot_mul(mcrotaGuide_start_arm, mctr1, mcrotrGuide_start_arm);
@@ -17309,7 +17314,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 82 "H3-2_NeRo.instr"
     guide_start_dist);
-#line 17312 "./H3-2_NeRo.c"
+#line 17317 "./H3-2_NeRo.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_start_arm = coords_add(mcposaOrigin, mctc2);
@@ -17323,21 +17328,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_metal. */
   /* Setting parameters for component Guide_metal. */
   SIG_MESSAGE("Guide_metal (Init:SetPar)");
-#line 51 "H3-2_NeRo.instr"
+#line 50 "H3-2_NeRo.instr"
   mccGuide_metal_w1 = mcipguide_start_width;
-#line 51 "H3-2_NeRo.instr"
+#line 50 "H3-2_NeRo.instr"
   mccGuide_metal_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_metal_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_metal_h2 = 0;
-#line 51 "H3-2_NeRo.instr"
+#line 50 "H3-2_NeRo.instr"
   mccGuide_metal_l = 0.5;
-#line 51 "H3-2_NeRo.instr"
+#line 50 "H3-2_NeRo.instr"
   mccGuide_metal_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_metal_Qc = 0.0218;
-#line 51 "H3-2_NeRo.instr"
+#line 50 "H3-2_NeRo.instr"
   mccGuide_metal_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_metal_m = 1.0;
@@ -17347,13 +17352,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_metal_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_metal_d = 0.0005;
-#line 51 "H3-2_NeRo.instr"
+#line 50 "H3-2_NeRo.instr"
   mccGuide_metal_mleft = m;
-#line 51 "H3-2_NeRo.instr"
+#line 50 "H3-2_NeRo.instr"
   mccGuide_metal_mright = m;
-#line 51 "H3-2_NeRo.instr"
+#line 50 "H3-2_NeRo.instr"
   mccGuide_metal_mtop = m;
-#line 51 "H3-2_NeRo.instr"
+#line 50 "H3-2_NeRo.instr"
   mccGuide_metal_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_metal_nhslit = 1;
@@ -17391,25 +17396,25 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_metal_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_metal_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_metal_reflect[0]='\0';
-#line 17394 "./H3-2_NeRo.c"
+#line 17399 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_metal (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 17401 "./H3-2_NeRo.c"
+#line 17406 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaGuide_metal);
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   rot_mul(mcrotaGuide_metal, mctr1, mcrotrGuide_metal);
   mctc1 = coords_set(
-#line 52 "H3-2_NeRo.instr"
+#line 51 "H3-2_NeRo.instr"
     0,
-#line 52 "H3-2_NeRo.instr"
+#line 51 "H3-2_NeRo.instr"
     0,
-#line 52 "H3-2_NeRo.instr"
+#line 51 "H3-2_NeRo.instr"
     0);
-#line 17412 "./H3-2_NeRo.c"
+#line 17417 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_metal = coords_add(mcposaGuide_start_arm, mctc2);
@@ -17423,21 +17428,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved. */
   /* Setting parameters for component Guide_curved. */
   SIG_MESSAGE("Guide_curved (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_m = 1.0;
@@ -17447,13 +17452,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_nhslit = 1;
@@ -17491,28 +17496,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_reflect[0]='\0';
-#line 17494 "./H3-2_NeRo.c"
+#line 17499 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 57 "H3-2_NeRo.instr"
+#line 56 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 57 "H3-2_NeRo.instr"
+#line 56 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 57 "H3-2_NeRo.instr"
+#line 56 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 17504 "./H3-2_NeRo.c"
+#line 17509 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_metal, mcrotaGuide_curved);
   rot_transpose(mcrotaGuide_metal, mctr1);
   rot_mul(mcrotaGuide_curved, mctr1, mcrotrGuide_curved);
   mctc1 = coords_set(
-#line 56 "H3-2_NeRo.instr"
+#line 55 "H3-2_NeRo.instr"
     0,
-#line 56 "H3-2_NeRo.instr"
+#line 55 "H3-2_NeRo.instr"
     0,
-#line 56 "H3-2_NeRo.instr"
+#line 55 "H3-2_NeRo.instr"
     0.5);
-#line 17515 "./H3-2_NeRo.c"
+#line 17520 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_metal, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved = coords_add(mcposaGuide_metal, mctc2);
@@ -17526,21 +17531,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_6. */
   /* Setting parameters for component Guide_curved_6. */
   SIG_MESSAGE("Guide_curved_6 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_6_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_6_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_6_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_6_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_6_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_6_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_6_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_6_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_6_m = 1.0;
@@ -17550,13 +17555,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_6_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_6_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_6_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_6_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_6_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_6_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_6_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_6_nhslit = 1;
@@ -17594,28 +17599,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_6_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_6_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_6_reflect[0]='\0';
-#line 17597 "./H3-2_NeRo.c"
+#line 17602 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_6 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 61 "H3-2_NeRo.instr"
+#line 60 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 61 "H3-2_NeRo.instr"
+#line 60 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 61 "H3-2_NeRo.instr"
+#line 60 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 17607 "./H3-2_NeRo.c"
+#line 17612 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved, mcrotaGuide_curved_6);
   rot_transpose(mcrotaGuide_curved, mctr1);
   rot_mul(mcrotaGuide_curved_6, mctr1, mcrotrGuide_curved_6);
   mctc1 = coords_set(
-#line 60 "H3-2_NeRo.instr"
+#line 59 "H3-2_NeRo.instr"
     0,
-#line 60 "H3-2_NeRo.instr"
+#line 59 "H3-2_NeRo.instr"
     0,
-#line 60 "H3-2_NeRo.instr"
+#line 59 "H3-2_NeRo.instr"
     0.5);
-#line 17618 "./H3-2_NeRo.c"
+#line 17623 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_6 = coords_add(mcposaGuide_curved, mctc2);
@@ -17629,21 +17634,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_7. */
   /* Setting parameters for component Guide_curved_7. */
   SIG_MESSAGE("Guide_curved_7 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_7_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_7_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_7_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_7_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_7_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_7_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_7_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_7_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_7_m = 1.0;
@@ -17653,13 +17658,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_7_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_7_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_7_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_7_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_7_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_7_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_7_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_7_nhslit = 1;
@@ -17697,28 +17702,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_7_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_7_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_7_reflect[0]='\0';
-#line 17700 "./H3-2_NeRo.c"
+#line 17705 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_7 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 65 "H3-2_NeRo.instr"
+#line 64 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 65 "H3-2_NeRo.instr"
+#line 64 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 65 "H3-2_NeRo.instr"
+#line 64 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 17710 "./H3-2_NeRo.c"
+#line 17715 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_6, mcrotaGuide_curved_7);
   rot_transpose(mcrotaGuide_curved_6, mctr1);
   rot_mul(mcrotaGuide_curved_7, mctr1, mcrotrGuide_curved_7);
   mctc1 = coords_set(
-#line 64 "H3-2_NeRo.instr"
+#line 63 "H3-2_NeRo.instr"
     0,
-#line 64 "H3-2_NeRo.instr"
+#line 63 "H3-2_NeRo.instr"
     0,
-#line 64 "H3-2_NeRo.instr"
+#line 63 "H3-2_NeRo.instr"
     0.5);
-#line 17721 "./H3-2_NeRo.c"
+#line 17726 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_6, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_7 = coords_add(mcposaGuide_curved_6, mctc2);
@@ -17732,21 +17737,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_8. */
   /* Setting parameters for component Guide_curved_8. */
   SIG_MESSAGE("Guide_curved_8 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_8_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_8_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_8_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_8_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_8_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_8_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_8_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_8_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_8_m = 1.0;
@@ -17756,13 +17761,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_8_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_8_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_8_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_8_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_8_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_8_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_8_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_8_nhslit = 1;
@@ -17800,28 +17805,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_8_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_8_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_8_reflect[0]='\0';
-#line 17803 "./H3-2_NeRo.c"
+#line 17808 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_8 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 69 "H3-2_NeRo.instr"
+#line 68 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 69 "H3-2_NeRo.instr"
+#line 68 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 69 "H3-2_NeRo.instr"
+#line 68 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 17813 "./H3-2_NeRo.c"
+#line 17818 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_7, mcrotaGuide_curved_8);
   rot_transpose(mcrotaGuide_curved_7, mctr1);
   rot_mul(mcrotaGuide_curved_8, mctr1, mcrotrGuide_curved_8);
   mctc1 = coords_set(
-#line 68 "H3-2_NeRo.instr"
+#line 67 "H3-2_NeRo.instr"
     0,
-#line 68 "H3-2_NeRo.instr"
+#line 67 "H3-2_NeRo.instr"
     0,
-#line 68 "H3-2_NeRo.instr"
+#line 67 "H3-2_NeRo.instr"
     0.5);
-#line 17824 "./H3-2_NeRo.c"
+#line 17829 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_7, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_8 = coords_add(mcposaGuide_curved_7, mctc2);
@@ -17835,21 +17840,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_9. */
   /* Setting parameters for component Guide_curved_9. */
   SIG_MESSAGE("Guide_curved_9 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_9_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_9_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_9_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_9_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_9_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_9_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_9_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_9_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_9_m = 1.0;
@@ -17859,13 +17864,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_9_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_9_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_9_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_9_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_9_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_9_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_9_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_9_nhslit = 1;
@@ -17903,28 +17908,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_9_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_9_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_9_reflect[0]='\0';
-#line 17906 "./H3-2_NeRo.c"
+#line 17911 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_9 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 73 "H3-2_NeRo.instr"
+#line 72 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 73 "H3-2_NeRo.instr"
+#line 72 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 73 "H3-2_NeRo.instr"
+#line 72 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 17916 "./H3-2_NeRo.c"
+#line 17921 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_8, mcrotaGuide_curved_9);
   rot_transpose(mcrotaGuide_curved_8, mctr1);
   rot_mul(mcrotaGuide_curved_9, mctr1, mcrotrGuide_curved_9);
   mctc1 = coords_set(
-#line 72 "H3-2_NeRo.instr"
+#line 71 "H3-2_NeRo.instr"
     0,
-#line 72 "H3-2_NeRo.instr"
+#line 71 "H3-2_NeRo.instr"
     0,
-#line 72 "H3-2_NeRo.instr"
+#line 71 "H3-2_NeRo.instr"
     0.5);
-#line 17927 "./H3-2_NeRo.c"
+#line 17932 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_8, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_9 = coords_add(mcposaGuide_curved_8, mctc2);
@@ -17938,21 +17943,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_10. */
   /* Setting parameters for component Guide_curved_10. */
   SIG_MESSAGE("Guide_curved_10 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_10_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_10_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_10_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_10_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_10_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_10_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_10_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_10_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_10_m = 1.0;
@@ -17962,13 +17967,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_10_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_10_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_10_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_10_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_10_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_10_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_10_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_10_nhslit = 1;
@@ -18006,28 +18011,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_10_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_10_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_10_reflect[0]='\0';
-#line 18009 "./H3-2_NeRo.c"
+#line 18014 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_10 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 77 "H3-2_NeRo.instr"
+#line 76 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 77 "H3-2_NeRo.instr"
+#line 76 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 77 "H3-2_NeRo.instr"
+#line 76 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18019 "./H3-2_NeRo.c"
+#line 18024 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_9, mcrotaGuide_curved_10);
   rot_transpose(mcrotaGuide_curved_9, mctr1);
   rot_mul(mcrotaGuide_curved_10, mctr1, mcrotrGuide_curved_10);
   mctc1 = coords_set(
-#line 76 "H3-2_NeRo.instr"
+#line 75 "H3-2_NeRo.instr"
     0,
-#line 76 "H3-2_NeRo.instr"
+#line 75 "H3-2_NeRo.instr"
     0,
-#line 76 "H3-2_NeRo.instr"
+#line 75 "H3-2_NeRo.instr"
     0.5);
-#line 18030 "./H3-2_NeRo.c"
+#line 18035 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_9, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_10 = coords_add(mcposaGuide_curved_9, mctc2);
@@ -18041,21 +18046,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_11. */
   /* Setting parameters for component Guide_curved_11. */
   SIG_MESSAGE("Guide_curved_11 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_11_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_11_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_11_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_11_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_11_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_11_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_11_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_11_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_11_m = 1.0;
@@ -18065,13 +18070,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_11_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_11_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_11_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_11_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_11_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_11_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_11_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_11_nhslit = 1;
@@ -18109,28 +18114,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_11_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_11_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_11_reflect[0]='\0';
-#line 18112 "./H3-2_NeRo.c"
+#line 18117 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_11 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 81 "H3-2_NeRo.instr"
+#line 80 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 81 "H3-2_NeRo.instr"
+#line 80 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 81 "H3-2_NeRo.instr"
+#line 80 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18122 "./H3-2_NeRo.c"
+#line 18127 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_10, mcrotaGuide_curved_11);
   rot_transpose(mcrotaGuide_curved_10, mctr1);
   rot_mul(mcrotaGuide_curved_11, mctr1, mcrotrGuide_curved_11);
   mctc1 = coords_set(
-#line 80 "H3-2_NeRo.instr"
+#line 79 "H3-2_NeRo.instr"
     0,
-#line 80 "H3-2_NeRo.instr"
+#line 79 "H3-2_NeRo.instr"
     0,
-#line 80 "H3-2_NeRo.instr"
+#line 79 "H3-2_NeRo.instr"
     0.5);
-#line 18133 "./H3-2_NeRo.c"
+#line 18138 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_10, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_11 = coords_add(mcposaGuide_curved_10, mctc2);
@@ -18144,21 +18149,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_12. */
   /* Setting parameters for component Guide_curved_12. */
   SIG_MESSAGE("Guide_curved_12 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_12_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_12_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_12_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_12_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_12_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_12_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_12_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_12_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_12_m = 1.0;
@@ -18168,13 +18173,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_12_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_12_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_12_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_12_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_12_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_12_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_12_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_12_nhslit = 1;
@@ -18212,28 +18217,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_12_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_12_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_12_reflect[0]='\0';
-#line 18215 "./H3-2_NeRo.c"
+#line 18220 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_12 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 85 "H3-2_NeRo.instr"
+#line 84 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 85 "H3-2_NeRo.instr"
+#line 84 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 85 "H3-2_NeRo.instr"
+#line 84 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18225 "./H3-2_NeRo.c"
+#line 18230 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_11, mcrotaGuide_curved_12);
   rot_transpose(mcrotaGuide_curved_11, mctr1);
   rot_mul(mcrotaGuide_curved_12, mctr1, mcrotrGuide_curved_12);
   mctc1 = coords_set(
-#line 84 "H3-2_NeRo.instr"
+#line 83 "H3-2_NeRo.instr"
     0,
-#line 84 "H3-2_NeRo.instr"
+#line 83 "H3-2_NeRo.instr"
     0,
-#line 84 "H3-2_NeRo.instr"
+#line 83 "H3-2_NeRo.instr"
     0.5);
-#line 18236 "./H3-2_NeRo.c"
+#line 18241 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_11, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_12 = coords_add(mcposaGuide_curved_11, mctc2);
@@ -18247,21 +18252,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_13. */
   /* Setting parameters for component Guide_curved_13. */
   SIG_MESSAGE("Guide_curved_13 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_13_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_13_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_13_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_13_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_13_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_13_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_13_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_13_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_13_m = 1.0;
@@ -18271,13 +18276,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_13_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_13_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_13_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_13_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_13_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_13_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_13_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_13_nhslit = 1;
@@ -18315,28 +18320,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_13_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_13_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_13_reflect[0]='\0';
-#line 18318 "./H3-2_NeRo.c"
+#line 18323 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_13 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 89 "H3-2_NeRo.instr"
+#line 88 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 89 "H3-2_NeRo.instr"
+#line 88 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 89 "H3-2_NeRo.instr"
+#line 88 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18328 "./H3-2_NeRo.c"
+#line 18333 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_12, mcrotaGuide_curved_13);
   rot_transpose(mcrotaGuide_curved_12, mctr1);
   rot_mul(mcrotaGuide_curved_13, mctr1, mcrotrGuide_curved_13);
   mctc1 = coords_set(
-#line 88 "H3-2_NeRo.instr"
+#line 87 "H3-2_NeRo.instr"
     0,
-#line 88 "H3-2_NeRo.instr"
+#line 87 "H3-2_NeRo.instr"
     0,
-#line 88 "H3-2_NeRo.instr"
+#line 87 "H3-2_NeRo.instr"
     0.5);
-#line 18339 "./H3-2_NeRo.c"
+#line 18344 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_12, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_13 = coords_add(mcposaGuide_curved_12, mctc2);
@@ -18350,21 +18355,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_14. */
   /* Setting parameters for component Guide_curved_14. */
   SIG_MESSAGE("Guide_curved_14 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_14_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_14_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_14_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_14_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_14_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_14_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_14_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_14_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_14_m = 1.0;
@@ -18374,13 +18379,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_14_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_14_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_14_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_14_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_14_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_14_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_14_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_14_nhslit = 1;
@@ -18418,28 +18423,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_14_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_14_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_14_reflect[0]='\0';
-#line 18421 "./H3-2_NeRo.c"
+#line 18426 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_14 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 93 "H3-2_NeRo.instr"
+#line 92 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 93 "H3-2_NeRo.instr"
+#line 92 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 93 "H3-2_NeRo.instr"
+#line 92 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18431 "./H3-2_NeRo.c"
+#line 18436 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_13, mcrotaGuide_curved_14);
   rot_transpose(mcrotaGuide_curved_13, mctr1);
   rot_mul(mcrotaGuide_curved_14, mctr1, mcrotrGuide_curved_14);
   mctc1 = coords_set(
-#line 92 "H3-2_NeRo.instr"
+#line 91 "H3-2_NeRo.instr"
     0,
-#line 92 "H3-2_NeRo.instr"
+#line 91 "H3-2_NeRo.instr"
     0,
-#line 92 "H3-2_NeRo.instr"
+#line 91 "H3-2_NeRo.instr"
     0.5);
-#line 18442 "./H3-2_NeRo.c"
+#line 18447 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_13, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_14 = coords_add(mcposaGuide_curved_13, mctc2);
@@ -18453,21 +18458,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_15. */
   /* Setting parameters for component Guide_curved_15. */
   SIG_MESSAGE("Guide_curved_15 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_15_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_15_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_15_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_15_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_15_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_15_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_15_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_15_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_15_m = 1.0;
@@ -18477,13 +18482,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_15_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_15_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_15_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_15_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_15_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_15_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_15_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_15_nhslit = 1;
@@ -18521,28 +18526,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_15_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_15_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_15_reflect[0]='\0';
-#line 18524 "./H3-2_NeRo.c"
+#line 18529 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_15 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 97 "H3-2_NeRo.instr"
+#line 96 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 97 "H3-2_NeRo.instr"
+#line 96 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 97 "H3-2_NeRo.instr"
+#line 96 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18534 "./H3-2_NeRo.c"
+#line 18539 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_14, mcrotaGuide_curved_15);
   rot_transpose(mcrotaGuide_curved_14, mctr1);
   rot_mul(mcrotaGuide_curved_15, mctr1, mcrotrGuide_curved_15);
   mctc1 = coords_set(
-#line 96 "H3-2_NeRo.instr"
+#line 95 "H3-2_NeRo.instr"
     0,
-#line 96 "H3-2_NeRo.instr"
+#line 95 "H3-2_NeRo.instr"
     0,
-#line 96 "H3-2_NeRo.instr"
+#line 95 "H3-2_NeRo.instr"
     0.5);
-#line 18545 "./H3-2_NeRo.c"
+#line 18550 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_14, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_15 = coords_add(mcposaGuide_curved_14, mctc2);
@@ -18556,21 +18561,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_16. */
   /* Setting parameters for component Guide_curved_16. */
   SIG_MESSAGE("Guide_curved_16 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_16_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_16_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_16_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_16_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_16_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_16_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_16_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_16_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_16_m = 1.0;
@@ -18580,13 +18585,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_16_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_16_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_16_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_16_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_16_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_16_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_16_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_16_nhslit = 1;
@@ -18624,28 +18629,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_16_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_16_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_16_reflect[0]='\0';
-#line 18627 "./H3-2_NeRo.c"
+#line 18632 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_16 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 101 "H3-2_NeRo.instr"
+#line 100 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 101 "H3-2_NeRo.instr"
+#line 100 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 101 "H3-2_NeRo.instr"
+#line 100 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18637 "./H3-2_NeRo.c"
+#line 18642 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_15, mcrotaGuide_curved_16);
   rot_transpose(mcrotaGuide_curved_15, mctr1);
   rot_mul(mcrotaGuide_curved_16, mctr1, mcrotrGuide_curved_16);
   mctc1 = coords_set(
-#line 100 "H3-2_NeRo.instr"
+#line 99 "H3-2_NeRo.instr"
     0,
-#line 100 "H3-2_NeRo.instr"
+#line 99 "H3-2_NeRo.instr"
     0,
-#line 100 "H3-2_NeRo.instr"
+#line 99 "H3-2_NeRo.instr"
     0.5);
-#line 18648 "./H3-2_NeRo.c"
+#line 18653 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_15, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_16 = coords_add(mcposaGuide_curved_15, mctc2);
@@ -18659,21 +18664,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_17. */
   /* Setting parameters for component Guide_curved_17. */
   SIG_MESSAGE("Guide_curved_17 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_17_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_17_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_17_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_17_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_17_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_17_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_17_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_17_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_17_m = 1.0;
@@ -18683,13 +18688,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_17_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_17_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_17_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_17_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_17_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_17_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_17_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_17_nhslit = 1;
@@ -18727,28 +18732,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_17_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_17_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_17_reflect[0]='\0';
-#line 18730 "./H3-2_NeRo.c"
+#line 18735 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_17 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 105 "H3-2_NeRo.instr"
+#line 104 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 105 "H3-2_NeRo.instr"
+#line 104 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 105 "H3-2_NeRo.instr"
+#line 104 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18740 "./H3-2_NeRo.c"
+#line 18745 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_16, mcrotaGuide_curved_17);
   rot_transpose(mcrotaGuide_curved_16, mctr1);
   rot_mul(mcrotaGuide_curved_17, mctr1, mcrotrGuide_curved_17);
   mctc1 = coords_set(
-#line 104 "H3-2_NeRo.instr"
+#line 103 "H3-2_NeRo.instr"
     0,
-#line 104 "H3-2_NeRo.instr"
+#line 103 "H3-2_NeRo.instr"
     0,
-#line 104 "H3-2_NeRo.instr"
+#line 103 "H3-2_NeRo.instr"
     0.5);
-#line 18751 "./H3-2_NeRo.c"
+#line 18756 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_16, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_17 = coords_add(mcposaGuide_curved_16, mctc2);
@@ -18762,21 +18767,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_18. */
   /* Setting parameters for component Guide_curved_18. */
   SIG_MESSAGE("Guide_curved_18 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_18_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_18_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_18_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_18_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_18_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_18_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_18_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_18_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_18_m = 1.0;
@@ -18786,13 +18791,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_18_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_18_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_18_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_18_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_18_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_18_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_18_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_18_nhslit = 1;
@@ -18830,28 +18835,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_18_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_18_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_18_reflect[0]='\0';
-#line 18833 "./H3-2_NeRo.c"
+#line 18838 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_18 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 109 "H3-2_NeRo.instr"
+#line 108 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 109 "H3-2_NeRo.instr"
+#line 108 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 109 "H3-2_NeRo.instr"
+#line 108 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18843 "./H3-2_NeRo.c"
+#line 18848 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_17, mcrotaGuide_curved_18);
   rot_transpose(mcrotaGuide_curved_17, mctr1);
   rot_mul(mcrotaGuide_curved_18, mctr1, mcrotrGuide_curved_18);
   mctc1 = coords_set(
-#line 108 "H3-2_NeRo.instr"
+#line 107 "H3-2_NeRo.instr"
     0,
-#line 108 "H3-2_NeRo.instr"
+#line 107 "H3-2_NeRo.instr"
     0,
-#line 108 "H3-2_NeRo.instr"
+#line 107 "H3-2_NeRo.instr"
     0.5);
-#line 18854 "./H3-2_NeRo.c"
+#line 18859 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_17, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_18 = coords_add(mcposaGuide_curved_17, mctc2);
@@ -18865,21 +18870,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_19. */
   /* Setting parameters for component Guide_curved_19. */
   SIG_MESSAGE("Guide_curved_19 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_19_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_19_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_19_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_19_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_19_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_19_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_19_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_19_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_19_m = 1.0;
@@ -18889,13 +18894,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_19_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_19_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_19_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_19_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_19_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_19_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_19_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_19_nhslit = 1;
@@ -18933,28 +18938,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_19_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_19_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_19_reflect[0]='\0';
-#line 18936 "./H3-2_NeRo.c"
+#line 18941 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_19 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 113 "H3-2_NeRo.instr"
+#line 112 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 113 "H3-2_NeRo.instr"
+#line 112 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 113 "H3-2_NeRo.instr"
+#line 112 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18946 "./H3-2_NeRo.c"
+#line 18951 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_18, mcrotaGuide_curved_19);
   rot_transpose(mcrotaGuide_curved_18, mctr1);
   rot_mul(mcrotaGuide_curved_19, mctr1, mcrotrGuide_curved_19);
   mctc1 = coords_set(
-#line 112 "H3-2_NeRo.instr"
+#line 111 "H3-2_NeRo.instr"
     0,
-#line 112 "H3-2_NeRo.instr"
+#line 111 "H3-2_NeRo.instr"
     0,
-#line 112 "H3-2_NeRo.instr"
+#line 111 "H3-2_NeRo.instr"
     0.5);
-#line 18957 "./H3-2_NeRo.c"
+#line 18962 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_18, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_19 = coords_add(mcposaGuide_curved_18, mctc2);
@@ -18968,21 +18973,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_20. */
   /* Setting parameters for component Guide_curved_20. */
   SIG_MESSAGE("Guide_curved_20 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_20_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_20_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_20_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_20_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_20_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_20_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_20_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_20_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_20_m = 1.0;
@@ -18992,13 +18997,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_20_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_20_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_20_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_20_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_20_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_20_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_20_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_20_nhslit = 1;
@@ -19036,28 +19041,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_20_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_20_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_20_reflect[0]='\0';
-#line 19039 "./H3-2_NeRo.c"
+#line 19044 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_20 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 117 "H3-2_NeRo.instr"
+#line 116 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 117 "H3-2_NeRo.instr"
+#line 116 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 117 "H3-2_NeRo.instr"
+#line 116 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19049 "./H3-2_NeRo.c"
+#line 19054 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_19, mcrotaGuide_curved_20);
   rot_transpose(mcrotaGuide_curved_19, mctr1);
   rot_mul(mcrotaGuide_curved_20, mctr1, mcrotrGuide_curved_20);
   mctc1 = coords_set(
-#line 116 "H3-2_NeRo.instr"
+#line 115 "H3-2_NeRo.instr"
     0,
-#line 116 "H3-2_NeRo.instr"
+#line 115 "H3-2_NeRo.instr"
     0,
-#line 116 "H3-2_NeRo.instr"
+#line 115 "H3-2_NeRo.instr"
     0.5);
-#line 19060 "./H3-2_NeRo.c"
+#line 19065 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_19, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_20 = coords_add(mcposaGuide_curved_19, mctc2);
@@ -19071,21 +19076,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_21. */
   /* Setting parameters for component Guide_curved_21. */
   SIG_MESSAGE("Guide_curved_21 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_21_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_21_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_21_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_21_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_21_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_21_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_21_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_21_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_21_m = 1.0;
@@ -19095,13 +19100,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_21_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_21_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_21_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_21_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_21_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_21_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_21_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_21_nhslit = 1;
@@ -19139,28 +19144,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_21_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_21_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_21_reflect[0]='\0';
-#line 19142 "./H3-2_NeRo.c"
+#line 19147 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_21 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 121 "H3-2_NeRo.instr"
+#line 120 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 121 "H3-2_NeRo.instr"
+#line 120 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 121 "H3-2_NeRo.instr"
+#line 120 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19152 "./H3-2_NeRo.c"
+#line 19157 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_20, mcrotaGuide_curved_21);
   rot_transpose(mcrotaGuide_curved_20, mctr1);
   rot_mul(mcrotaGuide_curved_21, mctr1, mcrotrGuide_curved_21);
   mctc1 = coords_set(
-#line 120 "H3-2_NeRo.instr"
+#line 119 "H3-2_NeRo.instr"
     0,
-#line 120 "H3-2_NeRo.instr"
+#line 119 "H3-2_NeRo.instr"
     0,
-#line 120 "H3-2_NeRo.instr"
+#line 119 "H3-2_NeRo.instr"
     0.5);
-#line 19163 "./H3-2_NeRo.c"
+#line 19168 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_20, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_21 = coords_add(mcposaGuide_curved_20, mctc2);
@@ -19174,21 +19179,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_22. */
   /* Setting parameters for component Guide_curved_22. */
   SIG_MESSAGE("Guide_curved_22 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_22_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_22_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_22_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_22_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_22_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_22_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_22_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_22_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_22_m = 1.0;
@@ -19198,13 +19203,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_22_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_22_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_22_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_22_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_22_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_22_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_22_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_22_nhslit = 1;
@@ -19242,28 +19247,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_22_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_22_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_22_reflect[0]='\0';
-#line 19245 "./H3-2_NeRo.c"
+#line 19250 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_22 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 125 "H3-2_NeRo.instr"
+#line 124 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 125 "H3-2_NeRo.instr"
+#line 124 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 125 "H3-2_NeRo.instr"
+#line 124 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19255 "./H3-2_NeRo.c"
+#line 19260 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_21, mcrotaGuide_curved_22);
   rot_transpose(mcrotaGuide_curved_21, mctr1);
   rot_mul(mcrotaGuide_curved_22, mctr1, mcrotrGuide_curved_22);
   mctc1 = coords_set(
-#line 124 "H3-2_NeRo.instr"
+#line 123 "H3-2_NeRo.instr"
     0,
-#line 124 "H3-2_NeRo.instr"
+#line 123 "H3-2_NeRo.instr"
     0,
-#line 124 "H3-2_NeRo.instr"
+#line 123 "H3-2_NeRo.instr"
     0.5);
-#line 19266 "./H3-2_NeRo.c"
+#line 19271 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_21, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_22 = coords_add(mcposaGuide_curved_21, mctc2);
@@ -19277,21 +19282,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_23. */
   /* Setting parameters for component Guide_curved_23. */
   SIG_MESSAGE("Guide_curved_23 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_23_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_23_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_23_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_23_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_23_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_23_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_23_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_23_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_23_m = 1.0;
@@ -19301,13 +19306,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_23_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_23_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_23_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_23_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_23_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_23_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_23_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_23_nhslit = 1;
@@ -19345,28 +19350,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_23_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_23_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_23_reflect[0]='\0';
-#line 19348 "./H3-2_NeRo.c"
+#line 19353 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_23 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 129 "H3-2_NeRo.instr"
+#line 128 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 129 "H3-2_NeRo.instr"
+#line 128 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 129 "H3-2_NeRo.instr"
+#line 128 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19358 "./H3-2_NeRo.c"
+#line 19363 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_22, mcrotaGuide_curved_23);
   rot_transpose(mcrotaGuide_curved_22, mctr1);
   rot_mul(mcrotaGuide_curved_23, mctr1, mcrotrGuide_curved_23);
   mctc1 = coords_set(
-#line 128 "H3-2_NeRo.instr"
+#line 127 "H3-2_NeRo.instr"
     0,
-#line 128 "H3-2_NeRo.instr"
+#line 127 "H3-2_NeRo.instr"
     0,
-#line 128 "H3-2_NeRo.instr"
+#line 127 "H3-2_NeRo.instr"
     0.5);
-#line 19369 "./H3-2_NeRo.c"
+#line 19374 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_22, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_23 = coords_add(mcposaGuide_curved_22, mctc2);
@@ -19380,21 +19385,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_24. */
   /* Setting parameters for component Guide_curved_24. */
   SIG_MESSAGE("Guide_curved_24 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_24_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_24_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_24_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_24_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_24_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_24_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_24_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_24_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_24_m = 1.0;
@@ -19404,13 +19409,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_24_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_24_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_24_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_24_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_24_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_24_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_24_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_24_nhslit = 1;
@@ -19448,28 +19453,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_24_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_24_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_24_reflect[0]='\0';
-#line 19451 "./H3-2_NeRo.c"
+#line 19456 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_24 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 133 "H3-2_NeRo.instr"
+#line 132 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 133 "H3-2_NeRo.instr"
+#line 132 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 133 "H3-2_NeRo.instr"
+#line 132 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19461 "./H3-2_NeRo.c"
+#line 19466 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_23, mcrotaGuide_curved_24);
   rot_transpose(mcrotaGuide_curved_23, mctr1);
   rot_mul(mcrotaGuide_curved_24, mctr1, mcrotrGuide_curved_24);
   mctc1 = coords_set(
-#line 132 "H3-2_NeRo.instr"
+#line 131 "H3-2_NeRo.instr"
     0,
-#line 132 "H3-2_NeRo.instr"
+#line 131 "H3-2_NeRo.instr"
     0,
-#line 132 "H3-2_NeRo.instr"
+#line 131 "H3-2_NeRo.instr"
     0.5);
-#line 19472 "./H3-2_NeRo.c"
+#line 19477 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_23, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_24 = coords_add(mcposaGuide_curved_23, mctc2);
@@ -19483,21 +19488,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_25. */
   /* Setting parameters for component Guide_curved_25. */
   SIG_MESSAGE("Guide_curved_25 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_25_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_25_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_25_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_25_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_25_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_25_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_25_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_25_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_25_m = 1.0;
@@ -19507,13 +19512,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_25_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_25_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_25_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_25_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_25_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_25_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_25_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_25_nhslit = 1;
@@ -19551,28 +19556,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_25_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_25_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_25_reflect[0]='\0';
-#line 19554 "./H3-2_NeRo.c"
+#line 19559 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_25 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 137 "H3-2_NeRo.instr"
+#line 136 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 137 "H3-2_NeRo.instr"
+#line 136 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 137 "H3-2_NeRo.instr"
+#line 136 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19564 "./H3-2_NeRo.c"
+#line 19569 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_24, mcrotaGuide_curved_25);
   rot_transpose(mcrotaGuide_curved_24, mctr1);
   rot_mul(mcrotaGuide_curved_25, mctr1, mcrotrGuide_curved_25);
   mctc1 = coords_set(
-#line 136 "H3-2_NeRo.instr"
+#line 135 "H3-2_NeRo.instr"
     0,
-#line 136 "H3-2_NeRo.instr"
+#line 135 "H3-2_NeRo.instr"
     0,
-#line 136 "H3-2_NeRo.instr"
+#line 135 "H3-2_NeRo.instr"
     0.5);
-#line 19575 "./H3-2_NeRo.c"
+#line 19580 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_24, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_25 = coords_add(mcposaGuide_curved_24, mctc2);
@@ -19586,21 +19591,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_26. */
   /* Setting parameters for component Guide_curved_26. */
   SIG_MESSAGE("Guide_curved_26 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_26_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_26_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_26_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_26_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_26_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_26_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_26_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_26_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_26_m = 1.0;
@@ -19610,13 +19615,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_26_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_26_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_26_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_26_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_26_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_26_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_26_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_26_nhslit = 1;
@@ -19654,28 +19659,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_26_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_26_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_26_reflect[0]='\0';
-#line 19657 "./H3-2_NeRo.c"
+#line 19662 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_26 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 141 "H3-2_NeRo.instr"
+#line 140 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 141 "H3-2_NeRo.instr"
+#line 140 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 141 "H3-2_NeRo.instr"
+#line 140 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19667 "./H3-2_NeRo.c"
+#line 19672 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_25, mcrotaGuide_curved_26);
   rot_transpose(mcrotaGuide_curved_25, mctr1);
   rot_mul(mcrotaGuide_curved_26, mctr1, mcrotrGuide_curved_26);
   mctc1 = coords_set(
-#line 140 "H3-2_NeRo.instr"
+#line 139 "H3-2_NeRo.instr"
     0,
-#line 140 "H3-2_NeRo.instr"
+#line 139 "H3-2_NeRo.instr"
     0,
-#line 140 "H3-2_NeRo.instr"
+#line 139 "H3-2_NeRo.instr"
     0.5);
-#line 19678 "./H3-2_NeRo.c"
+#line 19683 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_25, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_26 = coords_add(mcposaGuide_curved_25, mctc2);
@@ -19689,21 +19694,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_27. */
   /* Setting parameters for component Guide_curved_27. */
   SIG_MESSAGE("Guide_curved_27 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_27_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_27_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_27_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_27_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_27_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_27_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_27_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_27_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_27_m = 1.0;
@@ -19713,13 +19718,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_27_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_27_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_27_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_27_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_27_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_27_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_27_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_27_nhslit = 1;
@@ -19757,28 +19762,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_27_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_27_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_27_reflect[0]='\0';
-#line 19760 "./H3-2_NeRo.c"
+#line 19765 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_27 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 145 "H3-2_NeRo.instr"
+#line 144 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 145 "H3-2_NeRo.instr"
+#line 144 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 145 "H3-2_NeRo.instr"
+#line 144 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19770 "./H3-2_NeRo.c"
+#line 19775 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_26, mcrotaGuide_curved_27);
   rot_transpose(mcrotaGuide_curved_26, mctr1);
   rot_mul(mcrotaGuide_curved_27, mctr1, mcrotrGuide_curved_27);
   mctc1 = coords_set(
-#line 144 "H3-2_NeRo.instr"
+#line 143 "H3-2_NeRo.instr"
     0,
-#line 144 "H3-2_NeRo.instr"
+#line 143 "H3-2_NeRo.instr"
     0,
-#line 144 "H3-2_NeRo.instr"
+#line 143 "H3-2_NeRo.instr"
     0.5);
-#line 19781 "./H3-2_NeRo.c"
+#line 19786 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_26, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_27 = coords_add(mcposaGuide_curved_26, mctc2);
@@ -19792,21 +19797,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_28. */
   /* Setting parameters for component Guide_curved_28. */
   SIG_MESSAGE("Guide_curved_28 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_28_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_28_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_28_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_28_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_28_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_28_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_28_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_28_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_28_m = 1.0;
@@ -19816,13 +19821,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_28_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_28_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_28_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_28_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_28_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_28_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_28_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_28_nhslit = 1;
@@ -19860,28 +19865,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_28_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_28_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_28_reflect[0]='\0';
-#line 19863 "./H3-2_NeRo.c"
+#line 19868 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_28 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 149 "H3-2_NeRo.instr"
+#line 148 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 149 "H3-2_NeRo.instr"
+#line 148 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 149 "H3-2_NeRo.instr"
+#line 148 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19873 "./H3-2_NeRo.c"
+#line 19878 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_27, mcrotaGuide_curved_28);
   rot_transpose(mcrotaGuide_curved_27, mctr1);
   rot_mul(mcrotaGuide_curved_28, mctr1, mcrotrGuide_curved_28);
   mctc1 = coords_set(
-#line 148 "H3-2_NeRo.instr"
+#line 147 "H3-2_NeRo.instr"
     0,
-#line 148 "H3-2_NeRo.instr"
+#line 147 "H3-2_NeRo.instr"
     0,
-#line 148 "H3-2_NeRo.instr"
+#line 147 "H3-2_NeRo.instr"
     0.5);
-#line 19884 "./H3-2_NeRo.c"
+#line 19889 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_27, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_28 = coords_add(mcposaGuide_curved_27, mctc2);
@@ -19895,21 +19900,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_29. */
   /* Setting parameters for component Guide_curved_29. */
   SIG_MESSAGE("Guide_curved_29 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_29_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_29_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_29_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_29_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_29_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_29_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_29_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_29_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_29_m = 1.0;
@@ -19919,13 +19924,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_29_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_29_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_29_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_29_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_29_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_29_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_29_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_29_nhslit = 1;
@@ -19963,28 +19968,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_29_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_29_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_29_reflect[0]='\0';
-#line 19966 "./H3-2_NeRo.c"
+#line 19971 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_29 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 153 "H3-2_NeRo.instr"
+#line 152 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 153 "H3-2_NeRo.instr"
+#line 152 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 153 "H3-2_NeRo.instr"
+#line 152 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19976 "./H3-2_NeRo.c"
+#line 19981 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_28, mcrotaGuide_curved_29);
   rot_transpose(mcrotaGuide_curved_28, mctr1);
   rot_mul(mcrotaGuide_curved_29, mctr1, mcrotrGuide_curved_29);
   mctc1 = coords_set(
-#line 152 "H3-2_NeRo.instr"
+#line 151 "H3-2_NeRo.instr"
     0,
-#line 152 "H3-2_NeRo.instr"
+#line 151 "H3-2_NeRo.instr"
     0,
-#line 152 "H3-2_NeRo.instr"
+#line 151 "H3-2_NeRo.instr"
     0.5);
-#line 19987 "./H3-2_NeRo.c"
+#line 19992 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_28, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_29 = coords_add(mcposaGuide_curved_28, mctc2);
@@ -19998,21 +20003,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_30. */
   /* Setting parameters for component Guide_curved_30. */
   SIG_MESSAGE("Guide_curved_30 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_30_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_30_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_30_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_30_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_30_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_30_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_30_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_30_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_30_m = 1.0;
@@ -20022,13 +20027,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_30_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_30_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_30_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_30_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_30_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_30_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_30_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_30_nhslit = 1;
@@ -20066,28 +20071,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_30_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_30_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_30_reflect[0]='\0';
-#line 20069 "./H3-2_NeRo.c"
+#line 20074 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_30 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 157 "H3-2_NeRo.instr"
+#line 156 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 157 "H3-2_NeRo.instr"
+#line 156 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 157 "H3-2_NeRo.instr"
+#line 156 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20079 "./H3-2_NeRo.c"
+#line 20084 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_29, mcrotaGuide_curved_30);
   rot_transpose(mcrotaGuide_curved_29, mctr1);
   rot_mul(mcrotaGuide_curved_30, mctr1, mcrotrGuide_curved_30);
   mctc1 = coords_set(
-#line 156 "H3-2_NeRo.instr"
+#line 155 "H3-2_NeRo.instr"
     0,
-#line 156 "H3-2_NeRo.instr"
+#line 155 "H3-2_NeRo.instr"
     0,
-#line 156 "H3-2_NeRo.instr"
+#line 155 "H3-2_NeRo.instr"
     0.5);
-#line 20090 "./H3-2_NeRo.c"
+#line 20095 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_29, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_30 = coords_add(mcposaGuide_curved_29, mctc2);
@@ -20101,21 +20106,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_31. */
   /* Setting parameters for component Guide_curved_31. */
   SIG_MESSAGE("Guide_curved_31 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_31_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_31_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_31_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_31_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_31_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_31_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_31_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_31_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_31_m = 1.0;
@@ -20125,13 +20130,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_31_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_31_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_31_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_31_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_31_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_31_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_31_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_31_nhslit = 1;
@@ -20169,28 +20174,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_31_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_31_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_31_reflect[0]='\0';
-#line 20172 "./H3-2_NeRo.c"
+#line 20177 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_31 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 161 "H3-2_NeRo.instr"
+#line 160 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 161 "H3-2_NeRo.instr"
+#line 160 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 161 "H3-2_NeRo.instr"
+#line 160 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20182 "./H3-2_NeRo.c"
+#line 20187 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_30, mcrotaGuide_curved_31);
   rot_transpose(mcrotaGuide_curved_30, mctr1);
   rot_mul(mcrotaGuide_curved_31, mctr1, mcrotrGuide_curved_31);
   mctc1 = coords_set(
-#line 160 "H3-2_NeRo.instr"
+#line 159 "H3-2_NeRo.instr"
     0,
-#line 160 "H3-2_NeRo.instr"
+#line 159 "H3-2_NeRo.instr"
     0,
-#line 160 "H3-2_NeRo.instr"
+#line 159 "H3-2_NeRo.instr"
     0.5);
-#line 20193 "./H3-2_NeRo.c"
+#line 20198 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_30, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_31 = coords_add(mcposaGuide_curved_30, mctc2);
@@ -20204,21 +20209,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_32. */
   /* Setting parameters for component Guide_curved_32. */
   SIG_MESSAGE("Guide_curved_32 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_32_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_32_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_32_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_32_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_32_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_32_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_32_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_32_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_32_m = 1.0;
@@ -20228,13 +20233,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_32_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_32_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_32_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_32_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_32_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_32_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_32_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_32_nhslit = 1;
@@ -20272,28 +20277,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_32_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_32_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_32_reflect[0]='\0';
-#line 20275 "./H3-2_NeRo.c"
+#line 20280 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_32 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 165 "H3-2_NeRo.instr"
+#line 164 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 165 "H3-2_NeRo.instr"
+#line 164 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 165 "H3-2_NeRo.instr"
+#line 164 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20285 "./H3-2_NeRo.c"
+#line 20290 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_31, mcrotaGuide_curved_32);
   rot_transpose(mcrotaGuide_curved_31, mctr1);
   rot_mul(mcrotaGuide_curved_32, mctr1, mcrotrGuide_curved_32);
   mctc1 = coords_set(
-#line 164 "H3-2_NeRo.instr"
+#line 163 "H3-2_NeRo.instr"
     0,
-#line 164 "H3-2_NeRo.instr"
+#line 163 "H3-2_NeRo.instr"
     0,
-#line 164 "H3-2_NeRo.instr"
+#line 163 "H3-2_NeRo.instr"
     0.5);
-#line 20296 "./H3-2_NeRo.c"
+#line 20301 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_31, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_32 = coords_add(mcposaGuide_curved_31, mctc2);
@@ -20307,21 +20312,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_33. */
   /* Setting parameters for component Guide_curved_33. */
   SIG_MESSAGE("Guide_curved_33 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_33_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_33_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_33_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_33_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_33_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_33_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_33_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_33_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_33_m = 1.0;
@@ -20331,13 +20336,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_33_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_33_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_33_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_33_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_33_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_33_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_33_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_33_nhslit = 1;
@@ -20375,28 +20380,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_33_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_33_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_33_reflect[0]='\0';
-#line 20378 "./H3-2_NeRo.c"
+#line 20383 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_33 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 169 "H3-2_NeRo.instr"
+#line 168 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 169 "H3-2_NeRo.instr"
+#line 168 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 169 "H3-2_NeRo.instr"
+#line 168 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20388 "./H3-2_NeRo.c"
+#line 20393 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_32, mcrotaGuide_curved_33);
   rot_transpose(mcrotaGuide_curved_32, mctr1);
   rot_mul(mcrotaGuide_curved_33, mctr1, mcrotrGuide_curved_33);
   mctc1 = coords_set(
-#line 168 "H3-2_NeRo.instr"
+#line 167 "H3-2_NeRo.instr"
     0,
-#line 168 "H3-2_NeRo.instr"
+#line 167 "H3-2_NeRo.instr"
     0,
-#line 168 "H3-2_NeRo.instr"
+#line 167 "H3-2_NeRo.instr"
     0.5);
-#line 20399 "./H3-2_NeRo.c"
+#line 20404 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_32, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_33 = coords_add(mcposaGuide_curved_32, mctc2);
@@ -20410,21 +20415,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_34. */
   /* Setting parameters for component Guide_curved_34. */
   SIG_MESSAGE("Guide_curved_34 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_34_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_34_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_34_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_34_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_34_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_34_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_34_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_34_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_34_m = 1.0;
@@ -20434,13 +20439,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_34_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_34_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_34_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_34_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_34_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_34_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_34_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_34_nhslit = 1;
@@ -20478,28 +20483,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_34_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_34_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_34_reflect[0]='\0';
-#line 20481 "./H3-2_NeRo.c"
+#line 20486 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_34 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 173 "H3-2_NeRo.instr"
+#line 172 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 173 "H3-2_NeRo.instr"
+#line 172 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 173 "H3-2_NeRo.instr"
+#line 172 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20491 "./H3-2_NeRo.c"
+#line 20496 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_33, mcrotaGuide_curved_34);
   rot_transpose(mcrotaGuide_curved_33, mctr1);
   rot_mul(mcrotaGuide_curved_34, mctr1, mcrotrGuide_curved_34);
   mctc1 = coords_set(
-#line 172 "H3-2_NeRo.instr"
+#line 171 "H3-2_NeRo.instr"
     0,
-#line 172 "H3-2_NeRo.instr"
+#line 171 "H3-2_NeRo.instr"
     0,
-#line 172 "H3-2_NeRo.instr"
+#line 171 "H3-2_NeRo.instr"
     0.5);
-#line 20502 "./H3-2_NeRo.c"
+#line 20507 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_33, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_34 = coords_add(mcposaGuide_curved_33, mctc2);
@@ -20513,21 +20518,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_35. */
   /* Setting parameters for component Guide_curved_35. */
   SIG_MESSAGE("Guide_curved_35 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_35_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_35_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_35_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_35_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_35_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_35_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_35_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_35_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_35_m = 1.0;
@@ -20537,13 +20542,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_35_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_35_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_35_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_35_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_35_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_35_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_35_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_35_nhslit = 1;
@@ -20581,28 +20586,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_35_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_35_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_35_reflect[0]='\0';
-#line 20584 "./H3-2_NeRo.c"
+#line 20589 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_35 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 177 "H3-2_NeRo.instr"
+#line 176 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 177 "H3-2_NeRo.instr"
+#line 176 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 177 "H3-2_NeRo.instr"
+#line 176 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20594 "./H3-2_NeRo.c"
+#line 20599 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_34, mcrotaGuide_curved_35);
   rot_transpose(mcrotaGuide_curved_34, mctr1);
   rot_mul(mcrotaGuide_curved_35, mctr1, mcrotrGuide_curved_35);
   mctc1 = coords_set(
-#line 176 "H3-2_NeRo.instr"
+#line 175 "H3-2_NeRo.instr"
     0,
-#line 176 "H3-2_NeRo.instr"
+#line 175 "H3-2_NeRo.instr"
     0,
-#line 176 "H3-2_NeRo.instr"
+#line 175 "H3-2_NeRo.instr"
     0.5);
-#line 20605 "./H3-2_NeRo.c"
+#line 20610 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_34, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_35 = coords_add(mcposaGuide_curved_34, mctc2);
@@ -20616,21 +20621,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_36. */
   /* Setting parameters for component Guide_curved_36. */
   SIG_MESSAGE("Guide_curved_36 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_36_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_36_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_36_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_36_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_36_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_36_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_36_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_36_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_36_m = 1.0;
@@ -20640,13 +20645,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_36_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_36_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_36_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_36_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_36_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_36_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_36_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_36_nhslit = 1;
@@ -20684,28 +20689,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_36_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_36_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_36_reflect[0]='\0';
-#line 20687 "./H3-2_NeRo.c"
+#line 20692 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_36 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 181 "H3-2_NeRo.instr"
+#line 180 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 181 "H3-2_NeRo.instr"
+#line 180 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 181 "H3-2_NeRo.instr"
+#line 180 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20697 "./H3-2_NeRo.c"
+#line 20702 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_35, mcrotaGuide_curved_36);
   rot_transpose(mcrotaGuide_curved_35, mctr1);
   rot_mul(mcrotaGuide_curved_36, mctr1, mcrotrGuide_curved_36);
   mctc1 = coords_set(
-#line 180 "H3-2_NeRo.instr"
+#line 179 "H3-2_NeRo.instr"
     0,
-#line 180 "H3-2_NeRo.instr"
+#line 179 "H3-2_NeRo.instr"
     0,
-#line 180 "H3-2_NeRo.instr"
+#line 179 "H3-2_NeRo.instr"
     0.5);
-#line 20708 "./H3-2_NeRo.c"
+#line 20713 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_35, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_36 = coords_add(mcposaGuide_curved_35, mctc2);
@@ -20719,21 +20724,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_37. */
   /* Setting parameters for component Guide_curved_37. */
   SIG_MESSAGE("Guide_curved_37 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_37_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_37_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_37_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_37_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_37_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_37_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_37_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_37_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_37_m = 1.0;
@@ -20743,13 +20748,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_37_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_37_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_37_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_37_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_37_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_37_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_37_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_37_nhslit = 1;
@@ -20787,28 +20792,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_37_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_37_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_37_reflect[0]='\0';
-#line 20790 "./H3-2_NeRo.c"
+#line 20795 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_37 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 185 "H3-2_NeRo.instr"
+#line 184 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 185 "H3-2_NeRo.instr"
+#line 184 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 185 "H3-2_NeRo.instr"
+#line 184 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20800 "./H3-2_NeRo.c"
+#line 20805 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_36, mcrotaGuide_curved_37);
   rot_transpose(mcrotaGuide_curved_36, mctr1);
   rot_mul(mcrotaGuide_curved_37, mctr1, mcrotrGuide_curved_37);
   mctc1 = coords_set(
-#line 184 "H3-2_NeRo.instr"
+#line 183 "H3-2_NeRo.instr"
     0,
-#line 184 "H3-2_NeRo.instr"
+#line 183 "H3-2_NeRo.instr"
     0,
-#line 184 "H3-2_NeRo.instr"
+#line 183 "H3-2_NeRo.instr"
     0.5);
-#line 20811 "./H3-2_NeRo.c"
+#line 20816 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_36, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_37 = coords_add(mcposaGuide_curved_36, mctc2);
@@ -20822,21 +20827,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_38. */
   /* Setting parameters for component Guide_curved_38. */
   SIG_MESSAGE("Guide_curved_38 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_38_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_38_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_38_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_38_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_38_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_38_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_38_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_38_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_38_m = 1.0;
@@ -20846,13 +20851,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_38_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_38_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_38_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_38_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_38_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_38_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_38_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_38_nhslit = 1;
@@ -20890,28 +20895,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_38_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_38_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_38_reflect[0]='\0';
-#line 20893 "./H3-2_NeRo.c"
+#line 20898 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_38 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 189 "H3-2_NeRo.instr"
+#line 188 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 189 "H3-2_NeRo.instr"
+#line 188 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 189 "H3-2_NeRo.instr"
+#line 188 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20903 "./H3-2_NeRo.c"
+#line 20908 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_37, mcrotaGuide_curved_38);
   rot_transpose(mcrotaGuide_curved_37, mctr1);
   rot_mul(mcrotaGuide_curved_38, mctr1, mcrotrGuide_curved_38);
   mctc1 = coords_set(
-#line 188 "H3-2_NeRo.instr"
+#line 187 "H3-2_NeRo.instr"
     0,
-#line 188 "H3-2_NeRo.instr"
+#line 187 "H3-2_NeRo.instr"
     0,
-#line 188 "H3-2_NeRo.instr"
+#line 187 "H3-2_NeRo.instr"
     0.5);
-#line 20914 "./H3-2_NeRo.c"
+#line 20919 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_37, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_38 = coords_add(mcposaGuide_curved_37, mctc2);
@@ -20925,21 +20930,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_39. */
   /* Setting parameters for component Guide_curved_39. */
   SIG_MESSAGE("Guide_curved_39 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_39_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_39_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_39_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_39_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_39_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_39_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_39_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_39_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_39_m = 1.0;
@@ -20949,13 +20954,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_39_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_39_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_39_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_39_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_39_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_39_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_39_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_39_nhslit = 1;
@@ -20993,28 +20998,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_39_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_39_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_39_reflect[0]='\0';
-#line 20996 "./H3-2_NeRo.c"
+#line 21001 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_39 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 193 "H3-2_NeRo.instr"
+#line 192 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 193 "H3-2_NeRo.instr"
+#line 192 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 193 "H3-2_NeRo.instr"
+#line 192 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21006 "./H3-2_NeRo.c"
+#line 21011 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_38, mcrotaGuide_curved_39);
   rot_transpose(mcrotaGuide_curved_38, mctr1);
   rot_mul(mcrotaGuide_curved_39, mctr1, mcrotrGuide_curved_39);
   mctc1 = coords_set(
-#line 192 "H3-2_NeRo.instr"
+#line 191 "H3-2_NeRo.instr"
     0,
-#line 192 "H3-2_NeRo.instr"
+#line 191 "H3-2_NeRo.instr"
     0,
-#line 192 "H3-2_NeRo.instr"
+#line 191 "H3-2_NeRo.instr"
     0.5);
-#line 21017 "./H3-2_NeRo.c"
+#line 21022 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_38, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_39 = coords_add(mcposaGuide_curved_38, mctc2);
@@ -21028,21 +21033,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_40. */
   /* Setting parameters for component Guide_curved_40. */
   SIG_MESSAGE("Guide_curved_40 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_40_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_40_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_40_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_40_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_40_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_40_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_40_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_40_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_40_m = 1.0;
@@ -21052,13 +21057,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_40_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_40_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_40_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_40_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_40_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_40_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_40_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_40_nhslit = 1;
@@ -21096,28 +21101,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_40_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_40_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_40_reflect[0]='\0';
-#line 21099 "./H3-2_NeRo.c"
+#line 21104 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_40 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 197 "H3-2_NeRo.instr"
+#line 196 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 197 "H3-2_NeRo.instr"
+#line 196 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 197 "H3-2_NeRo.instr"
+#line 196 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21109 "./H3-2_NeRo.c"
+#line 21114 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_39, mcrotaGuide_curved_40);
   rot_transpose(mcrotaGuide_curved_39, mctr1);
   rot_mul(mcrotaGuide_curved_40, mctr1, mcrotrGuide_curved_40);
   mctc1 = coords_set(
-#line 196 "H3-2_NeRo.instr"
+#line 195 "H3-2_NeRo.instr"
     0,
-#line 196 "H3-2_NeRo.instr"
+#line 195 "H3-2_NeRo.instr"
     0,
-#line 196 "H3-2_NeRo.instr"
+#line 195 "H3-2_NeRo.instr"
     0.5);
-#line 21120 "./H3-2_NeRo.c"
+#line 21125 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_39, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_40 = coords_add(mcposaGuide_curved_39, mctc2);
@@ -21131,21 +21136,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_41. */
   /* Setting parameters for component Guide_curved_41. */
   SIG_MESSAGE("Guide_curved_41 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_41_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_41_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_41_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_41_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_41_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_41_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_41_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_41_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_41_m = 1.0;
@@ -21155,13 +21160,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_41_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_41_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_41_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_41_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_41_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_41_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_41_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_41_nhslit = 1;
@@ -21199,28 +21204,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_41_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_41_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_41_reflect[0]='\0';
-#line 21202 "./H3-2_NeRo.c"
+#line 21207 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_41 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 201 "H3-2_NeRo.instr"
+#line 200 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 201 "H3-2_NeRo.instr"
+#line 200 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 201 "H3-2_NeRo.instr"
+#line 200 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21212 "./H3-2_NeRo.c"
+#line 21217 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_40, mcrotaGuide_curved_41);
   rot_transpose(mcrotaGuide_curved_40, mctr1);
   rot_mul(mcrotaGuide_curved_41, mctr1, mcrotrGuide_curved_41);
   mctc1 = coords_set(
-#line 200 "H3-2_NeRo.instr"
+#line 199 "H3-2_NeRo.instr"
     0,
-#line 200 "H3-2_NeRo.instr"
+#line 199 "H3-2_NeRo.instr"
     0,
-#line 200 "H3-2_NeRo.instr"
+#line 199 "H3-2_NeRo.instr"
     0.5);
-#line 21223 "./H3-2_NeRo.c"
+#line 21228 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_40, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_41 = coords_add(mcposaGuide_curved_40, mctc2);
@@ -21234,21 +21239,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_42. */
   /* Setting parameters for component Guide_curved_42. */
   SIG_MESSAGE("Guide_curved_42 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_42_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_42_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_42_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_42_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_42_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_42_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_42_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_42_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_42_m = 1.0;
@@ -21258,13 +21263,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_42_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_42_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_42_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_42_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_42_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_42_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_42_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_42_nhslit = 1;
@@ -21302,28 +21307,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_42_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_42_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_42_reflect[0]='\0';
-#line 21305 "./H3-2_NeRo.c"
+#line 21310 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_42 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 205 "H3-2_NeRo.instr"
+#line 204 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 205 "H3-2_NeRo.instr"
+#line 204 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 205 "H3-2_NeRo.instr"
+#line 204 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21315 "./H3-2_NeRo.c"
+#line 21320 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_41, mcrotaGuide_curved_42);
   rot_transpose(mcrotaGuide_curved_41, mctr1);
   rot_mul(mcrotaGuide_curved_42, mctr1, mcrotrGuide_curved_42);
   mctc1 = coords_set(
-#line 204 "H3-2_NeRo.instr"
+#line 203 "H3-2_NeRo.instr"
     0,
-#line 204 "H3-2_NeRo.instr"
+#line 203 "H3-2_NeRo.instr"
     0,
-#line 204 "H3-2_NeRo.instr"
+#line 203 "H3-2_NeRo.instr"
     0.5);
-#line 21326 "./H3-2_NeRo.c"
+#line 21331 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_41, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_42 = coords_add(mcposaGuide_curved_41, mctc2);
@@ -21337,21 +21342,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_43. */
   /* Setting parameters for component Guide_curved_43. */
   SIG_MESSAGE("Guide_curved_43 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_43_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_43_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_43_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_43_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_43_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_43_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_43_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_43_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_43_m = 1.0;
@@ -21361,13 +21366,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_43_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_43_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_43_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_43_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_43_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_43_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_43_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_43_nhslit = 1;
@@ -21405,28 +21410,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_43_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_43_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_43_reflect[0]='\0';
-#line 21408 "./H3-2_NeRo.c"
+#line 21413 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_43 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 209 "H3-2_NeRo.instr"
+#line 208 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 209 "H3-2_NeRo.instr"
+#line 208 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 209 "H3-2_NeRo.instr"
+#line 208 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21418 "./H3-2_NeRo.c"
+#line 21423 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_42, mcrotaGuide_curved_43);
   rot_transpose(mcrotaGuide_curved_42, mctr1);
   rot_mul(mcrotaGuide_curved_43, mctr1, mcrotrGuide_curved_43);
   mctc1 = coords_set(
-#line 208 "H3-2_NeRo.instr"
+#line 207 "H3-2_NeRo.instr"
     0,
-#line 208 "H3-2_NeRo.instr"
+#line 207 "H3-2_NeRo.instr"
     0,
-#line 208 "H3-2_NeRo.instr"
+#line 207 "H3-2_NeRo.instr"
     0.5);
-#line 21429 "./H3-2_NeRo.c"
+#line 21434 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_42, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_43 = coords_add(mcposaGuide_curved_42, mctc2);
@@ -21440,21 +21445,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_44. */
   /* Setting parameters for component Guide_curved_44. */
   SIG_MESSAGE("Guide_curved_44 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_44_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_44_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_44_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_44_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_44_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_44_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_44_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_44_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_44_m = 1.0;
@@ -21464,13 +21469,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_44_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_44_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_44_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_44_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_44_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_44_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_44_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_44_nhslit = 1;
@@ -21508,28 +21513,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_44_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_44_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_44_reflect[0]='\0';
-#line 21511 "./H3-2_NeRo.c"
+#line 21516 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_44 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 213 "H3-2_NeRo.instr"
+#line 212 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 213 "H3-2_NeRo.instr"
+#line 212 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 213 "H3-2_NeRo.instr"
+#line 212 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21521 "./H3-2_NeRo.c"
+#line 21526 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_43, mcrotaGuide_curved_44);
   rot_transpose(mcrotaGuide_curved_43, mctr1);
   rot_mul(mcrotaGuide_curved_44, mctr1, mcrotrGuide_curved_44);
   mctc1 = coords_set(
-#line 212 "H3-2_NeRo.instr"
+#line 211 "H3-2_NeRo.instr"
     0,
-#line 212 "H3-2_NeRo.instr"
+#line 211 "H3-2_NeRo.instr"
     0,
-#line 212 "H3-2_NeRo.instr"
+#line 211 "H3-2_NeRo.instr"
     0.5);
-#line 21532 "./H3-2_NeRo.c"
+#line 21537 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_43, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_44 = coords_add(mcposaGuide_curved_43, mctc2);
@@ -21543,21 +21548,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_45. */
   /* Setting parameters for component Guide_curved_45. */
   SIG_MESSAGE("Guide_curved_45 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_45_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_45_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_45_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_45_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_45_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_45_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_45_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_45_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_45_m = 1.0;
@@ -21567,13 +21572,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_45_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_45_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_45_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_45_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_45_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_45_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_45_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_45_nhslit = 1;
@@ -21611,28 +21616,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_45_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_45_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_45_reflect[0]='\0';
-#line 21614 "./H3-2_NeRo.c"
+#line 21619 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_45 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 217 "H3-2_NeRo.instr"
+#line 216 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 217 "H3-2_NeRo.instr"
+#line 216 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 217 "H3-2_NeRo.instr"
+#line 216 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21624 "./H3-2_NeRo.c"
+#line 21629 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_44, mcrotaGuide_curved_45);
   rot_transpose(mcrotaGuide_curved_44, mctr1);
   rot_mul(mcrotaGuide_curved_45, mctr1, mcrotrGuide_curved_45);
   mctc1 = coords_set(
-#line 216 "H3-2_NeRo.instr"
+#line 215 "H3-2_NeRo.instr"
     0,
-#line 216 "H3-2_NeRo.instr"
+#line 215 "H3-2_NeRo.instr"
     0,
-#line 216 "H3-2_NeRo.instr"
+#line 215 "H3-2_NeRo.instr"
     0.5);
-#line 21635 "./H3-2_NeRo.c"
+#line 21640 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_44, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_45 = coords_add(mcposaGuide_curved_44, mctc2);
@@ -21646,21 +21651,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_46. */
   /* Setting parameters for component Guide_curved_46. */
   SIG_MESSAGE("Guide_curved_46 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_46_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_46_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_46_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_46_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_46_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_46_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_46_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_46_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_46_m = 1.0;
@@ -21670,13 +21675,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_46_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_46_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_46_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_46_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_46_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_46_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_46_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_46_nhslit = 1;
@@ -21714,28 +21719,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_46_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_46_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_46_reflect[0]='\0';
-#line 21717 "./H3-2_NeRo.c"
+#line 21722 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_46 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 221 "H3-2_NeRo.instr"
+#line 220 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 221 "H3-2_NeRo.instr"
+#line 220 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 221 "H3-2_NeRo.instr"
+#line 220 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21727 "./H3-2_NeRo.c"
+#line 21732 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_45, mcrotaGuide_curved_46);
   rot_transpose(mcrotaGuide_curved_45, mctr1);
   rot_mul(mcrotaGuide_curved_46, mctr1, mcrotrGuide_curved_46);
   mctc1 = coords_set(
-#line 220 "H3-2_NeRo.instr"
+#line 219 "H3-2_NeRo.instr"
     0,
-#line 220 "H3-2_NeRo.instr"
+#line 219 "H3-2_NeRo.instr"
     0,
-#line 220 "H3-2_NeRo.instr"
+#line 219 "H3-2_NeRo.instr"
     0.5);
-#line 21738 "./H3-2_NeRo.c"
+#line 21743 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_45, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_46 = coords_add(mcposaGuide_curved_45, mctc2);
@@ -21749,21 +21754,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_47. */
   /* Setting parameters for component Guide_curved_47. */
   SIG_MESSAGE("Guide_curved_47 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_47_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_47_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_47_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_47_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_47_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_47_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_47_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_47_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_47_m = 1.0;
@@ -21773,13 +21778,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_47_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_47_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_47_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_47_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_47_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_47_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_47_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_47_nhslit = 1;
@@ -21817,28 +21822,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_47_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_47_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_47_reflect[0]='\0';
-#line 21820 "./H3-2_NeRo.c"
+#line 21825 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_47 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 225 "H3-2_NeRo.instr"
+#line 224 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 225 "H3-2_NeRo.instr"
+#line 224 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 225 "H3-2_NeRo.instr"
+#line 224 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21830 "./H3-2_NeRo.c"
+#line 21835 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_46, mcrotaGuide_curved_47);
   rot_transpose(mcrotaGuide_curved_46, mctr1);
   rot_mul(mcrotaGuide_curved_47, mctr1, mcrotrGuide_curved_47);
   mctc1 = coords_set(
-#line 224 "H3-2_NeRo.instr"
+#line 223 "H3-2_NeRo.instr"
     0,
-#line 224 "H3-2_NeRo.instr"
+#line 223 "H3-2_NeRo.instr"
     0,
-#line 224 "H3-2_NeRo.instr"
+#line 223 "H3-2_NeRo.instr"
     0.5);
-#line 21841 "./H3-2_NeRo.c"
+#line 21846 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_46, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_47 = coords_add(mcposaGuide_curved_46, mctc2);
@@ -21852,21 +21857,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_48. */
   /* Setting parameters for component Guide_curved_48. */
   SIG_MESSAGE("Guide_curved_48 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_48_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_48_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_48_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_48_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_48_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_48_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_48_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_48_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_48_m = 1.0;
@@ -21876,13 +21881,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_48_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_48_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_48_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_48_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_48_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_48_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_48_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_48_nhslit = 1;
@@ -21920,28 +21925,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_48_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_48_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_48_reflect[0]='\0';
-#line 21923 "./H3-2_NeRo.c"
+#line 21928 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_48 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 229 "H3-2_NeRo.instr"
+#line 228 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 229 "H3-2_NeRo.instr"
+#line 228 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 229 "H3-2_NeRo.instr"
+#line 228 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21933 "./H3-2_NeRo.c"
+#line 21938 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_47, mcrotaGuide_curved_48);
   rot_transpose(mcrotaGuide_curved_47, mctr1);
   rot_mul(mcrotaGuide_curved_48, mctr1, mcrotrGuide_curved_48);
   mctc1 = coords_set(
-#line 228 "H3-2_NeRo.instr"
+#line 227 "H3-2_NeRo.instr"
     0,
-#line 228 "H3-2_NeRo.instr"
+#line 227 "H3-2_NeRo.instr"
     0,
-#line 228 "H3-2_NeRo.instr"
+#line 227 "H3-2_NeRo.instr"
     0.5);
-#line 21944 "./H3-2_NeRo.c"
+#line 21949 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_47, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_48 = coords_add(mcposaGuide_curved_47, mctc2);
@@ -21955,21 +21960,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_49. */
   /* Setting parameters for component Guide_curved_49. */
   SIG_MESSAGE("Guide_curved_49 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_49_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_49_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_49_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_49_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_49_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_49_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_49_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_49_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_49_m = 1.0;
@@ -21979,13 +21984,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_49_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_49_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_49_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_49_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_49_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_49_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_49_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_49_nhslit = 1;
@@ -22023,28 +22028,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_49_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_49_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_49_reflect[0]='\0';
-#line 22026 "./H3-2_NeRo.c"
+#line 22031 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_49 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 233 "H3-2_NeRo.instr"
+#line 232 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 233 "H3-2_NeRo.instr"
+#line 232 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 233 "H3-2_NeRo.instr"
+#line 232 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 22036 "./H3-2_NeRo.c"
+#line 22041 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_48, mcrotaGuide_curved_49);
   rot_transpose(mcrotaGuide_curved_48, mctr1);
   rot_mul(mcrotaGuide_curved_49, mctr1, mcrotrGuide_curved_49);
   mctc1 = coords_set(
-#line 232 "H3-2_NeRo.instr"
+#line 231 "H3-2_NeRo.instr"
     0,
-#line 232 "H3-2_NeRo.instr"
+#line 231 "H3-2_NeRo.instr"
     0,
-#line 232 "H3-2_NeRo.instr"
+#line 231 "H3-2_NeRo.instr"
     0.5);
-#line 22047 "./H3-2_NeRo.c"
+#line 22052 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_48, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_49 = coords_add(mcposaGuide_curved_48, mctc2);
@@ -22058,21 +22063,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_50. */
   /* Setting parameters for component Guide_curved_50. */
   SIG_MESSAGE("Guide_curved_50 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_50_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_50_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_50_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_50_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_50_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_50_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_50_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_50_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_50_m = 1.0;
@@ -22082,13 +22087,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_50_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_50_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_50_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_50_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_50_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_50_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_50_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_50_nhslit = 1;
@@ -22126,28 +22131,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_50_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_50_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_50_reflect[0]='\0';
-#line 22129 "./H3-2_NeRo.c"
+#line 22134 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_50 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 237 "H3-2_NeRo.instr"
+#line 236 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 237 "H3-2_NeRo.instr"
+#line 236 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 237 "H3-2_NeRo.instr"
+#line 236 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 22139 "./H3-2_NeRo.c"
+#line 22144 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_49, mcrotaGuide_curved_50);
   rot_transpose(mcrotaGuide_curved_49, mctr1);
   rot_mul(mcrotaGuide_curved_50, mctr1, mcrotrGuide_curved_50);
   mctc1 = coords_set(
-#line 236 "H3-2_NeRo.instr"
+#line 235 "H3-2_NeRo.instr"
     0,
-#line 236 "H3-2_NeRo.instr"
+#line 235 "H3-2_NeRo.instr"
     0,
-#line 236 "H3-2_NeRo.instr"
+#line 235 "H3-2_NeRo.instr"
     0.5);
-#line 22150 "./H3-2_NeRo.c"
+#line 22155 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_49, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_50 = coords_add(mcposaGuide_curved_49, mctc2);
@@ -22161,21 +22166,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_51. */
   /* Setting parameters for component Guide_curved_51. */
   SIG_MESSAGE("Guide_curved_51 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_51_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_51_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_51_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_51_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_51_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_51_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_51_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_51_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_51_m = 1.0;
@@ -22185,13 +22190,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_51_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_51_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_51_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_51_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_51_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_51_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_51_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_51_nhslit = 1;
@@ -22229,28 +22234,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_51_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_51_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_51_reflect[0]='\0';
-#line 22232 "./H3-2_NeRo.c"
+#line 22237 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_51 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 241 "H3-2_NeRo.instr"
+#line 240 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 241 "H3-2_NeRo.instr"
+#line 240 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 241 "H3-2_NeRo.instr"
+#line 240 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 22242 "./H3-2_NeRo.c"
+#line 22247 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_50, mcrotaGuide_curved_51);
   rot_transpose(mcrotaGuide_curved_50, mctr1);
   rot_mul(mcrotaGuide_curved_51, mctr1, mcrotrGuide_curved_51);
   mctc1 = coords_set(
-#line 240 "H3-2_NeRo.instr"
+#line 239 "H3-2_NeRo.instr"
     0,
-#line 240 "H3-2_NeRo.instr"
+#line 239 "H3-2_NeRo.instr"
     0,
-#line 240 "H3-2_NeRo.instr"
+#line 239 "H3-2_NeRo.instr"
     0.5);
-#line 22253 "./H3-2_NeRo.c"
+#line 22258 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_50, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_51 = coords_add(mcposaGuide_curved_50, mctc2);
@@ -22264,21 +22269,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_52. */
   /* Setting parameters for component Guide_curved_52. */
   SIG_MESSAGE("Guide_curved_52 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_52_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_52_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_52_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_52_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_52_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_52_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_52_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_52_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_52_m = 1.0;
@@ -22288,13 +22293,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_52_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_52_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_52_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_52_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_52_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_52_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_52_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_52_nhslit = 1;
@@ -22332,28 +22337,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_52_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_52_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_52_reflect[0]='\0';
-#line 22335 "./H3-2_NeRo.c"
+#line 22340 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_52 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 245 "H3-2_NeRo.instr"
+#line 244 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 245 "H3-2_NeRo.instr"
+#line 244 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 245 "H3-2_NeRo.instr"
+#line 244 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 22345 "./H3-2_NeRo.c"
+#line 22350 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_51, mcrotaGuide_curved_52);
   rot_transpose(mcrotaGuide_curved_51, mctr1);
   rot_mul(mcrotaGuide_curved_52, mctr1, mcrotrGuide_curved_52);
   mctc1 = coords_set(
-#line 244 "H3-2_NeRo.instr"
+#line 243 "H3-2_NeRo.instr"
     0,
-#line 244 "H3-2_NeRo.instr"
+#line 243 "H3-2_NeRo.instr"
     0,
-#line 244 "H3-2_NeRo.instr"
+#line 243 "H3-2_NeRo.instr"
     0.5);
-#line 22356 "./H3-2_NeRo.c"
+#line 22361 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_51, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_52 = coords_add(mcposaGuide_curved_51, mctc2);
@@ -22367,21 +22372,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_curved_53. */
   /* Setting parameters for component Guide_curved_53. */
   SIG_MESSAGE("Guide_curved_53 (Init:SetPar)");
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_53_w1 = mcipguide_start_width;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_53_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_53_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_curved_53_h2 = 0;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_53_l = 0.5;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_53_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_53_Qc = 0.0218;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_53_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_53_m = 1.0;
@@ -22391,13 +22396,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_53_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_curved_53_d = 0.0005;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_53_mleft = m;
-#line 55 "H3-2_NeRo.instr"
-  mccGuide_curved_53_mright = m_out;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
+  mccGuide_curved_53_mright = mcipm_out;
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_53_mtop = m;
-#line 55 "H3-2_NeRo.instr"
+#line 54 "H3-2_NeRo.instr"
   mccGuide_curved_53_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_curved_53_nhslit = 1;
@@ -22435,28 +22440,28 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_53_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_53_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_53_reflect[0]='\0';
-#line 22438 "./H3-2_NeRo.c"
+#line 22443 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_53 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
-#line 249 "H3-2_NeRo.instr"
+#line 248 "H3-2_NeRo.instr"
     (0)*DEG2RAD,
-#line 249 "H3-2_NeRo.instr"
+#line 248 "H3-2_NeRo.instr"
     (rot)*DEG2RAD,
-#line 249 "H3-2_NeRo.instr"
+#line 248 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 22448 "./H3-2_NeRo.c"
+#line 22453 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_52, mcrotaGuide_curved_53);
   rot_transpose(mcrotaGuide_curved_52, mctr1);
   rot_mul(mcrotaGuide_curved_53, mctr1, mcrotrGuide_curved_53);
   mctc1 = coords_set(
-#line 248 "H3-2_NeRo.instr"
+#line 247 "H3-2_NeRo.instr"
     0,
-#line 248 "H3-2_NeRo.instr"
+#line 247 "H3-2_NeRo.instr"
     0,
-#line 248 "H3-2_NeRo.instr"
+#line 247 "H3-2_NeRo.instr"
     0.5);
-#line 22459 "./H3-2_NeRo.c"
+#line 22464 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_52, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_53 = coords_add(mcposaGuide_curved_52, mctc2);
@@ -22470,21 +22475,21 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Guide_straight. */
   /* Setting parameters for component Guide_straight. */
   SIG_MESSAGE("Guide_straight (Init:SetPar)");
-#line 252 "H3-2_NeRo.instr"
+#line 251 "H3-2_NeRo.instr"
   mccGuide_straight_w1 = mcipguide_start_width;
-#line 252 "H3-2_NeRo.instr"
+#line 251 "H3-2_NeRo.instr"
   mccGuide_straight_h1 = mcipguide_start_height;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_straight_w2 = 0;
 #line 113 "H3-2_NeRo.instr"
   mccGuide_straight_h2 = 0;
-#line 252 "H3-2_NeRo.instr"
+#line 251 "H3-2_NeRo.instr"
   mccGuide_straight_l = 2;
-#line 252 "H3-2_NeRo.instr"
+#line 251 "H3-2_NeRo.instr"
   mccGuide_straight_R0 = R0;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_straight_Qc = 0.0218;
-#line 252 "H3-2_NeRo.instr"
+#line 251 "H3-2_NeRo.instr"
   mccGuide_straight_alpha = alpha;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_straight_m = 1.0;
@@ -22494,13 +22499,13 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_straight_nslit = 1;
 #line 114 "H3-2_NeRo.instr"
   mccGuide_straight_d = 0.0005;
-#line 252 "H3-2_NeRo.instr"
+#line 251 "H3-2_NeRo.instr"
   mccGuide_straight_mleft = m;
-#line 252 "H3-2_NeRo.instr"
+#line 251 "H3-2_NeRo.instr"
   mccGuide_straight_mright = m;
-#line 252 "H3-2_NeRo.instr"
+#line 251 "H3-2_NeRo.instr"
   mccGuide_straight_mtop = m;
-#line 252 "H3-2_NeRo.instr"
+#line 251 "H3-2_NeRo.instr"
   mccGuide_straight_mbottom = m;
 #line 115 "H3-2_NeRo.instr"
   mccGuide_straight_nhslit = 1;
@@ -22538,25 +22543,25 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_straight_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_straight_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_straight_reflect[0]='\0';
-#line 22541 "./H3-2_NeRo.c"
+#line 22546 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_straight (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22548 "./H3-2_NeRo.c"
+#line 22553 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_53, mcrotaGuide_straight);
   rot_transpose(mcrotaGuide_curved_53, mctr1);
   rot_mul(mcrotaGuide_straight, mctr1, mcrotrGuide_straight);
   mctc1 = coords_set(
-#line 253 "H3-2_NeRo.instr"
+#line 252 "H3-2_NeRo.instr"
     0,
-#line 253 "H3-2_NeRo.instr"
+#line 252 "H3-2_NeRo.instr"
     0,
-#line 253 "H3-2_NeRo.instr"
+#line 252 "H3-2_NeRo.instr"
     0.5);
-#line 22559 "./H3-2_NeRo.c"
+#line 22564 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_53, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_straight = coords_add(mcposaGuide_curved_53, mctc2);
@@ -22570,9 +22575,9 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Monlam. */
   /* Setting parameters for component Monlam. */
   SIG_MESSAGE("Monlam (Init:SetPar)");
-#line 256 "H3-2_NeRo.instr"
+#line 255 "H3-2_NeRo.instr"
   mccMonlam_xwidth = 0.04;
-#line 256 "H3-2_NeRo.instr"
+#line 255 "H3-2_NeRo.instr"
   mccMonlam_yheight = 0.21;
 #line 201 "H3-2_NeRo.instr"
   mccMonlam_zdepth = 0;
@@ -22598,9 +22603,9 @@ rot = 0.5/R_curv*RAD2DEG;
   mccMonlam_restore_neutron = 0;
 #line 203 "H3-2_NeRo.instr"
   mccMonlam_radius = 0;
-#line 256 "H3-2_NeRo.instr"
+#line 255 "H3-2_NeRo.instr"
   if("lambda bins = 100 limits = [0 20] per cm2") strncpy(mccMonlam_options, "lambda bins = 100 limits = [0 20] per cm2" ? "lambda bins = 100 limits = [0 20] per cm2" : "", 16384); else mccMonlam_options[0]='\0';
-#line 256 "H3-2_NeRo.instr"
+#line 255 "H3-2_NeRo.instr"
   if("H3-2_NeRo.lam") strncpy(mccMonlam_filename, "H3-2_NeRo.lam" ? "H3-2_NeRo.lam" : "", 16384); else mccMonlam_filename[0]='\0';
 #line 204 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccMonlam_geometry, "NULL" ? "NULL" : "", 16384); else mccMonlam_geometry[0]='\0';
@@ -22612,25 +22617,25 @@ rot = 0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMonlam_username3, "NULL" ? "NULL" : "", 16384); else mccMonlam_username3[0]='\0';
 #line 206 "H3-2_NeRo.instr"
   mccMonlam_nowritefile = 0;
-#line 22615 "./H3-2_NeRo.c"
+#line 22620 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Monlam (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22622 "./H3-2_NeRo.c"
+#line 22627 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_straight, mcrotaMonlam);
   rot_transpose(mcrotaGuide_straight, mctr1);
   rot_mul(mcrotaMonlam, mctr1, mcrotrMonlam);
   mctc1 = coords_set(
-#line 257 "H3-2_NeRo.instr"
+#line 256 "H3-2_NeRo.instr"
     0,
-#line 257 "H3-2_NeRo.instr"
+#line 256 "H3-2_NeRo.instr"
     0,
-#line 257 "H3-2_NeRo.instr"
+#line 256 "H3-2_NeRo.instr"
     2.0001);
-#line 22633 "./H3-2_NeRo.c"
+#line 22638 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_straight, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMonlam = coords_add(mcposaGuide_straight, mctc2);
@@ -22644,9 +22649,9 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Monx. */
   /* Setting parameters for component Monx. */
   SIG_MESSAGE("Monx (Init:SetPar)");
-#line 260 "H3-2_NeRo.instr"
+#line 259 "H3-2_NeRo.instr"
   mccMonx_xwidth = 0.04;
-#line 260 "H3-2_NeRo.instr"
+#line 259 "H3-2_NeRo.instr"
   mccMonx_yheight = 0.21;
 #line 201 "H3-2_NeRo.instr"
   mccMonx_zdepth = 0;
@@ -22672,9 +22677,9 @@ rot = 0.5/R_curv*RAD2DEG;
   mccMonx_restore_neutron = 0;
 #line 203 "H3-2_NeRo.instr"
   mccMonx_radius = 0;
-#line 260 "H3-2_NeRo.instr"
+#line 259 "H3-2_NeRo.instr"
   if("x bins = 100 per cm2") strncpy(mccMonx_options, "x bins = 100 per cm2" ? "x bins = 100 per cm2" : "", 16384); else mccMonx_options[0]='\0';
-#line 260 "H3-2_NeRo.instr"
+#line 259 "H3-2_NeRo.instr"
   if("H3-2_NeRo.x") strncpy(mccMonx_filename, "H3-2_NeRo.x" ? "H3-2_NeRo.x" : "", 16384); else mccMonx_filename[0]='\0';
 #line 204 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccMonx_geometry, "NULL" ? "NULL" : "", 16384); else mccMonx_geometry[0]='\0';
@@ -22686,25 +22691,25 @@ rot = 0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMonx_username3, "NULL" ? "NULL" : "", 16384); else mccMonx_username3[0]='\0';
 #line 206 "H3-2_NeRo.instr"
   mccMonx_nowritefile = 0;
-#line 22689 "./H3-2_NeRo.c"
+#line 22694 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Monx (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22696 "./H3-2_NeRo.c"
+#line 22701 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaMonlam, mcrotaMonx);
   rot_transpose(mcrotaMonlam, mctr1);
   rot_mul(mcrotaMonx, mctr1, mcrotrMonx);
   mctc1 = coords_set(
-#line 261 "H3-2_NeRo.instr"
+#line 260 "H3-2_NeRo.instr"
     0,
-#line 261 "H3-2_NeRo.instr"
+#line 260 "H3-2_NeRo.instr"
     0,
-#line 261 "H3-2_NeRo.instr"
+#line 260 "H3-2_NeRo.instr"
     0);
-#line 22707 "./H3-2_NeRo.c"
+#line 22712 "./H3-2_NeRo.c"
   rot_transpose(mcrotaMonlam, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMonx = coords_add(mcposaMonlam, mctc2);
@@ -22718,9 +22723,9 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Mony. */
   /* Setting parameters for component Mony. */
   SIG_MESSAGE("Mony (Init:SetPar)");
-#line 264 "H3-2_NeRo.instr"
+#line 263 "H3-2_NeRo.instr"
   mccMony_xwidth = 0.04;
-#line 264 "H3-2_NeRo.instr"
+#line 263 "H3-2_NeRo.instr"
   mccMony_yheight = 0.21;
 #line 201 "H3-2_NeRo.instr"
   mccMony_zdepth = 0;
@@ -22746,9 +22751,9 @@ rot = 0.5/R_curv*RAD2DEG;
   mccMony_restore_neutron = 0;
 #line 203 "H3-2_NeRo.instr"
   mccMony_radius = 0;
-#line 264 "H3-2_NeRo.instr"
+#line 263 "H3-2_NeRo.instr"
   if("y bins = 100 per cm2") strncpy(mccMony_options, "y bins = 100 per cm2" ? "y bins = 100 per cm2" : "", 16384); else mccMony_options[0]='\0';
-#line 264 "H3-2_NeRo.instr"
+#line 263 "H3-2_NeRo.instr"
   if("H3-2_NeRo.y") strncpy(mccMony_filename, "H3-2_NeRo.y" ? "H3-2_NeRo.y" : "", 16384); else mccMony_filename[0]='\0';
 #line 204 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccMony_geometry, "NULL" ? "NULL" : "", 16384); else mccMony_geometry[0]='\0';
@@ -22760,25 +22765,25 @@ rot = 0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMony_username3, "NULL" ? "NULL" : "", 16384); else mccMony_username3[0]='\0';
 #line 206 "H3-2_NeRo.instr"
   mccMony_nowritefile = 0;
-#line 22763 "./H3-2_NeRo.c"
+#line 22768 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Mony (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22770 "./H3-2_NeRo.c"
+#line 22775 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaMonx, mcrotaMony);
   rot_transpose(mcrotaMonx, mctr1);
   rot_mul(mcrotaMony, mctr1, mcrotrMony);
   mctc1 = coords_set(
-#line 265 "H3-2_NeRo.instr"
+#line 264 "H3-2_NeRo.instr"
     0,
-#line 265 "H3-2_NeRo.instr"
+#line 264 "H3-2_NeRo.instr"
     0,
-#line 265 "H3-2_NeRo.instr"
+#line 264 "H3-2_NeRo.instr"
     0);
-#line 22781 "./H3-2_NeRo.c"
+#line 22786 "./H3-2_NeRo.c"
   rot_transpose(mcrotaMonx, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMony = coords_add(mcposaMonx, mctc2);
@@ -22792,9 +22797,9 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Mondx. */
   /* Setting parameters for component Mondx. */
   SIG_MESSAGE("Mondx (Init:SetPar)");
-#line 268 "H3-2_NeRo.instr"
+#line 267 "H3-2_NeRo.instr"
   mccMondx_xwidth = 0.04;
-#line 268 "H3-2_NeRo.instr"
+#line 267 "H3-2_NeRo.instr"
   mccMondx_yheight = 0.21;
 #line 201 "H3-2_NeRo.instr"
   mccMondx_zdepth = 0;
@@ -22820,9 +22825,9 @@ rot = 0.5/R_curv*RAD2DEG;
   mccMondx_restore_neutron = 0;
 #line 203 "H3-2_NeRo.instr"
   mccMondx_radius = 0;
-#line 268 "H3-2_NeRo.instr"
+#line 267 "H3-2_NeRo.instr"
   if("dx bins = 100 limits = [-3 3] per cm2") strncpy(mccMondx_options, "dx bins = 100 limits = [-3 3] per cm2" ? "dx bins = 100 limits = [-3 3] per cm2" : "", 16384); else mccMondx_options[0]='\0';
-#line 268 "H3-2_NeRo.instr"
+#line 267 "H3-2_NeRo.instr"
   if("H3-2_NeRo.dx") strncpy(mccMondx_filename, "H3-2_NeRo.dx" ? "H3-2_NeRo.dx" : "", 16384); else mccMondx_filename[0]='\0';
 #line 204 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccMondx_geometry, "NULL" ? "NULL" : "", 16384); else mccMondx_geometry[0]='\0';
@@ -22834,25 +22839,25 @@ rot = 0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMondx_username3, "NULL" ? "NULL" : "", 16384); else mccMondx_username3[0]='\0';
 #line 206 "H3-2_NeRo.instr"
   mccMondx_nowritefile = 0;
-#line 22837 "./H3-2_NeRo.c"
+#line 22842 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Mondx (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22844 "./H3-2_NeRo.c"
+#line 22849 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaMony, mcrotaMondx);
   rot_transpose(mcrotaMony, mctr1);
   rot_mul(mcrotaMondx, mctr1, mcrotrMondx);
   mctc1 = coords_set(
-#line 269 "H3-2_NeRo.instr"
+#line 268 "H3-2_NeRo.instr"
     0,
-#line 269 "H3-2_NeRo.instr"
+#line 268 "H3-2_NeRo.instr"
     0,
-#line 269 "H3-2_NeRo.instr"
+#line 268 "H3-2_NeRo.instr"
     0);
-#line 22855 "./H3-2_NeRo.c"
+#line 22860 "./H3-2_NeRo.c"
   rot_transpose(mcrotaMony, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMondx = coords_add(mcposaMony, mctc2);
@@ -22866,9 +22871,9 @@ rot = 0.5/R_curv*RAD2DEG;
     /* Component Mondy. */
   /* Setting parameters for component Mondy. */
   SIG_MESSAGE("Mondy (Init:SetPar)");
-#line 272 "H3-2_NeRo.instr"
+#line 271 "H3-2_NeRo.instr"
   mccMondy_xwidth = 0.04;
-#line 272 "H3-2_NeRo.instr"
+#line 271 "H3-2_NeRo.instr"
   mccMondy_yheight = 0.21;
 #line 201 "H3-2_NeRo.instr"
   mccMondy_zdepth = 0;
@@ -22894,9 +22899,9 @@ rot = 0.5/R_curv*RAD2DEG;
   mccMondy_restore_neutron = 0;
 #line 203 "H3-2_NeRo.instr"
   mccMondy_radius = 0;
-#line 272 "H3-2_NeRo.instr"
+#line 271 "H3-2_NeRo.instr"
   if("dy bins = 100 limits = [-5 5] per cm2") strncpy(mccMondy_options, "dy bins = 100 limits = [-5 5] per cm2" ? "dy bins = 100 limits = [-5 5] per cm2" : "", 16384); else mccMondy_options[0]='\0';
-#line 272 "H3-2_NeRo.instr"
+#line 271 "H3-2_NeRo.instr"
   if("H3-2_NeRo.dy") strncpy(mccMondy_filename, "H3-2_NeRo.dy" ? "H3-2_NeRo.dy" : "", 16384); else mccMondy_filename[0]='\0';
 #line 204 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccMondy_geometry, "NULL" ? "NULL" : "", 16384); else mccMondy_geometry[0]='\0';
@@ -22908,25 +22913,25 @@ rot = 0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMondy_username3, "NULL" ? "NULL" : "", 16384); else mccMondy_username3[0]='\0';
 #line 206 "H3-2_NeRo.instr"
   mccMondy_nowritefile = 0;
-#line 22911 "./H3-2_NeRo.c"
+#line 22916 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Mondy (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22918 "./H3-2_NeRo.c"
+#line 22923 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaMondx, mcrotaMondy);
   rot_transpose(mcrotaMondx, mctr1);
   rot_mul(mcrotaMondy, mctr1, mcrotrMondy);
   mctc1 = coords_set(
-#line 273 "H3-2_NeRo.instr"
+#line 272 "H3-2_NeRo.instr"
     0,
-#line 273 "H3-2_NeRo.instr"
+#line 272 "H3-2_NeRo.instr"
     0,
-#line 273 "H3-2_NeRo.instr"
+#line 272 "H3-2_NeRo.instr"
     0);
-#line 22929 "./H3-2_NeRo.c"
+#line 22934 "./H3-2_NeRo.c"
   rot_transpose(mcrotaMondx, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMondy = coords_add(mcposaMondx, mctc2);
@@ -22963,7 +22968,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
     percent=1e5*100.0/mcget_ncount();
   }
 }
-#line 22966 "./H3-2_NeRo.c"
+#line 22971 "./H3-2_NeRo.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -23300,7 +23305,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
       printf("Source_gen: component %s unactivated", NAME_CURRENT_COMP);
   );
 }
-#line 23303 "./H3-2_NeRo.c"
+#line 23308 "./H3-2_NeRo.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -23448,7 +23453,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23451 "./H3-2_NeRo.c"
+#line 23456 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23582,7 +23587,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23585 "./H3-2_NeRo.c"
+#line 23590 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23716,7 +23721,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23719 "./H3-2_NeRo.c"
+#line 23724 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23850,7 +23855,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23853 "./H3-2_NeRo.c"
+#line 23858 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23984,7 +23989,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23987 "./H3-2_NeRo.c"
+#line 23992 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24118,7 +24123,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24121 "./H3-2_NeRo.c"
+#line 24126 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24252,7 +24257,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24255 "./H3-2_NeRo.c"
+#line 24260 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24386,7 +24391,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24389 "./H3-2_NeRo.c"
+#line 24394 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24520,7 +24525,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24523 "./H3-2_NeRo.c"
+#line 24528 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24654,7 +24659,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24657 "./H3-2_NeRo.c"
+#line 24662 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24788,7 +24793,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24791 "./H3-2_NeRo.c"
+#line 24796 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24922,7 +24927,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24925 "./H3-2_NeRo.c"
+#line 24930 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25056,7 +25061,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25059 "./H3-2_NeRo.c"
+#line 25064 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25190,7 +25195,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25193 "./H3-2_NeRo.c"
+#line 25198 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25324,7 +25329,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25327 "./H3-2_NeRo.c"
+#line 25332 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25458,7 +25463,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25461 "./H3-2_NeRo.c"
+#line 25466 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25592,7 +25597,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25595 "./H3-2_NeRo.c"
+#line 25600 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25726,7 +25731,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25729 "./H3-2_NeRo.c"
+#line 25734 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25860,7 +25865,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25863 "./H3-2_NeRo.c"
+#line 25868 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25994,7 +25999,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25997 "./H3-2_NeRo.c"
+#line 26002 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26128,7 +26133,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26131 "./H3-2_NeRo.c"
+#line 26136 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26262,7 +26267,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26265 "./H3-2_NeRo.c"
+#line 26270 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26396,7 +26401,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26399 "./H3-2_NeRo.c"
+#line 26404 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26530,7 +26535,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26533 "./H3-2_NeRo.c"
+#line 26538 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26664,7 +26669,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26667 "./H3-2_NeRo.c"
+#line 26672 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26798,7 +26803,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26801 "./H3-2_NeRo.c"
+#line 26806 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26932,7 +26937,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26935 "./H3-2_NeRo.c"
+#line 26940 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27066,7 +27071,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27069 "./H3-2_NeRo.c"
+#line 27074 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27200,7 +27205,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27203 "./H3-2_NeRo.c"
+#line 27208 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27334,7 +27339,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27337 "./H3-2_NeRo.c"
+#line 27342 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27468,7 +27473,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27471 "./H3-2_NeRo.c"
+#line 27476 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27602,7 +27607,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27605 "./H3-2_NeRo.c"
+#line 27610 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27736,7 +27741,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27739 "./H3-2_NeRo.c"
+#line 27744 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27870,7 +27875,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27873 "./H3-2_NeRo.c"
+#line 27878 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28004,7 +28009,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28007 "./H3-2_NeRo.c"
+#line 28012 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28138,7 +28143,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28141 "./H3-2_NeRo.c"
+#line 28146 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28272,7 +28277,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28275 "./H3-2_NeRo.c"
+#line 28280 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28406,7 +28411,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28409 "./H3-2_NeRo.c"
+#line 28414 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28540,7 +28545,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28543 "./H3-2_NeRo.c"
+#line 28548 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28674,7 +28679,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28677 "./H3-2_NeRo.c"
+#line 28682 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28808,7 +28813,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28811 "./H3-2_NeRo.c"
+#line 28816 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28942,7 +28947,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28945 "./H3-2_NeRo.c"
+#line 28950 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29076,7 +29081,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29079 "./H3-2_NeRo.c"
+#line 29084 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29210,7 +29215,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29213 "./H3-2_NeRo.c"
+#line 29218 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29344,7 +29349,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29347 "./H3-2_NeRo.c"
+#line 29352 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29478,7 +29483,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29481 "./H3-2_NeRo.c"
+#line 29486 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29612,7 +29617,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29615 "./H3-2_NeRo.c"
+#line 29620 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29746,7 +29751,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29749 "./H3-2_NeRo.c"
+#line 29754 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29880,7 +29885,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29883 "./H3-2_NeRo.c"
+#line 29888 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -30014,7 +30019,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 30017 "./H3-2_NeRo.c"
+#line 30022 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -30148,7 +30153,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 30151 "./H3-2_NeRo.c"
+#line 30156 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -30301,7 +30306,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 30304 "./H3-2_NeRo.c"
+#line 30309 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -30446,7 +30451,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 30449 "./H3-2_NeRo.c"
+#line 30454 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -30591,7 +30596,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 30594 "./H3-2_NeRo.c"
+#line 30599 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -30736,7 +30741,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 30739 "./H3-2_NeRo.c"
+#line 30744 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -30881,7 +30886,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 30884 "./H3-2_NeRo.c"
+#line 30889 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -31067,7 +31072,7 @@ MCNUM minutes = mccOrigin_minutes;
     if (flag_save) mcsave(NULL);
   }
 }
-#line 31070 "./H3-2_NeRo.c"
+#line 31075 "./H3-2_NeRo.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -31315,7 +31320,7 @@ int target_index = mccH3_target_index;
     SCATTER;
   }
 }
-#line 31318 "./H3-2_NeRo.c"
+#line 31323 "./H3-2_NeRo.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -31746,7 +31751,7 @@ char* reflect = mccGuide_metal_reflect;
 
   } /* if l */
 }
-#line 31749 "./H3-2_NeRo.c"
+#line 31754 "./H3-2_NeRo.c"
 }   /* End of Guide_metal=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32059,7 +32064,7 @@ char* reflect = mccGuide_curved_reflect;
 
   } /* if l */
 }
-#line 32062 "./H3-2_NeRo.c"
+#line 32067 "./H3-2_NeRo.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32372,7 +32377,7 @@ char* reflect = mccGuide_curved_6_reflect;
 
   } /* if l */
 }
-#line 32375 "./H3-2_NeRo.c"
+#line 32380 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32685,7 +32690,7 @@ char* reflect = mccGuide_curved_7_reflect;
 
   } /* if l */
 }
-#line 32688 "./H3-2_NeRo.c"
+#line 32693 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32998,7 +33003,7 @@ char* reflect = mccGuide_curved_8_reflect;
 
   } /* if l */
 }
-#line 33001 "./H3-2_NeRo.c"
+#line 33006 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -33311,7 +33316,7 @@ char* reflect = mccGuide_curved_9_reflect;
 
   } /* if l */
 }
-#line 33314 "./H3-2_NeRo.c"
+#line 33319 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -33624,7 +33629,7 @@ char* reflect = mccGuide_curved_10_reflect;
 
   } /* if l */
 }
-#line 33627 "./H3-2_NeRo.c"
+#line 33632 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -33937,7 +33942,7 @@ char* reflect = mccGuide_curved_11_reflect;
 
   } /* if l */
 }
-#line 33940 "./H3-2_NeRo.c"
+#line 33945 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -34250,7 +34255,7 @@ char* reflect = mccGuide_curved_12_reflect;
 
   } /* if l */
 }
-#line 34253 "./H3-2_NeRo.c"
+#line 34258 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -34563,7 +34568,7 @@ char* reflect = mccGuide_curved_13_reflect;
 
   } /* if l */
 }
-#line 34566 "./H3-2_NeRo.c"
+#line 34571 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -34876,7 +34881,7 @@ char* reflect = mccGuide_curved_14_reflect;
 
   } /* if l */
 }
-#line 34879 "./H3-2_NeRo.c"
+#line 34884 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -35189,7 +35194,7 @@ char* reflect = mccGuide_curved_15_reflect;
 
   } /* if l */
 }
-#line 35192 "./H3-2_NeRo.c"
+#line 35197 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -35502,7 +35507,7 @@ char* reflect = mccGuide_curved_16_reflect;
 
   } /* if l */
 }
-#line 35505 "./H3-2_NeRo.c"
+#line 35510 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -35815,7 +35820,7 @@ char* reflect = mccGuide_curved_17_reflect;
 
   } /* if l */
 }
-#line 35818 "./H3-2_NeRo.c"
+#line 35823 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -36128,7 +36133,7 @@ char* reflect = mccGuide_curved_18_reflect;
 
   } /* if l */
 }
-#line 36131 "./H3-2_NeRo.c"
+#line 36136 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -36441,7 +36446,7 @@ char* reflect = mccGuide_curved_19_reflect;
 
   } /* if l */
 }
-#line 36444 "./H3-2_NeRo.c"
+#line 36449 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -36754,7 +36759,7 @@ char* reflect = mccGuide_curved_20_reflect;
 
   } /* if l */
 }
-#line 36757 "./H3-2_NeRo.c"
+#line 36762 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -37067,7 +37072,7 @@ char* reflect = mccGuide_curved_21_reflect;
 
   } /* if l */
 }
-#line 37070 "./H3-2_NeRo.c"
+#line 37075 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -37380,7 +37385,7 @@ char* reflect = mccGuide_curved_22_reflect;
 
   } /* if l */
 }
-#line 37383 "./H3-2_NeRo.c"
+#line 37388 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -37693,7 +37698,7 @@ char* reflect = mccGuide_curved_23_reflect;
 
   } /* if l */
 }
-#line 37696 "./H3-2_NeRo.c"
+#line 37701 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -38006,7 +38011,7 @@ char* reflect = mccGuide_curved_24_reflect;
 
   } /* if l */
 }
-#line 38009 "./H3-2_NeRo.c"
+#line 38014 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -38319,7 +38324,7 @@ char* reflect = mccGuide_curved_25_reflect;
 
   } /* if l */
 }
-#line 38322 "./H3-2_NeRo.c"
+#line 38327 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -38632,7 +38637,7 @@ char* reflect = mccGuide_curved_26_reflect;
 
   } /* if l */
 }
-#line 38635 "./H3-2_NeRo.c"
+#line 38640 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -38945,7 +38950,7 @@ char* reflect = mccGuide_curved_27_reflect;
 
   } /* if l */
 }
-#line 38948 "./H3-2_NeRo.c"
+#line 38953 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -39258,7 +39263,7 @@ char* reflect = mccGuide_curved_28_reflect;
 
   } /* if l */
 }
-#line 39261 "./H3-2_NeRo.c"
+#line 39266 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -39571,7 +39576,7 @@ char* reflect = mccGuide_curved_29_reflect;
 
   } /* if l */
 }
-#line 39574 "./H3-2_NeRo.c"
+#line 39579 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -39884,7 +39889,7 @@ char* reflect = mccGuide_curved_30_reflect;
 
   } /* if l */
 }
-#line 39887 "./H3-2_NeRo.c"
+#line 39892 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -40197,7 +40202,7 @@ char* reflect = mccGuide_curved_31_reflect;
 
   } /* if l */
 }
-#line 40200 "./H3-2_NeRo.c"
+#line 40205 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -40510,7 +40515,7 @@ char* reflect = mccGuide_curved_32_reflect;
 
   } /* if l */
 }
-#line 40513 "./H3-2_NeRo.c"
+#line 40518 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -40823,7 +40828,7 @@ char* reflect = mccGuide_curved_33_reflect;
 
   } /* if l */
 }
-#line 40826 "./H3-2_NeRo.c"
+#line 40831 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -41136,7 +41141,7 @@ char* reflect = mccGuide_curved_34_reflect;
 
   } /* if l */
 }
-#line 41139 "./H3-2_NeRo.c"
+#line 41144 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -41449,7 +41454,7 @@ char* reflect = mccGuide_curved_35_reflect;
 
   } /* if l */
 }
-#line 41452 "./H3-2_NeRo.c"
+#line 41457 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -41762,7 +41767,7 @@ char* reflect = mccGuide_curved_36_reflect;
 
   } /* if l */
 }
-#line 41765 "./H3-2_NeRo.c"
+#line 41770 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -42075,7 +42080,7 @@ char* reflect = mccGuide_curved_37_reflect;
 
   } /* if l */
 }
-#line 42078 "./H3-2_NeRo.c"
+#line 42083 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -42388,7 +42393,7 @@ char* reflect = mccGuide_curved_38_reflect;
 
   } /* if l */
 }
-#line 42391 "./H3-2_NeRo.c"
+#line 42396 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -42701,7 +42706,7 @@ char* reflect = mccGuide_curved_39_reflect;
 
   } /* if l */
 }
-#line 42704 "./H3-2_NeRo.c"
+#line 42709 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -43014,7 +43019,7 @@ char* reflect = mccGuide_curved_40_reflect;
 
   } /* if l */
 }
-#line 43017 "./H3-2_NeRo.c"
+#line 43022 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -43327,7 +43332,7 @@ char* reflect = mccGuide_curved_41_reflect;
 
   } /* if l */
 }
-#line 43330 "./H3-2_NeRo.c"
+#line 43335 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -43640,7 +43645,7 @@ char* reflect = mccGuide_curved_42_reflect;
 
   } /* if l */
 }
-#line 43643 "./H3-2_NeRo.c"
+#line 43648 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -43953,7 +43958,7 @@ char* reflect = mccGuide_curved_43_reflect;
 
   } /* if l */
 }
-#line 43956 "./H3-2_NeRo.c"
+#line 43961 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -44266,7 +44271,7 @@ char* reflect = mccGuide_curved_44_reflect;
 
   } /* if l */
 }
-#line 44269 "./H3-2_NeRo.c"
+#line 44274 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -44579,7 +44584,7 @@ char* reflect = mccGuide_curved_45_reflect;
 
   } /* if l */
 }
-#line 44582 "./H3-2_NeRo.c"
+#line 44587 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -44892,7 +44897,7 @@ char* reflect = mccGuide_curved_46_reflect;
 
   } /* if l */
 }
-#line 44895 "./H3-2_NeRo.c"
+#line 44900 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -45205,7 +45210,7 @@ char* reflect = mccGuide_curved_47_reflect;
 
   } /* if l */
 }
-#line 45208 "./H3-2_NeRo.c"
+#line 45213 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -45518,7 +45523,7 @@ char* reflect = mccGuide_curved_48_reflect;
 
   } /* if l */
 }
-#line 45521 "./H3-2_NeRo.c"
+#line 45526 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -45831,7 +45836,7 @@ char* reflect = mccGuide_curved_49_reflect;
 
   } /* if l */
 }
-#line 45834 "./H3-2_NeRo.c"
+#line 45839 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_49=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46144,7 +46149,7 @@ char* reflect = mccGuide_curved_50_reflect;
 
   } /* if l */
 }
-#line 46147 "./H3-2_NeRo.c"
+#line 46152 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_50=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46457,7 +46462,7 @@ char* reflect = mccGuide_curved_51_reflect;
 
   } /* if l */
 }
-#line 46460 "./H3-2_NeRo.c"
+#line 46465 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_51=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46770,7 +46775,7 @@ char* reflect = mccGuide_curved_52_reflect;
 
   } /* if l */
 }
-#line 46773 "./H3-2_NeRo.c"
+#line 46778 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_52=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47083,7 +47088,7 @@ char* reflect = mccGuide_curved_53_reflect;
 
   } /* if l */
 }
-#line 47086 "./H3-2_NeRo.c"
+#line 47091 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_53=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47396,7 +47401,7 @@ char* reflect = mccGuide_straight_reflect;
 
   } /* if l */
 }
-#line 47399 "./H3-2_NeRo.c"
+#line 47404 "./H3-2_NeRo.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47701,7 +47706,7 @@ int nowritefile = mccMonlam_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 47704 "./H3-2_NeRo.c"
+#line 47709 "./H3-2_NeRo.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -48011,7 +48016,7 @@ int nowritefile = mccMonx_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 48014 "./H3-2_NeRo.c"
+#line 48019 "./H3-2_NeRo.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -48321,7 +48326,7 @@ int nowritefile = mccMony_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 48324 "./H3-2_NeRo.c"
+#line 48329 "./H3-2_NeRo.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -48631,7 +48636,7 @@ int nowritefile = mccMondx_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 48634 "./H3-2_NeRo.c"
+#line 48639 "./H3-2_NeRo.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -48941,7 +48946,7 @@ int nowritefile = mccMondy_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 48944 "./H3-2_NeRo.c"
+#line 48949 "./H3-2_NeRo.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49057,7 +49062,7 @@ MCNUM minutes = mccOrigin_minutes;
 
   }
 }
-#line 49060 "./H3-2_NeRo.c"
+#line 49065 "./H3-2_NeRo.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -49106,7 +49111,7 @@ int nowritefile = mccMonlam_nowritefile;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 49109 "./H3-2_NeRo.c"
+#line 49114 "./H3-2_NeRo.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49158,7 +49163,7 @@ int nowritefile = mccMonx_nowritefile;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 49161 "./H3-2_NeRo.c"
+#line 49166 "./H3-2_NeRo.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49210,7 +49215,7 @@ int nowritefile = mccMony_nowritefile;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 49213 "./H3-2_NeRo.c"
+#line 49218 "./H3-2_NeRo.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49262,7 +49267,7 @@ int nowritefile = mccMondx_nowritefile;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 49265 "./H3-2_NeRo.c"
+#line 49270 "./H3-2_NeRo.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49314,7 +49319,7 @@ int nowritefile = mccMondy_nowritefile;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 49317 "./H3-2_NeRo.c"
+#line 49322 "./H3-2_NeRo.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49361,7 +49366,7 @@ MCNUM minutes = mccOrigin_minutes;
     fprintf(stdout, "%g [min] ", difftime(NowTime,StartTime)/60.0);
   fprintf(stdout, "\n");
 }
-#line 49364 "./H3-2_NeRo.c"
+#line 49369 "./H3-2_NeRo.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -49433,7 +49438,7 @@ int target_index = mccH3_target_index;
   Table_Free(&pTable_x);
   Table_Free(&pTable_y);
 }
-#line 49435 "./H3-2_NeRo.c"
+#line 49440 "./H3-2_NeRo.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -49511,7 +49516,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49511 "./H3-2_NeRo.c"
+#line 49516 "./H3-2_NeRo.c"
 }   /* End of Guide_metal=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49571,7 +49576,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49570 "./H3-2_NeRo.c"
+#line 49575 "./H3-2_NeRo.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49631,7 +49636,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49629 "./H3-2_NeRo.c"
+#line 49634 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49691,7 +49696,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49688 "./H3-2_NeRo.c"
+#line 49693 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49751,7 +49756,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49747 "./H3-2_NeRo.c"
+#line 49752 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49811,7 +49816,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49806 "./H3-2_NeRo.c"
+#line 49811 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49871,7 +49876,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49865 "./H3-2_NeRo.c"
+#line 49870 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49931,7 +49936,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49924 "./H3-2_NeRo.c"
+#line 49929 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49991,7 +49996,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49983 "./H3-2_NeRo.c"
+#line 49988 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50051,7 +50056,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50042 "./H3-2_NeRo.c"
+#line 50047 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50111,7 +50116,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50101 "./H3-2_NeRo.c"
+#line 50106 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50171,7 +50176,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50160 "./H3-2_NeRo.c"
+#line 50165 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50231,7 +50236,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50219 "./H3-2_NeRo.c"
+#line 50224 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50291,7 +50296,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50278 "./H3-2_NeRo.c"
+#line 50283 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50351,7 +50356,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50337 "./H3-2_NeRo.c"
+#line 50342 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50411,7 +50416,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50396 "./H3-2_NeRo.c"
+#line 50401 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50471,7 +50476,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50455 "./H3-2_NeRo.c"
+#line 50460 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50531,7 +50536,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50514 "./H3-2_NeRo.c"
+#line 50519 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50591,7 +50596,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50573 "./H3-2_NeRo.c"
+#line 50578 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50651,7 +50656,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50632 "./H3-2_NeRo.c"
+#line 50637 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50711,7 +50716,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50691 "./H3-2_NeRo.c"
+#line 50696 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50771,7 +50776,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50750 "./H3-2_NeRo.c"
+#line 50755 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50831,7 +50836,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50809 "./H3-2_NeRo.c"
+#line 50814 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50891,7 +50896,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50868 "./H3-2_NeRo.c"
+#line 50873 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50951,7 +50956,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50927 "./H3-2_NeRo.c"
+#line 50932 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51011,7 +51016,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50986 "./H3-2_NeRo.c"
+#line 50991 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51071,7 +51076,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51045 "./H3-2_NeRo.c"
+#line 51050 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51131,7 +51136,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51104 "./H3-2_NeRo.c"
+#line 51109 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51191,7 +51196,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51163 "./H3-2_NeRo.c"
+#line 51168 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51251,7 +51256,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51222 "./H3-2_NeRo.c"
+#line 51227 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51311,7 +51316,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51281 "./H3-2_NeRo.c"
+#line 51286 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51371,7 +51376,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51340 "./H3-2_NeRo.c"
+#line 51345 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51431,7 +51436,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51399 "./H3-2_NeRo.c"
+#line 51404 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51491,7 +51496,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51458 "./H3-2_NeRo.c"
+#line 51463 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51551,7 +51556,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51517 "./H3-2_NeRo.c"
+#line 51522 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51611,7 +51616,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51576 "./H3-2_NeRo.c"
+#line 51581 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51671,7 +51676,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51635 "./H3-2_NeRo.c"
+#line 51640 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51731,7 +51736,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51694 "./H3-2_NeRo.c"
+#line 51699 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51791,7 +51796,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51753 "./H3-2_NeRo.c"
+#line 51758 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51851,7 +51856,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51812 "./H3-2_NeRo.c"
+#line 51817 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51911,7 +51916,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51871 "./H3-2_NeRo.c"
+#line 51876 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51971,7 +51976,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51930 "./H3-2_NeRo.c"
+#line 51935 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52031,7 +52036,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51989 "./H3-2_NeRo.c"
+#line 51994 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52091,7 +52096,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52048 "./H3-2_NeRo.c"
+#line 52053 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52151,7 +52156,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52107 "./H3-2_NeRo.c"
+#line 52112 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52211,7 +52216,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52166 "./H3-2_NeRo.c"
+#line 52171 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_49=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52271,7 +52276,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52225 "./H3-2_NeRo.c"
+#line 52230 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_50=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52331,7 +52336,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52284 "./H3-2_NeRo.c"
+#line 52289 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_51=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52391,7 +52396,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52343 "./H3-2_NeRo.c"
+#line 52348 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_52=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52451,7 +52456,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52402 "./H3-2_NeRo.c"
+#line 52407 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_53=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52511,7 +52516,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52461 "./H3-2_NeRo.c"
+#line 52466 "./H3-2_NeRo.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52563,7 +52568,7 @@ int nowritefile = mccMonlam_nowritefile;
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 52512 "./H3-2_NeRo.c"
+#line 52517 "./H3-2_NeRo.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -52620,7 +52625,7 @@ int nowritefile = mccMonx_nowritefile;
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 52568 "./H3-2_NeRo.c"
+#line 52573 "./H3-2_NeRo.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -52677,7 +52682,7 @@ int nowritefile = mccMony_nowritefile;
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 52624 "./H3-2_NeRo.c"
+#line 52629 "./H3-2_NeRo.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -52734,7 +52739,7 @@ int nowritefile = mccMondx_nowritefile;
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 52680 "./H3-2_NeRo.c"
+#line 52685 "./H3-2_NeRo.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -52791,7 +52796,7 @@ int nowritefile = mccMondy_nowritefile;
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 52736 "./H3-2_NeRo.c"
+#line 52741 "./H3-2_NeRo.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -52841,7 +52846,7 @@ MCNUM minutes = mccOrigin_minutes;
 {
   
 }
-#line 52785 "./H3-2_NeRo.c"
+#line 52790 "./H3-2_NeRo.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -52954,7 +52959,7 @@ int target_index = mccH3_target_index;
     dashed_line(0,0,0, -focus_xw/2, focus_yh/2,dist, 4);
   }
 }
-#line 52898 "./H3-2_NeRo.c"
+#line 52903 "./H3-2_NeRo.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -52991,7 +52996,7 @@ int target_index = mccH3_target_index;
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 52935 "./H3-2_NeRo.c"
+#line 52940 "./H3-2_NeRo.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -53102,7 +53107,7 @@ char* reflect = mccGuide_metal_reflect;
   }
 
 }
-#line 53046 "./H3-2_NeRo.c"
+#line 53051 "./H3-2_NeRo.c"
 }   /* End of Guide_metal=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53216,7 +53221,7 @@ char* reflect = mccGuide_curved_reflect;
   }
 
 }
-#line 53160 "./H3-2_NeRo.c"
+#line 53165 "./H3-2_NeRo.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53330,7 +53335,7 @@ char* reflect = mccGuide_curved_6_reflect;
   }
 
 }
-#line 53274 "./H3-2_NeRo.c"
+#line 53279 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53444,7 +53449,7 @@ char* reflect = mccGuide_curved_7_reflect;
   }
 
 }
-#line 53388 "./H3-2_NeRo.c"
+#line 53393 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53558,7 +53563,7 @@ char* reflect = mccGuide_curved_8_reflect;
   }
 
 }
-#line 53502 "./H3-2_NeRo.c"
+#line 53507 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53672,7 +53677,7 @@ char* reflect = mccGuide_curved_9_reflect;
   }
 
 }
-#line 53616 "./H3-2_NeRo.c"
+#line 53621 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53786,7 +53791,7 @@ char* reflect = mccGuide_curved_10_reflect;
   }
 
 }
-#line 53730 "./H3-2_NeRo.c"
+#line 53735 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53900,7 +53905,7 @@ char* reflect = mccGuide_curved_11_reflect;
   }
 
 }
-#line 53844 "./H3-2_NeRo.c"
+#line 53849 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54014,7 +54019,7 @@ char* reflect = mccGuide_curved_12_reflect;
   }
 
 }
-#line 53958 "./H3-2_NeRo.c"
+#line 53963 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54128,7 +54133,7 @@ char* reflect = mccGuide_curved_13_reflect;
   }
 
 }
-#line 54072 "./H3-2_NeRo.c"
+#line 54077 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54242,7 +54247,7 @@ char* reflect = mccGuide_curved_14_reflect;
   }
 
 }
-#line 54186 "./H3-2_NeRo.c"
+#line 54191 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54356,7 +54361,7 @@ char* reflect = mccGuide_curved_15_reflect;
   }
 
 }
-#line 54300 "./H3-2_NeRo.c"
+#line 54305 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54470,7 +54475,7 @@ char* reflect = mccGuide_curved_16_reflect;
   }
 
 }
-#line 54414 "./H3-2_NeRo.c"
+#line 54419 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54584,7 +54589,7 @@ char* reflect = mccGuide_curved_17_reflect;
   }
 
 }
-#line 54528 "./H3-2_NeRo.c"
+#line 54533 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54698,7 +54703,7 @@ char* reflect = mccGuide_curved_18_reflect;
   }
 
 }
-#line 54642 "./H3-2_NeRo.c"
+#line 54647 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54812,7 +54817,7 @@ char* reflect = mccGuide_curved_19_reflect;
   }
 
 }
-#line 54756 "./H3-2_NeRo.c"
+#line 54761 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54926,7 +54931,7 @@ char* reflect = mccGuide_curved_20_reflect;
   }
 
 }
-#line 54870 "./H3-2_NeRo.c"
+#line 54875 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55040,7 +55045,7 @@ char* reflect = mccGuide_curved_21_reflect;
   }
 
 }
-#line 54984 "./H3-2_NeRo.c"
+#line 54989 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55154,7 +55159,7 @@ char* reflect = mccGuide_curved_22_reflect;
   }
 
 }
-#line 55098 "./H3-2_NeRo.c"
+#line 55103 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55268,7 +55273,7 @@ char* reflect = mccGuide_curved_23_reflect;
   }
 
 }
-#line 55212 "./H3-2_NeRo.c"
+#line 55217 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55382,7 +55387,7 @@ char* reflect = mccGuide_curved_24_reflect;
   }
 
 }
-#line 55326 "./H3-2_NeRo.c"
+#line 55331 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55496,7 +55501,7 @@ char* reflect = mccGuide_curved_25_reflect;
   }
 
 }
-#line 55440 "./H3-2_NeRo.c"
+#line 55445 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55610,7 +55615,7 @@ char* reflect = mccGuide_curved_26_reflect;
   }
 
 }
-#line 55554 "./H3-2_NeRo.c"
+#line 55559 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55724,7 +55729,7 @@ char* reflect = mccGuide_curved_27_reflect;
   }
 
 }
-#line 55668 "./H3-2_NeRo.c"
+#line 55673 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55838,7 +55843,7 @@ char* reflect = mccGuide_curved_28_reflect;
   }
 
 }
-#line 55782 "./H3-2_NeRo.c"
+#line 55787 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55952,7 +55957,7 @@ char* reflect = mccGuide_curved_29_reflect;
   }
 
 }
-#line 55896 "./H3-2_NeRo.c"
+#line 55901 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56066,7 +56071,7 @@ char* reflect = mccGuide_curved_30_reflect;
   }
 
 }
-#line 56010 "./H3-2_NeRo.c"
+#line 56015 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56180,7 +56185,7 @@ char* reflect = mccGuide_curved_31_reflect;
   }
 
 }
-#line 56124 "./H3-2_NeRo.c"
+#line 56129 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56294,7 +56299,7 @@ char* reflect = mccGuide_curved_32_reflect;
   }
 
 }
-#line 56238 "./H3-2_NeRo.c"
+#line 56243 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56408,7 +56413,7 @@ char* reflect = mccGuide_curved_33_reflect;
   }
 
 }
-#line 56352 "./H3-2_NeRo.c"
+#line 56357 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56522,7 +56527,7 @@ char* reflect = mccGuide_curved_34_reflect;
   }
 
 }
-#line 56466 "./H3-2_NeRo.c"
+#line 56471 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56636,7 +56641,7 @@ char* reflect = mccGuide_curved_35_reflect;
   }
 
 }
-#line 56580 "./H3-2_NeRo.c"
+#line 56585 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56750,7 +56755,7 @@ char* reflect = mccGuide_curved_36_reflect;
   }
 
 }
-#line 56694 "./H3-2_NeRo.c"
+#line 56699 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56864,7 +56869,7 @@ char* reflect = mccGuide_curved_37_reflect;
   }
 
 }
-#line 56808 "./H3-2_NeRo.c"
+#line 56813 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56978,7 +56983,7 @@ char* reflect = mccGuide_curved_38_reflect;
   }
 
 }
-#line 56922 "./H3-2_NeRo.c"
+#line 56927 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57092,7 +57097,7 @@ char* reflect = mccGuide_curved_39_reflect;
   }
 
 }
-#line 57036 "./H3-2_NeRo.c"
+#line 57041 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57206,7 +57211,7 @@ char* reflect = mccGuide_curved_40_reflect;
   }
 
 }
-#line 57150 "./H3-2_NeRo.c"
+#line 57155 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57320,7 +57325,7 @@ char* reflect = mccGuide_curved_41_reflect;
   }
 
 }
-#line 57264 "./H3-2_NeRo.c"
+#line 57269 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57434,7 +57439,7 @@ char* reflect = mccGuide_curved_42_reflect;
   }
 
 }
-#line 57378 "./H3-2_NeRo.c"
+#line 57383 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57548,7 +57553,7 @@ char* reflect = mccGuide_curved_43_reflect;
   }
 
 }
-#line 57492 "./H3-2_NeRo.c"
+#line 57497 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57662,7 +57667,7 @@ char* reflect = mccGuide_curved_44_reflect;
   }
 
 }
-#line 57606 "./H3-2_NeRo.c"
+#line 57611 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57776,7 +57781,7 @@ char* reflect = mccGuide_curved_45_reflect;
   }
 
 }
-#line 57720 "./H3-2_NeRo.c"
+#line 57725 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57890,7 +57895,7 @@ char* reflect = mccGuide_curved_46_reflect;
   }
 
 }
-#line 57834 "./H3-2_NeRo.c"
+#line 57839 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58004,7 +58009,7 @@ char* reflect = mccGuide_curved_47_reflect;
   }
 
 }
-#line 57948 "./H3-2_NeRo.c"
+#line 57953 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58118,7 +58123,7 @@ char* reflect = mccGuide_curved_48_reflect;
   }
 
 }
-#line 58062 "./H3-2_NeRo.c"
+#line 58067 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58232,7 +58237,7 @@ char* reflect = mccGuide_curved_49_reflect;
   }
 
 }
-#line 58176 "./H3-2_NeRo.c"
+#line 58181 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_49=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58346,7 +58351,7 @@ char* reflect = mccGuide_curved_50_reflect;
   }
 
 }
-#line 58290 "./H3-2_NeRo.c"
+#line 58295 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_50=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58460,7 +58465,7 @@ char* reflect = mccGuide_curved_51_reflect;
   }
 
 }
-#line 58404 "./H3-2_NeRo.c"
+#line 58409 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_51=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58574,7 +58579,7 @@ char* reflect = mccGuide_curved_52_reflect;
   }
 
 }
-#line 58518 "./H3-2_NeRo.c"
+#line 58523 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_52=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58688,7 +58693,7 @@ char* reflect = mccGuide_curved_53_reflect;
   }
 
 }
-#line 58632 "./H3-2_NeRo.c"
+#line 58637 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_53=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58802,7 +58807,7 @@ char* reflect = mccGuide_straight_reflect;
   }
 
 }
-#line 58746 "./H3-2_NeRo.c"
+#line 58751 "./H3-2_NeRo.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58854,7 +58859,7 @@ int nowritefile = mccMonlam_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 58798 "./H3-2_NeRo.c"
+#line 58803 "./H3-2_NeRo.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -58911,7 +58916,7 @@ int nowritefile = mccMonx_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 58855 "./H3-2_NeRo.c"
+#line 58860 "./H3-2_NeRo.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -58968,7 +58973,7 @@ int nowritefile = mccMony_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 58912 "./H3-2_NeRo.c"
+#line 58917 "./H3-2_NeRo.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -59025,7 +59030,7 @@ int nowritefile = mccMondx_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 58969 "./H3-2_NeRo.c"
+#line 58974 "./H3-2_NeRo.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -59082,7 +59087,7 @@ int nowritefile = mccMondy_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 59026 "./H3-2_NeRo.c"
+#line 59031 "./H3-2_NeRo.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector

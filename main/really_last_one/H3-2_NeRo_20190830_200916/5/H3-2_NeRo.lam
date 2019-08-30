@@ -1,0 +1,133 @@
+# Format: McCode with text headers
+# URL: http://www.mccode.org
+# Creator: McStas 2.5 - Dec. 12, 2018
+# Instrument: H3-2_NeRo.instr
+# Ncount: 166666
+# Trace: no
+# Gravitation: no
+# Seed: 1567202934
+# Directory: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-2_NeRo_20190830_200916/5
+# Nodes: 6
+# Param: m_out=3.5
+# Param: guide_start_width=0.03
+# Param: guide_start_height=0.2
+# Param: source_lambda_min=5
+# Param: source_lambda_max=5.1
+# Param: cold_regime=1
+# Date: Fri Aug 30 20:09:40 2019 (1567184980)
+# type: array_1d(100)
+# Source: H3_2 (H3-2_NeRo.instr)
+# component: Monlam
+# position: 0.394697 0 28.8162
+# title: Wavelength [Angs] monitor
+# Ncount: 999996
+# filename: H3-2_NeRo.lam
+# statistics: X0=5.1; dX=0;
+# signal: Min=0; Max=1.20629e+08; Mean=1.20629e+06;
+# values: 1.20629e+08 329173 405327
+# xvar: L
+# yvar: (I,I_err)
+# xlabel: Wavelength [Angs]
+# ylabel: Intensity [n/s/cm2/bin]
+# xlimits: 0 20
+# variables: L I I_err N
+0.1 0 0 0 
+0.3 0 0 0 
+0.5 0 0 0 
+0.7 0 0 0 
+0.9 0 0 0 
+1.1 0 0 0 
+1.3 0 0 0 
+1.5 0 0 0 
+1.7 0 0 0 
+1.9 0 0 0 
+2.1 0 0 0 
+2.3 0 0 0 
+2.5 0 0 0 
+2.7 0 0 0 
+2.9 0 0 0 
+3.1 0 0 0 
+3.3 0 0 0 
+3.5 0 0 0 
+3.7 0 0 0 
+3.9 0 0 0 
+4.1 0 0 0 
+4.3 0 0 0 
+4.5 0 0 0 
+4.7 0 0 0 
+4.9 0 0 0 
+5.1 120629095.4 329172.9696 405327 
+5.3 0 0 0 
+5.5 0 0 0 
+5.7 0 0 0 
+5.9 0 0 0 
+6.1 0 0 0 
+6.3 0 0 0 
+6.5 0 0 0 
+6.7 0 0 0 
+6.9 0 0 0 
+7.1 0 0 0 
+7.3 0 0 0 
+7.5 0 0 0 
+7.7 0 0 0 
+7.9 0 0 0 
+8.1 0 0 0 
+8.3 0 0 0 
+8.5 0 0 0 
+8.7 0 0 0 
+8.9 0 0 0 
+9.1 0 0 0 
+9.3 0 0 0 
+9.5 0 0 0 
+9.7 0 0 0 
+9.9 0 0 0 
+10.1 0 0 0 
+10.3 0 0 0 
+10.5 0 0 0 
+10.7 0 0 0 
+10.9 0 0 0 
+11.1 0 0 0 
+11.3 0 0 0 
+11.5 0 0 0 
+11.7 0 0 0 
+11.9 0 0 0 
+12.1 0 0 0 
+12.3 0 0 0 
+12.5 0 0 0 
+12.7 0 0 0 
+12.9 0 0 0 
+13.1 0 0 0 
+13.3 0 0 0 
+13.5 0 0 0 
+13.7 0 0 0 
+13.9 0 0 0 
+14.1 0 0 0 
+14.3 0 0 0 
+14.5 0 0 0 
+14.7 0 0 0 
+14.9 0 0 0 
+15.1 0 0 0 
+15.3 0 0 0 
+15.5 0 0 0 
+15.7 0 0 0 
+15.9 0 0 0 
+16.1 0 0 0 
+16.3 0 0 0 
+16.5 0 0 0 
+16.7 0 0 0 
+16.9 0 0 0 
+17.1 0 0 0 
+17.3 0 0 0 
+17.5 0 0 0 
+17.7 0 0 0 
+17.9 0 0 0 
+18.1 0 0 0 
+18.3 0 0 0 
+18.5 0 0 0 
+18.7 0 0 0 
+18.9 0 0 0 
+19.1 0 0 0 
+19.3 0 0 0 
+19.5 0 0 0 
+19.7 0 0 0 
+19.9 0 0 0 

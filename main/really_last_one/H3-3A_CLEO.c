@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: H3-3A_CLEO.instr (H3_3A)
- * Date:       Fri Aug 30 17:37:26 2019
+ * Date:       Fri Aug 30 20:16:33 2019
  * File:       ./H3-3A_CLEO.c
  * Compile:    cc -o H3_3A.out ./H3-3A_CLEO.c 
  * CFLAGS=
@@ -10094,15 +10094,17 @@ void off_display(off_struct data)
 #line 10094 "./H3-3A_CLEO.c"
 
 /* Instrument parameters. */
+MCNUM mcipm_out;
 MCNUM mcipguide_start_width;
 MCNUM mcipguide_start_height;
 MCNUM mcipsource_lambda_min;
 MCNUM mcipsource_lambda_max;
 MCNUM mcipcold_regime;
 
-#define mcNUMIPAR 5
-int mcnumipar = 5;
+#define mcNUMIPAR 6
+int mcnumipar = 6;
 struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
+  "m_out", &mcipm_out, instr_type_double, "3", 
   "guide_start_width", &mcipguide_start_width, instr_type_double, "0.06", 
   "guide_start_height", &mcipguide_start_height, instr_type_double, "0.2", 
   "source_lambda_min", &mcipsource_lambda_min, instr_type_double, "0.1", 
@@ -10116,6 +10118,7 @@ struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
 #define mccompcurtype  INSTRUMENT
 #define mccompcurindex 0
 #define mcposaH3_3A coords_set(0,0,0)
+#define m_out mcipm_out
 #define guide_start_width mcipguide_start_width
 #define guide_start_height mcipguide_start_height
 #define source_lambda_min mcipsource_lambda_min
@@ -10140,18 +10143,19 @@ double guide_start_dist = 1.82;
 
 //Reflection parameters
 double R0 = 0.99, alpha = 3.3;
-double m_out=3, m=2, m_top=3, n=2;
+double m=2, m_top=3, n=2;
 
 double R_curv=985 ;
 
 //rotation of one guide element
 double rot;
-#line 10149 "./H3-3A_CLEO.c"
+#line 10152 "./H3-3A_CLEO.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
 #undef guide_start_height
 #undef guide_start_width
+#undef m_out
 #undef mcposaH3_3A
 #undef mccompcurindex
 #undef mccompcurtype
@@ -12030,7 +12034,7 @@ double IntermediateCnts;
 time_t StartTime;
 time_t EndTime;
 time_t CurrentTime;
-#line 12033 "./H3-3A_CLEO.c"
+#line 12037 "./H3-3A_CLEO.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -12114,7 +12118,7 @@ time_t CurrentTime;
   double pTable_dymin;
   double pTable_dymax;
 
-#line 12117 "./H3-3A_CLEO.c"
+#line 12121 "./H3-3A_CLEO.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -12217,7 +12221,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12220 "./H3-3A_CLEO.c"
+#line 12224 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12301,7 +12305,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12304 "./H3-3A_CLEO.c"
+#line 12308 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12385,7 +12389,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12388 "./H3-3A_CLEO.c"
+#line 12392 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12469,7 +12473,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12472 "./H3-3A_CLEO.c"
+#line 12476 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12553,7 +12557,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12556 "./H3-3A_CLEO.c"
+#line 12560 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12637,7 +12641,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12640 "./H3-3A_CLEO.c"
+#line 12644 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12721,7 +12725,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12724 "./H3-3A_CLEO.c"
+#line 12728 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12805,7 +12809,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12808 "./H3-3A_CLEO.c"
+#line 12812 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12889,7 +12893,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12892 "./H3-3A_CLEO.c"
+#line 12896 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12973,7 +12977,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12976 "./H3-3A_CLEO.c"
+#line 12980 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13057,7 +13061,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13060 "./H3-3A_CLEO.c"
+#line 13064 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13141,7 +13145,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13144 "./H3-3A_CLEO.c"
+#line 13148 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13225,7 +13229,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13228 "./H3-3A_CLEO.c"
+#line 13232 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13309,7 +13313,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13312 "./H3-3A_CLEO.c"
+#line 13316 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13393,7 +13397,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13396 "./H3-3A_CLEO.c"
+#line 13400 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13477,7 +13481,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13480 "./H3-3A_CLEO.c"
+#line 13484 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13561,7 +13565,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13564 "./H3-3A_CLEO.c"
+#line 13568 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13645,7 +13649,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13648 "./H3-3A_CLEO.c"
+#line 13652 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13729,7 +13733,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13732 "./H3-3A_CLEO.c"
+#line 13736 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13813,7 +13817,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13816 "./H3-3A_CLEO.c"
+#line 13820 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13897,7 +13901,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13900 "./H3-3A_CLEO.c"
+#line 13904 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13981,7 +13985,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13984 "./H3-3A_CLEO.c"
+#line 13988 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14065,7 +14069,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14068 "./H3-3A_CLEO.c"
+#line 14072 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14149,7 +14153,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14152 "./H3-3A_CLEO.c"
+#line 14156 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14233,7 +14237,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14236 "./H3-3A_CLEO.c"
+#line 14240 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14317,7 +14321,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14320 "./H3-3A_CLEO.c"
+#line 14324 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14401,7 +14405,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14404 "./H3-3A_CLEO.c"
+#line 14408 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14485,7 +14489,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14488 "./H3-3A_CLEO.c"
+#line 14492 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14569,7 +14573,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14572 "./H3-3A_CLEO.c"
+#line 14576 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14653,7 +14657,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14656 "./H3-3A_CLEO.c"
+#line 14660 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14737,7 +14741,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14740 "./H3-3A_CLEO.c"
+#line 14744 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14821,7 +14825,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14824 "./H3-3A_CLEO.c"
+#line 14828 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14905,7 +14909,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14908 "./H3-3A_CLEO.c"
+#line 14912 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14989,7 +14993,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14992 "./H3-3A_CLEO.c"
+#line 14996 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15073,7 +15077,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15076 "./H3-3A_CLEO.c"
+#line 15080 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15157,7 +15161,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15160 "./H3-3A_CLEO.c"
+#line 15164 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15241,7 +15245,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15244 "./H3-3A_CLEO.c"
+#line 15248 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15325,7 +15329,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15328 "./H3-3A_CLEO.c"
+#line 15332 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15409,7 +15413,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15412 "./H3-3A_CLEO.c"
+#line 15416 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15493,7 +15497,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15496 "./H3-3A_CLEO.c"
+#line 15500 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15577,7 +15581,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15580 "./H3-3A_CLEO.c"
+#line 15584 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15661,7 +15665,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15664 "./H3-3A_CLEO.c"
+#line 15668 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15745,7 +15749,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15748 "./H3-3A_CLEO.c"
+#line 15752 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15829,7 +15833,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15832 "./H3-3A_CLEO.c"
+#line 15836 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15913,7 +15917,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15916 "./H3-3A_CLEO.c"
+#line 15920 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15997,7 +16001,7 @@ time_t CurrentTime;
 #line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16000 "./H3-3A_CLEO.c"
+#line 16004 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16075,7 +16079,7 @@ time_t CurrentTime;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16078 "./H3-3A_CLEO.c"
+#line 16082 "./H3-3A_CLEO.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16145,7 +16149,7 @@ time_t CurrentTime;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16148 "./H3-3A_CLEO.c"
+#line 16152 "./H3-3A_CLEO.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16215,7 +16219,7 @@ time_t CurrentTime;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16218 "./H3-3A_CLEO.c"
+#line 16222 "./H3-3A_CLEO.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16285,7 +16289,7 @@ time_t CurrentTime;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16288 "./H3-3A_CLEO.c"
+#line 16292 "./H3-3A_CLEO.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16355,7 +16359,7 @@ time_t CurrentTime;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16358 "./H3-3A_CLEO.c"
+#line 16362 "./H3-3A_CLEO.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16506,6 +16510,7 @@ void mcinit(void) {
 #define mccompcurtype  INSTRUMENT
 #define mccompcurindex 0
 #define mcposaH3_3A coords_set(0,0,0)
+#define m_out mcipm_out
 #define guide_start_width mcipguide_start_width
 #define guide_start_height mcipguide_start_height
 #define source_lambda_min mcipsource_lambda_min
@@ -16532,12 +16537,13 @@ if (cold_regime==-1){
 rot = -0.5/R_curv*RAD2DEG;
 	
 }
-#line 16535 "./H3-3A_CLEO.c"
+#line 16540 "./H3-3A_CLEO.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
 #undef guide_start_height
 #undef guide_start_width
+#undef m_out
 #undef mcposaH3_3A
 #undef mccompcurindex
 #undef mccompcurtype
@@ -16563,14 +16569,14 @@ rot = -0.5/R_curv*RAD2DEG;
   mccOrigin_flag_save = 0;
 #line 39 "H3-3A_CLEO.instr"
   mccOrigin_minutes = 0;
-#line 16566 "./H3-3A_CLEO.c"
+#line 16572 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Origin (Init:Place/Rotate)");
   rot_set_rotation(mcrotaOrigin,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 16573 "./H3-3A_CLEO.c"
+#line 16579 "./H3-3A_CLEO.c"
   rot_copy(mcrotrOrigin, mcrotaOrigin);
   mcposaOrigin = coords_set(
 #line 69 "H3-3A_CLEO.instr"
@@ -16579,7 +16585,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 69 "H3-3A_CLEO.instr"
     0);
-#line 16582 "./H3-3A_CLEO.c"
+#line 16588 "./H3-3A_CLEO.c"
   mctc1 = coords_neg(mcposaOrigin);
   mcposrOrigin = rot_apply(mcrotaOrigin, mctc1);
   mcDEBUG_COMPONENT("Origin", mcposaOrigin, mcrotaOrigin)
@@ -16650,14 +16656,14 @@ rot = -0.5/R_curv*RAD2DEG;
   mccH3_zdepth = 0;
 #line 134 "H3-3A_CLEO.instr"
   mccH3_target_index = + 1;
-#line 16653 "./H3-3A_CLEO.c"
+#line 16659 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("H3 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 16660 "./H3-3A_CLEO.c"
+#line 16666 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaH3);
   rot_transpose(mcrotaOrigin, mctr1);
   rot_mul(mcrotaH3, mctr1, mcrotrH3);
@@ -16668,7 +16674,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 78 "H3-3A_CLEO.instr"
     0);
-#line 16671 "./H3-3A_CLEO.c"
+#line 16677 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaH3 = coords_add(mcposaOrigin, mctc2);
@@ -16688,7 +16694,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 16691 "./H3-3A_CLEO.c"
+#line 16697 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaGuide_start_arm);
   rot_transpose(mcrotaH3, mctr1);
   rot_mul(mcrotaGuide_start_arm, mctr1, mcrotrGuide_start_arm);
@@ -16699,7 +16705,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 82 "H3-3A_CLEO.instr"
     guide_start_dist);
-#line 16702 "./H3-3A_CLEO.c"
+#line 16708 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_start_arm = coords_add(mcposaOrigin, mctc2);
@@ -16781,14 +16787,14 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_metal_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_metal_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_metal_reflect[0]='\0';
-#line 16784 "./H3-3A_CLEO.c"
+#line 16790 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_metal (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 16791 "./H3-3A_CLEO.c"
+#line 16797 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaGuide_metal);
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   rot_mul(mcrotaGuide_metal, mctr1, mcrotrGuide_metal);
@@ -16799,7 +16805,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 52 "H3-3A_CLEO.instr"
     0);
-#line 16802 "./H3-3A_CLEO.c"
+#line 16808 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_metal = coords_add(mcposaGuide_start_arm, mctc2);
@@ -16838,7 +16844,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_mleft = m_out;
+  mccGuide_curved_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -16881,7 +16887,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_reflect[0]='\0';
-#line 16884 "./H3-3A_CLEO.c"
+#line 16890 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -16891,7 +16897,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 57 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 16894 "./H3-3A_CLEO.c"
+#line 16900 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_metal, mcrotaGuide_curved);
   rot_transpose(mcrotaGuide_metal, mctr1);
   rot_mul(mcrotaGuide_curved, mctr1, mcrotrGuide_curved);
@@ -16902,7 +16908,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0.025,
 #line 56 "H3-3A_CLEO.instr"
     3);
-#line 16905 "./H3-3A_CLEO.c"
+#line 16911 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_metal, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved = coords_add(mcposaGuide_metal, mctc2);
@@ -16941,7 +16947,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_6_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_6_mleft = m_out;
+  mccGuide_curved_6_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_6_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -16984,7 +16990,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_6_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_6_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_6_reflect[0]='\0';
-#line 16987 "./H3-3A_CLEO.c"
+#line 16993 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_6 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -16994,7 +17000,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 61 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 16997 "./H3-3A_CLEO.c"
+#line 17003 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved, mcrotaGuide_curved_6);
   rot_transpose(mcrotaGuide_curved, mctr1);
   rot_mul(mcrotaGuide_curved_6, mctr1, mcrotrGuide_curved_6);
@@ -17005,7 +17011,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 60 "H3-3A_CLEO.instr"
     0.5);
-#line 17008 "./H3-3A_CLEO.c"
+#line 17014 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_6 = coords_add(mcposaGuide_curved, mctc2);
@@ -17044,7 +17050,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_7_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_7_mleft = m_out;
+  mccGuide_curved_7_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_7_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -17087,7 +17093,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_7_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_7_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_7_reflect[0]='\0';
-#line 17090 "./H3-3A_CLEO.c"
+#line 17096 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_7 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17097,7 +17103,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 65 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 17100 "./H3-3A_CLEO.c"
+#line 17106 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_6, mcrotaGuide_curved_7);
   rot_transpose(mcrotaGuide_curved_6, mctr1);
   rot_mul(mcrotaGuide_curved_7, mctr1, mcrotrGuide_curved_7);
@@ -17108,7 +17114,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 64 "H3-3A_CLEO.instr"
     0.5);
-#line 17111 "./H3-3A_CLEO.c"
+#line 17117 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_6, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_7 = coords_add(mcposaGuide_curved_6, mctc2);
@@ -17147,7 +17153,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_8_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_8_mleft = m_out;
+  mccGuide_curved_8_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_8_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -17190,7 +17196,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_8_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_8_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_8_reflect[0]='\0';
-#line 17193 "./H3-3A_CLEO.c"
+#line 17199 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_8 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17200,7 +17206,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 69 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 17203 "./H3-3A_CLEO.c"
+#line 17209 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_7, mcrotaGuide_curved_8);
   rot_transpose(mcrotaGuide_curved_7, mctr1);
   rot_mul(mcrotaGuide_curved_8, mctr1, mcrotrGuide_curved_8);
@@ -17211,7 +17217,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 68 "H3-3A_CLEO.instr"
     0.5);
-#line 17214 "./H3-3A_CLEO.c"
+#line 17220 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_7, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_8 = coords_add(mcposaGuide_curved_7, mctc2);
@@ -17250,7 +17256,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_9_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_9_mleft = m_out;
+  mccGuide_curved_9_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_9_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -17293,7 +17299,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_9_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_9_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_9_reflect[0]='\0';
-#line 17296 "./H3-3A_CLEO.c"
+#line 17302 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_9 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17303,7 +17309,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 73 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 17306 "./H3-3A_CLEO.c"
+#line 17312 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_8, mcrotaGuide_curved_9);
   rot_transpose(mcrotaGuide_curved_8, mctr1);
   rot_mul(mcrotaGuide_curved_9, mctr1, mcrotrGuide_curved_9);
@@ -17314,7 +17320,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 72 "H3-3A_CLEO.instr"
     0.5);
-#line 17317 "./H3-3A_CLEO.c"
+#line 17323 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_8, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_9 = coords_add(mcposaGuide_curved_8, mctc2);
@@ -17353,7 +17359,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_10_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_10_mleft = m_out;
+  mccGuide_curved_10_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_10_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -17396,7 +17402,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_10_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_10_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_10_reflect[0]='\0';
-#line 17399 "./H3-3A_CLEO.c"
+#line 17405 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_10 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17406,7 +17412,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 77 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 17409 "./H3-3A_CLEO.c"
+#line 17415 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_9, mcrotaGuide_curved_10);
   rot_transpose(mcrotaGuide_curved_9, mctr1);
   rot_mul(mcrotaGuide_curved_10, mctr1, mcrotrGuide_curved_10);
@@ -17417,7 +17423,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 76 "H3-3A_CLEO.instr"
     0.5);
-#line 17420 "./H3-3A_CLEO.c"
+#line 17426 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_9, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_10 = coords_add(mcposaGuide_curved_9, mctc2);
@@ -17456,7 +17462,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_11_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_11_mleft = m_out;
+  mccGuide_curved_11_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_11_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -17499,7 +17505,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_11_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_11_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_11_reflect[0]='\0';
-#line 17502 "./H3-3A_CLEO.c"
+#line 17508 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_11 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17509,7 +17515,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 81 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 17512 "./H3-3A_CLEO.c"
+#line 17518 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_10, mcrotaGuide_curved_11);
   rot_transpose(mcrotaGuide_curved_10, mctr1);
   rot_mul(mcrotaGuide_curved_11, mctr1, mcrotrGuide_curved_11);
@@ -17520,7 +17526,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 80 "H3-3A_CLEO.instr"
     0.5);
-#line 17523 "./H3-3A_CLEO.c"
+#line 17529 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_10, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_11 = coords_add(mcposaGuide_curved_10, mctc2);
@@ -17559,7 +17565,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_12_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_12_mleft = m_out;
+  mccGuide_curved_12_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_12_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -17602,7 +17608,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_12_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_12_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_12_reflect[0]='\0';
-#line 17605 "./H3-3A_CLEO.c"
+#line 17611 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_12 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17612,7 +17618,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 85 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 17615 "./H3-3A_CLEO.c"
+#line 17621 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_11, mcrotaGuide_curved_12);
   rot_transpose(mcrotaGuide_curved_11, mctr1);
   rot_mul(mcrotaGuide_curved_12, mctr1, mcrotrGuide_curved_12);
@@ -17623,7 +17629,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 84 "H3-3A_CLEO.instr"
     0.5);
-#line 17626 "./H3-3A_CLEO.c"
+#line 17632 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_11, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_12 = coords_add(mcposaGuide_curved_11, mctc2);
@@ -17662,7 +17668,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_13_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_13_mleft = m_out;
+  mccGuide_curved_13_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_13_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -17705,7 +17711,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_13_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_13_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_13_reflect[0]='\0';
-#line 17708 "./H3-3A_CLEO.c"
+#line 17714 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_13 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17715,7 +17721,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 89 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 17718 "./H3-3A_CLEO.c"
+#line 17724 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_12, mcrotaGuide_curved_13);
   rot_transpose(mcrotaGuide_curved_12, mctr1);
   rot_mul(mcrotaGuide_curved_13, mctr1, mcrotrGuide_curved_13);
@@ -17726,7 +17732,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 88 "H3-3A_CLEO.instr"
     0.5);
-#line 17729 "./H3-3A_CLEO.c"
+#line 17735 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_12, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_13 = coords_add(mcposaGuide_curved_12, mctc2);
@@ -17765,7 +17771,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_14_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_14_mleft = m_out;
+  mccGuide_curved_14_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_14_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -17808,7 +17814,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_14_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_14_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_14_reflect[0]='\0';
-#line 17811 "./H3-3A_CLEO.c"
+#line 17817 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_14 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17818,7 +17824,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 93 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 17821 "./H3-3A_CLEO.c"
+#line 17827 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_13, mcrotaGuide_curved_14);
   rot_transpose(mcrotaGuide_curved_13, mctr1);
   rot_mul(mcrotaGuide_curved_14, mctr1, mcrotrGuide_curved_14);
@@ -17829,7 +17835,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 92 "H3-3A_CLEO.instr"
     0.5);
-#line 17832 "./H3-3A_CLEO.c"
+#line 17838 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_13, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_14 = coords_add(mcposaGuide_curved_13, mctc2);
@@ -17868,7 +17874,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_15_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_15_mleft = m_out;
+  mccGuide_curved_15_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_15_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -17911,7 +17917,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_15_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_15_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_15_reflect[0]='\0';
-#line 17914 "./H3-3A_CLEO.c"
+#line 17920 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_15 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17921,7 +17927,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 97 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 17924 "./H3-3A_CLEO.c"
+#line 17930 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_14, mcrotaGuide_curved_15);
   rot_transpose(mcrotaGuide_curved_14, mctr1);
   rot_mul(mcrotaGuide_curved_15, mctr1, mcrotrGuide_curved_15);
@@ -17932,7 +17938,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 96 "H3-3A_CLEO.instr"
     0.5);
-#line 17935 "./H3-3A_CLEO.c"
+#line 17941 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_14, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_15 = coords_add(mcposaGuide_curved_14, mctc2);
@@ -17971,7 +17977,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_16_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_16_mleft = m_out;
+  mccGuide_curved_16_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_16_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -18014,7 +18020,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_16_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_16_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_16_reflect[0]='\0';
-#line 18017 "./H3-3A_CLEO.c"
+#line 18023 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_16 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18024,7 +18030,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 101 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 18027 "./H3-3A_CLEO.c"
+#line 18033 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_15, mcrotaGuide_curved_16);
   rot_transpose(mcrotaGuide_curved_15, mctr1);
   rot_mul(mcrotaGuide_curved_16, mctr1, mcrotrGuide_curved_16);
@@ -18035,7 +18041,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 100 "H3-3A_CLEO.instr"
     0.5);
-#line 18038 "./H3-3A_CLEO.c"
+#line 18044 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_15, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_16 = coords_add(mcposaGuide_curved_15, mctc2);
@@ -18074,7 +18080,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_17_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_17_mleft = m_out;
+  mccGuide_curved_17_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_17_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -18117,7 +18123,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_17_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_17_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_17_reflect[0]='\0';
-#line 18120 "./H3-3A_CLEO.c"
+#line 18126 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_17 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18127,7 +18133,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 105 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 18130 "./H3-3A_CLEO.c"
+#line 18136 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_16, mcrotaGuide_curved_17);
   rot_transpose(mcrotaGuide_curved_16, mctr1);
   rot_mul(mcrotaGuide_curved_17, mctr1, mcrotrGuide_curved_17);
@@ -18138,7 +18144,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 104 "H3-3A_CLEO.instr"
     0.5);
-#line 18141 "./H3-3A_CLEO.c"
+#line 18147 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_16, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_17 = coords_add(mcposaGuide_curved_16, mctc2);
@@ -18177,7 +18183,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_18_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_18_mleft = m_out;
+  mccGuide_curved_18_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_18_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -18220,7 +18226,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_18_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_18_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_18_reflect[0]='\0';
-#line 18223 "./H3-3A_CLEO.c"
+#line 18229 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_18 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18230,7 +18236,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 109 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 18233 "./H3-3A_CLEO.c"
+#line 18239 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_17, mcrotaGuide_curved_18);
   rot_transpose(mcrotaGuide_curved_17, mctr1);
   rot_mul(mcrotaGuide_curved_18, mctr1, mcrotrGuide_curved_18);
@@ -18241,7 +18247,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 108 "H3-3A_CLEO.instr"
     0.5);
-#line 18244 "./H3-3A_CLEO.c"
+#line 18250 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_17, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_18 = coords_add(mcposaGuide_curved_17, mctc2);
@@ -18280,7 +18286,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_19_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_19_mleft = m_out;
+  mccGuide_curved_19_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_19_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -18323,7 +18329,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_19_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_19_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_19_reflect[0]='\0';
-#line 18326 "./H3-3A_CLEO.c"
+#line 18332 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_19 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18333,7 +18339,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 113 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 18336 "./H3-3A_CLEO.c"
+#line 18342 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_18, mcrotaGuide_curved_19);
   rot_transpose(mcrotaGuide_curved_18, mctr1);
   rot_mul(mcrotaGuide_curved_19, mctr1, mcrotrGuide_curved_19);
@@ -18344,7 +18350,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 112 "H3-3A_CLEO.instr"
     0.5);
-#line 18347 "./H3-3A_CLEO.c"
+#line 18353 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_18, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_19 = coords_add(mcposaGuide_curved_18, mctc2);
@@ -18383,7 +18389,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_20_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_20_mleft = m_out;
+  mccGuide_curved_20_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_20_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -18426,7 +18432,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_20_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_20_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_20_reflect[0]='\0';
-#line 18429 "./H3-3A_CLEO.c"
+#line 18435 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_20 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18436,7 +18442,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 117 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 18439 "./H3-3A_CLEO.c"
+#line 18445 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_19, mcrotaGuide_curved_20);
   rot_transpose(mcrotaGuide_curved_19, mctr1);
   rot_mul(mcrotaGuide_curved_20, mctr1, mcrotrGuide_curved_20);
@@ -18447,7 +18453,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 116 "H3-3A_CLEO.instr"
     0.5);
-#line 18450 "./H3-3A_CLEO.c"
+#line 18456 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_19, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_20 = coords_add(mcposaGuide_curved_19, mctc2);
@@ -18486,7 +18492,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_21_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_21_mleft = m_out;
+  mccGuide_curved_21_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_21_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -18529,7 +18535,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_21_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_21_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_21_reflect[0]='\0';
-#line 18532 "./H3-3A_CLEO.c"
+#line 18538 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_21 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18539,7 +18545,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 121 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 18542 "./H3-3A_CLEO.c"
+#line 18548 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_20, mcrotaGuide_curved_21);
   rot_transpose(mcrotaGuide_curved_20, mctr1);
   rot_mul(mcrotaGuide_curved_21, mctr1, mcrotrGuide_curved_21);
@@ -18550,7 +18556,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 120 "H3-3A_CLEO.instr"
     0.5);
-#line 18553 "./H3-3A_CLEO.c"
+#line 18559 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_20, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_21 = coords_add(mcposaGuide_curved_20, mctc2);
@@ -18589,7 +18595,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_22_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_22_mleft = m_out;
+  mccGuide_curved_22_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_22_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -18632,7 +18638,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_22_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_22_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_22_reflect[0]='\0';
-#line 18635 "./H3-3A_CLEO.c"
+#line 18641 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_22 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18642,7 +18648,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 125 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 18645 "./H3-3A_CLEO.c"
+#line 18651 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_21, mcrotaGuide_curved_22);
   rot_transpose(mcrotaGuide_curved_21, mctr1);
   rot_mul(mcrotaGuide_curved_22, mctr1, mcrotrGuide_curved_22);
@@ -18653,7 +18659,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 124 "H3-3A_CLEO.instr"
     0.5);
-#line 18656 "./H3-3A_CLEO.c"
+#line 18662 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_21, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_22 = coords_add(mcposaGuide_curved_21, mctc2);
@@ -18692,7 +18698,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_23_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_23_mleft = m_out;
+  mccGuide_curved_23_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_23_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -18735,7 +18741,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_23_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_23_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_23_reflect[0]='\0';
-#line 18738 "./H3-3A_CLEO.c"
+#line 18744 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_23 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18745,7 +18751,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 129 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 18748 "./H3-3A_CLEO.c"
+#line 18754 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_22, mcrotaGuide_curved_23);
   rot_transpose(mcrotaGuide_curved_22, mctr1);
   rot_mul(mcrotaGuide_curved_23, mctr1, mcrotrGuide_curved_23);
@@ -18756,7 +18762,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 128 "H3-3A_CLEO.instr"
     0.5);
-#line 18759 "./H3-3A_CLEO.c"
+#line 18765 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_22, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_23 = coords_add(mcposaGuide_curved_22, mctc2);
@@ -18795,7 +18801,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_24_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_24_mleft = m_out;
+  mccGuide_curved_24_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_24_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -18838,7 +18844,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_24_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_24_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_24_reflect[0]='\0';
-#line 18841 "./H3-3A_CLEO.c"
+#line 18847 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_24 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18848,7 +18854,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 133 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 18851 "./H3-3A_CLEO.c"
+#line 18857 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_23, mcrotaGuide_curved_24);
   rot_transpose(mcrotaGuide_curved_23, mctr1);
   rot_mul(mcrotaGuide_curved_24, mctr1, mcrotrGuide_curved_24);
@@ -18859,7 +18865,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 132 "H3-3A_CLEO.instr"
     0.5);
-#line 18862 "./H3-3A_CLEO.c"
+#line 18868 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_23, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_24 = coords_add(mcposaGuide_curved_23, mctc2);
@@ -18898,7 +18904,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_25_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_25_mleft = m_out;
+  mccGuide_curved_25_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_25_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -18941,7 +18947,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_25_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_25_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_25_reflect[0]='\0';
-#line 18944 "./H3-3A_CLEO.c"
+#line 18950 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_25 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18951,7 +18957,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 137 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 18954 "./H3-3A_CLEO.c"
+#line 18960 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_24, mcrotaGuide_curved_25);
   rot_transpose(mcrotaGuide_curved_24, mctr1);
   rot_mul(mcrotaGuide_curved_25, mctr1, mcrotrGuide_curved_25);
@@ -18962,7 +18968,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 136 "H3-3A_CLEO.instr"
     0.5);
-#line 18965 "./H3-3A_CLEO.c"
+#line 18971 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_24, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_25 = coords_add(mcposaGuide_curved_24, mctc2);
@@ -19001,7 +19007,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_26_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_26_mleft = m_out;
+  mccGuide_curved_26_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_26_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -19044,7 +19050,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_26_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_26_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_26_reflect[0]='\0';
-#line 19047 "./H3-3A_CLEO.c"
+#line 19053 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_26 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19054,7 +19060,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 141 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 19057 "./H3-3A_CLEO.c"
+#line 19063 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_25, mcrotaGuide_curved_26);
   rot_transpose(mcrotaGuide_curved_25, mctr1);
   rot_mul(mcrotaGuide_curved_26, mctr1, mcrotrGuide_curved_26);
@@ -19065,7 +19071,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 140 "H3-3A_CLEO.instr"
     0.5);
-#line 19068 "./H3-3A_CLEO.c"
+#line 19074 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_25, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_26 = coords_add(mcposaGuide_curved_25, mctc2);
@@ -19104,7 +19110,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_27_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_27_mleft = m_out;
+  mccGuide_curved_27_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_27_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -19147,7 +19153,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_27_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_27_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_27_reflect[0]='\0';
-#line 19150 "./H3-3A_CLEO.c"
+#line 19156 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_27 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19157,7 +19163,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 145 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 19160 "./H3-3A_CLEO.c"
+#line 19166 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_26, mcrotaGuide_curved_27);
   rot_transpose(mcrotaGuide_curved_26, mctr1);
   rot_mul(mcrotaGuide_curved_27, mctr1, mcrotrGuide_curved_27);
@@ -19168,7 +19174,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 144 "H3-3A_CLEO.instr"
     0.5);
-#line 19171 "./H3-3A_CLEO.c"
+#line 19177 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_26, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_27 = coords_add(mcposaGuide_curved_26, mctc2);
@@ -19207,7 +19213,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_28_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_28_mleft = m_out;
+  mccGuide_curved_28_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_28_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -19250,7 +19256,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_28_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_28_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_28_reflect[0]='\0';
-#line 19253 "./H3-3A_CLEO.c"
+#line 19259 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_28 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19260,7 +19266,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 149 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 19263 "./H3-3A_CLEO.c"
+#line 19269 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_27, mcrotaGuide_curved_28);
   rot_transpose(mcrotaGuide_curved_27, mctr1);
   rot_mul(mcrotaGuide_curved_28, mctr1, mcrotrGuide_curved_28);
@@ -19271,7 +19277,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 148 "H3-3A_CLEO.instr"
     0.5);
-#line 19274 "./H3-3A_CLEO.c"
+#line 19280 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_27, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_28 = coords_add(mcposaGuide_curved_27, mctc2);
@@ -19310,7 +19316,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_29_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_29_mleft = m_out;
+  mccGuide_curved_29_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_29_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -19353,7 +19359,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_29_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_29_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_29_reflect[0]='\0';
-#line 19356 "./H3-3A_CLEO.c"
+#line 19362 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_29 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19363,7 +19369,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 153 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 19366 "./H3-3A_CLEO.c"
+#line 19372 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_28, mcrotaGuide_curved_29);
   rot_transpose(mcrotaGuide_curved_28, mctr1);
   rot_mul(mcrotaGuide_curved_29, mctr1, mcrotrGuide_curved_29);
@@ -19374,7 +19380,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 152 "H3-3A_CLEO.instr"
     0.5);
-#line 19377 "./H3-3A_CLEO.c"
+#line 19383 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_28, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_29 = coords_add(mcposaGuide_curved_28, mctc2);
@@ -19413,7 +19419,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_30_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_30_mleft = m_out;
+  mccGuide_curved_30_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_30_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -19456,7 +19462,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_30_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_30_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_30_reflect[0]='\0';
-#line 19459 "./H3-3A_CLEO.c"
+#line 19465 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_30 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19466,7 +19472,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 157 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 19469 "./H3-3A_CLEO.c"
+#line 19475 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_29, mcrotaGuide_curved_30);
   rot_transpose(mcrotaGuide_curved_29, mctr1);
   rot_mul(mcrotaGuide_curved_30, mctr1, mcrotrGuide_curved_30);
@@ -19477,7 +19483,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 156 "H3-3A_CLEO.instr"
     0.5);
-#line 19480 "./H3-3A_CLEO.c"
+#line 19486 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_29, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_30 = coords_add(mcposaGuide_curved_29, mctc2);
@@ -19516,7 +19522,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_31_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_31_mleft = m_out;
+  mccGuide_curved_31_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_31_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -19559,7 +19565,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_31_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_31_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_31_reflect[0]='\0';
-#line 19562 "./H3-3A_CLEO.c"
+#line 19568 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_31 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19569,7 +19575,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 161 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 19572 "./H3-3A_CLEO.c"
+#line 19578 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_30, mcrotaGuide_curved_31);
   rot_transpose(mcrotaGuide_curved_30, mctr1);
   rot_mul(mcrotaGuide_curved_31, mctr1, mcrotrGuide_curved_31);
@@ -19580,7 +19586,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 160 "H3-3A_CLEO.instr"
     0.5);
-#line 19583 "./H3-3A_CLEO.c"
+#line 19589 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_30, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_31 = coords_add(mcposaGuide_curved_30, mctc2);
@@ -19619,7 +19625,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_32_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_32_mleft = m_out;
+  mccGuide_curved_32_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_32_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -19662,7 +19668,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_32_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_32_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_32_reflect[0]='\0';
-#line 19665 "./H3-3A_CLEO.c"
+#line 19671 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_32 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19672,7 +19678,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 165 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 19675 "./H3-3A_CLEO.c"
+#line 19681 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_31, mcrotaGuide_curved_32);
   rot_transpose(mcrotaGuide_curved_31, mctr1);
   rot_mul(mcrotaGuide_curved_32, mctr1, mcrotrGuide_curved_32);
@@ -19683,7 +19689,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 164 "H3-3A_CLEO.instr"
     0.5);
-#line 19686 "./H3-3A_CLEO.c"
+#line 19692 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_31, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_32 = coords_add(mcposaGuide_curved_31, mctc2);
@@ -19722,7 +19728,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_33_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_33_mleft = m_out;
+  mccGuide_curved_33_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_33_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -19765,7 +19771,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_33_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_33_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_33_reflect[0]='\0';
-#line 19768 "./H3-3A_CLEO.c"
+#line 19774 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_33 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19775,7 +19781,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 169 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 19778 "./H3-3A_CLEO.c"
+#line 19784 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_32, mcrotaGuide_curved_33);
   rot_transpose(mcrotaGuide_curved_32, mctr1);
   rot_mul(mcrotaGuide_curved_33, mctr1, mcrotrGuide_curved_33);
@@ -19786,7 +19792,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 168 "H3-3A_CLEO.instr"
     0.5);
-#line 19789 "./H3-3A_CLEO.c"
+#line 19795 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_32, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_33 = coords_add(mcposaGuide_curved_32, mctc2);
@@ -19825,7 +19831,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_34_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_34_mleft = m_out;
+  mccGuide_curved_34_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_34_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -19868,7 +19874,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_34_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_34_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_34_reflect[0]='\0';
-#line 19871 "./H3-3A_CLEO.c"
+#line 19877 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_34 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19878,7 +19884,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 173 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 19881 "./H3-3A_CLEO.c"
+#line 19887 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_33, mcrotaGuide_curved_34);
   rot_transpose(mcrotaGuide_curved_33, mctr1);
   rot_mul(mcrotaGuide_curved_34, mctr1, mcrotrGuide_curved_34);
@@ -19889,7 +19895,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 172 "H3-3A_CLEO.instr"
     0.5);
-#line 19892 "./H3-3A_CLEO.c"
+#line 19898 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_33, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_34 = coords_add(mcposaGuide_curved_33, mctc2);
@@ -19928,7 +19934,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_35_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_35_mleft = m_out;
+  mccGuide_curved_35_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_35_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -19971,7 +19977,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_35_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_35_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_35_reflect[0]='\0';
-#line 19974 "./H3-3A_CLEO.c"
+#line 19980 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_35 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19981,7 +19987,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 177 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 19984 "./H3-3A_CLEO.c"
+#line 19990 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_34, mcrotaGuide_curved_35);
   rot_transpose(mcrotaGuide_curved_34, mctr1);
   rot_mul(mcrotaGuide_curved_35, mctr1, mcrotrGuide_curved_35);
@@ -19992,7 +19998,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 176 "H3-3A_CLEO.instr"
     0.5);
-#line 19995 "./H3-3A_CLEO.c"
+#line 20001 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_34, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_35 = coords_add(mcposaGuide_curved_34, mctc2);
@@ -20031,7 +20037,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_36_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_36_mleft = m_out;
+  mccGuide_curved_36_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_36_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -20074,7 +20080,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_36_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_36_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_36_reflect[0]='\0';
-#line 20077 "./H3-3A_CLEO.c"
+#line 20083 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_36 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20084,7 +20090,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 181 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 20087 "./H3-3A_CLEO.c"
+#line 20093 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_35, mcrotaGuide_curved_36);
   rot_transpose(mcrotaGuide_curved_35, mctr1);
   rot_mul(mcrotaGuide_curved_36, mctr1, mcrotrGuide_curved_36);
@@ -20095,7 +20101,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 180 "H3-3A_CLEO.instr"
     0.5);
-#line 20098 "./H3-3A_CLEO.c"
+#line 20104 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_35, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_36 = coords_add(mcposaGuide_curved_35, mctc2);
@@ -20134,7 +20140,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_37_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_37_mleft = m_out;
+  mccGuide_curved_37_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_37_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -20177,7 +20183,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_37_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_37_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_37_reflect[0]='\0';
-#line 20180 "./H3-3A_CLEO.c"
+#line 20186 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_37 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20187,7 +20193,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 185 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 20190 "./H3-3A_CLEO.c"
+#line 20196 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_36, mcrotaGuide_curved_37);
   rot_transpose(mcrotaGuide_curved_36, mctr1);
   rot_mul(mcrotaGuide_curved_37, mctr1, mcrotrGuide_curved_37);
@@ -20198,7 +20204,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 184 "H3-3A_CLEO.instr"
     0.5);
-#line 20201 "./H3-3A_CLEO.c"
+#line 20207 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_36, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_37 = coords_add(mcposaGuide_curved_36, mctc2);
@@ -20237,7 +20243,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_38_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_38_mleft = m_out;
+  mccGuide_curved_38_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_38_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -20280,7 +20286,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_38_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_38_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_38_reflect[0]='\0';
-#line 20283 "./H3-3A_CLEO.c"
+#line 20289 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_38 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20290,7 +20296,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 189 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 20293 "./H3-3A_CLEO.c"
+#line 20299 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_37, mcrotaGuide_curved_38);
   rot_transpose(mcrotaGuide_curved_37, mctr1);
   rot_mul(mcrotaGuide_curved_38, mctr1, mcrotrGuide_curved_38);
@@ -20301,7 +20307,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 188 "H3-3A_CLEO.instr"
     0.5);
-#line 20304 "./H3-3A_CLEO.c"
+#line 20310 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_37, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_38 = coords_add(mcposaGuide_curved_37, mctc2);
@@ -20340,7 +20346,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_39_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_39_mleft = m_out;
+  mccGuide_curved_39_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_39_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -20383,7 +20389,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_39_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_39_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_39_reflect[0]='\0';
-#line 20386 "./H3-3A_CLEO.c"
+#line 20392 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_39 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20393,7 +20399,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 193 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 20396 "./H3-3A_CLEO.c"
+#line 20402 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_38, mcrotaGuide_curved_39);
   rot_transpose(mcrotaGuide_curved_38, mctr1);
   rot_mul(mcrotaGuide_curved_39, mctr1, mcrotrGuide_curved_39);
@@ -20404,7 +20410,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 192 "H3-3A_CLEO.instr"
     0.5);
-#line 20407 "./H3-3A_CLEO.c"
+#line 20413 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_38, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_39 = coords_add(mcposaGuide_curved_38, mctc2);
@@ -20443,7 +20449,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_40_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_40_mleft = m_out;
+  mccGuide_curved_40_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_40_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -20486,7 +20492,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_40_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_40_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_40_reflect[0]='\0';
-#line 20489 "./H3-3A_CLEO.c"
+#line 20495 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_40 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20496,7 +20502,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 197 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 20499 "./H3-3A_CLEO.c"
+#line 20505 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_39, mcrotaGuide_curved_40);
   rot_transpose(mcrotaGuide_curved_39, mctr1);
   rot_mul(mcrotaGuide_curved_40, mctr1, mcrotrGuide_curved_40);
@@ -20507,7 +20513,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 196 "H3-3A_CLEO.instr"
     0.5);
-#line 20510 "./H3-3A_CLEO.c"
+#line 20516 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_39, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_40 = coords_add(mcposaGuide_curved_39, mctc2);
@@ -20546,7 +20552,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_41_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_41_mleft = m_out;
+  mccGuide_curved_41_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_41_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -20589,7 +20595,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_41_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_41_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_41_reflect[0]='\0';
-#line 20592 "./H3-3A_CLEO.c"
+#line 20598 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_41 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20599,7 +20605,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 201 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 20602 "./H3-3A_CLEO.c"
+#line 20608 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_40, mcrotaGuide_curved_41);
   rot_transpose(mcrotaGuide_curved_40, mctr1);
   rot_mul(mcrotaGuide_curved_41, mctr1, mcrotrGuide_curved_41);
@@ -20610,7 +20616,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 200 "H3-3A_CLEO.instr"
     0.5);
-#line 20613 "./H3-3A_CLEO.c"
+#line 20619 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_40, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_41 = coords_add(mcposaGuide_curved_40, mctc2);
@@ -20649,7 +20655,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_42_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_42_mleft = m_out;
+  mccGuide_curved_42_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_42_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -20692,7 +20698,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_42_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_42_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_42_reflect[0]='\0';
-#line 20695 "./H3-3A_CLEO.c"
+#line 20701 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_42 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20702,7 +20708,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 205 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 20705 "./H3-3A_CLEO.c"
+#line 20711 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_41, mcrotaGuide_curved_42);
   rot_transpose(mcrotaGuide_curved_41, mctr1);
   rot_mul(mcrotaGuide_curved_42, mctr1, mcrotrGuide_curved_42);
@@ -20713,7 +20719,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 204 "H3-3A_CLEO.instr"
     0.5);
-#line 20716 "./H3-3A_CLEO.c"
+#line 20722 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_41, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_42 = coords_add(mcposaGuide_curved_41, mctc2);
@@ -20752,7 +20758,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_43_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_43_mleft = m_out;
+  mccGuide_curved_43_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_43_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -20795,7 +20801,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_43_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_43_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_43_reflect[0]='\0';
-#line 20798 "./H3-3A_CLEO.c"
+#line 20804 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_43 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20805,7 +20811,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 209 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 20808 "./H3-3A_CLEO.c"
+#line 20814 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_42, mcrotaGuide_curved_43);
   rot_transpose(mcrotaGuide_curved_42, mctr1);
   rot_mul(mcrotaGuide_curved_43, mctr1, mcrotrGuide_curved_43);
@@ -20816,7 +20822,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 208 "H3-3A_CLEO.instr"
     0.5);
-#line 20819 "./H3-3A_CLEO.c"
+#line 20825 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_42, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_43 = coords_add(mcposaGuide_curved_42, mctc2);
@@ -20855,7 +20861,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_44_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_44_mleft = m_out;
+  mccGuide_curved_44_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_44_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -20898,7 +20904,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_44_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_44_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_44_reflect[0]='\0';
-#line 20901 "./H3-3A_CLEO.c"
+#line 20907 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_44 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20908,7 +20914,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 213 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 20911 "./H3-3A_CLEO.c"
+#line 20917 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_43, mcrotaGuide_curved_44);
   rot_transpose(mcrotaGuide_curved_43, mctr1);
   rot_mul(mcrotaGuide_curved_44, mctr1, mcrotrGuide_curved_44);
@@ -20919,7 +20925,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 212 "H3-3A_CLEO.instr"
     0.5);
-#line 20922 "./H3-3A_CLEO.c"
+#line 20928 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_43, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_44 = coords_add(mcposaGuide_curved_43, mctc2);
@@ -20958,7 +20964,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_45_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_45_mleft = m_out;
+  mccGuide_curved_45_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_45_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -21001,7 +21007,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_45_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_45_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_45_reflect[0]='\0';
-#line 21004 "./H3-3A_CLEO.c"
+#line 21010 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_45 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21011,7 +21017,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 217 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 21014 "./H3-3A_CLEO.c"
+#line 21020 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_44, mcrotaGuide_curved_45);
   rot_transpose(mcrotaGuide_curved_44, mctr1);
   rot_mul(mcrotaGuide_curved_45, mctr1, mcrotrGuide_curved_45);
@@ -21022,7 +21028,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 216 "H3-3A_CLEO.instr"
     0.5);
-#line 21025 "./H3-3A_CLEO.c"
+#line 21031 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_44, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_45 = coords_add(mcposaGuide_curved_44, mctc2);
@@ -21061,7 +21067,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_46_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_46_mleft = m_out;
+  mccGuide_curved_46_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_46_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -21104,7 +21110,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_46_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_46_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_46_reflect[0]='\0';
-#line 21107 "./H3-3A_CLEO.c"
+#line 21113 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_46 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21114,7 +21120,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 221 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 21117 "./H3-3A_CLEO.c"
+#line 21123 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_45, mcrotaGuide_curved_46);
   rot_transpose(mcrotaGuide_curved_45, mctr1);
   rot_mul(mcrotaGuide_curved_46, mctr1, mcrotrGuide_curved_46);
@@ -21125,7 +21131,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 220 "H3-3A_CLEO.instr"
     0.5);
-#line 21128 "./H3-3A_CLEO.c"
+#line 21134 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_45, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_46 = coords_add(mcposaGuide_curved_45, mctc2);
@@ -21164,7 +21170,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_47_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_47_mleft = m_out;
+  mccGuide_curved_47_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_47_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -21207,7 +21213,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_47_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_47_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_47_reflect[0]='\0';
-#line 21210 "./H3-3A_CLEO.c"
+#line 21216 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_47 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21217,7 +21223,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 225 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 21220 "./H3-3A_CLEO.c"
+#line 21226 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_46, mcrotaGuide_curved_47);
   rot_transpose(mcrotaGuide_curved_46, mctr1);
   rot_mul(mcrotaGuide_curved_47, mctr1, mcrotrGuide_curved_47);
@@ -21228,7 +21234,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 224 "H3-3A_CLEO.instr"
     0.5);
-#line 21231 "./H3-3A_CLEO.c"
+#line 21237 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_46, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_47 = coords_add(mcposaGuide_curved_46, mctc2);
@@ -21267,7 +21273,7 @@ rot = -0.5/R_curv*RAD2DEG;
 #line 114 "H3-3A_CLEO.instr"
   mccGuide_curved_48_d = 0.0005;
 #line 55 "H3-3A_CLEO.instr"
-  mccGuide_curved_48_mleft = m_out;
+  mccGuide_curved_48_mleft = mcipm_out;
 #line 55 "H3-3A_CLEO.instr"
   mccGuide_curved_48_mright = m;
 #line 55 "H3-3A_CLEO.instr"
@@ -21310,7 +21316,7 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_curved_48_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_curved_48_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_48_reflect[0]='\0';
-#line 21313 "./H3-3A_CLEO.c"
+#line 21319 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_curved_48 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21320,7 +21326,7 @@ rot = -0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 229 "H3-3A_CLEO.instr"
     (0)*DEG2RAD);
-#line 21323 "./H3-3A_CLEO.c"
+#line 21329 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_47, mcrotaGuide_curved_48);
   rot_transpose(mcrotaGuide_curved_47, mctr1);
   rot_mul(mcrotaGuide_curved_48, mctr1, mcrotrGuide_curved_48);
@@ -21331,7 +21337,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 228 "H3-3A_CLEO.instr"
     0.5);
-#line 21334 "./H3-3A_CLEO.c"
+#line 21340 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_47, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_48 = coords_add(mcposaGuide_curved_47, mctc2);
@@ -21413,14 +21419,14 @@ rot = -0.5/R_curv*RAD2DEG;
   mccGuide_straight_phase = 0;
 #line 119 "H3-3A_CLEO.instr"
   if("NULL") strncpy(mccGuide_straight_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_straight_reflect[0]='\0';
-#line 21416 "./H3-3A_CLEO.c"
+#line 21422 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Guide_straight (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 21423 "./H3-3A_CLEO.c"
+#line 21429 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_curved_48, mcrotaGuide_straight);
   rot_transpose(mcrotaGuide_curved_48, mctr1);
   rot_mul(mcrotaGuide_straight, mctr1, mcrotrGuide_straight);
@@ -21431,7 +21437,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 233 "H3-3A_CLEO.instr"
     0.5);
-#line 21434 "./H3-3A_CLEO.c"
+#line 21440 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_curved_48, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_straight = coords_add(mcposaGuide_curved_48, mctc2);
@@ -21487,14 +21493,14 @@ rot = -0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMonlam_username3, "NULL" ? "NULL" : "", 16384); else mccMonlam_username3[0]='\0';
 #line 206 "H3-3A_CLEO.instr"
   mccMonlam_nowritefile = 0;
-#line 21490 "./H3-3A_CLEO.c"
+#line 21496 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Monlam (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 21497 "./H3-3A_CLEO.c"
+#line 21503 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaGuide_straight, mcrotaMonlam);
   rot_transpose(mcrotaGuide_straight, mctr1);
   rot_mul(mcrotaMonlam, mctr1, mcrotrMonlam);
@@ -21505,7 +21511,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 237 "H3-3A_CLEO.instr"
     27.0001);
-#line 21508 "./H3-3A_CLEO.c"
+#line 21514 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaGuide_straight, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMonlam = coords_add(mcposaGuide_straight, mctc2);
@@ -21561,14 +21567,14 @@ rot = -0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMonx_username3, "NULL" ? "NULL" : "", 16384); else mccMonx_username3[0]='\0';
 #line 206 "H3-3A_CLEO.instr"
   mccMonx_nowritefile = 0;
-#line 21564 "./H3-3A_CLEO.c"
+#line 21570 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Monx (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 21571 "./H3-3A_CLEO.c"
+#line 21577 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaMonlam, mcrotaMonx);
   rot_transpose(mcrotaMonlam, mctr1);
   rot_mul(mcrotaMonx, mctr1, mcrotrMonx);
@@ -21579,7 +21585,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 241 "H3-3A_CLEO.instr"
     0);
-#line 21582 "./H3-3A_CLEO.c"
+#line 21588 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaMonlam, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMonx = coords_add(mcposaMonlam, mctc2);
@@ -21635,14 +21641,14 @@ rot = -0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMony_username3, "NULL" ? "NULL" : "", 16384); else mccMony_username3[0]='\0';
 #line 206 "H3-3A_CLEO.instr"
   mccMony_nowritefile = 0;
-#line 21638 "./H3-3A_CLEO.c"
+#line 21644 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Mony (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 21645 "./H3-3A_CLEO.c"
+#line 21651 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaMonx, mcrotaMony);
   rot_transpose(mcrotaMonx, mctr1);
   rot_mul(mcrotaMony, mctr1, mcrotrMony);
@@ -21653,7 +21659,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 245 "H3-3A_CLEO.instr"
     0);
-#line 21656 "./H3-3A_CLEO.c"
+#line 21662 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaMonx, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMony = coords_add(mcposaMonx, mctc2);
@@ -21709,14 +21715,14 @@ rot = -0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMondx_username3, "NULL" ? "NULL" : "", 16384); else mccMondx_username3[0]='\0';
 #line 206 "H3-3A_CLEO.instr"
   mccMondx_nowritefile = 0;
-#line 21712 "./H3-3A_CLEO.c"
+#line 21718 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Mondx (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 21719 "./H3-3A_CLEO.c"
+#line 21725 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaMony, mcrotaMondx);
   rot_transpose(mcrotaMony, mctr1);
   rot_mul(mcrotaMondx, mctr1, mcrotrMondx);
@@ -21727,7 +21733,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 249 "H3-3A_CLEO.instr"
     0);
-#line 21730 "./H3-3A_CLEO.c"
+#line 21736 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaMony, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMondx = coords_add(mcposaMony, mctc2);
@@ -21783,14 +21789,14 @@ rot = -0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMondy_username3, "NULL" ? "NULL" : "", 16384); else mccMondy_username3[0]='\0';
 #line 206 "H3-3A_CLEO.instr"
   mccMondy_nowritefile = 0;
-#line 21786 "./H3-3A_CLEO.c"
+#line 21792 "./H3-3A_CLEO.c"
 
   SIG_MESSAGE("Mondy (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 21793 "./H3-3A_CLEO.c"
+#line 21799 "./H3-3A_CLEO.c"
   rot_mul(mctr1, mcrotaMondx, mcrotaMondy);
   rot_transpose(mcrotaMondx, mctr1);
   rot_mul(mcrotaMondy, mctr1, mcrotrMondy);
@@ -21801,7 +21807,7 @@ rot = -0.5/R_curv*RAD2DEG;
     0,
 #line 253 "H3-3A_CLEO.instr"
     0);
-#line 21804 "./H3-3A_CLEO.c"
+#line 21810 "./H3-3A_CLEO.c"
   rot_transpose(mcrotaMondx, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMondy = coords_add(mcposaMondx, mctc2);
@@ -21838,7 +21844,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
     percent=1e5*100.0/mcget_ncount();
   }
 }
-#line 21841 "./H3-3A_CLEO.c"
+#line 21847 "./H3-3A_CLEO.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -22175,7 +22181,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
       printf("Source_gen: component %s unactivated", NAME_CURRENT_COMP);
   );
 }
-#line 22178 "./H3-3A_CLEO.c"
+#line 22184 "./H3-3A_CLEO.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -22323,7 +22329,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 22326 "./H3-3A_CLEO.c"
+#line 22332 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -22457,7 +22463,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 22460 "./H3-3A_CLEO.c"
+#line 22466 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -22591,7 +22597,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 22594 "./H3-3A_CLEO.c"
+#line 22600 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -22725,7 +22731,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 22728 "./H3-3A_CLEO.c"
+#line 22734 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -22859,7 +22865,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 22862 "./H3-3A_CLEO.c"
+#line 22868 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -22993,7 +22999,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 22996 "./H3-3A_CLEO.c"
+#line 23002 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23127,7 +23133,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23130 "./H3-3A_CLEO.c"
+#line 23136 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23261,7 +23267,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23264 "./H3-3A_CLEO.c"
+#line 23270 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23395,7 +23401,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23398 "./H3-3A_CLEO.c"
+#line 23404 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23529,7 +23535,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23532 "./H3-3A_CLEO.c"
+#line 23538 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23663,7 +23669,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23666 "./H3-3A_CLEO.c"
+#line 23672 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23797,7 +23803,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23800 "./H3-3A_CLEO.c"
+#line 23806 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23931,7 +23937,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23934 "./H3-3A_CLEO.c"
+#line 23940 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24065,7 +24071,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24068 "./H3-3A_CLEO.c"
+#line 24074 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24199,7 +24205,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24202 "./H3-3A_CLEO.c"
+#line 24208 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24333,7 +24339,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24336 "./H3-3A_CLEO.c"
+#line 24342 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24467,7 +24473,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24470 "./H3-3A_CLEO.c"
+#line 24476 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24601,7 +24607,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24604 "./H3-3A_CLEO.c"
+#line 24610 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24735,7 +24741,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24738 "./H3-3A_CLEO.c"
+#line 24744 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24869,7 +24875,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24872 "./H3-3A_CLEO.c"
+#line 24878 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25003,7 +25009,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25006 "./H3-3A_CLEO.c"
+#line 25012 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25137,7 +25143,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25140 "./H3-3A_CLEO.c"
+#line 25146 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25271,7 +25277,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25274 "./H3-3A_CLEO.c"
+#line 25280 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25405,7 +25411,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25408 "./H3-3A_CLEO.c"
+#line 25414 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25539,7 +25545,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25542 "./H3-3A_CLEO.c"
+#line 25548 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25673,7 +25679,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25676 "./H3-3A_CLEO.c"
+#line 25682 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25807,7 +25813,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25810 "./H3-3A_CLEO.c"
+#line 25816 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25941,7 +25947,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25944 "./H3-3A_CLEO.c"
+#line 25950 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26075,7 +26081,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26078 "./H3-3A_CLEO.c"
+#line 26084 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26209,7 +26215,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26212 "./H3-3A_CLEO.c"
+#line 26218 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26343,7 +26349,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26346 "./H3-3A_CLEO.c"
+#line 26352 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26477,7 +26483,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26480 "./H3-3A_CLEO.c"
+#line 26486 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26611,7 +26617,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26614 "./H3-3A_CLEO.c"
+#line 26620 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26745,7 +26751,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26748 "./H3-3A_CLEO.c"
+#line 26754 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26879,7 +26885,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26882 "./H3-3A_CLEO.c"
+#line 26888 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27013,7 +27019,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27016 "./H3-3A_CLEO.c"
+#line 27022 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27147,7 +27153,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27150 "./H3-3A_CLEO.c"
+#line 27156 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27281,7 +27287,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27284 "./H3-3A_CLEO.c"
+#line 27290 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27415,7 +27421,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27418 "./H3-3A_CLEO.c"
+#line 27424 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27549,7 +27555,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27552 "./H3-3A_CLEO.c"
+#line 27558 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27683,7 +27689,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27686 "./H3-3A_CLEO.c"
+#line 27692 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27817,7 +27823,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27820 "./H3-3A_CLEO.c"
+#line 27826 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27951,7 +27957,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27954 "./H3-3A_CLEO.c"
+#line 27960 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28085,7 +28091,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28088 "./H3-3A_CLEO.c"
+#line 28094 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28219,7 +28225,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28222 "./H3-3A_CLEO.c"
+#line 28228 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28353,7 +28359,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28356 "./H3-3A_CLEO.c"
+#line 28362 "./H3-3A_CLEO.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28506,7 +28512,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 28509 "./H3-3A_CLEO.c"
+#line 28515 "./H3-3A_CLEO.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -28651,7 +28657,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 28654 "./H3-3A_CLEO.c"
+#line 28660 "./H3-3A_CLEO.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -28796,7 +28802,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 28799 "./H3-3A_CLEO.c"
+#line 28805 "./H3-3A_CLEO.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -28941,7 +28947,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 28944 "./H3-3A_CLEO.c"
+#line 28950 "./H3-3A_CLEO.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -29086,7 +29092,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 29089 "./H3-3A_CLEO.c"
+#line 29095 "./H3-3A_CLEO.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -29272,7 +29278,7 @@ MCNUM minutes = mccOrigin_minutes;
     if (flag_save) mcsave(NULL);
   }
 }
-#line 29275 "./H3-3A_CLEO.c"
+#line 29281 "./H3-3A_CLEO.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -29520,7 +29526,7 @@ int target_index = mccH3_target_index;
     SCATTER;
   }
 }
-#line 29523 "./H3-3A_CLEO.c"
+#line 29529 "./H3-3A_CLEO.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -29951,7 +29957,7 @@ char* reflect = mccGuide_metal_reflect;
 
   } /* if l */
 }
-#line 29954 "./H3-3A_CLEO.c"
+#line 29960 "./H3-3A_CLEO.c"
 }   /* End of Guide_metal=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -30264,7 +30270,7 @@ char* reflect = mccGuide_curved_reflect;
 
   } /* if l */
 }
-#line 30267 "./H3-3A_CLEO.c"
+#line 30273 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -30577,7 +30583,7 @@ char* reflect = mccGuide_curved_6_reflect;
 
   } /* if l */
 }
-#line 30580 "./H3-3A_CLEO.c"
+#line 30586 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -30890,7 +30896,7 @@ char* reflect = mccGuide_curved_7_reflect;
 
   } /* if l */
 }
-#line 30893 "./H3-3A_CLEO.c"
+#line 30899 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31203,7 +31209,7 @@ char* reflect = mccGuide_curved_8_reflect;
 
   } /* if l */
 }
-#line 31206 "./H3-3A_CLEO.c"
+#line 31212 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31516,7 +31522,7 @@ char* reflect = mccGuide_curved_9_reflect;
 
   } /* if l */
 }
-#line 31519 "./H3-3A_CLEO.c"
+#line 31525 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31829,7 +31835,7 @@ char* reflect = mccGuide_curved_10_reflect;
 
   } /* if l */
 }
-#line 31832 "./H3-3A_CLEO.c"
+#line 31838 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32142,7 +32148,7 @@ char* reflect = mccGuide_curved_11_reflect;
 
   } /* if l */
 }
-#line 32145 "./H3-3A_CLEO.c"
+#line 32151 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32455,7 +32461,7 @@ char* reflect = mccGuide_curved_12_reflect;
 
   } /* if l */
 }
-#line 32458 "./H3-3A_CLEO.c"
+#line 32464 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32768,7 +32774,7 @@ char* reflect = mccGuide_curved_13_reflect;
 
   } /* if l */
 }
-#line 32771 "./H3-3A_CLEO.c"
+#line 32777 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -33081,7 +33087,7 @@ char* reflect = mccGuide_curved_14_reflect;
 
   } /* if l */
 }
-#line 33084 "./H3-3A_CLEO.c"
+#line 33090 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -33394,7 +33400,7 @@ char* reflect = mccGuide_curved_15_reflect;
 
   } /* if l */
 }
-#line 33397 "./H3-3A_CLEO.c"
+#line 33403 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -33707,7 +33713,7 @@ char* reflect = mccGuide_curved_16_reflect;
 
   } /* if l */
 }
-#line 33710 "./H3-3A_CLEO.c"
+#line 33716 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -34020,7 +34026,7 @@ char* reflect = mccGuide_curved_17_reflect;
 
   } /* if l */
 }
-#line 34023 "./H3-3A_CLEO.c"
+#line 34029 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -34333,7 +34339,7 @@ char* reflect = mccGuide_curved_18_reflect;
 
   } /* if l */
 }
-#line 34336 "./H3-3A_CLEO.c"
+#line 34342 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -34646,7 +34652,7 @@ char* reflect = mccGuide_curved_19_reflect;
 
   } /* if l */
 }
-#line 34649 "./H3-3A_CLEO.c"
+#line 34655 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -34959,7 +34965,7 @@ char* reflect = mccGuide_curved_20_reflect;
 
   } /* if l */
 }
-#line 34962 "./H3-3A_CLEO.c"
+#line 34968 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -35272,7 +35278,7 @@ char* reflect = mccGuide_curved_21_reflect;
 
   } /* if l */
 }
-#line 35275 "./H3-3A_CLEO.c"
+#line 35281 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -35585,7 +35591,7 @@ char* reflect = mccGuide_curved_22_reflect;
 
   } /* if l */
 }
-#line 35588 "./H3-3A_CLEO.c"
+#line 35594 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -35898,7 +35904,7 @@ char* reflect = mccGuide_curved_23_reflect;
 
   } /* if l */
 }
-#line 35901 "./H3-3A_CLEO.c"
+#line 35907 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -36211,7 +36217,7 @@ char* reflect = mccGuide_curved_24_reflect;
 
   } /* if l */
 }
-#line 36214 "./H3-3A_CLEO.c"
+#line 36220 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -36524,7 +36530,7 @@ char* reflect = mccGuide_curved_25_reflect;
 
   } /* if l */
 }
-#line 36527 "./H3-3A_CLEO.c"
+#line 36533 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -36837,7 +36843,7 @@ char* reflect = mccGuide_curved_26_reflect;
 
   } /* if l */
 }
-#line 36840 "./H3-3A_CLEO.c"
+#line 36846 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -37150,7 +37156,7 @@ char* reflect = mccGuide_curved_27_reflect;
 
   } /* if l */
 }
-#line 37153 "./H3-3A_CLEO.c"
+#line 37159 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -37463,7 +37469,7 @@ char* reflect = mccGuide_curved_28_reflect;
 
   } /* if l */
 }
-#line 37466 "./H3-3A_CLEO.c"
+#line 37472 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -37776,7 +37782,7 @@ char* reflect = mccGuide_curved_29_reflect;
 
   } /* if l */
 }
-#line 37779 "./H3-3A_CLEO.c"
+#line 37785 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -38089,7 +38095,7 @@ char* reflect = mccGuide_curved_30_reflect;
 
   } /* if l */
 }
-#line 38092 "./H3-3A_CLEO.c"
+#line 38098 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -38402,7 +38408,7 @@ char* reflect = mccGuide_curved_31_reflect;
 
   } /* if l */
 }
-#line 38405 "./H3-3A_CLEO.c"
+#line 38411 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -38715,7 +38721,7 @@ char* reflect = mccGuide_curved_32_reflect;
 
   } /* if l */
 }
-#line 38718 "./H3-3A_CLEO.c"
+#line 38724 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -39028,7 +39034,7 @@ char* reflect = mccGuide_curved_33_reflect;
 
   } /* if l */
 }
-#line 39031 "./H3-3A_CLEO.c"
+#line 39037 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -39341,7 +39347,7 @@ char* reflect = mccGuide_curved_34_reflect;
 
   } /* if l */
 }
-#line 39344 "./H3-3A_CLEO.c"
+#line 39350 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -39654,7 +39660,7 @@ char* reflect = mccGuide_curved_35_reflect;
 
   } /* if l */
 }
-#line 39657 "./H3-3A_CLEO.c"
+#line 39663 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -39967,7 +39973,7 @@ char* reflect = mccGuide_curved_36_reflect;
 
   } /* if l */
 }
-#line 39970 "./H3-3A_CLEO.c"
+#line 39976 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -40280,7 +40286,7 @@ char* reflect = mccGuide_curved_37_reflect;
 
   } /* if l */
 }
-#line 40283 "./H3-3A_CLEO.c"
+#line 40289 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -40593,7 +40599,7 @@ char* reflect = mccGuide_curved_38_reflect;
 
   } /* if l */
 }
-#line 40596 "./H3-3A_CLEO.c"
+#line 40602 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -40906,7 +40912,7 @@ char* reflect = mccGuide_curved_39_reflect;
 
   } /* if l */
 }
-#line 40909 "./H3-3A_CLEO.c"
+#line 40915 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -41219,7 +41225,7 @@ char* reflect = mccGuide_curved_40_reflect;
 
   } /* if l */
 }
-#line 41222 "./H3-3A_CLEO.c"
+#line 41228 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -41532,7 +41538,7 @@ char* reflect = mccGuide_curved_41_reflect;
 
   } /* if l */
 }
-#line 41535 "./H3-3A_CLEO.c"
+#line 41541 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -41845,7 +41851,7 @@ char* reflect = mccGuide_curved_42_reflect;
 
   } /* if l */
 }
-#line 41848 "./H3-3A_CLEO.c"
+#line 41854 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -42158,7 +42164,7 @@ char* reflect = mccGuide_curved_43_reflect;
 
   } /* if l */
 }
-#line 42161 "./H3-3A_CLEO.c"
+#line 42167 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -42471,7 +42477,7 @@ char* reflect = mccGuide_curved_44_reflect;
 
   } /* if l */
 }
-#line 42474 "./H3-3A_CLEO.c"
+#line 42480 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -42784,7 +42790,7 @@ char* reflect = mccGuide_curved_45_reflect;
 
   } /* if l */
 }
-#line 42787 "./H3-3A_CLEO.c"
+#line 42793 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -43097,7 +43103,7 @@ char* reflect = mccGuide_curved_46_reflect;
 
   } /* if l */
 }
-#line 43100 "./H3-3A_CLEO.c"
+#line 43106 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -43410,7 +43416,7 @@ char* reflect = mccGuide_curved_47_reflect;
 
   } /* if l */
 }
-#line 43413 "./H3-3A_CLEO.c"
+#line 43419 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -43723,7 +43729,7 @@ char* reflect = mccGuide_curved_48_reflect;
 
   } /* if l */
 }
-#line 43726 "./H3-3A_CLEO.c"
+#line 43732 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -44036,7 +44042,7 @@ char* reflect = mccGuide_straight_reflect;
 
   } /* if l */
 }
-#line 44039 "./H3-3A_CLEO.c"
+#line 44045 "./H3-3A_CLEO.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -44341,7 +44347,7 @@ int nowritefile = mccMonlam_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 44344 "./H3-3A_CLEO.c"
+#line 44350 "./H3-3A_CLEO.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -44651,7 +44657,7 @@ int nowritefile = mccMonx_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 44654 "./H3-3A_CLEO.c"
+#line 44660 "./H3-3A_CLEO.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -44961,7 +44967,7 @@ int nowritefile = mccMony_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 44964 "./H3-3A_CLEO.c"
+#line 44970 "./H3-3A_CLEO.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -45271,7 +45277,7 @@ int nowritefile = mccMondx_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 45274 "./H3-3A_CLEO.c"
+#line 45280 "./H3-3A_CLEO.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -45581,7 +45587,7 @@ int nowritefile = mccMondy_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 45584 "./H3-3A_CLEO.c"
+#line 45590 "./H3-3A_CLEO.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -45697,7 +45703,7 @@ MCNUM minutes = mccOrigin_minutes;
 
   }
 }
-#line 45700 "./H3-3A_CLEO.c"
+#line 45706 "./H3-3A_CLEO.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -45746,7 +45752,7 @@ int nowritefile = mccMonlam_nowritefile;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 45749 "./H3-3A_CLEO.c"
+#line 45755 "./H3-3A_CLEO.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -45798,7 +45804,7 @@ int nowritefile = mccMonx_nowritefile;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 45801 "./H3-3A_CLEO.c"
+#line 45807 "./H3-3A_CLEO.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -45850,7 +45856,7 @@ int nowritefile = mccMony_nowritefile;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 45853 "./H3-3A_CLEO.c"
+#line 45859 "./H3-3A_CLEO.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -45902,7 +45908,7 @@ int nowritefile = mccMondx_nowritefile;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 45905 "./H3-3A_CLEO.c"
+#line 45911 "./H3-3A_CLEO.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -45954,7 +45960,7 @@ int nowritefile = mccMondy_nowritefile;
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 45957 "./H3-3A_CLEO.c"
+#line 45963 "./H3-3A_CLEO.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -46001,7 +46007,7 @@ MCNUM minutes = mccOrigin_minutes;
     fprintf(stdout, "%g [min] ", difftime(NowTime,StartTime)/60.0);
   fprintf(stdout, "\n");
 }
-#line 46004 "./H3-3A_CLEO.c"
+#line 46010 "./H3-3A_CLEO.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -46073,7 +46079,7 @@ int target_index = mccH3_target_index;
   Table_Free(&pTable_x);
   Table_Free(&pTable_y);
 }
-#line 46075 "./H3-3A_CLEO.c"
+#line 46081 "./H3-3A_CLEO.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -46151,7 +46157,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46151 "./H3-3A_CLEO.c"
+#line 46157 "./H3-3A_CLEO.c"
 }   /* End of Guide_metal=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46211,7 +46217,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46210 "./H3-3A_CLEO.c"
+#line 46216 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46271,7 +46277,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46269 "./H3-3A_CLEO.c"
+#line 46275 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46331,7 +46337,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46328 "./H3-3A_CLEO.c"
+#line 46334 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46391,7 +46397,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46387 "./H3-3A_CLEO.c"
+#line 46393 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46451,7 +46457,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46446 "./H3-3A_CLEO.c"
+#line 46452 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46511,7 +46517,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46505 "./H3-3A_CLEO.c"
+#line 46511 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46571,7 +46577,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46564 "./H3-3A_CLEO.c"
+#line 46570 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46631,7 +46637,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46623 "./H3-3A_CLEO.c"
+#line 46629 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46691,7 +46697,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46682 "./H3-3A_CLEO.c"
+#line 46688 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46751,7 +46757,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46741 "./H3-3A_CLEO.c"
+#line 46747 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46811,7 +46817,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46800 "./H3-3A_CLEO.c"
+#line 46806 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46871,7 +46877,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46859 "./H3-3A_CLEO.c"
+#line 46865 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46931,7 +46937,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46918 "./H3-3A_CLEO.c"
+#line 46924 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46991,7 +46997,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 46977 "./H3-3A_CLEO.c"
+#line 46983 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47051,7 +47057,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47036 "./H3-3A_CLEO.c"
+#line 47042 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47111,7 +47117,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47095 "./H3-3A_CLEO.c"
+#line 47101 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47171,7 +47177,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47154 "./H3-3A_CLEO.c"
+#line 47160 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47231,7 +47237,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47213 "./H3-3A_CLEO.c"
+#line 47219 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47291,7 +47297,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47272 "./H3-3A_CLEO.c"
+#line 47278 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47351,7 +47357,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47331 "./H3-3A_CLEO.c"
+#line 47337 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47411,7 +47417,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47390 "./H3-3A_CLEO.c"
+#line 47396 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47471,7 +47477,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47449 "./H3-3A_CLEO.c"
+#line 47455 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47531,7 +47537,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47508 "./H3-3A_CLEO.c"
+#line 47514 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47591,7 +47597,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47567 "./H3-3A_CLEO.c"
+#line 47573 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47651,7 +47657,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47626 "./H3-3A_CLEO.c"
+#line 47632 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47711,7 +47717,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47685 "./H3-3A_CLEO.c"
+#line 47691 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47771,7 +47777,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47744 "./H3-3A_CLEO.c"
+#line 47750 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47831,7 +47837,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47803 "./H3-3A_CLEO.c"
+#line 47809 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47891,7 +47897,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47862 "./H3-3A_CLEO.c"
+#line 47868 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47951,7 +47957,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47921 "./H3-3A_CLEO.c"
+#line 47927 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48011,7 +48017,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 47980 "./H3-3A_CLEO.c"
+#line 47986 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48071,7 +48077,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48039 "./H3-3A_CLEO.c"
+#line 48045 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48131,7 +48137,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48098 "./H3-3A_CLEO.c"
+#line 48104 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48191,7 +48197,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48157 "./H3-3A_CLEO.c"
+#line 48163 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48251,7 +48257,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48216 "./H3-3A_CLEO.c"
+#line 48222 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48311,7 +48317,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48275 "./H3-3A_CLEO.c"
+#line 48281 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48371,7 +48377,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48334 "./H3-3A_CLEO.c"
+#line 48340 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48431,7 +48437,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48393 "./H3-3A_CLEO.c"
+#line 48399 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48491,7 +48497,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48452 "./H3-3A_CLEO.c"
+#line 48458 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48551,7 +48557,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48511 "./H3-3A_CLEO.c"
+#line 48517 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48611,7 +48617,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48570 "./H3-3A_CLEO.c"
+#line 48576 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48671,7 +48677,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48629 "./H3-3A_CLEO.c"
+#line 48635 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48731,7 +48737,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48688 "./H3-3A_CLEO.c"
+#line 48694 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48791,7 +48797,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48747 "./H3-3A_CLEO.c"
+#line 48753 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48851,7 +48857,7 @@ if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 48806 "./H3-3A_CLEO.c"
+#line 48812 "./H3-3A_CLEO.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -48903,7 +48909,7 @@ int nowritefile = mccMonlam_nowritefile;
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 48857 "./H3-3A_CLEO.c"
+#line 48863 "./H3-3A_CLEO.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -48960,7 +48966,7 @@ int nowritefile = mccMonx_nowritefile;
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 48913 "./H3-3A_CLEO.c"
+#line 48919 "./H3-3A_CLEO.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49017,7 +49023,7 @@ int nowritefile = mccMony_nowritefile;
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 48969 "./H3-3A_CLEO.c"
+#line 48975 "./H3-3A_CLEO.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49074,7 +49080,7 @@ int nowritefile = mccMondx_nowritefile;
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 49025 "./H3-3A_CLEO.c"
+#line 49031 "./H3-3A_CLEO.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49131,7 +49137,7 @@ int nowritefile = mccMondy_nowritefile;
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 49081 "./H3-3A_CLEO.c"
+#line 49087 "./H3-3A_CLEO.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49181,7 +49187,7 @@ MCNUM minutes = mccOrigin_minutes;
 {
   
 }
-#line 49130 "./H3-3A_CLEO.c"
+#line 49136 "./H3-3A_CLEO.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -49294,7 +49300,7 @@ int target_index = mccH3_target_index;
     dashed_line(0,0,0, -focus_xw/2, focus_yh/2,dist, 4);
   }
 }
-#line 49243 "./H3-3A_CLEO.c"
+#line 49249 "./H3-3A_CLEO.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -49331,7 +49337,7 @@ int target_index = mccH3_target_index;
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 49280 "./H3-3A_CLEO.c"
+#line 49286 "./H3-3A_CLEO.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -49442,7 +49448,7 @@ char* reflect = mccGuide_metal_reflect;
   }
 
 }
-#line 49391 "./H3-3A_CLEO.c"
+#line 49397 "./H3-3A_CLEO.c"
 }   /* End of Guide_metal=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49556,7 +49562,7 @@ char* reflect = mccGuide_curved_reflect;
   }
 
 }
-#line 49505 "./H3-3A_CLEO.c"
+#line 49511 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49670,7 +49676,7 @@ char* reflect = mccGuide_curved_6_reflect;
   }
 
 }
-#line 49619 "./H3-3A_CLEO.c"
+#line 49625 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49784,7 +49790,7 @@ char* reflect = mccGuide_curved_7_reflect;
   }
 
 }
-#line 49733 "./H3-3A_CLEO.c"
+#line 49739 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49898,7 +49904,7 @@ char* reflect = mccGuide_curved_8_reflect;
   }
 
 }
-#line 49847 "./H3-3A_CLEO.c"
+#line 49853 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50012,7 +50018,7 @@ char* reflect = mccGuide_curved_9_reflect;
   }
 
 }
-#line 49961 "./H3-3A_CLEO.c"
+#line 49967 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50126,7 +50132,7 @@ char* reflect = mccGuide_curved_10_reflect;
   }
 
 }
-#line 50075 "./H3-3A_CLEO.c"
+#line 50081 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50240,7 +50246,7 @@ char* reflect = mccGuide_curved_11_reflect;
   }
 
 }
-#line 50189 "./H3-3A_CLEO.c"
+#line 50195 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50354,7 +50360,7 @@ char* reflect = mccGuide_curved_12_reflect;
   }
 
 }
-#line 50303 "./H3-3A_CLEO.c"
+#line 50309 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50468,7 +50474,7 @@ char* reflect = mccGuide_curved_13_reflect;
   }
 
 }
-#line 50417 "./H3-3A_CLEO.c"
+#line 50423 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50582,7 +50588,7 @@ char* reflect = mccGuide_curved_14_reflect;
   }
 
 }
-#line 50531 "./H3-3A_CLEO.c"
+#line 50537 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50696,7 +50702,7 @@ char* reflect = mccGuide_curved_15_reflect;
   }
 
 }
-#line 50645 "./H3-3A_CLEO.c"
+#line 50651 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50810,7 +50816,7 @@ char* reflect = mccGuide_curved_16_reflect;
   }
 
 }
-#line 50759 "./H3-3A_CLEO.c"
+#line 50765 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50924,7 +50930,7 @@ char* reflect = mccGuide_curved_17_reflect;
   }
 
 }
-#line 50873 "./H3-3A_CLEO.c"
+#line 50879 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51038,7 +51044,7 @@ char* reflect = mccGuide_curved_18_reflect;
   }
 
 }
-#line 50987 "./H3-3A_CLEO.c"
+#line 50993 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51152,7 +51158,7 @@ char* reflect = mccGuide_curved_19_reflect;
   }
 
 }
-#line 51101 "./H3-3A_CLEO.c"
+#line 51107 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51266,7 +51272,7 @@ char* reflect = mccGuide_curved_20_reflect;
   }
 
 }
-#line 51215 "./H3-3A_CLEO.c"
+#line 51221 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51380,7 +51386,7 @@ char* reflect = mccGuide_curved_21_reflect;
   }
 
 }
-#line 51329 "./H3-3A_CLEO.c"
+#line 51335 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51494,7 +51500,7 @@ char* reflect = mccGuide_curved_22_reflect;
   }
 
 }
-#line 51443 "./H3-3A_CLEO.c"
+#line 51449 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51608,7 +51614,7 @@ char* reflect = mccGuide_curved_23_reflect;
   }
 
 }
-#line 51557 "./H3-3A_CLEO.c"
+#line 51563 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51722,7 +51728,7 @@ char* reflect = mccGuide_curved_24_reflect;
   }
 
 }
-#line 51671 "./H3-3A_CLEO.c"
+#line 51677 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51836,7 +51842,7 @@ char* reflect = mccGuide_curved_25_reflect;
   }
 
 }
-#line 51785 "./H3-3A_CLEO.c"
+#line 51791 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51950,7 +51956,7 @@ char* reflect = mccGuide_curved_26_reflect;
   }
 
 }
-#line 51899 "./H3-3A_CLEO.c"
+#line 51905 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52064,7 +52070,7 @@ char* reflect = mccGuide_curved_27_reflect;
   }
 
 }
-#line 52013 "./H3-3A_CLEO.c"
+#line 52019 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52178,7 +52184,7 @@ char* reflect = mccGuide_curved_28_reflect;
   }
 
 }
-#line 52127 "./H3-3A_CLEO.c"
+#line 52133 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52292,7 +52298,7 @@ char* reflect = mccGuide_curved_29_reflect;
   }
 
 }
-#line 52241 "./H3-3A_CLEO.c"
+#line 52247 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52406,7 +52412,7 @@ char* reflect = mccGuide_curved_30_reflect;
   }
 
 }
-#line 52355 "./H3-3A_CLEO.c"
+#line 52361 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52520,7 +52526,7 @@ char* reflect = mccGuide_curved_31_reflect;
   }
 
 }
-#line 52469 "./H3-3A_CLEO.c"
+#line 52475 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52634,7 +52640,7 @@ char* reflect = mccGuide_curved_32_reflect;
   }
 
 }
-#line 52583 "./H3-3A_CLEO.c"
+#line 52589 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52748,7 +52754,7 @@ char* reflect = mccGuide_curved_33_reflect;
   }
 
 }
-#line 52697 "./H3-3A_CLEO.c"
+#line 52703 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52862,7 +52868,7 @@ char* reflect = mccGuide_curved_34_reflect;
   }
 
 }
-#line 52811 "./H3-3A_CLEO.c"
+#line 52817 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52976,7 +52982,7 @@ char* reflect = mccGuide_curved_35_reflect;
   }
 
 }
-#line 52925 "./H3-3A_CLEO.c"
+#line 52931 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53090,7 +53096,7 @@ char* reflect = mccGuide_curved_36_reflect;
   }
 
 }
-#line 53039 "./H3-3A_CLEO.c"
+#line 53045 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53204,7 +53210,7 @@ char* reflect = mccGuide_curved_37_reflect;
   }
 
 }
-#line 53153 "./H3-3A_CLEO.c"
+#line 53159 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53318,7 +53324,7 @@ char* reflect = mccGuide_curved_38_reflect;
   }
 
 }
-#line 53267 "./H3-3A_CLEO.c"
+#line 53273 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53432,7 +53438,7 @@ char* reflect = mccGuide_curved_39_reflect;
   }
 
 }
-#line 53381 "./H3-3A_CLEO.c"
+#line 53387 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53546,7 +53552,7 @@ char* reflect = mccGuide_curved_40_reflect;
   }
 
 }
-#line 53495 "./H3-3A_CLEO.c"
+#line 53501 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53660,7 +53666,7 @@ char* reflect = mccGuide_curved_41_reflect;
   }
 
 }
-#line 53609 "./H3-3A_CLEO.c"
+#line 53615 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53774,7 +53780,7 @@ char* reflect = mccGuide_curved_42_reflect;
   }
 
 }
-#line 53723 "./H3-3A_CLEO.c"
+#line 53729 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53888,7 +53894,7 @@ char* reflect = mccGuide_curved_43_reflect;
   }
 
 }
-#line 53837 "./H3-3A_CLEO.c"
+#line 53843 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54002,7 +54008,7 @@ char* reflect = mccGuide_curved_44_reflect;
   }
 
 }
-#line 53951 "./H3-3A_CLEO.c"
+#line 53957 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54116,7 +54122,7 @@ char* reflect = mccGuide_curved_45_reflect;
   }
 
 }
-#line 54065 "./H3-3A_CLEO.c"
+#line 54071 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54230,7 +54236,7 @@ char* reflect = mccGuide_curved_46_reflect;
   }
 
 }
-#line 54179 "./H3-3A_CLEO.c"
+#line 54185 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54344,7 +54350,7 @@ char* reflect = mccGuide_curved_47_reflect;
   }
 
 }
-#line 54293 "./H3-3A_CLEO.c"
+#line 54299 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54458,7 +54464,7 @@ char* reflect = mccGuide_curved_48_reflect;
   }
 
 }
-#line 54407 "./H3-3A_CLEO.c"
+#line 54413 "./H3-3A_CLEO.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54572,7 +54578,7 @@ char* reflect = mccGuide_straight_reflect;
   }
 
 }
-#line 54521 "./H3-3A_CLEO.c"
+#line 54527 "./H3-3A_CLEO.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54624,7 +54630,7 @@ int nowritefile = mccMonlam_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 54573 "./H3-3A_CLEO.c"
+#line 54579 "./H3-3A_CLEO.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -54681,7 +54687,7 @@ int nowritefile = mccMonx_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 54630 "./H3-3A_CLEO.c"
+#line 54636 "./H3-3A_CLEO.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -54738,7 +54744,7 @@ int nowritefile = mccMony_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 54687 "./H3-3A_CLEO.c"
+#line 54693 "./H3-3A_CLEO.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -54795,7 +54801,7 @@ int nowritefile = mccMondx_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 54744 "./H3-3A_CLEO.c"
+#line 54750 "./H3-3A_CLEO.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -54852,7 +54858,7 @@ int nowritefile = mccMondy_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 54801 "./H3-3A_CLEO.c"
+#line 54807 "./H3-3A_CLEO.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
