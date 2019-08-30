@@ -1,0 +1,130 @@
+McStas simulation description file for H3_5C.
+Date:    Sat Aug 31 00:35:35 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_5C
+  File: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-5C_Tenzor_20190831_003503/mccode
+  Source: H3-5C_Tenzor.instr
+  Parameters:  guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-5C_Tenzor_20190831_003503
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H3-5C_Tenzor.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1567221514
+  Directory: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-5C_Tenzor_20190831_003503
+  Nodes: 6
+  Param: guide_start_width=0.05
+  Param: guide_start_height=0.2
+  Param: source_lambda_min=0.1
+  Param: source_lambda_max=20
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Sat Aug 31 00:35:37 2019 (1567200937)
+  type: array_1d(100)
+  Source: H3_5C (H3-5C_Tenzor.instr)
+  component: Monlam
+  position: 1.58297 -0.025 67.7948
+  title: Wavelength [Angs] monitor
+  Ncount: 999996
+  filename: H3-5C_Tenzor.lam
+  statistics: X0=7.54187; dX=3.6581;
+  signal: Min=0; Max=8.01803e+07; Mean=2.48868e+07;
+  values: 2.48868e+09 3.34535e+07 127267
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: 0 20
+  variables: L I I_err N
+end data
+
+begin data
+  Date: Sat Aug 31 00:35:37 2019 (1567200937)
+  type: array_1d(100)
+  Source: H3_5C (H3-5C_Tenzor.instr)
+  component: Monx
+  position: 1.58297 -0.025 67.7948
+  title: x [m] monitor
+  Ncount: 999996
+  filename: H3-5C_Tenzor.x
+  statistics: X0=-5.23421e-05; dX=0.0143002;
+  signal: Min=0; Max=4.10501e+07; Mean=2.48868e+07;
+  values: 2.48868e+09 3.34535e+07 127267
+  xvar: x
+  yvar: (I,I_err)
+  xlabel: x [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.03 0.03
+  variables: x I I_err N
+end data
+
+begin data
+  Date: Sat Aug 31 00:35:37 2019 (1567200937)
+  type: array_1d(100)
+  Source: H3_5C (H3-5C_Tenzor.instr)
+  component: Mony
+  position: 1.58297 -0.025 67.7948
+  title: y [m] monitor
+  Ncount: 999996
+  filename: H3-5C_Tenzor.y
+  statistics: X0=-2.51769e-05; dX=0.0143989;
+  signal: Min=0; Max=3.8175e+07; Mean=2.48868e+07;
+  values: 2.48868e+09 3.34535e+07 127267
+  xvar: y
+  yvar: (I,I_err)
+  xlabel: y [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.03 0.03
+  variables: y I I_err N
+end data
+
+begin data
+  Date: Sat Aug 31 00:35:37 2019 (1567200937)
+  type: array_1d(100)
+  Source: H3_5C (H3-5C_Tenzor.instr)
+  component: Mondx
+  position: 1.58297 -0.025 67.7948
+  title: Hor. Divergence [deg] monitor
+  Ncount: 999996
+  filename: H3-5C_Tenzor.dx
+  statistics: X0=0.000916886; dX=0.45272;
+  signal: Min=0; Max=1.48912e+08; Mean=2.48868e+07;
+  values: 2.48868e+09 3.34535e+07 127267
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -3 3
+  variables: hd I I_err N
+end data
+
+begin data
+  Date: Sat Aug 31 00:35:37 2019 (1567200937)
+  type: array_1d(100)
+  Source: H3_5C (H3-5C_Tenzor.instr)
+  component: Mondy
+  position: 1.58297 -0.025 67.7948
+  title: Vert. Divergence [deg] monitor
+  Ncount: 999996
+  filename: H3-5C_Tenzor.dy
+  statistics: X0=0.000992466; dX=0.452164;
+  signal: Min=0; Max=2.55923e+08; Mean=2.48868e+07;
+  values: 2.48868e+09 3.34535e+07 127267
+  xvar: vd
+  yvar: (I,I_err)
+  xlabel: Vert. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -5 5
+  variables: vd I I_err N
+end data
