@@ -1,0 +1,132 @@
+McStas simulation description file for H3_3A.
+Date:    Fri Aug 30 17:12:56 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_3A
+  File: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-3A_CLEO_20190830_171240/1/mccode
+  Source: H3-3A_CLEO.instr
+  Parameters:  n(double) R_curv(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-3A_CLEO_20190830_171240/1
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H3-3A_CLEO.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1567184898
+  Directory: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-3A_CLEO_20190830_171240/1
+  Nodes: 6
+  Param: n=1
+  Param: R_curv=600
+  Param: guide_start_width=0.06
+  Param: guide_start_height=0.2
+  Param: source_lambda_min=1.9
+  Param: source_lambda_max=2
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Fri Aug 30 17:12:56 2019 (1567174376)
+  type: array_1d(100)
+  Source: H3_3A (H3-3A_CLEO.instr)
+  component: Monlam
+  position: -1.51221 0.025 56.7948
+  title: Wavelength [Angs] monitor
+  Ncount: 999996
+  filename: H3-3A_CLEO.lam
+  statistics: X0=1.9; dX=0;
+  signal: Min=0; Max=1.15297e+07; Mean=115297;
+  values: 1.15297e+07 132466 41903
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: 0 20
+  variables: L I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 17:12:56 2019 (1567174376)
+  type: array_1d(100)
+  Source: H3_3A (H3-3A_CLEO.instr)
+  component: Monx
+  position: -1.51221 0.025 56.7948
+  title: x [m] monitor
+  Ncount: 999996
+  filename: H3-3A_CLEO.x
+  statistics: X0=-0.000175835; dX=0.0104264;
+  signal: Min=0; Max=481922; Mean=115297;
+  values: 1.15297e+07 132466 41903
+  xvar: x
+  yvar: (I,I_err)
+  xlabel: x [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.035 0.035
+  variables: x I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 17:12:56 2019 (1567174376)
+  type: array_1d(100)
+  Source: H3_3A (H3-3A_CLEO.instr)
+  component: Mony
+  position: -1.51221 0.025 56.7948
+  title: y [m] monitor
+  Ncount: 999996
+  filename: H3-3A_CLEO.y
+  statistics: X0=-5.2756e-05; dX=0.0257446;
+  signal: Min=0; Max=495525; Mean=115297;
+  values: 1.15297e+07 132466 41903
+  xvar: y
+  yvar: (I,I_err)
+  xlabel: y [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.08 0.08
+  variables: y I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 17:12:56 2019 (1567174376)
+  type: array_1d(100)
+  Source: H3_3A (H3-3A_CLEO.instr)
+  component: Mondx
+  position: -1.51221 0.025 56.7948
+  title: Hor. Divergence [deg] monitor
+  Ncount: 999996
+  filename: H3-3A_CLEO.dx
+  statistics: X0=0.0207832; dX=0.704118;
+  signal: Min=0; Max=1.15635e+06; Mean=115297;
+  values: 1.15297e+07 132466 41903
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -3 3
+  variables: hd I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 17:12:56 2019 (1567174376)
+  type: array_1d(100)
+  Source: H3_3A (H3-3A_CLEO.instr)
+  component: Mondy
+  position: -1.51221 0.025 56.7948
+  title: Vert. Divergence [deg] monitor
+  Ncount: 999996
+  filename: H3-3A_CLEO.dy
+  statistics: X0=-0.0201962; dX=0.939438;
+  signal: Min=0; Max=920827; Mean=115297;
+  values: 1.15297e+07 132466 41903
+  xvar: vd
+  yvar: (I,I_err)
+  xlabel: Vert. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -5 5
+  variables: vd I I_err N
+end data
