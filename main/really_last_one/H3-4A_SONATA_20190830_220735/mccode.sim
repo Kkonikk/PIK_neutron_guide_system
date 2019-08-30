@@ -1,0 +1,129 @@
+McStas simulation description file for H3_4A.
+Date:    Fri Aug 30 22:07:35 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_4A
+  File: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-4A_SONATA_20190830_220735/mccode
+  Source: H3-4A_SONATA.instr
+  Parameters:  guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-4A_SONATA_20190830_220735
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H3-4A_SONATA.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1567210622
+  Directory: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-4A_SONATA_20190830_220735
+  Param: guide_start_width=0.06
+  Param: guide_start_height=0.15
+  Param: source_lambda_min=0.1
+  Param: source_lambda_max=20
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Fri Aug 30 22:07:41 2019 (1567192061)
+  type: array_1d(100)
+  Source: H3_4A (H3-4A_SONATA.instr)
+  component: Monlam
+  position: -1.27045 0 61.8026
+  title: Wavelength [Angs] monitor
+  Ncount: 1000000
+  filename: H3-4A_SONATA.lam
+  statistics: X0=6.70443; dX=3.44748;
+  signal: Min=0; Max=2.04373e+08; Mean=6.16842e+07;
+  values: 6.16842e+09 3.79394e+07 345285
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: 0 20
+  variables: L I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 22:07:41 2019 (1567192061)
+  type: array_1d(100)
+  Source: H3_4A (H3-4A_SONATA.instr)
+  component: Monx
+  position: -1.27045 0 61.8026
+  title: x [m] monitor
+  Ncount: 1000000
+  filename: H3-4A_SONATA.x
+  statistics: X0=3.09593e-05; dX=0.00865194;
+  signal: Min=0; Max=9.24922e+07; Mean=6.16842e+07;
+  values: 6.16842e+09 3.79394e+07 345285
+  xvar: x
+  yvar: (I,I_err)
+  xlabel: x [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.02 0.02
+  variables: x I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 22:07:41 2019 (1567192061)
+  type: array_1d(100)
+  Source: H3_4A (H3-4A_SONATA.instr)
+  component: Mony
+  position: -1.27045 0 61.8026
+  title: y [m] monitor
+  Ncount: 1000000
+  filename: H3-4A_SONATA.y
+  statistics: X0=0.000266065; dX=0.0432573;
+  signal: Min=0; Max=7.81028e+07; Mean=6.16842e+07;
+  values: 6.16842e+09 3.79394e+07 345285
+  xvar: y
+  yvar: (I,I_err)
+  xlabel: y [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.08 0.08
+  variables: y I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 22:07:41 2019 (1567192061)
+  type: array_1d(100)
+  Source: H3_4A (H3-4A_SONATA.instr)
+  component: Mondx
+  position: -1.27045 0 61.8026
+  title: Hor. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-4A_SONATA.dx
+  statistics: X0=-0.00390265; dX=0.526993;
+  signal: Min=0; Max=2.90184e+08; Mean=6.16842e+07;
+  values: 6.16842e+09 3.79394e+07 345285
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -3 3
+  variables: hd I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 22:07:41 2019 (1567192061)
+  type: array_1d(100)
+  Source: H3_4A (H3-4A_SONATA.instr)
+  component: Mondy
+  position: -1.27045 0 61.8026
+  title: Vert. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-4A_SONATA.dy
+  statistics: X0=-0.0019654; dX=0.680564;
+  signal: Min=2.49054e-104; Max=3.69403e+08; Mean=6.16842e+07;
+  values: 6.16842e+09 3.79394e+07 344325
+  xvar: vd
+  yvar: (I,I_err)
+  xlabel: Vert. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -5 5
+  variables: vd I I_err N
+end data
