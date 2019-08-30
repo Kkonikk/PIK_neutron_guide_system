@@ -1,0 +1,130 @@
+McStas simulation description file for H3_5A.
+Date:    Fri Aug 30 23:38:13 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_5A
+  File: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-5A_SANS2_20190830_233750/mccode
+  Source: H3-5A_SANS2.instr
+  Parameters:  guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-5A_SANS2_20190830_233750
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H3-5A_SANS2.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1567217311
+  Directory: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-5A_SANS2_20190830_233750
+  Nodes: 6
+  Param: guide_start_width=0.05
+  Param: guide_start_height=0.2
+  Param: source_lambda_min=0.1
+  Param: source_lambda_max=20
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Fri Aug 30 23:38:14 2019 (1567197494)
+  type: array_1d(100)
+  Source: H3_5A (H3-5A_SANS2.instr)
+  component: Monlam
+  position: -1.4657 0.075 69.8002
+  title: Wavelength [Angs] monitor
+  Ncount: 999996
+  filename: H3-5A_SANS2.lam
+  statistics: X0=6.80156; dX=3.48961;
+  signal: Min=0; Max=1.6359e+08; Mean=4.88921e+07;
+  values: 4.88921e+09 4.58165e+07 168616
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: 0 20
+  variables: L I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 23:38:14 2019 (1567197494)
+  type: array_1d(100)
+  Source: H3_5A (H3-5A_SANS2.instr)
+  component: Monx
+  position: -1.4657 0.075 69.8002
+  title: x [m] monitor
+  Ncount: 999996
+  filename: H3-5A_SANS2.x
+  statistics: X0=8.47943e-05; dX=0.0144153;
+  signal: Min=0; Max=7.41096e+07; Mean=4.88921e+07;
+  values: 4.88921e+09 4.58165e+07 168616
+  xvar: x
+  yvar: (I,I_err)
+  xlabel: x [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.03 0.03
+  variables: x I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 23:38:14 2019 (1567197494)
+  type: array_1d(100)
+  Source: H3_5A (H3-5A_SANS2.instr)
+  component: Mony
+  position: -1.4657 0.075 69.8002
+  title: y [m] monitor
+  Ncount: 999996
+  filename: H3-5A_SANS2.y
+  statistics: X0=1.49264e-05; dX=0.0144798;
+  signal: Min=0; Max=7.60924e+07; Mean=4.88921e+07;
+  values: 4.88921e+09 4.58165e+07 168616
+  xvar: y
+  yvar: (I,I_err)
+  xlabel: y [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.03 0.03
+  variables: y I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 23:38:14 2019 (1567197494)
+  type: array_1d(100)
+  Source: H3_5A (H3-5A_SANS2.instr)
+  component: Mondx
+  position: -1.4657 0.075 69.8002
+  title: Hor. Divergence [deg] monitor
+  Ncount: 999996
+  filename: H3-5A_SANS2.dx
+  statistics: X0=0.00582935; dX=0.569723;
+  signal: Min=0; Max=2.18898e+08; Mean=4.88921e+07;
+  values: 4.88921e+09 4.58165e+07 168616
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -3 3
+  variables: hd I I_err N
+end data
+
+begin data
+  Date: Fri Aug 30 23:38:14 2019 (1567197494)
+  type: array_1d(100)
+  Source: H3_5A (H3-5A_SANS2.instr)
+  component: Mondy
+  position: -1.4657 0.075 69.8002
+  title: Vert. Divergence [deg] monitor
+  Ncount: 999996
+  filename: H3-5A_SANS2.dy
+  statistics: X0=-0.00513767; dX=0.591845;
+  signal: Min=0; Max=3.83516e+08; Mean=4.88921e+07;
+  values: 4.88921e+09 4.58165e+07 167710
+  xvar: vd
+  yvar: (I,I_err)
+  xlabel: Vert. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -5 5
+  variables: vd I I_err N
+end data
