@@ -1,0 +1,18 @@
+# Instrument-source: 'H3-5D_NSE.instr'
+# Date: Sat Aug 31 00 23 2019
+# Ncount: 1000000
+# Numpoints: 2
+# Param: m_out = 1
+# type: multiarray_1d(2)
+# title: Scan of m_out
+# xlabel: 'm_out'
+# ylabel: 'Intensity'
+# xvars: m_out
+# yvars: (Monlam_I,Monlam_ERR) (Monx_I,Monx_ERR) (Mony_I,Mony_ERR) (Mondx_I,Mondx_ERR) (Mondy_I,Mondy_ERR)
+# xlimits: 1 3
+# filename: mccode.dat
+# variables: m_out Monlam_I Monlam_ERR Monx_I Monx_ERR Mony_I Mony_ERR Mondx_I Mondx_ERR Mondy_I Mondy_ERR
+1 1.31983E+7 218223 1.31983E+7 218223 1.31983E+7 218223 1.31983E+7 218223 1.31983E+7 218223
+1.666666666666666666666666667 3.3612E+7 343403 3.3612E+7 343403 3.3612E+7 343403 3.3612E+7 343403 3.3612E+7 343403
+2.333333333333333333333333333 3.47076E+7 350178 3.47076E+7 350178 3.47076E+7 350178 3.47076E+7 350178 3.47076E+7 350178
+3 3.40358E+7 347042 3.40358E+7 347042 3.40358E+7 347042 3.40358E+7 347042 3.40358E+7 347042

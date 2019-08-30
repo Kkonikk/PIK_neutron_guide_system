@@ -1,0 +1,27 @@
+begin instrument:
+  Creator: mcstas 2.5
+  Source: H3-5D_NSE.instr
+  Parameters:  m_out
+  Trace_enabled: no
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation
+Date: Sat Aug 31 00 23 2019
+Ncount: 1000000
+Numpoints: 2
+Param: m_out = 1, m_out = 3
+end simulation
+
+begin data
+type: multiarray_1d(2)
+title: Scan of m_out
+xvars: m_out
+yvars: (Monlam_I,Monlam_ERR) (Monx_I,Monx_ERR) (Mony_I,Mony_ERR) (Mondx_I,Mondx_ERR) (Mondy_I,Mondy_ERR)
+xlabel: 'm_out'
+ylabel: 'Intensity'
+xlimits: 1 3
+filename: mccode.dat
+variables: m_out Monlam_I Monlam_ERR Monx_I Monx_ERR Mony_I Mony_ERR Mondx_I Mondx_ERR Mondy_I Mondy_ERR
+end data
