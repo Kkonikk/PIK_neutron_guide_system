@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: H3-2_NeRo.instr (H3_2)
- * Date:       Fri Aug 30 20:12:17 2019
+ * Date:       Tue Sep  3 21:34:54 2019
  * File:       ./H3-2_NeRo.c
  * Compile:    cc -o H3_2.out ./H3-2_NeRo.c 
  * CFLAGS=
@@ -5310,7 +5310,7 @@ int mctraceenabled = 1;
 #else
 int mctraceenabled = 0;
 #endif
-#define MCSTAS "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../"
+#define MCSTAS "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../"
 int mcdefaultmain = 1;
 char mcinstrument_name[] = "H3_2";
 char mcinstrument_source[] = "H3-2_NeRo.instr";
@@ -5323,7 +5323,7 @@ void mcfinally(void);
 void mcdisplay(void);
 
 /* Shared user declarations for all components 'Source_gen'. */
-#line 140 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 140 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -6803,7 +6803,7 @@ char *str_dup_numeric(char *orig)
 #line 6803 "./H3-2_NeRo.c"
 
 /* Shared user declarations for all components 'Guide_gravity'. */
-#line 124 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 124 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 /*****************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -7159,7 +7159,7 @@ void TableReflecFunc(double mc_pol_q, t_Table *mc_pol_par, double *mc_pol_r) {
 #line 7159 "./H3-2_NeRo.c"
 
 /* Shared user declarations for all components 'Monitor_nD'. */
-#line 214 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 214 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -10094,17 +10094,15 @@ void off_display(off_struct data)
 #line 10094 "./H3-2_NeRo.c"
 
 /* Instrument parameters. */
-MCNUM mcipm_out;
 MCNUM mcipguide_start_width;
 MCNUM mcipguide_start_height;
 MCNUM mcipsource_lambda_min;
 MCNUM mcipsource_lambda_max;
 MCNUM mcipcold_regime;
 
-#define mcNUMIPAR 6
-int mcnumipar = 6;
+#define mcNUMIPAR 5
+int mcnumipar = 5;
 struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
-  "m_out", &mcipm_out, instr_type_double, "3", 
   "guide_start_width", &mcipguide_start_width, instr_type_double, "0.06", 
   "guide_start_height", &mcipguide_start_height, instr_type_double, "0.2", 
   "source_lambda_min", &mcipsource_lambda_min, instr_type_double, "0.1", 
@@ -10118,7 +10116,6 @@ struct mcinputtable_struct mcinputtable[mcNUMIPAR+1] = {
 #define mccompcurtype  INSTRUMENT
 #define mccompcurindex 0
 #define mcposaH3_2 coords_set(0,0,0)
-#define m_out mcipm_out
 #define guide_start_width mcipguide_start_width
 #define guide_start_height mcipguide_start_height
 #define source_lambda_min mcipsource_lambda_min
@@ -10143,18 +10140,17 @@ double guide_start_dist = 1.82;
 
 //Reflection parameters
 double R0 = 0.99, alpha = 3.3;
-double m=2;
+double m=1, m_out=2;
 double R_curv=900;
 
 //rotation of one guide element
 double rot;
-#line 10151 "./H3-2_NeRo.c"
+#line 10148 "./H3-2_NeRo.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
 #undef guide_start_height
 #undef guide_start_width
-#undef m_out
 #undef mcposaH3_2
 #undef mccompcurindex
 #undef mccompcurtype
@@ -12202,7 +12198,7 @@ int mccMondy_nowritefile;
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 44 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 44 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 #ifndef PROGRESS_BAR
 #define PROGRESS_BAR
 #else
@@ -12213,7 +12209,7 @@ double IntermediateCnts;
 time_t StartTime;
 time_t EndTime;
 time_t CurrentTime;
-#line 12216 "./H3-2_NeRo.c"
+#line 12212 "./H3-2_NeRo.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -12277,7 +12273,7 @@ time_t CurrentTime;
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 184 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 184 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 
   double p_in;
   double lambda1;  /* first Maxwellian source */
@@ -12297,7 +12293,7 @@ time_t CurrentTime;
   double pTable_dymin;
   double pTable_dymax;
 
-#line 12300 "./H3-2_NeRo.c"
+#line 12296 "./H3-2_NeRo.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -12397,10 +12393,10 @@ time_t CurrentTime;
 #define nu mccGuide_metal_nu
 #define phase mccGuide_metal_phase
 #define reflect mccGuide_metal_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12403 "./H3-2_NeRo.c"
+#line 12399 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12481,10 +12477,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_nu
 #define phase mccGuide_curved_phase
 #define reflect mccGuide_curved_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12487 "./H3-2_NeRo.c"
+#line 12483 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12565,10 +12561,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_6_nu
 #define phase mccGuide_curved_6_phase
 #define reflect mccGuide_curved_6_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12571 "./H3-2_NeRo.c"
+#line 12567 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12649,10 +12645,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_7_nu
 #define phase mccGuide_curved_7_phase
 #define reflect mccGuide_curved_7_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12655 "./H3-2_NeRo.c"
+#line 12651 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12733,10 +12729,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_8_nu
 #define phase mccGuide_curved_8_phase
 #define reflect mccGuide_curved_8_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12739 "./H3-2_NeRo.c"
+#line 12735 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12817,10 +12813,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_9_nu
 #define phase mccGuide_curved_9_phase
 #define reflect mccGuide_curved_9_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12823 "./H3-2_NeRo.c"
+#line 12819 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12901,10 +12897,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_10_nu
 #define phase mccGuide_curved_10_phase
 #define reflect mccGuide_curved_10_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12907 "./H3-2_NeRo.c"
+#line 12903 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -12985,10 +12981,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_11_nu
 #define phase mccGuide_curved_11_phase
 #define reflect mccGuide_curved_11_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 12991 "./H3-2_NeRo.c"
+#line 12987 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13069,10 +13065,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_12_nu
 #define phase mccGuide_curved_12_phase
 #define reflect mccGuide_curved_12_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13075 "./H3-2_NeRo.c"
+#line 13071 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13153,10 +13149,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_13_nu
 #define phase mccGuide_curved_13_phase
 #define reflect mccGuide_curved_13_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13159 "./H3-2_NeRo.c"
+#line 13155 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13237,10 +13233,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_14_nu
 #define phase mccGuide_curved_14_phase
 #define reflect mccGuide_curved_14_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13243 "./H3-2_NeRo.c"
+#line 13239 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13321,10 +13317,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_15_nu
 #define phase mccGuide_curved_15_phase
 #define reflect mccGuide_curved_15_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13327 "./H3-2_NeRo.c"
+#line 13323 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13405,10 +13401,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_16_nu
 #define phase mccGuide_curved_16_phase
 #define reflect mccGuide_curved_16_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13411 "./H3-2_NeRo.c"
+#line 13407 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13489,10 +13485,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_17_nu
 #define phase mccGuide_curved_17_phase
 #define reflect mccGuide_curved_17_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13495 "./H3-2_NeRo.c"
+#line 13491 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13573,10 +13569,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_18_nu
 #define phase mccGuide_curved_18_phase
 #define reflect mccGuide_curved_18_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13579 "./H3-2_NeRo.c"
+#line 13575 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13657,10 +13653,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_19_nu
 #define phase mccGuide_curved_19_phase
 #define reflect mccGuide_curved_19_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13663 "./H3-2_NeRo.c"
+#line 13659 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13741,10 +13737,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_20_nu
 #define phase mccGuide_curved_20_phase
 #define reflect mccGuide_curved_20_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13747 "./H3-2_NeRo.c"
+#line 13743 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13825,10 +13821,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_21_nu
 #define phase mccGuide_curved_21_phase
 #define reflect mccGuide_curved_21_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13831 "./H3-2_NeRo.c"
+#line 13827 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13909,10 +13905,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_22_nu
 #define phase mccGuide_curved_22_phase
 #define reflect mccGuide_curved_22_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13915 "./H3-2_NeRo.c"
+#line 13911 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -13993,10 +13989,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_23_nu
 #define phase mccGuide_curved_23_phase
 #define reflect mccGuide_curved_23_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 13999 "./H3-2_NeRo.c"
+#line 13995 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14077,10 +14073,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_24_nu
 #define phase mccGuide_curved_24_phase
 #define reflect mccGuide_curved_24_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14083 "./H3-2_NeRo.c"
+#line 14079 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14161,10 +14157,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_25_nu
 #define phase mccGuide_curved_25_phase
 #define reflect mccGuide_curved_25_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14167 "./H3-2_NeRo.c"
+#line 14163 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14245,10 +14241,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_26_nu
 #define phase mccGuide_curved_26_phase
 #define reflect mccGuide_curved_26_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14251 "./H3-2_NeRo.c"
+#line 14247 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14329,10 +14325,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_27_nu
 #define phase mccGuide_curved_27_phase
 #define reflect mccGuide_curved_27_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14335 "./H3-2_NeRo.c"
+#line 14331 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14413,10 +14409,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_28_nu
 #define phase mccGuide_curved_28_phase
 #define reflect mccGuide_curved_28_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14419 "./H3-2_NeRo.c"
+#line 14415 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14497,10 +14493,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_29_nu
 #define phase mccGuide_curved_29_phase
 #define reflect mccGuide_curved_29_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14503 "./H3-2_NeRo.c"
+#line 14499 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14581,10 +14577,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_30_nu
 #define phase mccGuide_curved_30_phase
 #define reflect mccGuide_curved_30_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14587 "./H3-2_NeRo.c"
+#line 14583 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14665,10 +14661,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_31_nu
 #define phase mccGuide_curved_31_phase
 #define reflect mccGuide_curved_31_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14671 "./H3-2_NeRo.c"
+#line 14667 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14749,10 +14745,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_32_nu
 #define phase mccGuide_curved_32_phase
 #define reflect mccGuide_curved_32_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14755 "./H3-2_NeRo.c"
+#line 14751 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14833,10 +14829,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_33_nu
 #define phase mccGuide_curved_33_phase
 #define reflect mccGuide_curved_33_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14839 "./H3-2_NeRo.c"
+#line 14835 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -14917,10 +14913,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_34_nu
 #define phase mccGuide_curved_34_phase
 #define reflect mccGuide_curved_34_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 14923 "./H3-2_NeRo.c"
+#line 14919 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15001,10 +14997,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_35_nu
 #define phase mccGuide_curved_35_phase
 #define reflect mccGuide_curved_35_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15007 "./H3-2_NeRo.c"
+#line 15003 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15085,10 +15081,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_36_nu
 #define phase mccGuide_curved_36_phase
 #define reflect mccGuide_curved_36_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15091 "./H3-2_NeRo.c"
+#line 15087 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15169,10 +15165,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_37_nu
 #define phase mccGuide_curved_37_phase
 #define reflect mccGuide_curved_37_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15175 "./H3-2_NeRo.c"
+#line 15171 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15253,10 +15249,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_38_nu
 #define phase mccGuide_curved_38_phase
 #define reflect mccGuide_curved_38_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15259 "./H3-2_NeRo.c"
+#line 15255 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15337,10 +15333,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_39_nu
 #define phase mccGuide_curved_39_phase
 #define reflect mccGuide_curved_39_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15343 "./H3-2_NeRo.c"
+#line 15339 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15421,10 +15417,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_40_nu
 #define phase mccGuide_curved_40_phase
 #define reflect mccGuide_curved_40_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15427 "./H3-2_NeRo.c"
+#line 15423 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15505,10 +15501,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_41_nu
 #define phase mccGuide_curved_41_phase
 #define reflect mccGuide_curved_41_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15511 "./H3-2_NeRo.c"
+#line 15507 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15589,10 +15585,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_42_nu
 #define phase mccGuide_curved_42_phase
 #define reflect mccGuide_curved_42_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15595 "./H3-2_NeRo.c"
+#line 15591 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15673,10 +15669,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_43_nu
 #define phase mccGuide_curved_43_phase
 #define reflect mccGuide_curved_43_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15679 "./H3-2_NeRo.c"
+#line 15675 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15757,10 +15753,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_44_nu
 #define phase mccGuide_curved_44_phase
 #define reflect mccGuide_curved_44_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15763 "./H3-2_NeRo.c"
+#line 15759 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15841,10 +15837,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_45_nu
 #define phase mccGuide_curved_45_phase
 #define reflect mccGuide_curved_45_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15847 "./H3-2_NeRo.c"
+#line 15843 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -15925,10 +15921,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_46_nu
 #define phase mccGuide_curved_46_phase
 #define reflect mccGuide_curved_46_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 15931 "./H3-2_NeRo.c"
+#line 15927 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16009,10 +16005,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_47_nu
 #define phase mccGuide_curved_47_phase
 #define reflect mccGuide_curved_47_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16015 "./H3-2_NeRo.c"
+#line 16011 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16093,10 +16089,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_48_nu
 #define phase mccGuide_curved_48_phase
 #define reflect mccGuide_curved_48_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16099 "./H3-2_NeRo.c"
+#line 16095 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16177,10 +16173,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_49_nu
 #define phase mccGuide_curved_49_phase
 #define reflect mccGuide_curved_49_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16183 "./H3-2_NeRo.c"
+#line 16179 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16261,10 +16257,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_50_nu
 #define phase mccGuide_curved_50_phase
 #define reflect mccGuide_curved_50_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16267 "./H3-2_NeRo.c"
+#line 16263 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16345,10 +16341,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_51_nu
 #define phase mccGuide_curved_51_phase
 #define reflect mccGuide_curved_51_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16351 "./H3-2_NeRo.c"
+#line 16347 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16429,10 +16425,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_52_nu
 #define phase mccGuide_curved_52_phase
 #define reflect mccGuide_curved_52_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16435 "./H3-2_NeRo.c"
+#line 16431 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16513,10 +16509,10 @@ time_t CurrentTime;
 #define nu mccGuide_curved_53_nu
 #define phase mccGuide_curved_53_phase
 #define reflect mccGuide_curved_53_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16519 "./H3-2_NeRo.c"
+#line 16515 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16597,10 +16593,10 @@ time_t CurrentTime;
 #define nu mccGuide_straight_nu
 #define phase mccGuide_straight_phase
 #define reflect mccGuide_straight_reflect
-#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 334 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
-#line 16603 "./H3-2_NeRo.c"
+#line 16599 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -16673,12 +16669,12 @@ time_t CurrentTime;
 #define username2 mccMonlam_username2
 #define username3 mccMonlam_username3
 #define nowritefile mccMonlam_nowritefile
-#line 222 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 222 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16681 "./H3-2_NeRo.c"
+#line 16677 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16743,12 +16739,12 @@ time_t CurrentTime;
 #define username2 mccMonx_username2
 #define username3 mccMonx_username3
 #define nowritefile mccMonx_nowritefile
-#line 222 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 222 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16751 "./H3-2_NeRo.c"
+#line 16747 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16813,12 +16809,12 @@ time_t CurrentTime;
 #define username2 mccMony_username2
 #define username3 mccMony_username3
 #define nowritefile mccMony_nowritefile
-#line 222 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 222 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16821 "./H3-2_NeRo.c"
+#line 16817 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16883,12 +16879,12 @@ time_t CurrentTime;
 #define username2 mccMondx_username2
 #define username3 mccMondx_username3
 #define nowritefile mccMondx_nowritefile
-#line 222 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 222 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16891 "./H3-2_NeRo.c"
+#line 16887 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -16953,12 +16949,12 @@ time_t CurrentTime;
 #define username2 mccMondy_username2
 #define username3 mccMondy_username3
 #define nowritefile mccMondy_nowritefile
-#line 222 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 222 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
   off_struct offdata;
-#line 16961 "./H3-2_NeRo.c"
+#line 16957 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -17119,7 +17115,6 @@ void mcinit(void) {
 #define mccompcurtype  INSTRUMENT
 #define mccompcurindex 0
 #define mcposaH3_2 coords_set(0,0,0)
-#define m_out mcipm_out
 #define guide_start_width mcipguide_start_width
 #define guide_start_height mcipguide_start_height
 #define source_lambda_min mcipsource_lambda_min
@@ -17146,13 +17141,12 @@ if (cold_regime==-1){
 rot = 0.5/R_curv*RAD2DEG;
 	
 }
-#line 17149 "./H3-2_NeRo.c"
+#line 17144 "./H3-2_NeRo.c"
 #undef cold_regime
 #undef source_lambda_max
 #undef source_lambda_min
 #undef guide_start_height
 #undef guide_start_width
-#undef m_out
 #undef mcposaH3_2
 #undef mccompcurindex
 #undef mccompcurtype
@@ -17178,14 +17172,14 @@ rot = 0.5/R_curv*RAD2DEG;
   mccOrigin_flag_save = 0;
 #line 39 "H3-2_NeRo.instr"
   mccOrigin_minutes = 0;
-#line 17181 "./H3-2_NeRo.c"
+#line 17175 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Origin (Init:Place/Rotate)");
   rot_set_rotation(mcrotaOrigin,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 17188 "./H3-2_NeRo.c"
+#line 17182 "./H3-2_NeRo.c"
   rot_copy(mcrotrOrigin, mcrotaOrigin);
   mcposaOrigin = coords_set(
 #line 69 "H3-2_NeRo.instr"
@@ -17194,7 +17188,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 69 "H3-2_NeRo.instr"
     0);
-#line 17197 "./H3-2_NeRo.c"
+#line 17191 "./H3-2_NeRo.c"
   mctc1 = coords_neg(mcposaOrigin);
   mcposrOrigin = rot_apply(mcrotaOrigin, mctc1);
   mcDEBUG_COMPONENT("Origin", mcposaOrigin, mcrotaOrigin)
@@ -17265,14 +17259,14 @@ rot = 0.5/R_curv*RAD2DEG;
   mccH3_zdepth = 0;
 #line 134 "H3-2_NeRo.instr"
   mccH3_target_index = + 1;
-#line 17268 "./H3-2_NeRo.c"
+#line 17262 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("H3 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 17275 "./H3-2_NeRo.c"
+#line 17269 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaH3);
   rot_transpose(mcrotaOrigin, mctr1);
   rot_mul(mcrotaH3, mctr1, mcrotrH3);
@@ -17283,7 +17277,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 78 "H3-2_NeRo.instr"
     0);
-#line 17286 "./H3-2_NeRo.c"
+#line 17280 "./H3-2_NeRo.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaH3 = coords_add(mcposaOrigin, mctc2);
@@ -17303,7 +17297,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 17306 "./H3-2_NeRo.c"
+#line 17300 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaOrigin, mcrotaGuide_start_arm);
   rot_transpose(mcrotaH3, mctr1);
   rot_mul(mcrotaGuide_start_arm, mctr1, mcrotrGuide_start_arm);
@@ -17314,7 +17308,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 82 "H3-2_NeRo.instr"
     guide_start_dist);
-#line 17317 "./H3-2_NeRo.c"
+#line 17311 "./H3-2_NeRo.c"
   rot_transpose(mcrotaOrigin, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_start_arm = coords_add(mcposaOrigin, mctc2);
@@ -17396,14 +17390,14 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_metal_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_metal_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_metal_reflect[0]='\0';
-#line 17399 "./H3-2_NeRo.c"
+#line 17393 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_metal (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 17406 "./H3-2_NeRo.c"
+#line 17400 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_start_arm, mcrotaGuide_metal);
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   rot_mul(mcrotaGuide_metal, mctr1, mcrotrGuide_metal);
@@ -17414,7 +17408,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 51 "H3-2_NeRo.instr"
     0);
-#line 17417 "./H3-2_NeRo.c"
+#line 17411 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_start_arm, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_metal = coords_add(mcposaGuide_start_arm, mctc2);
@@ -17455,7 +17449,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_mright = mcipm_out;
+  mccGuide_curved_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -17496,7 +17490,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_reflect[0]='\0';
-#line 17499 "./H3-2_NeRo.c"
+#line 17493 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17506,7 +17500,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 56 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 17509 "./H3-2_NeRo.c"
+#line 17503 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_metal, mcrotaGuide_curved);
   rot_transpose(mcrotaGuide_metal, mctr1);
   rot_mul(mcrotaGuide_curved, mctr1, mcrotrGuide_curved);
@@ -17517,7 +17511,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 55 "H3-2_NeRo.instr"
     0.5);
-#line 17520 "./H3-2_NeRo.c"
+#line 17514 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_metal, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved = coords_add(mcposaGuide_metal, mctc2);
@@ -17558,7 +17552,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_6_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_6_mright = mcipm_out;
+  mccGuide_curved_6_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_6_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -17599,7 +17593,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_6_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_6_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_6_reflect[0]='\0';
-#line 17602 "./H3-2_NeRo.c"
+#line 17596 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_6 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17609,7 +17603,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 60 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 17612 "./H3-2_NeRo.c"
+#line 17606 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved, mcrotaGuide_curved_6);
   rot_transpose(mcrotaGuide_curved, mctr1);
   rot_mul(mcrotaGuide_curved_6, mctr1, mcrotrGuide_curved_6);
@@ -17620,7 +17614,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 59 "H3-2_NeRo.instr"
     0.5);
-#line 17623 "./H3-2_NeRo.c"
+#line 17617 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_6 = coords_add(mcposaGuide_curved, mctc2);
@@ -17661,7 +17655,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_7_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_7_mright = mcipm_out;
+  mccGuide_curved_7_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_7_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -17702,7 +17696,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_7_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_7_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_7_reflect[0]='\0';
-#line 17705 "./H3-2_NeRo.c"
+#line 17699 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_7 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17712,7 +17706,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 64 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 17715 "./H3-2_NeRo.c"
+#line 17709 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_6, mcrotaGuide_curved_7);
   rot_transpose(mcrotaGuide_curved_6, mctr1);
   rot_mul(mcrotaGuide_curved_7, mctr1, mcrotrGuide_curved_7);
@@ -17723,7 +17717,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 63 "H3-2_NeRo.instr"
     0.5);
-#line 17726 "./H3-2_NeRo.c"
+#line 17720 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_6, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_7 = coords_add(mcposaGuide_curved_6, mctc2);
@@ -17764,7 +17758,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_8_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_8_mright = mcipm_out;
+  mccGuide_curved_8_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_8_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -17805,7 +17799,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_8_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_8_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_8_reflect[0]='\0';
-#line 17808 "./H3-2_NeRo.c"
+#line 17802 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_8 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17815,7 +17809,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 68 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 17818 "./H3-2_NeRo.c"
+#line 17812 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_7, mcrotaGuide_curved_8);
   rot_transpose(mcrotaGuide_curved_7, mctr1);
   rot_mul(mcrotaGuide_curved_8, mctr1, mcrotrGuide_curved_8);
@@ -17826,7 +17820,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 67 "H3-2_NeRo.instr"
     0.5);
-#line 17829 "./H3-2_NeRo.c"
+#line 17823 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_7, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_8 = coords_add(mcposaGuide_curved_7, mctc2);
@@ -17867,7 +17861,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_9_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_9_mright = mcipm_out;
+  mccGuide_curved_9_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_9_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -17908,7 +17902,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_9_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_9_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_9_reflect[0]='\0';
-#line 17911 "./H3-2_NeRo.c"
+#line 17905 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_9 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -17918,7 +17912,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 72 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 17921 "./H3-2_NeRo.c"
+#line 17915 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_8, mcrotaGuide_curved_9);
   rot_transpose(mcrotaGuide_curved_8, mctr1);
   rot_mul(mcrotaGuide_curved_9, mctr1, mcrotrGuide_curved_9);
@@ -17929,7 +17923,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 71 "H3-2_NeRo.instr"
     0.5);
-#line 17932 "./H3-2_NeRo.c"
+#line 17926 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_8, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_9 = coords_add(mcposaGuide_curved_8, mctc2);
@@ -17970,7 +17964,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_10_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_10_mright = mcipm_out;
+  mccGuide_curved_10_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_10_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -18011,7 +18005,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_10_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_10_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_10_reflect[0]='\0';
-#line 18014 "./H3-2_NeRo.c"
+#line 18008 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_10 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18021,7 +18015,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 76 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18024 "./H3-2_NeRo.c"
+#line 18018 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_9, mcrotaGuide_curved_10);
   rot_transpose(mcrotaGuide_curved_9, mctr1);
   rot_mul(mcrotaGuide_curved_10, mctr1, mcrotrGuide_curved_10);
@@ -18032,7 +18026,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 75 "H3-2_NeRo.instr"
     0.5);
-#line 18035 "./H3-2_NeRo.c"
+#line 18029 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_9, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_10 = coords_add(mcposaGuide_curved_9, mctc2);
@@ -18073,7 +18067,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_11_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_11_mright = mcipm_out;
+  mccGuide_curved_11_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_11_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -18114,7 +18108,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_11_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_11_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_11_reflect[0]='\0';
-#line 18117 "./H3-2_NeRo.c"
+#line 18111 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_11 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18124,7 +18118,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 80 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18127 "./H3-2_NeRo.c"
+#line 18121 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_10, mcrotaGuide_curved_11);
   rot_transpose(mcrotaGuide_curved_10, mctr1);
   rot_mul(mcrotaGuide_curved_11, mctr1, mcrotrGuide_curved_11);
@@ -18135,7 +18129,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 79 "H3-2_NeRo.instr"
     0.5);
-#line 18138 "./H3-2_NeRo.c"
+#line 18132 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_10, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_11 = coords_add(mcposaGuide_curved_10, mctc2);
@@ -18176,7 +18170,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_12_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_12_mright = mcipm_out;
+  mccGuide_curved_12_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_12_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -18217,7 +18211,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_12_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_12_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_12_reflect[0]='\0';
-#line 18220 "./H3-2_NeRo.c"
+#line 18214 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_12 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18227,7 +18221,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 84 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18230 "./H3-2_NeRo.c"
+#line 18224 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_11, mcrotaGuide_curved_12);
   rot_transpose(mcrotaGuide_curved_11, mctr1);
   rot_mul(mcrotaGuide_curved_12, mctr1, mcrotrGuide_curved_12);
@@ -18238,7 +18232,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 83 "H3-2_NeRo.instr"
     0.5);
-#line 18241 "./H3-2_NeRo.c"
+#line 18235 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_11, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_12 = coords_add(mcposaGuide_curved_11, mctc2);
@@ -18279,7 +18273,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_13_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_13_mright = mcipm_out;
+  mccGuide_curved_13_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_13_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -18320,7 +18314,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_13_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_13_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_13_reflect[0]='\0';
-#line 18323 "./H3-2_NeRo.c"
+#line 18317 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_13 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18330,7 +18324,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 88 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18333 "./H3-2_NeRo.c"
+#line 18327 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_12, mcrotaGuide_curved_13);
   rot_transpose(mcrotaGuide_curved_12, mctr1);
   rot_mul(mcrotaGuide_curved_13, mctr1, mcrotrGuide_curved_13);
@@ -18341,7 +18335,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 87 "H3-2_NeRo.instr"
     0.5);
-#line 18344 "./H3-2_NeRo.c"
+#line 18338 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_12, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_13 = coords_add(mcposaGuide_curved_12, mctc2);
@@ -18382,7 +18376,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_14_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_14_mright = mcipm_out;
+  mccGuide_curved_14_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_14_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -18423,7 +18417,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_14_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_14_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_14_reflect[0]='\0';
-#line 18426 "./H3-2_NeRo.c"
+#line 18420 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_14 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18433,7 +18427,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 92 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18436 "./H3-2_NeRo.c"
+#line 18430 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_13, mcrotaGuide_curved_14);
   rot_transpose(mcrotaGuide_curved_13, mctr1);
   rot_mul(mcrotaGuide_curved_14, mctr1, mcrotrGuide_curved_14);
@@ -18444,7 +18438,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 91 "H3-2_NeRo.instr"
     0.5);
-#line 18447 "./H3-2_NeRo.c"
+#line 18441 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_13, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_14 = coords_add(mcposaGuide_curved_13, mctc2);
@@ -18485,7 +18479,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_15_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_15_mright = mcipm_out;
+  mccGuide_curved_15_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_15_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -18526,7 +18520,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_15_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_15_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_15_reflect[0]='\0';
-#line 18529 "./H3-2_NeRo.c"
+#line 18523 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_15 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18536,7 +18530,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 96 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18539 "./H3-2_NeRo.c"
+#line 18533 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_14, mcrotaGuide_curved_15);
   rot_transpose(mcrotaGuide_curved_14, mctr1);
   rot_mul(mcrotaGuide_curved_15, mctr1, mcrotrGuide_curved_15);
@@ -18547,7 +18541,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 95 "H3-2_NeRo.instr"
     0.5);
-#line 18550 "./H3-2_NeRo.c"
+#line 18544 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_14, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_15 = coords_add(mcposaGuide_curved_14, mctc2);
@@ -18588,7 +18582,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_16_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_16_mright = mcipm_out;
+  mccGuide_curved_16_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_16_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -18629,7 +18623,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_16_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_16_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_16_reflect[0]='\0';
-#line 18632 "./H3-2_NeRo.c"
+#line 18626 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_16 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18639,7 +18633,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 100 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18642 "./H3-2_NeRo.c"
+#line 18636 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_15, mcrotaGuide_curved_16);
   rot_transpose(mcrotaGuide_curved_15, mctr1);
   rot_mul(mcrotaGuide_curved_16, mctr1, mcrotrGuide_curved_16);
@@ -18650,7 +18644,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 99 "H3-2_NeRo.instr"
     0.5);
-#line 18653 "./H3-2_NeRo.c"
+#line 18647 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_15, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_16 = coords_add(mcposaGuide_curved_15, mctc2);
@@ -18691,7 +18685,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_17_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_17_mright = mcipm_out;
+  mccGuide_curved_17_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_17_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -18732,7 +18726,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_17_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_17_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_17_reflect[0]='\0';
-#line 18735 "./H3-2_NeRo.c"
+#line 18729 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_17 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18742,7 +18736,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 104 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18745 "./H3-2_NeRo.c"
+#line 18739 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_16, mcrotaGuide_curved_17);
   rot_transpose(mcrotaGuide_curved_16, mctr1);
   rot_mul(mcrotaGuide_curved_17, mctr1, mcrotrGuide_curved_17);
@@ -18753,7 +18747,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 103 "H3-2_NeRo.instr"
     0.5);
-#line 18756 "./H3-2_NeRo.c"
+#line 18750 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_16, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_17 = coords_add(mcposaGuide_curved_16, mctc2);
@@ -18794,7 +18788,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_18_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_18_mright = mcipm_out;
+  mccGuide_curved_18_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_18_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -18835,7 +18829,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_18_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_18_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_18_reflect[0]='\0';
-#line 18838 "./H3-2_NeRo.c"
+#line 18832 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_18 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18845,7 +18839,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 108 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18848 "./H3-2_NeRo.c"
+#line 18842 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_17, mcrotaGuide_curved_18);
   rot_transpose(mcrotaGuide_curved_17, mctr1);
   rot_mul(mcrotaGuide_curved_18, mctr1, mcrotrGuide_curved_18);
@@ -18856,7 +18850,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 107 "H3-2_NeRo.instr"
     0.5);
-#line 18859 "./H3-2_NeRo.c"
+#line 18853 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_17, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_18 = coords_add(mcposaGuide_curved_17, mctc2);
@@ -18897,7 +18891,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_19_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_19_mright = mcipm_out;
+  mccGuide_curved_19_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_19_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -18938,7 +18932,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_19_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_19_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_19_reflect[0]='\0';
-#line 18941 "./H3-2_NeRo.c"
+#line 18935 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_19 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -18948,7 +18942,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 112 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 18951 "./H3-2_NeRo.c"
+#line 18945 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_18, mcrotaGuide_curved_19);
   rot_transpose(mcrotaGuide_curved_18, mctr1);
   rot_mul(mcrotaGuide_curved_19, mctr1, mcrotrGuide_curved_19);
@@ -18959,7 +18953,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 111 "H3-2_NeRo.instr"
     0.5);
-#line 18962 "./H3-2_NeRo.c"
+#line 18956 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_18, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_19 = coords_add(mcposaGuide_curved_18, mctc2);
@@ -19000,7 +18994,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_20_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_20_mright = mcipm_out;
+  mccGuide_curved_20_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_20_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -19041,7 +19035,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_20_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_20_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_20_reflect[0]='\0';
-#line 19044 "./H3-2_NeRo.c"
+#line 19038 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_20 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19051,7 +19045,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 116 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19054 "./H3-2_NeRo.c"
+#line 19048 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_19, mcrotaGuide_curved_20);
   rot_transpose(mcrotaGuide_curved_19, mctr1);
   rot_mul(mcrotaGuide_curved_20, mctr1, mcrotrGuide_curved_20);
@@ -19062,7 +19056,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 115 "H3-2_NeRo.instr"
     0.5);
-#line 19065 "./H3-2_NeRo.c"
+#line 19059 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_19, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_20 = coords_add(mcposaGuide_curved_19, mctc2);
@@ -19103,7 +19097,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_21_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_21_mright = mcipm_out;
+  mccGuide_curved_21_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_21_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -19144,7 +19138,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_21_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_21_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_21_reflect[0]='\0';
-#line 19147 "./H3-2_NeRo.c"
+#line 19141 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_21 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19154,7 +19148,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 120 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19157 "./H3-2_NeRo.c"
+#line 19151 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_20, mcrotaGuide_curved_21);
   rot_transpose(mcrotaGuide_curved_20, mctr1);
   rot_mul(mcrotaGuide_curved_21, mctr1, mcrotrGuide_curved_21);
@@ -19165,7 +19159,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 119 "H3-2_NeRo.instr"
     0.5);
-#line 19168 "./H3-2_NeRo.c"
+#line 19162 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_20, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_21 = coords_add(mcposaGuide_curved_20, mctc2);
@@ -19206,7 +19200,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_22_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_22_mright = mcipm_out;
+  mccGuide_curved_22_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_22_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -19247,7 +19241,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_22_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_22_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_22_reflect[0]='\0';
-#line 19250 "./H3-2_NeRo.c"
+#line 19244 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_22 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19257,7 +19251,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 124 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19260 "./H3-2_NeRo.c"
+#line 19254 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_21, mcrotaGuide_curved_22);
   rot_transpose(mcrotaGuide_curved_21, mctr1);
   rot_mul(mcrotaGuide_curved_22, mctr1, mcrotrGuide_curved_22);
@@ -19268,7 +19262,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 123 "H3-2_NeRo.instr"
     0.5);
-#line 19271 "./H3-2_NeRo.c"
+#line 19265 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_21, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_22 = coords_add(mcposaGuide_curved_21, mctc2);
@@ -19309,7 +19303,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_23_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_23_mright = mcipm_out;
+  mccGuide_curved_23_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_23_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -19350,7 +19344,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_23_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_23_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_23_reflect[0]='\0';
-#line 19353 "./H3-2_NeRo.c"
+#line 19347 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_23 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19360,7 +19354,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 128 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19363 "./H3-2_NeRo.c"
+#line 19357 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_22, mcrotaGuide_curved_23);
   rot_transpose(mcrotaGuide_curved_22, mctr1);
   rot_mul(mcrotaGuide_curved_23, mctr1, mcrotrGuide_curved_23);
@@ -19371,7 +19365,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 127 "H3-2_NeRo.instr"
     0.5);
-#line 19374 "./H3-2_NeRo.c"
+#line 19368 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_22, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_23 = coords_add(mcposaGuide_curved_22, mctc2);
@@ -19412,7 +19406,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_24_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_24_mright = mcipm_out;
+  mccGuide_curved_24_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_24_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -19453,7 +19447,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_24_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_24_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_24_reflect[0]='\0';
-#line 19456 "./H3-2_NeRo.c"
+#line 19450 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_24 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19463,7 +19457,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 132 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19466 "./H3-2_NeRo.c"
+#line 19460 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_23, mcrotaGuide_curved_24);
   rot_transpose(mcrotaGuide_curved_23, mctr1);
   rot_mul(mcrotaGuide_curved_24, mctr1, mcrotrGuide_curved_24);
@@ -19474,7 +19468,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 131 "H3-2_NeRo.instr"
     0.5);
-#line 19477 "./H3-2_NeRo.c"
+#line 19471 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_23, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_24 = coords_add(mcposaGuide_curved_23, mctc2);
@@ -19515,7 +19509,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_25_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_25_mright = mcipm_out;
+  mccGuide_curved_25_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_25_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -19556,7 +19550,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_25_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_25_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_25_reflect[0]='\0';
-#line 19559 "./H3-2_NeRo.c"
+#line 19553 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_25 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19566,7 +19560,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 136 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19569 "./H3-2_NeRo.c"
+#line 19563 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_24, mcrotaGuide_curved_25);
   rot_transpose(mcrotaGuide_curved_24, mctr1);
   rot_mul(mcrotaGuide_curved_25, mctr1, mcrotrGuide_curved_25);
@@ -19577,7 +19571,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 135 "H3-2_NeRo.instr"
     0.5);
-#line 19580 "./H3-2_NeRo.c"
+#line 19574 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_24, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_25 = coords_add(mcposaGuide_curved_24, mctc2);
@@ -19618,7 +19612,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_26_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_26_mright = mcipm_out;
+  mccGuide_curved_26_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_26_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -19659,7 +19653,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_26_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_26_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_26_reflect[0]='\0';
-#line 19662 "./H3-2_NeRo.c"
+#line 19656 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_26 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19669,7 +19663,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 140 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19672 "./H3-2_NeRo.c"
+#line 19666 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_25, mcrotaGuide_curved_26);
   rot_transpose(mcrotaGuide_curved_25, mctr1);
   rot_mul(mcrotaGuide_curved_26, mctr1, mcrotrGuide_curved_26);
@@ -19680,7 +19674,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 139 "H3-2_NeRo.instr"
     0.5);
-#line 19683 "./H3-2_NeRo.c"
+#line 19677 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_25, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_26 = coords_add(mcposaGuide_curved_25, mctc2);
@@ -19721,7 +19715,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_27_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_27_mright = mcipm_out;
+  mccGuide_curved_27_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_27_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -19762,7 +19756,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_27_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_27_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_27_reflect[0]='\0';
-#line 19765 "./H3-2_NeRo.c"
+#line 19759 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_27 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19772,7 +19766,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 144 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19775 "./H3-2_NeRo.c"
+#line 19769 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_26, mcrotaGuide_curved_27);
   rot_transpose(mcrotaGuide_curved_26, mctr1);
   rot_mul(mcrotaGuide_curved_27, mctr1, mcrotrGuide_curved_27);
@@ -19783,7 +19777,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 143 "H3-2_NeRo.instr"
     0.5);
-#line 19786 "./H3-2_NeRo.c"
+#line 19780 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_26, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_27 = coords_add(mcposaGuide_curved_26, mctc2);
@@ -19824,7 +19818,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_28_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_28_mright = mcipm_out;
+  mccGuide_curved_28_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_28_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -19865,7 +19859,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_28_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_28_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_28_reflect[0]='\0';
-#line 19868 "./H3-2_NeRo.c"
+#line 19862 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_28 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19875,7 +19869,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 148 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19878 "./H3-2_NeRo.c"
+#line 19872 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_27, mcrotaGuide_curved_28);
   rot_transpose(mcrotaGuide_curved_27, mctr1);
   rot_mul(mcrotaGuide_curved_28, mctr1, mcrotrGuide_curved_28);
@@ -19886,7 +19880,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 147 "H3-2_NeRo.instr"
     0.5);
-#line 19889 "./H3-2_NeRo.c"
+#line 19883 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_27, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_28 = coords_add(mcposaGuide_curved_27, mctc2);
@@ -19927,7 +19921,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_29_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_29_mright = mcipm_out;
+  mccGuide_curved_29_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_29_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -19968,7 +19962,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_29_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_29_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_29_reflect[0]='\0';
-#line 19971 "./H3-2_NeRo.c"
+#line 19965 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_29 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -19978,7 +19972,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 152 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 19981 "./H3-2_NeRo.c"
+#line 19975 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_28, mcrotaGuide_curved_29);
   rot_transpose(mcrotaGuide_curved_28, mctr1);
   rot_mul(mcrotaGuide_curved_29, mctr1, mcrotrGuide_curved_29);
@@ -19989,7 +19983,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 151 "H3-2_NeRo.instr"
     0.5);
-#line 19992 "./H3-2_NeRo.c"
+#line 19986 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_28, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_29 = coords_add(mcposaGuide_curved_28, mctc2);
@@ -20030,7 +20024,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_30_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_30_mright = mcipm_out;
+  mccGuide_curved_30_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_30_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -20071,7 +20065,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_30_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_30_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_30_reflect[0]='\0';
-#line 20074 "./H3-2_NeRo.c"
+#line 20068 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_30 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20081,7 +20075,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 156 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20084 "./H3-2_NeRo.c"
+#line 20078 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_29, mcrotaGuide_curved_30);
   rot_transpose(mcrotaGuide_curved_29, mctr1);
   rot_mul(mcrotaGuide_curved_30, mctr1, mcrotrGuide_curved_30);
@@ -20092,7 +20086,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 155 "H3-2_NeRo.instr"
     0.5);
-#line 20095 "./H3-2_NeRo.c"
+#line 20089 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_29, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_30 = coords_add(mcposaGuide_curved_29, mctc2);
@@ -20133,7 +20127,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_31_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_31_mright = mcipm_out;
+  mccGuide_curved_31_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_31_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -20174,7 +20168,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_31_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_31_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_31_reflect[0]='\0';
-#line 20177 "./H3-2_NeRo.c"
+#line 20171 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_31 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20184,7 +20178,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 160 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20187 "./H3-2_NeRo.c"
+#line 20181 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_30, mcrotaGuide_curved_31);
   rot_transpose(mcrotaGuide_curved_30, mctr1);
   rot_mul(mcrotaGuide_curved_31, mctr1, mcrotrGuide_curved_31);
@@ -20195,7 +20189,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 159 "H3-2_NeRo.instr"
     0.5);
-#line 20198 "./H3-2_NeRo.c"
+#line 20192 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_30, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_31 = coords_add(mcposaGuide_curved_30, mctc2);
@@ -20236,7 +20230,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_32_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_32_mright = mcipm_out;
+  mccGuide_curved_32_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_32_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -20277,7 +20271,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_32_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_32_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_32_reflect[0]='\0';
-#line 20280 "./H3-2_NeRo.c"
+#line 20274 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_32 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20287,7 +20281,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 164 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20290 "./H3-2_NeRo.c"
+#line 20284 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_31, mcrotaGuide_curved_32);
   rot_transpose(mcrotaGuide_curved_31, mctr1);
   rot_mul(mcrotaGuide_curved_32, mctr1, mcrotrGuide_curved_32);
@@ -20298,7 +20292,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 163 "H3-2_NeRo.instr"
     0.5);
-#line 20301 "./H3-2_NeRo.c"
+#line 20295 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_31, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_32 = coords_add(mcposaGuide_curved_31, mctc2);
@@ -20339,7 +20333,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_33_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_33_mright = mcipm_out;
+  mccGuide_curved_33_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_33_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -20380,7 +20374,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_33_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_33_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_33_reflect[0]='\0';
-#line 20383 "./H3-2_NeRo.c"
+#line 20377 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_33 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20390,7 +20384,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 168 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20393 "./H3-2_NeRo.c"
+#line 20387 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_32, mcrotaGuide_curved_33);
   rot_transpose(mcrotaGuide_curved_32, mctr1);
   rot_mul(mcrotaGuide_curved_33, mctr1, mcrotrGuide_curved_33);
@@ -20401,7 +20395,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 167 "H3-2_NeRo.instr"
     0.5);
-#line 20404 "./H3-2_NeRo.c"
+#line 20398 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_32, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_33 = coords_add(mcposaGuide_curved_32, mctc2);
@@ -20442,7 +20436,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_34_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_34_mright = mcipm_out;
+  mccGuide_curved_34_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_34_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -20483,7 +20477,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_34_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_34_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_34_reflect[0]='\0';
-#line 20486 "./H3-2_NeRo.c"
+#line 20480 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_34 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20493,7 +20487,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 172 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20496 "./H3-2_NeRo.c"
+#line 20490 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_33, mcrotaGuide_curved_34);
   rot_transpose(mcrotaGuide_curved_33, mctr1);
   rot_mul(mcrotaGuide_curved_34, mctr1, mcrotrGuide_curved_34);
@@ -20504,7 +20498,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 171 "H3-2_NeRo.instr"
     0.5);
-#line 20507 "./H3-2_NeRo.c"
+#line 20501 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_33, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_34 = coords_add(mcposaGuide_curved_33, mctc2);
@@ -20545,7 +20539,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_35_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_35_mright = mcipm_out;
+  mccGuide_curved_35_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_35_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -20586,7 +20580,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_35_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_35_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_35_reflect[0]='\0';
-#line 20589 "./H3-2_NeRo.c"
+#line 20583 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_35 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20596,7 +20590,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 176 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20599 "./H3-2_NeRo.c"
+#line 20593 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_34, mcrotaGuide_curved_35);
   rot_transpose(mcrotaGuide_curved_34, mctr1);
   rot_mul(mcrotaGuide_curved_35, mctr1, mcrotrGuide_curved_35);
@@ -20607,7 +20601,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 175 "H3-2_NeRo.instr"
     0.5);
-#line 20610 "./H3-2_NeRo.c"
+#line 20604 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_34, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_35 = coords_add(mcposaGuide_curved_34, mctc2);
@@ -20648,7 +20642,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_36_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_36_mright = mcipm_out;
+  mccGuide_curved_36_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_36_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -20689,7 +20683,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_36_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_36_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_36_reflect[0]='\0';
-#line 20692 "./H3-2_NeRo.c"
+#line 20686 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_36 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20699,7 +20693,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 180 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20702 "./H3-2_NeRo.c"
+#line 20696 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_35, mcrotaGuide_curved_36);
   rot_transpose(mcrotaGuide_curved_35, mctr1);
   rot_mul(mcrotaGuide_curved_36, mctr1, mcrotrGuide_curved_36);
@@ -20710,7 +20704,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 179 "H3-2_NeRo.instr"
     0.5);
-#line 20713 "./H3-2_NeRo.c"
+#line 20707 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_35, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_36 = coords_add(mcposaGuide_curved_35, mctc2);
@@ -20751,7 +20745,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_37_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_37_mright = mcipm_out;
+  mccGuide_curved_37_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_37_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -20792,7 +20786,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_37_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_37_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_37_reflect[0]='\0';
-#line 20795 "./H3-2_NeRo.c"
+#line 20789 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_37 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20802,7 +20796,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 184 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20805 "./H3-2_NeRo.c"
+#line 20799 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_36, mcrotaGuide_curved_37);
   rot_transpose(mcrotaGuide_curved_36, mctr1);
   rot_mul(mcrotaGuide_curved_37, mctr1, mcrotrGuide_curved_37);
@@ -20813,7 +20807,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 183 "H3-2_NeRo.instr"
     0.5);
-#line 20816 "./H3-2_NeRo.c"
+#line 20810 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_36, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_37 = coords_add(mcposaGuide_curved_36, mctc2);
@@ -20854,7 +20848,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_38_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_38_mright = mcipm_out;
+  mccGuide_curved_38_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_38_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -20895,7 +20889,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_38_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_38_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_38_reflect[0]='\0';
-#line 20898 "./H3-2_NeRo.c"
+#line 20892 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_38 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -20905,7 +20899,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 188 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 20908 "./H3-2_NeRo.c"
+#line 20902 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_37, mcrotaGuide_curved_38);
   rot_transpose(mcrotaGuide_curved_37, mctr1);
   rot_mul(mcrotaGuide_curved_38, mctr1, mcrotrGuide_curved_38);
@@ -20916,7 +20910,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 187 "H3-2_NeRo.instr"
     0.5);
-#line 20919 "./H3-2_NeRo.c"
+#line 20913 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_37, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_38 = coords_add(mcposaGuide_curved_37, mctc2);
@@ -20957,7 +20951,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_39_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_39_mright = mcipm_out;
+  mccGuide_curved_39_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_39_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -20998,7 +20992,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_39_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_39_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_39_reflect[0]='\0';
-#line 21001 "./H3-2_NeRo.c"
+#line 20995 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_39 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21008,7 +21002,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 192 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21011 "./H3-2_NeRo.c"
+#line 21005 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_38, mcrotaGuide_curved_39);
   rot_transpose(mcrotaGuide_curved_38, mctr1);
   rot_mul(mcrotaGuide_curved_39, mctr1, mcrotrGuide_curved_39);
@@ -21019,7 +21013,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 191 "H3-2_NeRo.instr"
     0.5);
-#line 21022 "./H3-2_NeRo.c"
+#line 21016 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_38, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_39 = coords_add(mcposaGuide_curved_38, mctc2);
@@ -21060,7 +21054,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_40_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_40_mright = mcipm_out;
+  mccGuide_curved_40_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_40_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -21101,7 +21095,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_40_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_40_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_40_reflect[0]='\0';
-#line 21104 "./H3-2_NeRo.c"
+#line 21098 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_40 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21111,7 +21105,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 196 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21114 "./H3-2_NeRo.c"
+#line 21108 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_39, mcrotaGuide_curved_40);
   rot_transpose(mcrotaGuide_curved_39, mctr1);
   rot_mul(mcrotaGuide_curved_40, mctr1, mcrotrGuide_curved_40);
@@ -21122,7 +21116,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 195 "H3-2_NeRo.instr"
     0.5);
-#line 21125 "./H3-2_NeRo.c"
+#line 21119 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_39, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_40 = coords_add(mcposaGuide_curved_39, mctc2);
@@ -21163,7 +21157,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_41_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_41_mright = mcipm_out;
+  mccGuide_curved_41_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_41_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -21204,7 +21198,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_41_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_41_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_41_reflect[0]='\0';
-#line 21207 "./H3-2_NeRo.c"
+#line 21201 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_41 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21214,7 +21208,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 200 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21217 "./H3-2_NeRo.c"
+#line 21211 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_40, mcrotaGuide_curved_41);
   rot_transpose(mcrotaGuide_curved_40, mctr1);
   rot_mul(mcrotaGuide_curved_41, mctr1, mcrotrGuide_curved_41);
@@ -21225,7 +21219,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 199 "H3-2_NeRo.instr"
     0.5);
-#line 21228 "./H3-2_NeRo.c"
+#line 21222 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_40, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_41 = coords_add(mcposaGuide_curved_40, mctc2);
@@ -21266,7 +21260,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_42_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_42_mright = mcipm_out;
+  mccGuide_curved_42_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_42_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -21307,7 +21301,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_42_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_42_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_42_reflect[0]='\0';
-#line 21310 "./H3-2_NeRo.c"
+#line 21304 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_42 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21317,7 +21311,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 204 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21320 "./H3-2_NeRo.c"
+#line 21314 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_41, mcrotaGuide_curved_42);
   rot_transpose(mcrotaGuide_curved_41, mctr1);
   rot_mul(mcrotaGuide_curved_42, mctr1, mcrotrGuide_curved_42);
@@ -21328,7 +21322,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 203 "H3-2_NeRo.instr"
     0.5);
-#line 21331 "./H3-2_NeRo.c"
+#line 21325 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_41, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_42 = coords_add(mcposaGuide_curved_41, mctc2);
@@ -21369,7 +21363,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_43_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_43_mright = mcipm_out;
+  mccGuide_curved_43_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_43_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -21410,7 +21404,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_43_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_43_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_43_reflect[0]='\0';
-#line 21413 "./H3-2_NeRo.c"
+#line 21407 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_43 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21420,7 +21414,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 208 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21423 "./H3-2_NeRo.c"
+#line 21417 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_42, mcrotaGuide_curved_43);
   rot_transpose(mcrotaGuide_curved_42, mctr1);
   rot_mul(mcrotaGuide_curved_43, mctr1, mcrotrGuide_curved_43);
@@ -21431,7 +21425,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 207 "H3-2_NeRo.instr"
     0.5);
-#line 21434 "./H3-2_NeRo.c"
+#line 21428 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_42, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_43 = coords_add(mcposaGuide_curved_42, mctc2);
@@ -21472,7 +21466,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_44_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_44_mright = mcipm_out;
+  mccGuide_curved_44_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_44_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -21513,7 +21507,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_44_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_44_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_44_reflect[0]='\0';
-#line 21516 "./H3-2_NeRo.c"
+#line 21510 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_44 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21523,7 +21517,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 212 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21526 "./H3-2_NeRo.c"
+#line 21520 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_43, mcrotaGuide_curved_44);
   rot_transpose(mcrotaGuide_curved_43, mctr1);
   rot_mul(mcrotaGuide_curved_44, mctr1, mcrotrGuide_curved_44);
@@ -21534,7 +21528,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 211 "H3-2_NeRo.instr"
     0.5);
-#line 21537 "./H3-2_NeRo.c"
+#line 21531 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_43, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_44 = coords_add(mcposaGuide_curved_43, mctc2);
@@ -21575,7 +21569,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_45_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_45_mright = mcipm_out;
+  mccGuide_curved_45_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_45_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -21616,7 +21610,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_45_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_45_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_45_reflect[0]='\0';
-#line 21619 "./H3-2_NeRo.c"
+#line 21613 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_45 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21626,7 +21620,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 216 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21629 "./H3-2_NeRo.c"
+#line 21623 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_44, mcrotaGuide_curved_45);
   rot_transpose(mcrotaGuide_curved_44, mctr1);
   rot_mul(mcrotaGuide_curved_45, mctr1, mcrotrGuide_curved_45);
@@ -21637,7 +21631,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 215 "H3-2_NeRo.instr"
     0.5);
-#line 21640 "./H3-2_NeRo.c"
+#line 21634 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_44, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_45 = coords_add(mcposaGuide_curved_44, mctc2);
@@ -21678,7 +21672,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_46_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_46_mright = mcipm_out;
+  mccGuide_curved_46_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_46_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -21719,7 +21713,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_46_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_46_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_46_reflect[0]='\0';
-#line 21722 "./H3-2_NeRo.c"
+#line 21716 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_46 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21729,7 +21723,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 220 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21732 "./H3-2_NeRo.c"
+#line 21726 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_45, mcrotaGuide_curved_46);
   rot_transpose(mcrotaGuide_curved_45, mctr1);
   rot_mul(mcrotaGuide_curved_46, mctr1, mcrotrGuide_curved_46);
@@ -21740,7 +21734,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 219 "H3-2_NeRo.instr"
     0.5);
-#line 21743 "./H3-2_NeRo.c"
+#line 21737 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_45, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_46 = coords_add(mcposaGuide_curved_45, mctc2);
@@ -21781,7 +21775,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_47_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_47_mright = mcipm_out;
+  mccGuide_curved_47_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_47_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -21822,7 +21816,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_47_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_47_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_47_reflect[0]='\0';
-#line 21825 "./H3-2_NeRo.c"
+#line 21819 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_47 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21832,7 +21826,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 224 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21835 "./H3-2_NeRo.c"
+#line 21829 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_46, mcrotaGuide_curved_47);
   rot_transpose(mcrotaGuide_curved_46, mctr1);
   rot_mul(mcrotaGuide_curved_47, mctr1, mcrotrGuide_curved_47);
@@ -21843,7 +21837,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 223 "H3-2_NeRo.instr"
     0.5);
-#line 21846 "./H3-2_NeRo.c"
+#line 21840 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_46, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_47 = coords_add(mcposaGuide_curved_46, mctc2);
@@ -21884,7 +21878,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_48_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_48_mright = mcipm_out;
+  mccGuide_curved_48_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_48_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -21925,7 +21919,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_48_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_48_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_48_reflect[0]='\0';
-#line 21928 "./H3-2_NeRo.c"
+#line 21922 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_48 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -21935,7 +21929,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 228 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 21938 "./H3-2_NeRo.c"
+#line 21932 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_47, mcrotaGuide_curved_48);
   rot_transpose(mcrotaGuide_curved_47, mctr1);
   rot_mul(mcrotaGuide_curved_48, mctr1, mcrotrGuide_curved_48);
@@ -21946,7 +21940,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 227 "H3-2_NeRo.instr"
     0.5);
-#line 21949 "./H3-2_NeRo.c"
+#line 21943 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_47, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_48 = coords_add(mcposaGuide_curved_47, mctc2);
@@ -21987,7 +21981,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_49_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_49_mright = mcipm_out;
+  mccGuide_curved_49_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_49_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -22028,7 +22022,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_49_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_49_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_49_reflect[0]='\0';
-#line 22031 "./H3-2_NeRo.c"
+#line 22025 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_49 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -22038,7 +22032,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 232 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 22041 "./H3-2_NeRo.c"
+#line 22035 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_48, mcrotaGuide_curved_49);
   rot_transpose(mcrotaGuide_curved_48, mctr1);
   rot_mul(mcrotaGuide_curved_49, mctr1, mcrotrGuide_curved_49);
@@ -22049,7 +22043,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 231 "H3-2_NeRo.instr"
     0.5);
-#line 22052 "./H3-2_NeRo.c"
+#line 22046 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_48, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_49 = coords_add(mcposaGuide_curved_48, mctc2);
@@ -22090,7 +22084,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_50_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_50_mright = mcipm_out;
+  mccGuide_curved_50_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_50_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -22131,7 +22125,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_50_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_50_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_50_reflect[0]='\0';
-#line 22134 "./H3-2_NeRo.c"
+#line 22128 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_50 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -22141,7 +22135,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 236 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 22144 "./H3-2_NeRo.c"
+#line 22138 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_49, mcrotaGuide_curved_50);
   rot_transpose(mcrotaGuide_curved_49, mctr1);
   rot_mul(mcrotaGuide_curved_50, mctr1, mcrotrGuide_curved_50);
@@ -22152,7 +22146,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 235 "H3-2_NeRo.instr"
     0.5);
-#line 22155 "./H3-2_NeRo.c"
+#line 22149 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_49, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_50 = coords_add(mcposaGuide_curved_49, mctc2);
@@ -22193,7 +22187,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_51_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_51_mright = mcipm_out;
+  mccGuide_curved_51_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_51_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -22234,7 +22228,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_51_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_51_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_51_reflect[0]='\0';
-#line 22237 "./H3-2_NeRo.c"
+#line 22231 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_51 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -22244,7 +22238,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 240 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 22247 "./H3-2_NeRo.c"
+#line 22241 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_50, mcrotaGuide_curved_51);
   rot_transpose(mcrotaGuide_curved_50, mctr1);
   rot_mul(mcrotaGuide_curved_51, mctr1, mcrotrGuide_curved_51);
@@ -22255,7 +22249,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 239 "H3-2_NeRo.instr"
     0.5);
-#line 22258 "./H3-2_NeRo.c"
+#line 22252 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_50, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_51 = coords_add(mcposaGuide_curved_50, mctc2);
@@ -22296,7 +22290,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_52_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_52_mright = mcipm_out;
+  mccGuide_curved_52_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_52_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -22337,7 +22331,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_52_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_52_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_52_reflect[0]='\0';
-#line 22340 "./H3-2_NeRo.c"
+#line 22334 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_52 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -22347,7 +22341,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 244 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 22350 "./H3-2_NeRo.c"
+#line 22344 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_51, mcrotaGuide_curved_52);
   rot_transpose(mcrotaGuide_curved_51, mctr1);
   rot_mul(mcrotaGuide_curved_52, mctr1, mcrotrGuide_curved_52);
@@ -22358,7 +22352,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 243 "H3-2_NeRo.instr"
     0.5);
-#line 22361 "./H3-2_NeRo.c"
+#line 22355 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_51, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_52 = coords_add(mcposaGuide_curved_51, mctc2);
@@ -22399,7 +22393,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_53_mleft = m;
 #line 54 "H3-2_NeRo.instr"
-  mccGuide_curved_53_mright = mcipm_out;
+  mccGuide_curved_53_mright = m_out;
 #line 54 "H3-2_NeRo.instr"
   mccGuide_curved_53_mtop = m;
 #line 54 "H3-2_NeRo.instr"
@@ -22440,7 +22434,7 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_curved_53_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_curved_53_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_curved_53_reflect[0]='\0';
-#line 22443 "./H3-2_NeRo.c"
+#line 22437 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_curved_53 (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
@@ -22450,7 +22444,7 @@ rot = 0.5/R_curv*RAD2DEG;
     (rot)*DEG2RAD,
 #line 248 "H3-2_NeRo.instr"
     (0)*DEG2RAD);
-#line 22453 "./H3-2_NeRo.c"
+#line 22447 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_52, mcrotaGuide_curved_53);
   rot_transpose(mcrotaGuide_curved_52, mctr1);
   rot_mul(mcrotaGuide_curved_53, mctr1, mcrotrGuide_curved_53);
@@ -22461,7 +22455,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 247 "H3-2_NeRo.instr"
     0.5);
-#line 22464 "./H3-2_NeRo.c"
+#line 22458 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_52, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_curved_53 = coords_add(mcposaGuide_curved_52, mctc2);
@@ -22543,14 +22537,14 @@ rot = 0.5/R_curv*RAD2DEG;
   mccGuide_straight_phase = 0;
 #line 119 "H3-2_NeRo.instr"
   if("NULL") strncpy(mccGuide_straight_reflect, "NULL" ? "NULL" : "", 16384); else mccGuide_straight_reflect[0]='\0';
-#line 22546 "./H3-2_NeRo.c"
+#line 22540 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Guide_straight (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22553 "./H3-2_NeRo.c"
+#line 22547 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_curved_53, mcrotaGuide_straight);
   rot_transpose(mcrotaGuide_curved_53, mctr1);
   rot_mul(mcrotaGuide_straight, mctr1, mcrotrGuide_straight);
@@ -22561,7 +22555,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 252 "H3-2_NeRo.instr"
     0.5);
-#line 22564 "./H3-2_NeRo.c"
+#line 22558 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_curved_53, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaGuide_straight = coords_add(mcposaGuide_curved_53, mctc2);
@@ -22617,14 +22611,14 @@ rot = 0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMonlam_username3, "NULL" ? "NULL" : "", 16384); else mccMonlam_username3[0]='\0';
 #line 206 "H3-2_NeRo.instr"
   mccMonlam_nowritefile = 0;
-#line 22620 "./H3-2_NeRo.c"
+#line 22614 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Monlam (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22627 "./H3-2_NeRo.c"
+#line 22621 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaGuide_straight, mcrotaMonlam);
   rot_transpose(mcrotaGuide_straight, mctr1);
   rot_mul(mcrotaMonlam, mctr1, mcrotrMonlam);
@@ -22635,7 +22629,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 256 "H3-2_NeRo.instr"
     2.0001);
-#line 22638 "./H3-2_NeRo.c"
+#line 22632 "./H3-2_NeRo.c"
   rot_transpose(mcrotaGuide_straight, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMonlam = coords_add(mcposaGuide_straight, mctc2);
@@ -22691,14 +22685,14 @@ rot = 0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMonx_username3, "NULL" ? "NULL" : "", 16384); else mccMonx_username3[0]='\0';
 #line 206 "H3-2_NeRo.instr"
   mccMonx_nowritefile = 0;
-#line 22694 "./H3-2_NeRo.c"
+#line 22688 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Monx (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22701 "./H3-2_NeRo.c"
+#line 22695 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaMonlam, mcrotaMonx);
   rot_transpose(mcrotaMonlam, mctr1);
   rot_mul(mcrotaMonx, mctr1, mcrotrMonx);
@@ -22709,7 +22703,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 260 "H3-2_NeRo.instr"
     0);
-#line 22712 "./H3-2_NeRo.c"
+#line 22706 "./H3-2_NeRo.c"
   rot_transpose(mcrotaMonlam, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMonx = coords_add(mcposaMonlam, mctc2);
@@ -22765,14 +22759,14 @@ rot = 0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMony_username3, "NULL" ? "NULL" : "", 16384); else mccMony_username3[0]='\0';
 #line 206 "H3-2_NeRo.instr"
   mccMony_nowritefile = 0;
-#line 22768 "./H3-2_NeRo.c"
+#line 22762 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Mony (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22775 "./H3-2_NeRo.c"
+#line 22769 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaMonx, mcrotaMony);
   rot_transpose(mcrotaMonx, mctr1);
   rot_mul(mcrotaMony, mctr1, mcrotrMony);
@@ -22783,7 +22777,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 264 "H3-2_NeRo.instr"
     0);
-#line 22786 "./H3-2_NeRo.c"
+#line 22780 "./H3-2_NeRo.c"
   rot_transpose(mcrotaMonx, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMony = coords_add(mcposaMonx, mctc2);
@@ -22839,14 +22833,14 @@ rot = 0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMondx_username3, "NULL" ? "NULL" : "", 16384); else mccMondx_username3[0]='\0';
 #line 206 "H3-2_NeRo.instr"
   mccMondx_nowritefile = 0;
-#line 22842 "./H3-2_NeRo.c"
+#line 22836 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Mondx (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22849 "./H3-2_NeRo.c"
+#line 22843 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaMony, mcrotaMondx);
   rot_transpose(mcrotaMony, mctr1);
   rot_mul(mcrotaMondx, mctr1, mcrotrMondx);
@@ -22857,7 +22851,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 268 "H3-2_NeRo.instr"
     0);
-#line 22860 "./H3-2_NeRo.c"
+#line 22854 "./H3-2_NeRo.c"
   rot_transpose(mcrotaMony, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMondx = coords_add(mcposaMony, mctc2);
@@ -22913,14 +22907,14 @@ rot = 0.5/R_curv*RAD2DEG;
   if("NULL") strncpy(mccMondy_username3, "NULL" ? "NULL" : "", 16384); else mccMondy_username3[0]='\0';
 #line 206 "H3-2_NeRo.instr"
   mccMondy_nowritefile = 0;
-#line 22916 "./H3-2_NeRo.c"
+#line 22910 "./H3-2_NeRo.c"
 
   SIG_MESSAGE("Mondy (Init:Place/Rotate)");
   rot_set_rotation(mctr1,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD,
     (0.0)*DEG2RAD);
-#line 22923 "./H3-2_NeRo.c"
+#line 22917 "./H3-2_NeRo.c"
   rot_mul(mctr1, mcrotaMondx, mcrotaMondy);
   rot_transpose(mcrotaMondx, mctr1);
   rot_mul(mcrotaMondy, mctr1, mcrotrMondy);
@@ -22931,7 +22925,7 @@ rot = 0.5/R_curv*RAD2DEG;
     0,
 #line 272 "H3-2_NeRo.instr"
     0);
-#line 22934 "./H3-2_NeRo.c"
+#line 22928 "./H3-2_NeRo.c"
   rot_transpose(mcrotaMondx, mctr1);
   mctc2 = rot_apply(mctr1, mctc1);
   mcposaMondy = coords_add(mcposaMondx, mctc2);
@@ -22956,7 +22950,7 @@ rot = 0.5/R_curv*RAD2DEG;
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 57 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 57 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
 IntermediateCnts=0;
 StartTime=0;
@@ -22968,7 +22962,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
     percent=1e5*100.0/mcget_ncount();
   }
 }
-#line 22971 "./H3-2_NeRo.c"
+#line 22965 "./H3-2_NeRo.c"
 #undef minutes
 #undef flag_save
 #undef percent
@@ -23033,7 +23027,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 206 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 206 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   pTable_xsum=0;
   pTable_ysum=0;
@@ -23305,7 +23299,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
       printf("Source_gen: component %s unactivated", NAME_CURRENT_COMP);
   );
 }
-#line 23308 "./H3-2_NeRo.c"
+#line 23302 "./H3-2_NeRo.c"
 #undef target_index
 #undef zdepth
 #undef I3
@@ -23401,7 +23395,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_metal_nu
 #define phase mccGuide_metal_phase
 #define reflect mccGuide_metal_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -23453,7 +23447,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23456 "./H3-2_NeRo.c"
+#line 23450 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23535,7 +23529,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_nu
 #define phase mccGuide_curved_phase
 #define reflect mccGuide_curved_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -23587,7 +23581,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23590 "./H3-2_NeRo.c"
+#line 23584 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23669,7 +23663,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_6_nu
 #define phase mccGuide_curved_6_phase
 #define reflect mccGuide_curved_6_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -23721,7 +23715,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23724 "./H3-2_NeRo.c"
+#line 23718 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23803,7 +23797,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_7_nu
 #define phase mccGuide_curved_7_phase
 #define reflect mccGuide_curved_7_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -23855,7 +23849,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23858 "./H3-2_NeRo.c"
+#line 23852 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -23937,7 +23931,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_8_nu
 #define phase mccGuide_curved_8_phase
 #define reflect mccGuide_curved_8_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -23989,7 +23983,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 23992 "./H3-2_NeRo.c"
+#line 23986 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24071,7 +24065,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_9_nu
 #define phase mccGuide_curved_9_phase
 #define reflect mccGuide_curved_9_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -24123,7 +24117,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24126 "./H3-2_NeRo.c"
+#line 24120 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24205,7 +24199,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_10_nu
 #define phase mccGuide_curved_10_phase
 #define reflect mccGuide_curved_10_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -24257,7 +24251,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24260 "./H3-2_NeRo.c"
+#line 24254 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24339,7 +24333,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_11_nu
 #define phase mccGuide_curved_11_phase
 #define reflect mccGuide_curved_11_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -24391,7 +24385,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24394 "./H3-2_NeRo.c"
+#line 24388 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24473,7 +24467,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_12_nu
 #define phase mccGuide_curved_12_phase
 #define reflect mccGuide_curved_12_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -24525,7 +24519,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24528 "./H3-2_NeRo.c"
+#line 24522 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24607,7 +24601,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_13_nu
 #define phase mccGuide_curved_13_phase
 #define reflect mccGuide_curved_13_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -24659,7 +24653,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24662 "./H3-2_NeRo.c"
+#line 24656 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24741,7 +24735,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_14_nu
 #define phase mccGuide_curved_14_phase
 #define reflect mccGuide_curved_14_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -24793,7 +24787,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24796 "./H3-2_NeRo.c"
+#line 24790 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -24875,7 +24869,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_15_nu
 #define phase mccGuide_curved_15_phase
 #define reflect mccGuide_curved_15_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -24927,7 +24921,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 24930 "./H3-2_NeRo.c"
+#line 24924 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25009,7 +25003,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_16_nu
 #define phase mccGuide_curved_16_phase
 #define reflect mccGuide_curved_16_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -25061,7 +25055,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25064 "./H3-2_NeRo.c"
+#line 25058 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25143,7 +25137,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_17_nu
 #define phase mccGuide_curved_17_phase
 #define reflect mccGuide_curved_17_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -25195,7 +25189,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25198 "./H3-2_NeRo.c"
+#line 25192 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25277,7 +25271,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_18_nu
 #define phase mccGuide_curved_18_phase
 #define reflect mccGuide_curved_18_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -25329,7 +25323,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25332 "./H3-2_NeRo.c"
+#line 25326 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25411,7 +25405,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_19_nu
 #define phase mccGuide_curved_19_phase
 #define reflect mccGuide_curved_19_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -25463,7 +25457,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25466 "./H3-2_NeRo.c"
+#line 25460 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25545,7 +25539,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_20_nu
 #define phase mccGuide_curved_20_phase
 #define reflect mccGuide_curved_20_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -25597,7 +25591,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25600 "./H3-2_NeRo.c"
+#line 25594 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25679,7 +25673,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_21_nu
 #define phase mccGuide_curved_21_phase
 #define reflect mccGuide_curved_21_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -25731,7 +25725,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25734 "./H3-2_NeRo.c"
+#line 25728 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25813,7 +25807,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_22_nu
 #define phase mccGuide_curved_22_phase
 #define reflect mccGuide_curved_22_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -25865,7 +25859,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 25868 "./H3-2_NeRo.c"
+#line 25862 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -25947,7 +25941,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_23_nu
 #define phase mccGuide_curved_23_phase
 #define reflect mccGuide_curved_23_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -25999,7 +25993,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26002 "./H3-2_NeRo.c"
+#line 25996 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26081,7 +26075,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_24_nu
 #define phase mccGuide_curved_24_phase
 #define reflect mccGuide_curved_24_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -26133,7 +26127,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26136 "./H3-2_NeRo.c"
+#line 26130 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26215,7 +26209,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_25_nu
 #define phase mccGuide_curved_25_phase
 #define reflect mccGuide_curved_25_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -26267,7 +26261,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26270 "./H3-2_NeRo.c"
+#line 26264 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26349,7 +26343,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_26_nu
 #define phase mccGuide_curved_26_phase
 #define reflect mccGuide_curved_26_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -26401,7 +26395,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26404 "./H3-2_NeRo.c"
+#line 26398 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26483,7 +26477,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_27_nu
 #define phase mccGuide_curved_27_phase
 #define reflect mccGuide_curved_27_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -26535,7 +26529,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26538 "./H3-2_NeRo.c"
+#line 26532 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26617,7 +26611,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_28_nu
 #define phase mccGuide_curved_28_phase
 #define reflect mccGuide_curved_28_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -26669,7 +26663,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26672 "./H3-2_NeRo.c"
+#line 26666 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26751,7 +26745,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_29_nu
 #define phase mccGuide_curved_29_phase
 #define reflect mccGuide_curved_29_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -26803,7 +26797,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26806 "./H3-2_NeRo.c"
+#line 26800 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -26885,7 +26879,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_30_nu
 #define phase mccGuide_curved_30_phase
 #define reflect mccGuide_curved_30_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -26937,7 +26931,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 26940 "./H3-2_NeRo.c"
+#line 26934 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27019,7 +27013,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_31_nu
 #define phase mccGuide_curved_31_phase
 #define reflect mccGuide_curved_31_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -27071,7 +27065,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27074 "./H3-2_NeRo.c"
+#line 27068 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27153,7 +27147,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_32_nu
 #define phase mccGuide_curved_32_phase
 #define reflect mccGuide_curved_32_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -27205,7 +27199,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27208 "./H3-2_NeRo.c"
+#line 27202 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27287,7 +27281,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_33_nu
 #define phase mccGuide_curved_33_phase
 #define reflect mccGuide_curved_33_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -27339,7 +27333,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27342 "./H3-2_NeRo.c"
+#line 27336 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27421,7 +27415,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_34_nu
 #define phase mccGuide_curved_34_phase
 #define reflect mccGuide_curved_34_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -27473,7 +27467,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27476 "./H3-2_NeRo.c"
+#line 27470 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27555,7 +27549,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_35_nu
 #define phase mccGuide_curved_35_phase
 #define reflect mccGuide_curved_35_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -27607,7 +27601,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27610 "./H3-2_NeRo.c"
+#line 27604 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27689,7 +27683,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_36_nu
 #define phase mccGuide_curved_36_phase
 #define reflect mccGuide_curved_36_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -27741,7 +27735,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27744 "./H3-2_NeRo.c"
+#line 27738 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27823,7 +27817,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_37_nu
 #define phase mccGuide_curved_37_phase
 #define reflect mccGuide_curved_37_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -27875,7 +27869,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 27878 "./H3-2_NeRo.c"
+#line 27872 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -27957,7 +27951,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_38_nu
 #define phase mccGuide_curved_38_phase
 #define reflect mccGuide_curved_38_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -28009,7 +28003,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28012 "./H3-2_NeRo.c"
+#line 28006 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28091,7 +28085,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_39_nu
 #define phase mccGuide_curved_39_phase
 #define reflect mccGuide_curved_39_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -28143,7 +28137,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28146 "./H3-2_NeRo.c"
+#line 28140 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28225,7 +28219,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_40_nu
 #define phase mccGuide_curved_40_phase
 #define reflect mccGuide_curved_40_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -28277,7 +28271,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28280 "./H3-2_NeRo.c"
+#line 28274 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28359,7 +28353,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_41_nu
 #define phase mccGuide_curved_41_phase
 #define reflect mccGuide_curved_41_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -28411,7 +28405,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28414 "./H3-2_NeRo.c"
+#line 28408 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28493,7 +28487,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_42_nu
 #define phase mccGuide_curved_42_phase
 #define reflect mccGuide_curved_42_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -28545,7 +28539,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28548 "./H3-2_NeRo.c"
+#line 28542 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28627,7 +28621,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_43_nu
 #define phase mccGuide_curved_43_phase
 #define reflect mccGuide_curved_43_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -28679,7 +28673,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28682 "./H3-2_NeRo.c"
+#line 28676 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28761,7 +28755,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_44_nu
 #define phase mccGuide_curved_44_phase
 #define reflect mccGuide_curved_44_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -28813,7 +28807,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28816 "./H3-2_NeRo.c"
+#line 28810 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -28895,7 +28889,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_45_nu
 #define phase mccGuide_curved_45_phase
 #define reflect mccGuide_curved_45_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -28947,7 +28941,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 28950 "./H3-2_NeRo.c"
+#line 28944 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29029,7 +29023,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_46_nu
 #define phase mccGuide_curved_46_phase
 #define reflect mccGuide_curved_46_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -29081,7 +29075,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29084 "./H3-2_NeRo.c"
+#line 29078 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29163,7 +29157,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_47_nu
 #define phase mccGuide_curved_47_phase
 #define reflect mccGuide_curved_47_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -29215,7 +29209,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29218 "./H3-2_NeRo.c"
+#line 29212 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29297,7 +29291,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_48_nu
 #define phase mccGuide_curved_48_phase
 #define reflect mccGuide_curved_48_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -29349,7 +29343,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29352 "./H3-2_NeRo.c"
+#line 29346 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29431,7 +29425,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_49_nu
 #define phase mccGuide_curved_49_phase
 #define reflect mccGuide_curved_49_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -29483,7 +29477,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29486 "./H3-2_NeRo.c"
+#line 29480 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29565,7 +29559,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_50_nu
 #define phase mccGuide_curved_50_phase
 #define reflect mccGuide_curved_50_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -29617,7 +29611,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29620 "./H3-2_NeRo.c"
+#line 29614 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29699,7 +29693,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_51_nu
 #define phase mccGuide_curved_51_phase
 #define reflect mccGuide_curved_51_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -29751,7 +29745,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29754 "./H3-2_NeRo.c"
+#line 29748 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29833,7 +29827,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_52_nu
 #define phase mccGuide_curved_52_phase
 #define reflect mccGuide_curved_52_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -29885,7 +29879,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 29888 "./H3-2_NeRo.c"
+#line 29882 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -29967,7 +29961,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_53_nu
 #define phase mccGuide_curved_53_phase
 #define reflect mccGuide_curved_53_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -30019,7 +30013,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 30022 "./H3-2_NeRo.c"
+#line 30016 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -30101,7 +30095,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_straight_nu
 #define phase mccGuide_straight_phase
 #define reflect mccGuide_straight_reflect
-#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 339 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -30153,7 +30147,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
   } else printf("Guide_gravity: %s: unactivated (l=0 or nelements=0)\n", NAME_CURRENT_COMP);
 
 }
-#line 30156 "./H3-2_NeRo.c"
+#line 30150 "./H3-2_NeRo.c"
 #undef reflect
 #undef phase
 #undef nu
@@ -30227,7 +30221,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define username2 mccMonlam_username2
 #define username3 mccMonlam_username3
 #define nowritefile mccMonlam_nowritefile
-#line 229 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 229 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -30306,7 +30300,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 30309 "./H3-2_NeRo.c"
+#line 30303 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -30372,7 +30366,7 @@ MPI_MASTER(
 #define username2 mccMonx_username2
 #define username3 mccMonx_username3
 #define nowritefile mccMonx_nowritefile
-#line 229 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 229 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -30451,7 +30445,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 30454 "./H3-2_NeRo.c"
+#line 30448 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -30517,7 +30511,7 @@ MPI_MASTER(
 #define username2 mccMony_username2
 #define username3 mccMony_username3
 #define nowritefile mccMony_nowritefile
-#line 229 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 229 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -30596,7 +30590,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 30599 "./H3-2_NeRo.c"
+#line 30593 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -30662,7 +30656,7 @@ MPI_MASTER(
 #define username2 mccMondx_username2
 #define username3 mccMondx_username3
 #define nowritefile mccMondx_nowritefile
-#line 229 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 229 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -30741,7 +30735,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 30744 "./H3-2_NeRo.c"
+#line 30738 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -30807,7 +30801,7 @@ MPI_MASTER(
 #define username2 mccMondy_username2
 #define username3 mccMondy_username3
 #define nowritefile mccMondy_nowritefile
-#line 229 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 229 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -30886,7 +30880,7 @@ MPI_MASTER(
 );
 #endif
 }
-#line 30889 "./H3-2_NeRo.c"
+#line 30883 "./H3-2_NeRo.c"
 #undef nowritefile
 #undef username3
 #undef username2
@@ -31028,7 +31022,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 70 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 70 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
   double ncount;
   ncount = mcget_run_num();
@@ -31072,7 +31066,7 @@ MCNUM minutes = mccOrigin_minutes;
     if (flag_save) mcsave(NULL);
   }
 }
-#line 31075 "./H3-2_NeRo.c"
+#line 31069 "./H3-2_NeRo.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -31229,7 +31223,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   double dx=0,dy=0,xf,yf,rf,pdir,chi,v,r, lambda;
   double Maxwell;
@@ -31320,7 +31314,7 @@ int target_index = mccH3_target_index;
     SCATTER;
   }
 }
-#line 31323 "./H3-2_NeRo.c"
+#line 31317 "./H3-2_NeRo.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -31582,7 +31576,7 @@ MCNUM nelements = mccGuide_metal_nelements;
 MCNUM nu = mccGuide_metal_nu;
 MCNUM phase = mccGuide_metal_phase;
 char* reflect = mccGuide_metal_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -31751,7 +31745,7 @@ char* reflect = mccGuide_metal_reflect;
 
   } /* if l */
 }
-#line 31754 "./H3-2_NeRo.c"
+#line 31748 "./H3-2_NeRo.c"
 }   /* End of Guide_metal=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -31895,7 +31889,7 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -32064,7 +32058,7 @@ char* reflect = mccGuide_curved_reflect;
 
   } /* if l */
 }
-#line 32067 "./H3-2_NeRo.c"
+#line 32061 "./H3-2_NeRo.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32208,7 +32202,7 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -32377,7 +32371,7 @@ char* reflect = mccGuide_curved_6_reflect;
 
   } /* if l */
 }
-#line 32380 "./H3-2_NeRo.c"
+#line 32374 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32521,7 +32515,7 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -32690,7 +32684,7 @@ char* reflect = mccGuide_curved_7_reflect;
 
   } /* if l */
 }
-#line 32693 "./H3-2_NeRo.c"
+#line 32687 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -32834,7 +32828,7 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -33003,7 +32997,7 @@ char* reflect = mccGuide_curved_8_reflect;
 
   } /* if l */
 }
-#line 33006 "./H3-2_NeRo.c"
+#line 33000 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -33147,7 +33141,7 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -33316,7 +33310,7 @@ char* reflect = mccGuide_curved_9_reflect;
 
   } /* if l */
 }
-#line 33319 "./H3-2_NeRo.c"
+#line 33313 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -33460,7 +33454,7 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -33629,7 +33623,7 @@ char* reflect = mccGuide_curved_10_reflect;
 
   } /* if l */
 }
-#line 33632 "./H3-2_NeRo.c"
+#line 33626 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -33773,7 +33767,7 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -33942,7 +33936,7 @@ char* reflect = mccGuide_curved_11_reflect;
 
   } /* if l */
 }
-#line 33945 "./H3-2_NeRo.c"
+#line 33939 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -34086,7 +34080,7 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -34255,7 +34249,7 @@ char* reflect = mccGuide_curved_12_reflect;
 
   } /* if l */
 }
-#line 34258 "./H3-2_NeRo.c"
+#line 34252 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -34399,7 +34393,7 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -34568,7 +34562,7 @@ char* reflect = mccGuide_curved_13_reflect;
 
   } /* if l */
 }
-#line 34571 "./H3-2_NeRo.c"
+#line 34565 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -34712,7 +34706,7 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -34881,7 +34875,7 @@ char* reflect = mccGuide_curved_14_reflect;
 
   } /* if l */
 }
-#line 34884 "./H3-2_NeRo.c"
+#line 34878 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -35025,7 +35019,7 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -35194,7 +35188,7 @@ char* reflect = mccGuide_curved_15_reflect;
 
   } /* if l */
 }
-#line 35197 "./H3-2_NeRo.c"
+#line 35191 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -35338,7 +35332,7 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -35507,7 +35501,7 @@ char* reflect = mccGuide_curved_16_reflect;
 
   } /* if l */
 }
-#line 35510 "./H3-2_NeRo.c"
+#line 35504 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -35651,7 +35645,7 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -35820,7 +35814,7 @@ char* reflect = mccGuide_curved_17_reflect;
 
   } /* if l */
 }
-#line 35823 "./H3-2_NeRo.c"
+#line 35817 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -35964,7 +35958,7 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -36133,7 +36127,7 @@ char* reflect = mccGuide_curved_18_reflect;
 
   } /* if l */
 }
-#line 36136 "./H3-2_NeRo.c"
+#line 36130 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -36277,7 +36271,7 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -36446,7 +36440,7 @@ char* reflect = mccGuide_curved_19_reflect;
 
   } /* if l */
 }
-#line 36449 "./H3-2_NeRo.c"
+#line 36443 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -36590,7 +36584,7 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -36759,7 +36753,7 @@ char* reflect = mccGuide_curved_20_reflect;
 
   } /* if l */
 }
-#line 36762 "./H3-2_NeRo.c"
+#line 36756 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -36903,7 +36897,7 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -37072,7 +37066,7 @@ char* reflect = mccGuide_curved_21_reflect;
 
   } /* if l */
 }
-#line 37075 "./H3-2_NeRo.c"
+#line 37069 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -37216,7 +37210,7 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -37385,7 +37379,7 @@ char* reflect = mccGuide_curved_22_reflect;
 
   } /* if l */
 }
-#line 37388 "./H3-2_NeRo.c"
+#line 37382 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -37529,7 +37523,7 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -37698,7 +37692,7 @@ char* reflect = mccGuide_curved_23_reflect;
 
   } /* if l */
 }
-#line 37701 "./H3-2_NeRo.c"
+#line 37695 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -37842,7 +37836,7 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -38011,7 +38005,7 @@ char* reflect = mccGuide_curved_24_reflect;
 
   } /* if l */
 }
-#line 38014 "./H3-2_NeRo.c"
+#line 38008 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -38155,7 +38149,7 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -38324,7 +38318,7 @@ char* reflect = mccGuide_curved_25_reflect;
 
   } /* if l */
 }
-#line 38327 "./H3-2_NeRo.c"
+#line 38321 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -38468,7 +38462,7 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -38637,7 +38631,7 @@ char* reflect = mccGuide_curved_26_reflect;
 
   } /* if l */
 }
-#line 38640 "./H3-2_NeRo.c"
+#line 38634 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -38781,7 +38775,7 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -38950,7 +38944,7 @@ char* reflect = mccGuide_curved_27_reflect;
 
   } /* if l */
 }
-#line 38953 "./H3-2_NeRo.c"
+#line 38947 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -39094,7 +39088,7 @@ MCNUM nelements = mccGuide_curved_28_nelements;
 MCNUM nu = mccGuide_curved_28_nu;
 MCNUM phase = mccGuide_curved_28_phase;
 char* reflect = mccGuide_curved_28_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -39263,7 +39257,7 @@ char* reflect = mccGuide_curved_28_reflect;
 
   } /* if l */
 }
-#line 39266 "./H3-2_NeRo.c"
+#line 39260 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -39407,7 +39401,7 @@ MCNUM nelements = mccGuide_curved_29_nelements;
 MCNUM nu = mccGuide_curved_29_nu;
 MCNUM phase = mccGuide_curved_29_phase;
 char* reflect = mccGuide_curved_29_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -39576,7 +39570,7 @@ char* reflect = mccGuide_curved_29_reflect;
 
   } /* if l */
 }
-#line 39579 "./H3-2_NeRo.c"
+#line 39573 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -39720,7 +39714,7 @@ MCNUM nelements = mccGuide_curved_30_nelements;
 MCNUM nu = mccGuide_curved_30_nu;
 MCNUM phase = mccGuide_curved_30_phase;
 char* reflect = mccGuide_curved_30_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -39889,7 +39883,7 @@ char* reflect = mccGuide_curved_30_reflect;
 
   } /* if l */
 }
-#line 39892 "./H3-2_NeRo.c"
+#line 39886 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -40033,7 +40027,7 @@ MCNUM nelements = mccGuide_curved_31_nelements;
 MCNUM nu = mccGuide_curved_31_nu;
 MCNUM phase = mccGuide_curved_31_phase;
 char* reflect = mccGuide_curved_31_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -40202,7 +40196,7 @@ char* reflect = mccGuide_curved_31_reflect;
 
   } /* if l */
 }
-#line 40205 "./H3-2_NeRo.c"
+#line 40199 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -40346,7 +40340,7 @@ MCNUM nelements = mccGuide_curved_32_nelements;
 MCNUM nu = mccGuide_curved_32_nu;
 MCNUM phase = mccGuide_curved_32_phase;
 char* reflect = mccGuide_curved_32_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -40515,7 +40509,7 @@ char* reflect = mccGuide_curved_32_reflect;
 
   } /* if l */
 }
-#line 40518 "./H3-2_NeRo.c"
+#line 40512 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -40659,7 +40653,7 @@ MCNUM nelements = mccGuide_curved_33_nelements;
 MCNUM nu = mccGuide_curved_33_nu;
 MCNUM phase = mccGuide_curved_33_phase;
 char* reflect = mccGuide_curved_33_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -40828,7 +40822,7 @@ char* reflect = mccGuide_curved_33_reflect;
 
   } /* if l */
 }
-#line 40831 "./H3-2_NeRo.c"
+#line 40825 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -40972,7 +40966,7 @@ MCNUM nelements = mccGuide_curved_34_nelements;
 MCNUM nu = mccGuide_curved_34_nu;
 MCNUM phase = mccGuide_curved_34_phase;
 char* reflect = mccGuide_curved_34_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -41141,7 +41135,7 @@ char* reflect = mccGuide_curved_34_reflect;
 
   } /* if l */
 }
-#line 41144 "./H3-2_NeRo.c"
+#line 41138 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -41285,7 +41279,7 @@ MCNUM nelements = mccGuide_curved_35_nelements;
 MCNUM nu = mccGuide_curved_35_nu;
 MCNUM phase = mccGuide_curved_35_phase;
 char* reflect = mccGuide_curved_35_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -41454,7 +41448,7 @@ char* reflect = mccGuide_curved_35_reflect;
 
   } /* if l */
 }
-#line 41457 "./H3-2_NeRo.c"
+#line 41451 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -41598,7 +41592,7 @@ MCNUM nelements = mccGuide_curved_36_nelements;
 MCNUM nu = mccGuide_curved_36_nu;
 MCNUM phase = mccGuide_curved_36_phase;
 char* reflect = mccGuide_curved_36_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -41767,7 +41761,7 @@ char* reflect = mccGuide_curved_36_reflect;
 
   } /* if l */
 }
-#line 41770 "./H3-2_NeRo.c"
+#line 41764 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -41911,7 +41905,7 @@ MCNUM nelements = mccGuide_curved_37_nelements;
 MCNUM nu = mccGuide_curved_37_nu;
 MCNUM phase = mccGuide_curved_37_phase;
 char* reflect = mccGuide_curved_37_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -42080,7 +42074,7 @@ char* reflect = mccGuide_curved_37_reflect;
 
   } /* if l */
 }
-#line 42083 "./H3-2_NeRo.c"
+#line 42077 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -42224,7 +42218,7 @@ MCNUM nelements = mccGuide_curved_38_nelements;
 MCNUM nu = mccGuide_curved_38_nu;
 MCNUM phase = mccGuide_curved_38_phase;
 char* reflect = mccGuide_curved_38_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -42393,7 +42387,7 @@ char* reflect = mccGuide_curved_38_reflect;
 
   } /* if l */
 }
-#line 42396 "./H3-2_NeRo.c"
+#line 42390 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -42537,7 +42531,7 @@ MCNUM nelements = mccGuide_curved_39_nelements;
 MCNUM nu = mccGuide_curved_39_nu;
 MCNUM phase = mccGuide_curved_39_phase;
 char* reflect = mccGuide_curved_39_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -42706,7 +42700,7 @@ char* reflect = mccGuide_curved_39_reflect;
 
   } /* if l */
 }
-#line 42709 "./H3-2_NeRo.c"
+#line 42703 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -42850,7 +42844,7 @@ MCNUM nelements = mccGuide_curved_40_nelements;
 MCNUM nu = mccGuide_curved_40_nu;
 MCNUM phase = mccGuide_curved_40_phase;
 char* reflect = mccGuide_curved_40_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -43019,7 +43013,7 @@ char* reflect = mccGuide_curved_40_reflect;
 
   } /* if l */
 }
-#line 43022 "./H3-2_NeRo.c"
+#line 43016 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -43163,7 +43157,7 @@ MCNUM nelements = mccGuide_curved_41_nelements;
 MCNUM nu = mccGuide_curved_41_nu;
 MCNUM phase = mccGuide_curved_41_phase;
 char* reflect = mccGuide_curved_41_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -43332,7 +43326,7 @@ char* reflect = mccGuide_curved_41_reflect;
 
   } /* if l */
 }
-#line 43335 "./H3-2_NeRo.c"
+#line 43329 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -43476,7 +43470,7 @@ MCNUM nelements = mccGuide_curved_42_nelements;
 MCNUM nu = mccGuide_curved_42_nu;
 MCNUM phase = mccGuide_curved_42_phase;
 char* reflect = mccGuide_curved_42_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -43645,7 +43639,7 @@ char* reflect = mccGuide_curved_42_reflect;
 
   } /* if l */
 }
-#line 43648 "./H3-2_NeRo.c"
+#line 43642 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -43789,7 +43783,7 @@ MCNUM nelements = mccGuide_curved_43_nelements;
 MCNUM nu = mccGuide_curved_43_nu;
 MCNUM phase = mccGuide_curved_43_phase;
 char* reflect = mccGuide_curved_43_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -43958,7 +43952,7 @@ char* reflect = mccGuide_curved_43_reflect;
 
   } /* if l */
 }
-#line 43961 "./H3-2_NeRo.c"
+#line 43955 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -44102,7 +44096,7 @@ MCNUM nelements = mccGuide_curved_44_nelements;
 MCNUM nu = mccGuide_curved_44_nu;
 MCNUM phase = mccGuide_curved_44_phase;
 char* reflect = mccGuide_curved_44_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -44271,7 +44265,7 @@ char* reflect = mccGuide_curved_44_reflect;
 
   } /* if l */
 }
-#line 44274 "./H3-2_NeRo.c"
+#line 44268 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -44415,7 +44409,7 @@ MCNUM nelements = mccGuide_curved_45_nelements;
 MCNUM nu = mccGuide_curved_45_nu;
 MCNUM phase = mccGuide_curved_45_phase;
 char* reflect = mccGuide_curved_45_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -44584,7 +44578,7 @@ char* reflect = mccGuide_curved_45_reflect;
 
   } /* if l */
 }
-#line 44587 "./H3-2_NeRo.c"
+#line 44581 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -44728,7 +44722,7 @@ MCNUM nelements = mccGuide_curved_46_nelements;
 MCNUM nu = mccGuide_curved_46_nu;
 MCNUM phase = mccGuide_curved_46_phase;
 char* reflect = mccGuide_curved_46_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -44897,7 +44891,7 @@ char* reflect = mccGuide_curved_46_reflect;
 
   } /* if l */
 }
-#line 44900 "./H3-2_NeRo.c"
+#line 44894 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -45041,7 +45035,7 @@ MCNUM nelements = mccGuide_curved_47_nelements;
 MCNUM nu = mccGuide_curved_47_nu;
 MCNUM phase = mccGuide_curved_47_phase;
 char* reflect = mccGuide_curved_47_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -45210,7 +45204,7 @@ char* reflect = mccGuide_curved_47_reflect;
 
   } /* if l */
 }
-#line 45213 "./H3-2_NeRo.c"
+#line 45207 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -45354,7 +45348,7 @@ MCNUM nelements = mccGuide_curved_48_nelements;
 MCNUM nu = mccGuide_curved_48_nu;
 MCNUM phase = mccGuide_curved_48_phase;
 char* reflect = mccGuide_curved_48_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -45523,7 +45517,7 @@ char* reflect = mccGuide_curved_48_reflect;
 
   } /* if l */
 }
-#line 45526 "./H3-2_NeRo.c"
+#line 45520 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -45667,7 +45661,7 @@ MCNUM nelements = mccGuide_curved_49_nelements;
 MCNUM nu = mccGuide_curved_49_nu;
 MCNUM phase = mccGuide_curved_49_phase;
 char* reflect = mccGuide_curved_49_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -45836,7 +45830,7 @@ char* reflect = mccGuide_curved_49_reflect;
 
   } /* if l */
 }
-#line 45839 "./H3-2_NeRo.c"
+#line 45833 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_49=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -45980,7 +45974,7 @@ MCNUM nelements = mccGuide_curved_50_nelements;
 MCNUM nu = mccGuide_curved_50_nu;
 MCNUM phase = mccGuide_curved_50_phase;
 char* reflect = mccGuide_curved_50_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -46149,7 +46143,7 @@ char* reflect = mccGuide_curved_50_reflect;
 
   } /* if l */
 }
-#line 46152 "./H3-2_NeRo.c"
+#line 46146 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_50=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46293,7 +46287,7 @@ MCNUM nelements = mccGuide_curved_51_nelements;
 MCNUM nu = mccGuide_curved_51_nu;
 MCNUM phase = mccGuide_curved_51_phase;
 char* reflect = mccGuide_curved_51_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -46462,7 +46456,7 @@ char* reflect = mccGuide_curved_51_reflect;
 
   } /* if l */
 }
-#line 46465 "./H3-2_NeRo.c"
+#line 46459 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_51=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46606,7 +46600,7 @@ MCNUM nelements = mccGuide_curved_52_nelements;
 MCNUM nu = mccGuide_curved_52_nu;
 MCNUM phase = mccGuide_curved_52_phase;
 char* reflect = mccGuide_curved_52_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -46775,7 +46769,7 @@ char* reflect = mccGuide_curved_52_reflect;
 
   } /* if l */
 }
-#line 46778 "./H3-2_NeRo.c"
+#line 46772 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_52=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -46919,7 +46913,7 @@ MCNUM nelements = mccGuide_curved_53_nelements;
 MCNUM nu = mccGuide_curved_53_nu;
 MCNUM phase = mccGuide_curved_53_phase;
 char* reflect = mccGuide_curved_53_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -47088,7 +47082,7 @@ char* reflect = mccGuide_curved_53_reflect;
 
   } /* if l */
 }
-#line 47091 "./H3-2_NeRo.c"
+#line 47085 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_53=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47232,7 +47226,7 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 392 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -47401,7 +47395,7 @@ char* reflect = mccGuide_straight_reflect;
 
   } /* if l */
 }
-#line 47404 "./H3-2_NeRo.c"
+#line 47398 "./H3-2_NeRo.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -47537,7 +47531,7 @@ char* username1 = mccMonlam_username1;
 char* username2 = mccMonlam_username2;
 char* username3 = mccMonlam_username3;
 int nowritefile = mccMonlam_nowritefile;
-#line 309 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 309 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -47706,7 +47700,7 @@ int nowritefile = mccMonlam_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 47709 "./H3-2_NeRo.c"
+#line 47703 "./H3-2_NeRo.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -47847,7 +47841,7 @@ char* username1 = mccMonx_username1;
 char* username2 = mccMonx_username2;
 char* username3 = mccMonx_username3;
 int nowritefile = mccMonx_nowritefile;
-#line 309 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 309 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -48016,7 +48010,7 @@ int nowritefile = mccMonx_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 48019 "./H3-2_NeRo.c"
+#line 48013 "./H3-2_NeRo.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -48157,7 +48151,7 @@ char* username1 = mccMony_username1;
 char* username2 = mccMony_username2;
 char* username3 = mccMony_username3;
 int nowritefile = mccMony_nowritefile;
-#line 309 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 309 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -48326,7 +48320,7 @@ int nowritefile = mccMony_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 48329 "./H3-2_NeRo.c"
+#line 48323 "./H3-2_NeRo.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -48467,7 +48461,7 @@ char* username1 = mccMondx_username1;
 char* username2 = mccMondx_username2;
 char* username3 = mccMondx_username3;
 int nowritefile = mccMondx_nowritefile;
-#line 309 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 309 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -48636,7 +48630,7 @@ int nowritefile = mccMondx_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 48639 "./H3-2_NeRo.c"
+#line 48633 "./H3-2_NeRo.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -48777,7 +48771,7 @@ char* username1 = mccMondy_username1;
 char* username2 = mccMondy_username2;
 char* username3 = mccMondy_username3;
 int nowritefile = mccMondy_nowritefile;
-#line 309 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 309 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -48946,7 +48940,7 @@ int nowritefile = mccMondy_nowritefile;
     RESTORE_NEUTRON(INDEX_CURRENT_COMP, x, y, z, vx, vy, vz, t, sx, sy, sz, p);
   }
 }
-#line 48949 "./H3-2_NeRo.c"
+#line 48943 "./H3-2_NeRo.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49045,7 +49039,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 115 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 115 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
   MPI_MASTER(fprintf(stdout, "\nSave [%s]\n", mcinstrument_name););
   if (profile && strlen(profile) && strcmp(profile,"NULL") && strcmp(profile,"0")) {
@@ -49062,7 +49056,7 @@ MCNUM minutes = mccOrigin_minutes;
 
   }
 }
-#line 49065 "./H3-2_NeRo.c"
+#line 49059 "./H3-2_NeRo.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -49106,12 +49100,12 @@ char* username1 = mccMonlam_username1;
 char* username2 = mccMonlam_username2;
 char* username3 = mccMonlam_username3;
 int nowritefile = mccMonlam_nowritefile;
-#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 49114 "./H3-2_NeRo.c"
+#line 49108 "./H3-2_NeRo.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49158,12 +49152,12 @@ char* username1 = mccMonx_username1;
 char* username2 = mccMonx_username2;
 char* username3 = mccMonx_username3;
 int nowritefile = mccMonx_nowritefile;
-#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 49166 "./H3-2_NeRo.c"
+#line 49160 "./H3-2_NeRo.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49210,12 +49204,12 @@ char* username1 = mccMony_username1;
 char* username2 = mccMony_username2;
 char* username3 = mccMony_username3;
 int nowritefile = mccMony_nowritefile;
-#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 49218 "./H3-2_NeRo.c"
+#line 49212 "./H3-2_NeRo.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49262,12 +49256,12 @@ char* username1 = mccMondx_username1;
 char* username2 = mccMondx_username2;
 char* username3 = mccMondx_username3;
 int nowritefile = mccMondx_nowritefile;
-#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 49270 "./H3-2_NeRo.c"
+#line 49264 "./H3-2_NeRo.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49314,12 +49308,12 @@ char* username1 = mccMondy_username1;
 char* username2 = mccMondy_username2;
 char* username3 = mccMondy_username3;
 int nowritefile = mccMondy_nowritefile;
-#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 479 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
 }
-#line 49322 "./H3-2_NeRo.c"
+#line 49316 "./H3-2_NeRo.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -49353,7 +49347,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 133 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 133 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
   time_t NowTime;
   time(&NowTime);
@@ -49366,7 +49360,7 @@ MCNUM minutes = mccOrigin_minutes;
     fprintf(stdout, "%g [min] ", difftime(NowTime,StartTime)/60.0);
   fprintf(stdout, "\n");
 }
-#line 49369 "./H3-2_NeRo.c"
+#line 49363 "./H3-2_NeRo.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -49432,13 +49426,13 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   Table_Free(&pTable);
   Table_Free(&pTable_x);
   Table_Free(&pTable_y);
 }
-#line 49440 "./H3-2_NeRo.c"
+#line 49434 "./H3-2_NeRo.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -49509,14 +49503,14 @@ MCNUM nelements = mccGuide_metal_nelements;
 MCNUM nu = mccGuide_metal_nu;
 MCNUM phase = mccGuide_metal_phase;
 char* reflect = mccGuide_metal_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49516 "./H3-2_NeRo.c"
+#line 49510 "./H3-2_NeRo.c"
 }   /* End of Guide_metal=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49569,14 +49563,14 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49575 "./H3-2_NeRo.c"
+#line 49569 "./H3-2_NeRo.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49629,14 +49623,14 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49634 "./H3-2_NeRo.c"
+#line 49628 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49689,14 +49683,14 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49693 "./H3-2_NeRo.c"
+#line 49687 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49749,14 +49743,14 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49752 "./H3-2_NeRo.c"
+#line 49746 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49809,14 +49803,14 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49811 "./H3-2_NeRo.c"
+#line 49805 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49869,14 +49863,14 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49870 "./H3-2_NeRo.c"
+#line 49864 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49929,14 +49923,14 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49929 "./H3-2_NeRo.c"
+#line 49923 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -49989,14 +49983,14 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 49988 "./H3-2_NeRo.c"
+#line 49982 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50049,14 +50043,14 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50047 "./H3-2_NeRo.c"
+#line 50041 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50109,14 +50103,14 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50106 "./H3-2_NeRo.c"
+#line 50100 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50169,14 +50163,14 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50165 "./H3-2_NeRo.c"
+#line 50159 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50229,14 +50223,14 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50224 "./H3-2_NeRo.c"
+#line 50218 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50289,14 +50283,14 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50283 "./H3-2_NeRo.c"
+#line 50277 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50349,14 +50343,14 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50342 "./H3-2_NeRo.c"
+#line 50336 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50409,14 +50403,14 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50401 "./H3-2_NeRo.c"
+#line 50395 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50469,14 +50463,14 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50460 "./H3-2_NeRo.c"
+#line 50454 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50529,14 +50523,14 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50519 "./H3-2_NeRo.c"
+#line 50513 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50589,14 +50583,14 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50578 "./H3-2_NeRo.c"
+#line 50572 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50649,14 +50643,14 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50637 "./H3-2_NeRo.c"
+#line 50631 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50709,14 +50703,14 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50696 "./H3-2_NeRo.c"
+#line 50690 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50769,14 +50763,14 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50755 "./H3-2_NeRo.c"
+#line 50749 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50829,14 +50823,14 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50814 "./H3-2_NeRo.c"
+#line 50808 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50889,14 +50883,14 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50873 "./H3-2_NeRo.c"
+#line 50867 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -50949,14 +50943,14 @@ MCNUM nelements = mccGuide_curved_28_nelements;
 MCNUM nu = mccGuide_curved_28_nu;
 MCNUM phase = mccGuide_curved_28_phase;
 char* reflect = mccGuide_curved_28_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50932 "./H3-2_NeRo.c"
+#line 50926 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51009,14 +51003,14 @@ MCNUM nelements = mccGuide_curved_29_nelements;
 MCNUM nu = mccGuide_curved_29_nu;
 MCNUM phase = mccGuide_curved_29_phase;
 char* reflect = mccGuide_curved_29_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 50991 "./H3-2_NeRo.c"
+#line 50985 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51069,14 +51063,14 @@ MCNUM nelements = mccGuide_curved_30_nelements;
 MCNUM nu = mccGuide_curved_30_nu;
 MCNUM phase = mccGuide_curved_30_phase;
 char* reflect = mccGuide_curved_30_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51050 "./H3-2_NeRo.c"
+#line 51044 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51129,14 +51123,14 @@ MCNUM nelements = mccGuide_curved_31_nelements;
 MCNUM nu = mccGuide_curved_31_nu;
 MCNUM phase = mccGuide_curved_31_phase;
 char* reflect = mccGuide_curved_31_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51109 "./H3-2_NeRo.c"
+#line 51103 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51189,14 +51183,14 @@ MCNUM nelements = mccGuide_curved_32_nelements;
 MCNUM nu = mccGuide_curved_32_nu;
 MCNUM phase = mccGuide_curved_32_phase;
 char* reflect = mccGuide_curved_32_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51168 "./H3-2_NeRo.c"
+#line 51162 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51249,14 +51243,14 @@ MCNUM nelements = mccGuide_curved_33_nelements;
 MCNUM nu = mccGuide_curved_33_nu;
 MCNUM phase = mccGuide_curved_33_phase;
 char* reflect = mccGuide_curved_33_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51227 "./H3-2_NeRo.c"
+#line 51221 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51309,14 +51303,14 @@ MCNUM nelements = mccGuide_curved_34_nelements;
 MCNUM nu = mccGuide_curved_34_nu;
 MCNUM phase = mccGuide_curved_34_phase;
 char* reflect = mccGuide_curved_34_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51286 "./H3-2_NeRo.c"
+#line 51280 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51369,14 +51363,14 @@ MCNUM nelements = mccGuide_curved_35_nelements;
 MCNUM nu = mccGuide_curved_35_nu;
 MCNUM phase = mccGuide_curved_35_phase;
 char* reflect = mccGuide_curved_35_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51345 "./H3-2_NeRo.c"
+#line 51339 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51429,14 +51423,14 @@ MCNUM nelements = mccGuide_curved_36_nelements;
 MCNUM nu = mccGuide_curved_36_nu;
 MCNUM phase = mccGuide_curved_36_phase;
 char* reflect = mccGuide_curved_36_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51404 "./H3-2_NeRo.c"
+#line 51398 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51489,14 +51483,14 @@ MCNUM nelements = mccGuide_curved_37_nelements;
 MCNUM nu = mccGuide_curved_37_nu;
 MCNUM phase = mccGuide_curved_37_phase;
 char* reflect = mccGuide_curved_37_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51463 "./H3-2_NeRo.c"
+#line 51457 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51549,14 +51543,14 @@ MCNUM nelements = mccGuide_curved_38_nelements;
 MCNUM nu = mccGuide_curved_38_nu;
 MCNUM phase = mccGuide_curved_38_phase;
 char* reflect = mccGuide_curved_38_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51522 "./H3-2_NeRo.c"
+#line 51516 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51609,14 +51603,14 @@ MCNUM nelements = mccGuide_curved_39_nelements;
 MCNUM nu = mccGuide_curved_39_nu;
 MCNUM phase = mccGuide_curved_39_phase;
 char* reflect = mccGuide_curved_39_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51581 "./H3-2_NeRo.c"
+#line 51575 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51669,14 +51663,14 @@ MCNUM nelements = mccGuide_curved_40_nelements;
 MCNUM nu = mccGuide_curved_40_nu;
 MCNUM phase = mccGuide_curved_40_phase;
 char* reflect = mccGuide_curved_40_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51640 "./H3-2_NeRo.c"
+#line 51634 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51729,14 +51723,14 @@ MCNUM nelements = mccGuide_curved_41_nelements;
 MCNUM nu = mccGuide_curved_41_nu;
 MCNUM phase = mccGuide_curved_41_phase;
 char* reflect = mccGuide_curved_41_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51699 "./H3-2_NeRo.c"
+#line 51693 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51789,14 +51783,14 @@ MCNUM nelements = mccGuide_curved_42_nelements;
 MCNUM nu = mccGuide_curved_42_nu;
 MCNUM phase = mccGuide_curved_42_phase;
 char* reflect = mccGuide_curved_42_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51758 "./H3-2_NeRo.c"
+#line 51752 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51849,14 +51843,14 @@ MCNUM nelements = mccGuide_curved_43_nelements;
 MCNUM nu = mccGuide_curved_43_nu;
 MCNUM phase = mccGuide_curved_43_phase;
 char* reflect = mccGuide_curved_43_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51817 "./H3-2_NeRo.c"
+#line 51811 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51909,14 +51903,14 @@ MCNUM nelements = mccGuide_curved_44_nelements;
 MCNUM nu = mccGuide_curved_44_nu;
 MCNUM phase = mccGuide_curved_44_phase;
 char* reflect = mccGuide_curved_44_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51876 "./H3-2_NeRo.c"
+#line 51870 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -51969,14 +51963,14 @@ MCNUM nelements = mccGuide_curved_45_nelements;
 MCNUM nu = mccGuide_curved_45_nu;
 MCNUM phase = mccGuide_curved_45_phase;
 char* reflect = mccGuide_curved_45_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51935 "./H3-2_NeRo.c"
+#line 51929 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52029,14 +52023,14 @@ MCNUM nelements = mccGuide_curved_46_nelements;
 MCNUM nu = mccGuide_curved_46_nu;
 MCNUM phase = mccGuide_curved_46_phase;
 char* reflect = mccGuide_curved_46_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 51994 "./H3-2_NeRo.c"
+#line 51988 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52089,14 +52083,14 @@ MCNUM nelements = mccGuide_curved_47_nelements;
 MCNUM nu = mccGuide_curved_47_nu;
 MCNUM phase = mccGuide_curved_47_phase;
 char* reflect = mccGuide_curved_47_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52053 "./H3-2_NeRo.c"
+#line 52047 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52149,14 +52143,14 @@ MCNUM nelements = mccGuide_curved_48_nelements;
 MCNUM nu = mccGuide_curved_48_nu;
 MCNUM phase = mccGuide_curved_48_phase;
 char* reflect = mccGuide_curved_48_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52112 "./H3-2_NeRo.c"
+#line 52106 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52209,14 +52203,14 @@ MCNUM nelements = mccGuide_curved_49_nelements;
 MCNUM nu = mccGuide_curved_49_nu;
 MCNUM phase = mccGuide_curved_49_phase;
 char* reflect = mccGuide_curved_49_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52171 "./H3-2_NeRo.c"
+#line 52165 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_49=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52269,14 +52263,14 @@ MCNUM nelements = mccGuide_curved_50_nelements;
 MCNUM nu = mccGuide_curved_50_nu;
 MCNUM phase = mccGuide_curved_50_phase;
 char* reflect = mccGuide_curved_50_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52230 "./H3-2_NeRo.c"
+#line 52224 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_50=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52329,14 +52323,14 @@ MCNUM nelements = mccGuide_curved_51_nelements;
 MCNUM nu = mccGuide_curved_51_nu;
 MCNUM phase = mccGuide_curved_51_phase;
 char* reflect = mccGuide_curved_51_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52289 "./H3-2_NeRo.c"
+#line 52283 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_51=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52389,14 +52383,14 @@ MCNUM nelements = mccGuide_curved_52_nelements;
 MCNUM nu = mccGuide_curved_52_nu;
 MCNUM phase = mccGuide_curved_52_phase;
 char* reflect = mccGuide_curved_52_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52348 "./H3-2_NeRo.c"
+#line 52342 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_52=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52449,14 +52443,14 @@ MCNUM nelements = mccGuide_curved_53_nelements;
 MCNUM nu = mccGuide_curved_53_nu;
 MCNUM phase = mccGuide_curved_53_phase;
 char* reflect = mccGuide_curved_53_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52407 "./H3-2_NeRo.c"
+#line 52401 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_53=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52509,14 +52503,14 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 562 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
   fprintf(stderr,"%s: warning: This message has been repeated %g times\n", GVars.compcurname, GVars.warnings);
 }
 }
-#line 52466 "./H3-2_NeRo.c"
+#line 52460 "./H3-2_NeRo.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -52561,14 +52555,14 @@ char* username1 = mccMonlam_username1;
 char* username2 = mccMonlam_username2;
 char* username3 = mccMonlam_username3;
 int nowritefile = mccMonlam_nowritefile;
-#line 485 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 485 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* free pointers */
   if (!nowritefile) {
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 52517 "./H3-2_NeRo.c"
+#line 52511 "./H3-2_NeRo.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -52618,14 +52612,14 @@ char* username1 = mccMonx_username1;
 char* username2 = mccMonx_username2;
 char* username3 = mccMonx_username3;
 int nowritefile = mccMonx_nowritefile;
-#line 485 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 485 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* free pointers */
   if (!nowritefile) {
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 52573 "./H3-2_NeRo.c"
+#line 52567 "./H3-2_NeRo.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -52675,14 +52669,14 @@ char* username1 = mccMony_username1;
 char* username2 = mccMony_username2;
 char* username3 = mccMony_username3;
 int nowritefile = mccMony_nowritefile;
-#line 485 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 485 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* free pointers */
   if (!nowritefile) {
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 52629 "./H3-2_NeRo.c"
+#line 52623 "./H3-2_NeRo.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -52732,14 +52726,14 @@ char* username1 = mccMondx_username1;
 char* username2 = mccMondx_username2;
 char* username3 = mccMondx_username3;
 int nowritefile = mccMondx_nowritefile;
-#line 485 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 485 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* free pointers */
   if (!nowritefile) {
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 52685 "./H3-2_NeRo.c"
+#line 52679 "./H3-2_NeRo.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -52789,14 +52783,14 @@ char* username1 = mccMondy_username1;
 char* username2 = mccMondy_username2;
 char* username3 = mccMondy_username3;
 int nowritefile = mccMondy_nowritefile;
-#line 485 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 485 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   /* free pointers */
   if (!nowritefile) {
     Monitor_nD_Finally(&DEFS, &Vars);
   }
 }
-#line 52741 "./H3-2_NeRo.c"
+#line 52735 "./H3-2_NeRo.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -52842,11 +52836,11 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 147 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
+#line 147 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../misc/Progress_bar.comp"
 {
   
 }
-#line 52790 "./H3-2_NeRo.c"
+#line 52784 "./H3-2_NeRo.c"
 }   /* End of Origin=Progress_bar() SETTING parameter declarations. */
 #undef CurrentTime
 #undef EndTime
@@ -52910,7 +52904,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 578 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
+#line 578 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../sources/Source_gen.comp"
 {
   double xmin;
   double xmax;
@@ -52959,7 +52953,7 @@ int target_index = mccH3_target_index;
     dashed_line(0,0,0, -focus_xw/2, focus_yh/2,dist, 4);
   }
 }
-#line 52903 "./H3-2_NeRo.c"
+#line 52897 "./H3-2_NeRo.c"
 }   /* End of H3=Source_gen() SETTING parameter declarations. */
 #undef pTable_dymax
 #undef pTable_dymin
@@ -52988,7 +52982,7 @@ int target_index = mccH3_target_index;
 #define mccompcurname  Guide_start_arm
 #define mccompcurtype  Arm
 #define mccompcurindex 3
-#line 40 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Arm.comp"
+#line 40 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Arm.comp"
 {
   /* A bit ugly; hard-coded dimensions. */
   
@@ -52996,7 +52990,7 @@ int target_index = mccH3_target_index;
   line(0,0,0,0,0.2,0);
   line(0,0,0,0,0,0.2);
 }
-#line 52940 "./H3-2_NeRo.c"
+#line 52934 "./H3-2_NeRo.c"
 #undef mccompcurname
 #undef mccompcurtype
 #undef mccompcurindex
@@ -53044,7 +53038,7 @@ MCNUM nelements = mccGuide_metal_nelements;
 MCNUM nu = mccGuide_metal_nu;
 MCNUM phase = mccGuide_metal_phase;
 char* reflect = mccGuide_metal_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -53107,7 +53101,7 @@ char* reflect = mccGuide_metal_reflect;
   }
 
 }
-#line 53051 "./H3-2_NeRo.c"
+#line 53045 "./H3-2_NeRo.c"
 }   /* End of Guide_metal=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53158,7 +53152,7 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -53221,7 +53215,7 @@ char* reflect = mccGuide_curved_reflect;
   }
 
 }
-#line 53165 "./H3-2_NeRo.c"
+#line 53159 "./H3-2_NeRo.c"
 }   /* End of Guide_curved=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53272,7 +53266,7 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -53335,7 +53329,7 @@ char* reflect = mccGuide_curved_6_reflect;
   }
 
 }
-#line 53279 "./H3-2_NeRo.c"
+#line 53273 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_6=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53386,7 +53380,7 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -53449,7 +53443,7 @@ char* reflect = mccGuide_curved_7_reflect;
   }
 
 }
-#line 53393 "./H3-2_NeRo.c"
+#line 53387 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_7=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53500,7 +53494,7 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -53563,7 +53557,7 @@ char* reflect = mccGuide_curved_8_reflect;
   }
 
 }
-#line 53507 "./H3-2_NeRo.c"
+#line 53501 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_8=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53614,7 +53608,7 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -53677,7 +53671,7 @@ char* reflect = mccGuide_curved_9_reflect;
   }
 
 }
-#line 53621 "./H3-2_NeRo.c"
+#line 53615 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_9=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53728,7 +53722,7 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -53791,7 +53785,7 @@ char* reflect = mccGuide_curved_10_reflect;
   }
 
 }
-#line 53735 "./H3-2_NeRo.c"
+#line 53729 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_10=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53842,7 +53836,7 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -53905,7 +53899,7 @@ char* reflect = mccGuide_curved_11_reflect;
   }
 
 }
-#line 53849 "./H3-2_NeRo.c"
+#line 53843 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_11=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -53956,7 +53950,7 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -54019,7 +54013,7 @@ char* reflect = mccGuide_curved_12_reflect;
   }
 
 }
-#line 53963 "./H3-2_NeRo.c"
+#line 53957 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_12=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54070,7 +54064,7 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -54133,7 +54127,7 @@ char* reflect = mccGuide_curved_13_reflect;
   }
 
 }
-#line 54077 "./H3-2_NeRo.c"
+#line 54071 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_13=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54184,7 +54178,7 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -54247,7 +54241,7 @@ char* reflect = mccGuide_curved_14_reflect;
   }
 
 }
-#line 54191 "./H3-2_NeRo.c"
+#line 54185 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_14=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54298,7 +54292,7 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -54361,7 +54355,7 @@ char* reflect = mccGuide_curved_15_reflect;
   }
 
 }
-#line 54305 "./H3-2_NeRo.c"
+#line 54299 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_15=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54412,7 +54406,7 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -54475,7 +54469,7 @@ char* reflect = mccGuide_curved_16_reflect;
   }
 
 }
-#line 54419 "./H3-2_NeRo.c"
+#line 54413 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_16=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54526,7 +54520,7 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -54589,7 +54583,7 @@ char* reflect = mccGuide_curved_17_reflect;
   }
 
 }
-#line 54533 "./H3-2_NeRo.c"
+#line 54527 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_17=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54640,7 +54634,7 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -54703,7 +54697,7 @@ char* reflect = mccGuide_curved_18_reflect;
   }
 
 }
-#line 54647 "./H3-2_NeRo.c"
+#line 54641 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_18=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54754,7 +54748,7 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -54817,7 +54811,7 @@ char* reflect = mccGuide_curved_19_reflect;
   }
 
 }
-#line 54761 "./H3-2_NeRo.c"
+#line 54755 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_19=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54868,7 +54862,7 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -54931,7 +54925,7 @@ char* reflect = mccGuide_curved_20_reflect;
   }
 
 }
-#line 54875 "./H3-2_NeRo.c"
+#line 54869 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_20=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -54982,7 +54976,7 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -55045,7 +55039,7 @@ char* reflect = mccGuide_curved_21_reflect;
   }
 
 }
-#line 54989 "./H3-2_NeRo.c"
+#line 54983 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_21=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55096,7 +55090,7 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -55159,7 +55153,7 @@ char* reflect = mccGuide_curved_22_reflect;
   }
 
 }
-#line 55103 "./H3-2_NeRo.c"
+#line 55097 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_22=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55210,7 +55204,7 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -55273,7 +55267,7 @@ char* reflect = mccGuide_curved_23_reflect;
   }
 
 }
-#line 55217 "./H3-2_NeRo.c"
+#line 55211 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_23=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55324,7 +55318,7 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -55387,7 +55381,7 @@ char* reflect = mccGuide_curved_24_reflect;
   }
 
 }
-#line 55331 "./H3-2_NeRo.c"
+#line 55325 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_24=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55438,7 +55432,7 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -55501,7 +55495,7 @@ char* reflect = mccGuide_curved_25_reflect;
   }
 
 }
-#line 55445 "./H3-2_NeRo.c"
+#line 55439 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_25=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55552,7 +55546,7 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -55615,7 +55609,7 @@ char* reflect = mccGuide_curved_26_reflect;
   }
 
 }
-#line 55559 "./H3-2_NeRo.c"
+#line 55553 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_26=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55666,7 +55660,7 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -55729,7 +55723,7 @@ char* reflect = mccGuide_curved_27_reflect;
   }
 
 }
-#line 55673 "./H3-2_NeRo.c"
+#line 55667 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_27=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55780,7 +55774,7 @@ MCNUM nelements = mccGuide_curved_28_nelements;
 MCNUM nu = mccGuide_curved_28_nu;
 MCNUM phase = mccGuide_curved_28_phase;
 char* reflect = mccGuide_curved_28_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -55843,7 +55837,7 @@ char* reflect = mccGuide_curved_28_reflect;
   }
 
 }
-#line 55787 "./H3-2_NeRo.c"
+#line 55781 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_28=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -55894,7 +55888,7 @@ MCNUM nelements = mccGuide_curved_29_nelements;
 MCNUM nu = mccGuide_curved_29_nu;
 MCNUM phase = mccGuide_curved_29_phase;
 char* reflect = mccGuide_curved_29_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -55957,7 +55951,7 @@ char* reflect = mccGuide_curved_29_reflect;
   }
 
 }
-#line 55901 "./H3-2_NeRo.c"
+#line 55895 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_29=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56008,7 +56002,7 @@ MCNUM nelements = mccGuide_curved_30_nelements;
 MCNUM nu = mccGuide_curved_30_nu;
 MCNUM phase = mccGuide_curved_30_phase;
 char* reflect = mccGuide_curved_30_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -56071,7 +56065,7 @@ char* reflect = mccGuide_curved_30_reflect;
   }
 
 }
-#line 56015 "./H3-2_NeRo.c"
+#line 56009 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_30=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56122,7 +56116,7 @@ MCNUM nelements = mccGuide_curved_31_nelements;
 MCNUM nu = mccGuide_curved_31_nu;
 MCNUM phase = mccGuide_curved_31_phase;
 char* reflect = mccGuide_curved_31_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -56185,7 +56179,7 @@ char* reflect = mccGuide_curved_31_reflect;
   }
 
 }
-#line 56129 "./H3-2_NeRo.c"
+#line 56123 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_31=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56236,7 +56230,7 @@ MCNUM nelements = mccGuide_curved_32_nelements;
 MCNUM nu = mccGuide_curved_32_nu;
 MCNUM phase = mccGuide_curved_32_phase;
 char* reflect = mccGuide_curved_32_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -56299,7 +56293,7 @@ char* reflect = mccGuide_curved_32_reflect;
   }
 
 }
-#line 56243 "./H3-2_NeRo.c"
+#line 56237 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_32=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56350,7 +56344,7 @@ MCNUM nelements = mccGuide_curved_33_nelements;
 MCNUM nu = mccGuide_curved_33_nu;
 MCNUM phase = mccGuide_curved_33_phase;
 char* reflect = mccGuide_curved_33_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -56413,7 +56407,7 @@ char* reflect = mccGuide_curved_33_reflect;
   }
 
 }
-#line 56357 "./H3-2_NeRo.c"
+#line 56351 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_33=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56464,7 +56458,7 @@ MCNUM nelements = mccGuide_curved_34_nelements;
 MCNUM nu = mccGuide_curved_34_nu;
 MCNUM phase = mccGuide_curved_34_phase;
 char* reflect = mccGuide_curved_34_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -56527,7 +56521,7 @@ char* reflect = mccGuide_curved_34_reflect;
   }
 
 }
-#line 56471 "./H3-2_NeRo.c"
+#line 56465 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_34=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56578,7 +56572,7 @@ MCNUM nelements = mccGuide_curved_35_nelements;
 MCNUM nu = mccGuide_curved_35_nu;
 MCNUM phase = mccGuide_curved_35_phase;
 char* reflect = mccGuide_curved_35_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -56641,7 +56635,7 @@ char* reflect = mccGuide_curved_35_reflect;
   }
 
 }
-#line 56585 "./H3-2_NeRo.c"
+#line 56579 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_35=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56692,7 +56686,7 @@ MCNUM nelements = mccGuide_curved_36_nelements;
 MCNUM nu = mccGuide_curved_36_nu;
 MCNUM phase = mccGuide_curved_36_phase;
 char* reflect = mccGuide_curved_36_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -56755,7 +56749,7 @@ char* reflect = mccGuide_curved_36_reflect;
   }
 
 }
-#line 56699 "./H3-2_NeRo.c"
+#line 56693 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_36=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56806,7 +56800,7 @@ MCNUM nelements = mccGuide_curved_37_nelements;
 MCNUM nu = mccGuide_curved_37_nu;
 MCNUM phase = mccGuide_curved_37_phase;
 char* reflect = mccGuide_curved_37_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -56869,7 +56863,7 @@ char* reflect = mccGuide_curved_37_reflect;
   }
 
 }
-#line 56813 "./H3-2_NeRo.c"
+#line 56807 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_37=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -56920,7 +56914,7 @@ MCNUM nelements = mccGuide_curved_38_nelements;
 MCNUM nu = mccGuide_curved_38_nu;
 MCNUM phase = mccGuide_curved_38_phase;
 char* reflect = mccGuide_curved_38_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -56983,7 +56977,7 @@ char* reflect = mccGuide_curved_38_reflect;
   }
 
 }
-#line 56927 "./H3-2_NeRo.c"
+#line 56921 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_38=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57034,7 +57028,7 @@ MCNUM nelements = mccGuide_curved_39_nelements;
 MCNUM nu = mccGuide_curved_39_nu;
 MCNUM phase = mccGuide_curved_39_phase;
 char* reflect = mccGuide_curved_39_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -57097,7 +57091,7 @@ char* reflect = mccGuide_curved_39_reflect;
   }
 
 }
-#line 57041 "./H3-2_NeRo.c"
+#line 57035 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_39=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57148,7 +57142,7 @@ MCNUM nelements = mccGuide_curved_40_nelements;
 MCNUM nu = mccGuide_curved_40_nu;
 MCNUM phase = mccGuide_curved_40_phase;
 char* reflect = mccGuide_curved_40_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -57211,7 +57205,7 @@ char* reflect = mccGuide_curved_40_reflect;
   }
 
 }
-#line 57155 "./H3-2_NeRo.c"
+#line 57149 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_40=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57262,7 +57256,7 @@ MCNUM nelements = mccGuide_curved_41_nelements;
 MCNUM nu = mccGuide_curved_41_nu;
 MCNUM phase = mccGuide_curved_41_phase;
 char* reflect = mccGuide_curved_41_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -57325,7 +57319,7 @@ char* reflect = mccGuide_curved_41_reflect;
   }
 
 }
-#line 57269 "./H3-2_NeRo.c"
+#line 57263 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_41=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57376,7 +57370,7 @@ MCNUM nelements = mccGuide_curved_42_nelements;
 MCNUM nu = mccGuide_curved_42_nu;
 MCNUM phase = mccGuide_curved_42_phase;
 char* reflect = mccGuide_curved_42_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -57439,7 +57433,7 @@ char* reflect = mccGuide_curved_42_reflect;
   }
 
 }
-#line 57383 "./H3-2_NeRo.c"
+#line 57377 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_42=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57490,7 +57484,7 @@ MCNUM nelements = mccGuide_curved_43_nelements;
 MCNUM nu = mccGuide_curved_43_nu;
 MCNUM phase = mccGuide_curved_43_phase;
 char* reflect = mccGuide_curved_43_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -57553,7 +57547,7 @@ char* reflect = mccGuide_curved_43_reflect;
   }
 
 }
-#line 57497 "./H3-2_NeRo.c"
+#line 57491 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_43=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57604,7 +57598,7 @@ MCNUM nelements = mccGuide_curved_44_nelements;
 MCNUM nu = mccGuide_curved_44_nu;
 MCNUM phase = mccGuide_curved_44_phase;
 char* reflect = mccGuide_curved_44_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -57667,7 +57661,7 @@ char* reflect = mccGuide_curved_44_reflect;
   }
 
 }
-#line 57611 "./H3-2_NeRo.c"
+#line 57605 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_44=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57718,7 +57712,7 @@ MCNUM nelements = mccGuide_curved_45_nelements;
 MCNUM nu = mccGuide_curved_45_nu;
 MCNUM phase = mccGuide_curved_45_phase;
 char* reflect = mccGuide_curved_45_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -57781,7 +57775,7 @@ char* reflect = mccGuide_curved_45_reflect;
   }
 
 }
-#line 57725 "./H3-2_NeRo.c"
+#line 57719 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_45=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57832,7 +57826,7 @@ MCNUM nelements = mccGuide_curved_46_nelements;
 MCNUM nu = mccGuide_curved_46_nu;
 MCNUM phase = mccGuide_curved_46_phase;
 char* reflect = mccGuide_curved_46_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -57895,7 +57889,7 @@ char* reflect = mccGuide_curved_46_reflect;
   }
 
 }
-#line 57839 "./H3-2_NeRo.c"
+#line 57833 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_46=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -57946,7 +57940,7 @@ MCNUM nelements = mccGuide_curved_47_nelements;
 MCNUM nu = mccGuide_curved_47_nu;
 MCNUM phase = mccGuide_curved_47_phase;
 char* reflect = mccGuide_curved_47_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -58009,7 +58003,7 @@ char* reflect = mccGuide_curved_47_reflect;
   }
 
 }
-#line 57953 "./H3-2_NeRo.c"
+#line 57947 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_47=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58060,7 +58054,7 @@ MCNUM nelements = mccGuide_curved_48_nelements;
 MCNUM nu = mccGuide_curved_48_nu;
 MCNUM phase = mccGuide_curved_48_phase;
 char* reflect = mccGuide_curved_48_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -58123,7 +58117,7 @@ char* reflect = mccGuide_curved_48_reflect;
   }
 
 }
-#line 58067 "./H3-2_NeRo.c"
+#line 58061 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_48=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58174,7 +58168,7 @@ MCNUM nelements = mccGuide_curved_49_nelements;
 MCNUM nu = mccGuide_curved_49_nu;
 MCNUM phase = mccGuide_curved_49_phase;
 char* reflect = mccGuide_curved_49_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -58237,7 +58231,7 @@ char* reflect = mccGuide_curved_49_reflect;
   }
 
 }
-#line 58181 "./H3-2_NeRo.c"
+#line 58175 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_49=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58288,7 +58282,7 @@ MCNUM nelements = mccGuide_curved_50_nelements;
 MCNUM nu = mccGuide_curved_50_nu;
 MCNUM phase = mccGuide_curved_50_phase;
 char* reflect = mccGuide_curved_50_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -58351,7 +58345,7 @@ char* reflect = mccGuide_curved_50_reflect;
   }
 
 }
-#line 58295 "./H3-2_NeRo.c"
+#line 58289 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_50=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58402,7 +58396,7 @@ MCNUM nelements = mccGuide_curved_51_nelements;
 MCNUM nu = mccGuide_curved_51_nu;
 MCNUM phase = mccGuide_curved_51_phase;
 char* reflect = mccGuide_curved_51_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -58465,7 +58459,7 @@ char* reflect = mccGuide_curved_51_reflect;
   }
 
 }
-#line 58409 "./H3-2_NeRo.c"
+#line 58403 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_51=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58516,7 +58510,7 @@ MCNUM nelements = mccGuide_curved_52_nelements;
 MCNUM nu = mccGuide_curved_52_nu;
 MCNUM phase = mccGuide_curved_52_phase;
 char* reflect = mccGuide_curved_52_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -58579,7 +58573,7 @@ char* reflect = mccGuide_curved_52_reflect;
   }
 
 }
-#line 58523 "./H3-2_NeRo.c"
+#line 58517 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_52=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58630,7 +58624,7 @@ MCNUM nelements = mccGuide_curved_53_nelements;
 MCNUM nu = mccGuide_curved_53_nu;
 MCNUM phase = mccGuide_curved_53_phase;
 char* reflect = mccGuide_curved_53_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -58693,7 +58687,7 @@ char* reflect = mccGuide_curved_53_reflect;
   }
 
 }
-#line 58637 "./H3-2_NeRo.c"
+#line 58631 "./H3-2_NeRo.c"
 }   /* End of Guide_curved_53=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58744,7 +58738,7 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
+#line 571 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -58807,7 +58801,7 @@ char* reflect = mccGuide_straight_reflect;
   }
 
 }
-#line 58751 "./H3-2_NeRo.c"
+#line 58745 "./H3-2_NeRo.c"
 }   /* End of Guide_straight=Guide_gravity() SETTING parameter declarations. */
 #undef pTable
 #undef GVars
@@ -58850,7 +58844,7 @@ char* username1 = mccMonlam_username1;
 char* username2 = mccMonlam_username2;
 char* username3 = mccMonlam_username3;
 int nowritefile = mccMonlam_nowritefile;
-#line 493 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 493 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
@@ -58859,7 +58853,7 @@ int nowritefile = mccMonlam_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 58803 "./H3-2_NeRo.c"
+#line 58797 "./H3-2_NeRo.c"
 }   /* End of Monlam=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -58907,7 +58901,7 @@ char* username1 = mccMonx_username1;
 char* username2 = mccMonx_username2;
 char* username3 = mccMonx_username3;
 int nowritefile = mccMonx_nowritefile;
-#line 493 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 493 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
@@ -58916,7 +58910,7 @@ int nowritefile = mccMonx_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 58860 "./H3-2_NeRo.c"
+#line 58854 "./H3-2_NeRo.c"
 }   /* End of Monx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -58964,7 +58958,7 @@ char* username1 = mccMony_username1;
 char* username2 = mccMony_username2;
 char* username3 = mccMony_username3;
 int nowritefile = mccMony_nowritefile;
-#line 493 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 493 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
@@ -58973,7 +58967,7 @@ int nowritefile = mccMony_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 58917 "./H3-2_NeRo.c"
+#line 58911 "./H3-2_NeRo.c"
 }   /* End of Mony=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -59021,7 +59015,7 @@ char* username1 = mccMondx_username1;
 char* username2 = mccMondx_username2;
 char* username3 = mccMondx_username3;
 int nowritefile = mccMondx_nowritefile;
-#line 493 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 493 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
@@ -59030,7 +59024,7 @@ int nowritefile = mccMondx_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 58974 "./H3-2_NeRo.c"
+#line 58968 "./H3-2_NeRo.c"
 }   /* End of Mondx=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector
@@ -59078,7 +59072,7 @@ char* username1 = mccMondy_username1;
 char* username2 = mccMondy_username2;
 char* username3 = mccMondy_username3;
 int nowritefile = mccMondy_nowritefile;
-#line 493 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/95665B3F-32DA-4920-AD46-922CF75AE6DC/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
+#line 493 "/private/var/folders/jy/_mbdcg6x69j8nzs4pjwyg2z00000gn/T/AppTranslocation/2BA9A1EF-66B2-4454-8186-606CBAF03173/d/McStas-2.5.app/Contents/Resources/mcstas/2.5/tools/Python/mcrun/../mccodelib/../../../monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
@@ -59087,7 +59081,7 @@ int nowritefile = mccMondy_nowritefile;
     Monitor_nD_McDisplay(&DEFS, &Vars);
   }
 }
-#line 59031 "./H3-2_NeRo.c"
+#line 59025 "./H3-2_NeRo.c"
 }   /* End of Mondy=Monitor_nD() SETTING parameter declarations. */
 #undef offdata
 #undef detector

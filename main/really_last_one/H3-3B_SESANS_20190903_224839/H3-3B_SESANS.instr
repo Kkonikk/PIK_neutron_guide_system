@@ -261,27 +261,27 @@ COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
   ROTATED (0,rot,0) RELATIVE PREVIOUS
 
 COMPONENT Guide_straight = Guide_gravity(
-    w1 = guide_start_width, h1 = 0.05, l = 9, mright=m, mleft=m, mtop=m_top, mbottom=m_top, R0=R0, alpha=alpha)
+    w1 = guide_start_width, h1 = 0.03, l = 9, mright=m, mleft=m, mtop=m_top, mbottom=m_top, R0=R0, alpha=alpha)
   AT (0, 0, 0.5) RELATIVE PREVIOUS
 
 COMPONENT Monlam = Monitor_nD(
-    xwidth = 0.07, yheight = 0.06, options = "lambda bins = 100 limits = [0 20] per cm2", filename = "H3-3B_SESANS.lam")
+    xwidth = 0.07, yheight = 0.04, options = "lambda bins = 100 limits = [0 20] per cm2", filename = "H3-3B_SESANS.lam")
   AT (0, 0, 9.0001) RELATIVE PREVIOUS
 
 COMPONENT Monx = Monitor_nD(
-    xwidth = 0.07, yheight = 0.06, options = "x bins = 100 per cm2", filename = "H3-3B_SESANS.x")
+    xwidth = 0.07, yheight = 0.04, options = "x bins = 100 per cm2", filename = "H3-3B_SESANS.x")
   AT (0, 0, 0) RELATIVE PREVIOUS
 
 COMPONENT Mony = Monitor_nD(
-    xwidth = 0.07, yheight = 0.06, options = "y bins = 100 per cm2", filename = "H3-3B_SESANS.y")
+    xwidth = 0.07, yheight = 0.04, options = "y bins = 100 per cm2", filename = "H3-3B_SESANS.y")
   AT (0, 0, 0) RELATIVE PREVIOUS
 
 COMPONENT Mondx = Monitor_nD(
-    xwidth = 0.07, yheight = 0.06, options = "dx bins = 100 limits = [-3 3] per cm2", filename = "H3-3B_SESANS.dx")
+    xwidth = 0.07, yheight = 0.04, options = "dx bins = 100 limits = [-3 3] per cm2", filename = "H3-3B_SESANS.dx")
   AT (0, 0, 0) RELATIVE PREVIOUS
 
 COMPONENT Mondy = Monitor_nD(
-    xwidth = 0.07, yheight = 0.06, options = "dy bins = 100 limits = [-5 5] per cm2", filename = "H3-3B_SESANS.dy")
+    xwidth = 0.07, yheight = 0.04, options = "dy bins = 100 limits = [-5 5] per cm2", filename = "H3-3B_SESANS.dy")
   AT (0, 0, 0) RELATIVE PREVIOUS
 
 FINALLY

@@ -1,0 +1,130 @@
+McStas simulation description file for H3_3B.
+Date:    Tue Sep  3 22:48:54 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_3B
+  File: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-3B_SESANS_20190903_224839/mccode
+  Source: H3-3B_SESANS.instr
+  Parameters:  guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-3B_SESANS_20190903_224839
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H3-3B_SESANS.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1567542823
+  Directory: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/really_last_one/H3-3B_SESANS_20190903_224839
+  Nodes: 6
+  Param: guide_start_width=0.06
+  Param: guide_start_height=0.2
+  Param: source_lambda_min=0.1
+  Param: source_lambda_max=20
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Tue Sep  3 22:48:55 2019 (1567540135)
+  type: array_1d(100)
+  Source: H3_3B (H3-3B_SESANS.instr)
+  component: Monlam
+  position: 0.587264 -0.075 39.8139
+  title: Wavelength [Angs] monitor
+  Ncount: 999996
+  filename: H3-3B_SESANS.lam
+  statistics: X0=6.74756; dX=3.49529;
+  signal: Min=0; Max=1.94451e+08; Mean=5.32486e+07;
+  values: 5.32486e+09 6.15137e+07 99641
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: 0 20
+  variables: L I I_err N
+end data
+
+begin data
+  Date: Tue Sep  3 22:48:55 2019 (1567540135)
+  type: array_1d(100)
+  Source: H3_3B (H3-3B_SESANS.instr)
+  component: Monx
+  position: 0.587264 -0.075 39.8139
+  title: x [m] monitor
+  Ncount: 999996
+  filename: H3-3B_SESANS.x
+  statistics: X0=-0.000278924; dX=0.0173733;
+  signal: Min=0; Max=7.6398e+07; Mean=5.32486e+07;
+  values: 5.32486e+09 6.15137e+07 99641
+  xvar: x
+  yvar: (I,I_err)
+  xlabel: x [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.035 0.035
+  variables: x I I_err N
+end data
+
+begin data
+  Date: Tue Sep  3 22:48:55 2019 (1567540135)
+  type: array_1d(100)
+  Source: H3_3B (H3-3B_SESANS.instr)
+  component: Mony
+  position: 0.587264 -0.075 39.8139
+  title: y [m] monitor
+  Ncount: 999996
+  filename: H3-3B_SESANS.y
+  statistics: X0=5.50741e-05; dX=0.00870496;
+  signal: Min=0; Max=8.29752e+07; Mean=5.32486e+07;
+  values: 5.32486e+09 6.15137e+07 99641
+  xvar: y
+  yvar: (I,I_err)
+  xlabel: y [m]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -0.02 0.02
+  variables: y I I_err N
+end data
+
+begin data
+  Date: Tue Sep  3 22:48:55 2019 (1567540135)
+  type: array_1d(100)
+  Source: H3_3B (H3-3B_SESANS.instr)
+  component: Mondx
+  position: 0.587264 -0.075 39.8139
+  title: Hor. Divergence [deg] monitor
+  Ncount: 999996
+  filename: H3-3B_SESANS.dx
+  statistics: X0=0.000155095; dX=0.58779;
+  signal: Min=0; Max=2.22479e+08; Mean=5.32486e+07;
+  values: 5.32486e+09 6.15137e+07 99641
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -3 3
+  variables: hd I I_err N
+end data
+
+begin data
+  Date: Tue Sep  3 22:48:55 2019 (1567540135)
+  type: array_1d(100)
+  Source: H3_3B (H3-3B_SESANS.instr)
+  component: Mondy
+  position: 0.587264 -0.075 39.8139
+  title: Vert. Divergence [deg] monitor
+  Ncount: 999996
+  filename: H3-3B_SESANS.dy
+  statistics: X0=0.00181643; dX=0.636898;
+  signal: Min=7.08091e-215; Max=3.89813e+08; Mean=5.32486e+07;
+  values: 5.32486e+09 6.15137e+07 99104
+  xvar: vd
+  yvar: (I,I_err)
+  xlabel: Vert. Divergence [deg]
+  ylabel: Intensity [n/s/cm2/bin]
+  xlimits: -5 5
+  variables: vd I I_err N
+end data

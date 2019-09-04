@@ -26,7 +26,7 @@ DEFINE INSTRUMENT H3_3B()
 
 DECLARE
 %{
-double m_out=3, m=2, m_top=2, n=2;
+double m_out=3, m=2, m_top=3, n=2;
 
 double R_curv=985 ;
 
