@@ -26,7 +26,7 @@ DEFINE INSTRUMENT H3_2()
 
 DECLARE
 %{
-double m=2, m_top=2, m_out=3;
+double m=1, m_out=2;
 double R_curv=900;
 
 //rotation of one guide element
@@ -47,11 +47,11 @@ TRACE
 %include "H3_source.instr"
 
 COMPONENT Guide_metal = Guide_gravity(
-    w1 = guide_start_width, h1 = guide_start_height, l = 0.5, mright=m, mleft=m, mtop=m_top, mbottom=m_top, R0=R0, alpha=alpha)
+    w1 = guide_start_width, h1 = guide_start_height, l = 0.5, mright=m, mleft=m, mtop=m, mbottom=m, R0=R0, alpha=alpha)
   AT (0, 0, 0) RELATIVE Guide_start_arm
 
 COMPONENT Guide_curved = Guide_gravity(
-    w1 = guide_start_width, h1 = guide_start_height, l = 0.5, mright=m_out, mleft=m, mtop=m_top, mbottom=m_top, R0=R0, alpha=alpha)
+    w1 = guide_start_width, h1 = guide_start_height, l = 0.5, mright=m_out, mleft=m, mtop=m, mbottom=m, R0=R0, alpha=alpha)
   AT (0, 0, 0.5) RELATIVE PREVIOUS
   ROTATED (0, rot, 0) RELATIVE PREVIOUS
 
