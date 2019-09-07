@@ -1,0 +1,27 @@
+begin instrument:
+  Creator: mcstas 2.5
+  Source: H3-3A_CLEO.instr
+  Parameters:  m_out
+  Trace_enabled: no
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation
+Date: Thu Sep 05 13 08 2019
+Ncount: 1000000
+Numpoints: 2
+Param: m_out = 2, m_out = 5
+end simulation
+
+begin data
+type: multiarray_1d(2)
+title: Scan of m_out
+xvars: m_out
+yvars: (Monlam_I,Monlam_ERR)
+xlabel: 'm_out'
+ylabel: 'Intensity'
+xlimits: 2 5
+filename: mccode.dat
+variables: m_out Monlam_I Monlam_ERR
+end data

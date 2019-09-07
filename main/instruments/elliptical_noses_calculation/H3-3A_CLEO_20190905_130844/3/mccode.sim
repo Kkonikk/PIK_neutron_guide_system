@@ -1,0 +1,60 @@
+McStas simulation description file for H3_3A.
+Date:    Thu Sep  5 13:09:03 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_3A
+  File: /home/nerde/JOB/github/PIK_neutron_guide_system/main/instruments/elliptical_noses_calculation/H3-3A_CLEO_20190905_130844/3/mccode
+  Source: H3-3A_CLEO.instr
+  Parameters:  m_top(double) m_out(double) m(double) nose_length(double) linh(double) louth(double) linw(double) loutw(double) sample_width(double) sample_height(double) sample_dist(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /home/nerde/JOB/github/PIK_neutron_guide_system/main/instruments/elliptical_noses_calculation/H3-3A_CLEO_20190905_130844/3
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H3-3A_CLEO.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1567686790
+  Directory: /home/nerde/JOB/github/PIK_neutron_guide_system/main/instruments/elliptical_noses_calculation/H3-3A_CLEO_20190905_130844/3
+  Param: m_top=3
+  Param: m_out=5
+  Param: m=3
+  Param: nose_length=3
+  Param: linh=10.5
+  Param: louth=0.5
+  Param: linw=10.5
+  Param: loutw=0.5
+  Param: sample_width=0.03
+  Param: sample_height=0.01
+  Param: sample_dist=0.4
+  Param: guide_start_width=0.06
+  Param: guide_start_height=0.2
+  Param: source_lambda_min=0.1
+  Param: source_lambda_max=20
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Thu Sep  5 13:09:09 2019 (1567678149)
+  type: array_1d(100)
+  Source: H3_3A (H3-3A_CLEO.instr)
+  component: Monlam
+  position: -0.787277 0.025 50.8131
+  title: Wavelength [Angs] monitor
+  Ncount: 1000000
+  filename: CLEO2.lam
+  statistics: X0=2.25349; dX=0.14703;
+  signal: Min=1.28102e+08; Max=6.49272e+08; Mean=3.67541e+08;
+  values: 3.67541e+10 1.11987e+09 2786
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/bin]
+  xlimits: 2 2.5
+  variables: L I I_err N
+end data

@@ -1,0 +1,27 @@
+begin instrument:
+  Creator: mcstas 2.5
+  Source: H3-4A_SONATA.instr
+  Parameters:  louth
+  Trace_enabled: no
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation
+Date: Thu Sep 05 14 23 2019
+Ncount: 1000000
+Numpoints: 2
+Param: louth = 0.01, louth = 1
+end simulation
+
+begin data
+type: multiarray_1d(2)
+title: Scan of louth
+xvars: louth
+yvars: (Monlam_I,Monlam_ERR) (Monxy_I,Monxy_ERR)
+xlabel: 'louth'
+ylabel: 'Intensity'
+xlimits: 0.01 1
+filename: mccode.dat
+variables: louth Monlam_I Monlam_ERR Monxy_I Monxy_ERR
+end data

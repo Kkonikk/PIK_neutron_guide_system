@@ -1,0 +1,100 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: PIK H3 beamtube 
+*
+* %Identification
+* Written by: K.Pavlov
+* Date: 07.09.18
+* Origin: PNPI
+* Release: McStas 2.3
+* Version: 2.0
+*
+* PIK reactor beamtube H3 facing cold neutron source. Handles additionaly the thermal regime of CNS and no CNS at all situation.
+*
+* %Parameters
+* guide_start_width: [m] Initial width of guide (where to focus neutrons from source)
+* guide_start_height: [m]  Initial height of guide (where to focus neutrons from source)
+* source_lambda_min: [AA] Minimal wavelength to create
+* source_lambda_max: [AA] Maximal wavelength to create
+* cold_regime: [num] 1 corresponds to normal operation, 0 corresponds to thermal regime, -1 corresponds to no container situation
+*
+* %End
+*******************************************************************************/
+
+DEFINE INSTRUMENT H3_1(nose_length = 3, linh = 10.5, louth = 0.5, linw = 10.5, loutw = 0.5, sample_width = 0.03, sample_height = 0.01, sample_dist=0.4)
+
+DECLARE
+%{
+double m=3;
+
+double m_nose_w = 6, m_nose_h = 6;
+double guide_str_before_nose;
+%}
+
+INITIALIZE
+%{
+guide_str_before_nose = 20 - nose_length;
+%}
+
+TRACE
+
+%include "H3_source.instr"
+
+COMPONENT Guide_metal = Guide_gravity(
+    w1 = guide_start_width, h1 = guide_start_height, l = guide_str_before_nose, mright=m, mleft=m, mtop=m, mbottom=m, R0=R0, alpha=alpha)
+  AT (0, 0, 0) RELATIVE Guide_start_arm
+
+
+COMPONENT Nose_guide = Guide_tapering(
+    option="elliptical", 
+    w1=0.08, 
+    h1=0.15, 
+    l=nose_length, 
+    linh = linh, 
+    louth = louth,
+    linw = linw,
+    loutw = loutw,
+    mx=m_nose_w,
+    my=m_nose_h)
+AT (0, 0, guide_str_before_nose + 0.001) RELATIVE PREVIOUS
+
+
+
+COMPONENT Monlam = Monitor_nD(
+    xwidth = sample_width, yheight = sample_height, options = "lambda bins = 100 limits = [2.4 6]", filename = "cTas.lam")
+  AT (0, 0, nose_length+sample_dist) RELATIVE PREVIOUS
+
+/*******************************/
+/*
+
+COMPONENT Monlam = Monitor_nD(
+    xwidth = 0.09, yheight = 0.16, options = "lambda bins = 100 limits = [0 20] per cm2", filename = "H3-1_IN2.lam")
+  AT (0, 0, 20.0001) RELATIVE PREVIOUS
+
+COMPONENT Monx = Monitor_nD(
+    xwidth = 0.09, yheight = 0.16, options = "x bins = 100 per cm2", filename = "H3-1_IN2.x")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mony = Monitor_nD(
+    xwidth = 0.09, yheight = 0.16, options = "y bins = 100 per cm2", filename = "H3-1_IN2.y")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mondx = Monitor_nD(
+    xwidth = 0.09, yheight = 0.16, options = "dx bins = 100 limits = [-3 3] per cm2", filename = "H3-1_IN2.dx")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mondy = Monitor_nD(
+    xwidth = 0.09, yheight = 0.16, options = "dy bins = 100 limits = [-5 5] per cm2", filename = "H3-1_IN2.dy")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+/*******************************/
+FINALLY
+%{
+%}
+
+END
+
+
+
+
+

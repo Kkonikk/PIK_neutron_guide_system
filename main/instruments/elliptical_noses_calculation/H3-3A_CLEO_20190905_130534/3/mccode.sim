@@ -1,0 +1,58 @@
+McStas simulation description file for H3_3A.
+Date:    Thu Sep  5 13:05:38 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_3A
+  File: /home/nerde/JOB/github/PIK_neutron_guide_system/main/instruments/elliptical_noses_calculation/H3-3A_CLEO_20190905_130534/3/mccode
+  Source: H3-3A_CLEO.instr
+  Parameters:  m(double) nose_length(double) linh(double) louth(double) linw(double) loutw(double) sample_width(double) sample_height(double) sample_dist(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /home/nerde/JOB/github/PIK_neutron_guide_system/main/instruments/elliptical_noses_calculation/H3-3A_CLEO_20190905_130534/3
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H3-3A_CLEO.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1567686391
+  Directory: /home/nerde/JOB/github/PIK_neutron_guide_system/main/instruments/elliptical_noses_calculation/H3-3A_CLEO_20190905_130534/3
+  Param: m=4
+  Param: nose_length=3
+  Param: linh=10.5
+  Param: louth=0.5
+  Param: linw=10.5
+  Param: loutw=0.5
+  Param: sample_width=0.03
+  Param: sample_height=0.01
+  Param: sample_dist=0.4
+  Param: guide_start_width=0.06
+  Param: guide_start_height=0.2
+  Param: source_lambda_min=2
+  Param: source_lambda_max=2.5
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Thu Sep  5 13:05:40 2019 (1567677940)
+  type: array_1d(100)
+  Source: H3_3A (H3-3A_CLEO.instr)
+  component: Monlam
+  position: -0.787277 0.025 50.8131
+  title: Wavelength [Angs] monitor
+  Ncount: 1000000
+  filename: CLEO2.lam
+  statistics: X0=2.25687; dX=0.145082;
+  signal: Min=2.92049e+08; Max=4.15206e+08; Mean=3.45355e+08;
+  values: 3.45355e+10 1.75343e+08 102375
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/bin]
+  xlimits: 2 2.5
+  variables: L I I_err N
+end data

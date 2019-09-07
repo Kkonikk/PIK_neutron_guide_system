@@ -1,0 +1,18 @@
+# Instrument-source: 'H3-3A_CLEO.instr'
+# Date: Thu Sep 05 13 05 2019
+# Ncount: 1000000
+# Numpoints: 2
+# Param: m = 1
+# type: multiarray_1d(2)
+# title: Scan of m
+# xlabel: 'm'
+# ylabel: 'Intensity'
+# xvars: m
+# yvars: (Monlam_I,Monlam_ERR)
+# xlimits: 1 4
+# filename: mccode.dat
+# variables: m Monlam_I Monlam_ERR
+1 1.64101E+10 1.28457E+8
+2 2.95064E+10 1.66737E+8
+3 3.44315E+10 1.75106E+8
+4 3.45355E+10 1.75343E+8

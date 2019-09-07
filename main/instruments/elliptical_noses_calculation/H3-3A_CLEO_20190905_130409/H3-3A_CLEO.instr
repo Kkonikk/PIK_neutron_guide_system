@@ -1,0 +1,264 @@
+DEFINE INSTRUMENT H3_3A(nose_length = 3, linh = 10.5, louth = 0.5, linw = 10.5, loutw = 0.5, sample_width = 0.03, sample_height = 0.01, sample_dist=0.4)
+
+DECLARE
+%{
+double m=2, m_top=3, m_out=3, n=2;
+
+double R_curv=985 ;
+double m_nose_w = 6, m_nose_h = 6;
+//double guide_start_width = 0.062, guide_start_height = 0.15;
+
+//rotation of one guide element
+double rot;
+double guide_str_before_nose;
+%}
+
+INITIALIZE
+%{
+
+//handling rotation
+
+rot = -0.5/R_curv*RAD2DEG;
+guide_str_before_nose = 27 - nose_length;
+%}
+
+TRACE
+
+%include "H3_source.instr"
+
+COMPONENT Guide_metal = Guide_gravity(
+    w1 = guide_start_width, h1 = guide_start_height, l = 3, mright=m, mleft=m, mtop=m_top, mbottom=m_top, R0=R0, alpha=alpha)
+  AT (0, 0, 0) RELATIVE Guide_start_arm
+
+COMPONENT Guide_curved = Guide_gravity(
+    w1 = guide_start_width, h1 = 0.15, l = 0.5, mright=m, mleft=m_out, mtop=m_top, mbottom=m_top, R0=R0, alpha=alpha, nslit=n)
+  AT (0, 0.025, 3) RELATIVE PREVIOUS
+  ROTATED (0, rot, 0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT COPY(Guide_curved) = COPY(Guide_curved)()
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+  ROTATED (0,rot,0) RELATIVE PREVIOUS
+
+COMPONENT Guide_straight = Guide_gravity(
+    w1 = guide_start_width, h1 = 0.15, l = guide_str_before_nose, mright=m, mleft=m, mtop=m_top, mbottom=m_top, R0=R0, alpha=alpha)
+  AT (0, 0, 0.5) RELATIVE PREVIOUS
+
+COMPONENT Monlam = Monitor_nD(
+    xwidth = guide_start_width, yheight = 0.15, options = "lambda bins = 100 limits = [2 2.5]", filename = "CLEO2.lam")
+  AT (0, 0, guide_str_before_nose+0.001) RELATIVE PREVIOUS
+/*
+COMPONENT Nose_guide = Guide_tapering(
+    option="elliptical", 
+    w1=0.03, 
+    h1=guide_start_height, 
+    l=nose_length, 
+    linh = linh, 
+    louth = louth,
+    linw = linw,
+    loutw = loutw,
+    mx=m_nose_w,
+    my=m_nose_h)
+AT (0, 0, guide_str_before_nose + 0.001) RELATIVE PREVIOUS
+
+
+
+COMPONENT Monlam = Monitor_nD(
+    xwidth = sample_width, yheight = sample_height, options = "lambda bins = 100 limits = [2 20]", filename = "CLEO.lam")
+  AT (0, 0, nose_length) RELATIVE PREVIOUS
+
+/*******************************/
+/*
+
+COMPONENT Monlam = Monitor_nD(
+    xwidth = 0.07, yheight = 0.16, options = "lambda bins = 100 limits = [0 20] per cm2", filename = "H3-3A_CLEO.lam")
+  AT (0, 0, 27.0001) RELATIVE PREVIOUS
+
+COMPONENT Monx = Monitor_nD(
+    xwidth = 0.07, yheight = 0.16, options = "x bins = 100 per cm2", filename = "H3-3A_CLEO.x")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mony = Monitor_nD(
+    xwidth = 0.07, yheight = 0.16, options = "y bins = 100 per cm2", filename = "H3-3A_CLEO.y")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mondx = Monitor_nD(
+    xwidth = 0.07, yheight = 0.16, options = "dx bins = 100 limits = [-3 3] per cm2", filename = "H3-3A_CLEO.dx")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+
+COMPONENT Mondy = Monitor_nD(
+    xwidth = 0.07, yheight = 0.16, options = "dy bins = 100 limits = [-5 5] per cm2", filename = "H3-3A_CLEO.dy")
+  AT (0, 0, 0) RELATIVE PREVIOUS
+/*******************************/
+FINALLY
+%{
+%}
+
+END

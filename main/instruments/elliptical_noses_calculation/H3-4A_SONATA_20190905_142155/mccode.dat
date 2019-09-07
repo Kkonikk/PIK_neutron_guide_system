@@ -1,0 +1,17 @@
+# Instrument-source: 'H3-4A_SONATA.instr'
+# Date: Thu Sep 05 14 23 2019
+# Ncount: 1000000
+# Numpoints: 2
+# Param: louth = 0.01
+# type: multiarray_1d(2)
+# title: Scan of louth
+# xlabel: 'louth'
+# ylabel: 'Intensity'
+# xvars: louth
+# yvars: (Monlam_I,Monlam_ERR) (Monxy_I,Monxy_ERR)
+# xlimits: 0.01 1
+# filename: mccode.dat
+# variables: louth Monlam_I Monlam_ERR Monxy_I Monxy_ERR
+0.01 1.26979E+10 4.71786E+8 8.18632E+10 9.79775E+8
+0.505 6.66532E+10 9.63487E+8 3.13616E+11 1.94408E+9
+1.00 5.22202E+10 8.1376E+8 3.36723E+11 2.04914E+9

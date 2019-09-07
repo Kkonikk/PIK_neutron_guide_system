@@ -1,0 +1,80 @@
+McStas simulation description file for H3_4A.
+Date:    Thu Sep  5 14:22:58 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_4A
+  File: /home/nerde/JOB/github/PIK_neutron_guide_system/main/instruments/elliptical_noses_calculation/H3-4A_SONATA_20190905_142155/0/mccode
+  Source: H3-4A_SONATA.instr
+  Parameters:  nose_length(double) linh(double) louth(double) linw(double) loutw(double) sample_width(double) sample_height(double) sample_dist(double) guide_start_width(double) guide_start_height(double) source_lambda_min(double) source_lambda_max(double) cold_regime(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /home/nerde/JOB/github/PIK_neutron_guide_system/main/instruments/elliptical_noses_calculation/H3-4A_SONATA_20190905_142155/0
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H3-4A_SONATA.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1567694841
+  Directory: /home/nerde/JOB/github/PIK_neutron_guide_system/main/instruments/elliptical_noses_calculation/H3-4A_SONATA_20190905_142155/0
+  Nodes: 4
+  Param: nose_length=10.08
+  Param: linh=8.16
+  Param: louth=0.01
+  Param: linw=0
+  Param: loutw=0
+  Param: sample_width=0.03
+  Param: sample_height=0.01
+  Param: sample_dist=0.4
+  Param: guide_start_width=0.062
+  Param: guide_start_height=0.15
+  Param: source_lambda_min=2
+  Param: source_lambda_max=20
+  Param: cold_regime=1
+end simulation
+
+begin data
+  Date: Thu Sep  5 14:23:03 2019 (1567682583)
+  type: array_1d(100)
+  Source: H3_4A (H3-4A_SONATA.instr)
+  component: Monlam
+  position: -1.28415 0 62.2033
+  title: Wavelength [Angs] monitor
+  Ncount: 1000000
+  filename: SONATA.lam
+  statistics: X0=5.65638; dX=2.82465;
+  signal: Min=2.64946e+06; Max=5.55492e+08; Mean=1.26979e+08;
+  values: 1.26979e+10 4.71786e+08 3704
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/bin]
+  xlimits: 2 20
+  variables: L I I_err N
+end data
+
+begin data
+  Date: Thu Sep  5 14:23:03 2019 (1567682583)
+  type: array_2d(100, 100)
+  Source: H3_4A (H3-4A_SONATA.instr)
+  component: Monxy
+  position: -1.28418 0 62.2043
+  title:  Intensity Position Position Monitor (Square) per bin
+  Ncount: 1000000
+  filename: Monxy_1567682578.x_y
+  statistics: X0=3.04449e-05; dX=0.00941032; Y0=-0.000316441; dY=0.0221268;
+  signal: Min=0; Max=1.45189e+08; Mean=8.18632e+06;
+  values: 8.18632e+10 9.79775e+08 46273
+  xvar: x 
+  yvar: y 
+  xlabel: x [m]
+  ylabel: y [m]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: -0.05 0.05 -0.05 0.05
+  variables: I I_err N
+end data
