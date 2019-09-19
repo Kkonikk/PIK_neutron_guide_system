@@ -51,7 +51,7 @@ double m=2, n=1, m_out=3, m_top=2;
 //rotation of one guide element
 double rot;
 
-double guide_start_width = 0.05, guide_start_height = 0.2, source_lambda_min = 0.1, source_lambda_max = 20, cold_regime=1;
+double guide_start_width = 0.05, guide_start_height = 0.2, source_lambda_min = 4.05, source_lambda_max = 4.95, cold_regime=1;
 %}
 
 INITIALIZE

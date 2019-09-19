@@ -1,15 +1,15 @@
-%H = 1.6;
-R = 460;
-L = 107;
+H = 1.6;
+%R = 460;
+L = 50;
 N = 5;
 
-Lb = 50;
+Lb = 40;
 Ls = L - Lb;
-%R = (Lb^2+2*Lb*Ls)/2/H;
+R = (Lb^2+2*Lb*Ls)/2/H;
 n_chan_min = 1; n_chan_step = 1; n_chan_max = N;
-model = mccode('../generic_guides/generic_curved_ell_S_guide.instr','ncount=1e6');
+model = mccode('../generic_guides/generic_curved.instr','ncount=1e6');
 %model = mccode('../generic_guides/generic_curved_S_guide.instr','ncount=1e7');
-name = 'H3-5 TOF lam20 s_bender';
+name = 'test';
 parameters.sample_width=0.05;
 parameters.sample_height=0.14;
 parameters.guide_start_width=0.01;
