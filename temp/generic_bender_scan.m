@@ -1,7 +1,7 @@
 function generic_bender_scan(H,L,N)
 Lb_min = 1; Lb_step = 2.5; Lb_max = 21;
 n_chan_min = 1; n_chan_step = 1; n_chan_max = N;
-model = mccode('../generic_guides/generic_curved_HEC2.instr','ncount=1e6');
+model = mccode('../generic_guides/generic_curved.instr','ncount=1e6;mpi=4');
 
 name = 'H2-1 ARES bender scan lambda 16dop';
 parameters.sample_width=0.06;
@@ -16,7 +16,7 @@ parameters.m_in=6;
 parameters.m_str_side=6;
 parameters.m_top=6;
 
-model_str = mccode('../generic_guides/generic_straight.instr','ncount=1e6');
+model_str = mccode('../generic_guides/generic_straight.instr','ncount=1e6;mpi=4');
 parameters_str.guide_length = L;
 parameters_str.m_str_side=6;
 parameters_str.m_top=6;
