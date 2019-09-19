@@ -1,0 +1,84 @@
+McStas simulation description file for H3_5B.
+Date:    Tue Sep 17 20:32:33 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_5B
+  File: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/instruments/H3-5B-Membrane_20190917_203233/mccode
+  Source: H3-5B-Membrane.instr
+  Parameters: 
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/instruments/H3-5B-Membrane_20190917_203233
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H3-5B-Membrane.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1568766047
+  Directory: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/instruments/H3-5B-Membrane_20190917_203233
+end simulation
+
+begin data
+  Date: Tue Sep 17 20:32:36 2019 (1568741556)
+  type: array_1d(100)
+  Source: H3_5B (H3-5B-Membrane.instr)
+  component: Monlam
+  position: -0.134933 0.025 84.8122
+  title: Wavelength [Angs] monitor
+  Ncount: 1000000
+  filename: H3-5B_Membrane.lam
+  statistics: X0=4.51267; dX=0.262904;
+  signal: Min=0; Max=2.58839e+09; Mean=1.11702e+08;
+  values: 1.11702e+10 1.2611e+08 42126
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/bin]
+  xlimits: 0 20
+  variables: L I I_err N
+end data
+
+begin data
+  Date: Tue Sep 17 20:32:36 2019 (1568741556)
+  type: array_1d(100)
+  Source: H3_5B (H3-5B-Membrane.instr)
+  component: Mondx
+  position: -0.134933 0.025 84.8122
+  title: Hor. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-5B_Membrane.dx
+  statistics: X0=-0.0278025; dX=0.263166;
+  signal: Min=0; Max=8.5687e+08; Mean=1.11702e+08;
+  values: 1.11702e+10 1.2611e+08 42128
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/bin]
+  xlimits: -3 3
+  variables: hd I I_err N
+end data
+
+begin data
+  Date: Tue Sep 17 20:32:36 2019 (1568741556)
+  type: array_1d(100)
+  Source: H3_5B (H3-5B-Membrane.instr)
+  component: Mondy
+  position: -0.134933 0.025 84.8122
+  title: Vert. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-5B_Membrane.dy
+  statistics: X0=-0.00184721; dX=0.25424;
+  signal: Min=0; Max=1.36522e+09; Mean=1.11702e+08;
+  values: 1.11702e+10 1.2611e+08 42128
+  xvar: vd
+  yvar: (I,I_err)
+  xlabel: Vert. Divergence [deg]
+  ylabel: Intensity [n/s/bin]
+  xlimits: -5 5
+  variables: vd I I_err N
+end data
