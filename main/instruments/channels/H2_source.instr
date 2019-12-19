@@ -1,0 +1,68 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: PIK H2 beamtube 
+*
+* %Identification
+* Written by: Y. Kireenko
+* Date: 03.09.19
+* Origin: PNPI
+* Release: McStas 2.4.1
+* Version: 0.5
+*
+* PIK reactor beamtube H2 facing thermal neutron source.
+*
+* %Parameters
+* optics_start_width: [m] Initial width of guide (where to focus neutrons from source)
+* optics_start_height: [m]  Initial height of guide (where to focus neutrons from source)
+* source_lambda_min: [AA] Minimal wavelength to create
+* source_lambda_max: [AA] Maximal wavelength to create
+*
+* %End
+*******************************************************************************/
+
+DEFINE INSTRUMENT H2_beamtube(optics_start_width = 0.06, optics_start_height = 0.2, source_lambda_min = 0.9, source_lambda_max = 2.4)
+
+DECLARE
+%{
+//[Cold source parameters
+double source_width = 0.1 , source_height = 0.2;
+double source_T1 = 330 , source_I1 = 4.77e13 ;
+
+// beam tube parameters
+double channel_height = 0.2;
+
+//Distance to neutron guides
+double optics_start_dist = 2.52;
+
+//Reflection parameters
+double R0 = 0.99, alpha = 3.3;
+%}
+
+INITIALIZE
+%{
+%}
+
+TRACE
+
+COMPONENT Origin = Progress_bar()
+  AT (0,0,0) ABSOLUTE
+
+
+COMPONENT H3 = Source_gen(
+    dist = optics_start_dist, focus_xw = optics_start_width,
+    focus_yh = optics_start_height, I1 = source_I1, yheight = source_height,
+    xwidth = source_width, T1 = source_T1, Lmin = source_lambda_min,
+    Lmax = source_lambda_max)
+  AT (0, 0, 0) RELATIVE Origin
+
+COMPONENT optics_start_arm = Arm(
+    )
+  AT (0, 0, optics_start_dist) RELATIVE Origin
+
+
+FINALLY
+%{
+%}
+
+END

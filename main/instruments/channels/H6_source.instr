@@ -1,0 +1,65 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: PIK H6 beamtube 
+*
+* %Identification
+* Written by: Y. Kireenko
+* Date: 09.08.19
+* Origin: PNPI
+* Release: McStas 2.4
+* Version: 2.0
+*
+* PIK reactor beamtube H6 facing thermal neutron source.
+*
+* %Parameters
+* optics_start_width: [m] Initial width of the first optics element (where to focus neutrons from source)
+* optics_start_height: [m]  Initial height of the first optics element (where to focus neutrons from source)
+* optics_start_dist: [m] Initial distance of the first optics element (where to focus neutrons from source); channel length+shutter = 2.45 m
+* source_lambda_min: [AA] Minimal wavelength to create
+* source_lambda_max: [AA] Maximal wavelength to create
+*
+* %End
+*******************************************************************************/
+
+DEFINE INSTRUMENT H6(optics_start_width = 0.18, optics_start_height = 0.18, source_lambda_min = 2.39, source_lambda_max = 2.41, optics_start_dist = 2.973)
+
+DECLARE
+%{
+//[Cold source parameters
+double source_height = 0.18, source_width = 0.18;
+double source_I1 = 3.24e14/4/PI;
+double source_T1 = 330;
+
+//Distance to first optic element(only channel, without shutter)
+//double optics_start_dist = 1.75;
+
+%}
+
+INITIALIZE
+%{
+%}
+
+TRACE
+
+COMPONENT Origin = Progress_bar()
+  AT (0,0,0) ABSOLUTE
+
+
+COMPONENT H6_tube = Source_gen(
+    dist = optics_start_dist, focus_xw = optics_start_width,
+    focus_yh = optics_start_height, I1 = source_I1, yheight = source_height,
+    xwidth = source_width, T1 = source_T1, Lmin = source_lambda_min,
+    Lmax = source_lambda_max)
+  AT (0, 0, 0) RELATIVE Origin
+
+COMPONENT optics_start_arm = Arm(
+    )
+  AT (0, 0, optics_start_dist) RELATIVE Origin
+
+
+FINALLY
+%{
+%}
+
+END
