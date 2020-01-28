@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: H5-1-SANS2.instr (H3_5A)
- * Date:       Mon Sep  9 10:38:12 2019
+ * Date:       Fri Oct 11 13:46:43 2019
  * File:       ./H5-1-SANS2.c
  * Compile:    cc -o H3_5A.out ./H5-1-SANS2.c 
  * CFLAGS=
