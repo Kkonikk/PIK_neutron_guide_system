@@ -1,0 +1,84 @@
+McStas simulation description file for H3_0.
+Date:    Wed Nov 13 16:36:36 2019
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_0
+  File: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/instruments/H0-DEDM_20191113_163636/mccode
+  Source: H0-DEDM.instr
+  Parameters: 
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/instruments/H0-DEDM_20191113_163636
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H0-DEDM.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1573654622
+  Directory: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/instruments/H0-DEDM_20191113_163636
+end simulation
+
+begin data
+  Date: Wed Nov 13 16:36:40 2019 (1573652200)
+  type: array_1d(100)
+  Source: H3_0 (H0-DEDM.instr)
+  component: Monlam
+  position: -0.577908 0 13.8025
+  title: Wavelength [Angs] monitor
+  Ncount: 1000000
+  filename: H3-0_DEDM.lam
+  statistics: X0=7.85343; dX=3.41247;
+  signal: Min=0; Max=9.93496e+09; Mean=3.08184e+09;
+  values: 3.08184e+11 1.05561e+09 702011
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/bin]
+  xlimits: 0 20
+  variables: L I I_err N
+end data
+
+begin data
+  Date: Wed Nov 13 16:36:40 2019 (1573652200)
+  type: array_1d(100)
+  Source: H3_0 (H0-DEDM.instr)
+  component: Mondx
+  position: -0.577908 0 13.8025
+  title: Hor. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-0_DEDM.dx
+  statistics: X0=-0.00406725; dX=0.751235;
+  signal: Min=986640; Max=1.00247e+10; Mean=3.08171e+09;
+  values: 3.08171e+11 1.05561e+09 700277
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/bin]
+  xlimits: -3 3
+  variables: hd I I_err N
+end data
+
+begin data
+  Date: Wed Nov 13 16:36:40 2019 (1573652200)
+  type: array_1d(100)
+  Source: H3_0 (H0-DEDM.instr)
+  component: Mondy
+  position: -0.577908 0 13.8025
+  title: Vert. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-0_DEDM.dy
+  statistics: X0=-0.000532544; dX=0.868966;
+  signal: Min=0; Max=1.31538e+10; Mean=3.08184e+09;
+  values: 3.08184e+11 1.05561e+09 702011
+  xvar: vd
+  yvar: (I,I_err)
+  xlabel: Vert. Divergence [deg]
+  ylabel: Intensity [n/s/bin]
+  xlimits: -5 5
+  variables: vd I I_err N
+end data
