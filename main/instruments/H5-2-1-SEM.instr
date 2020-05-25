@@ -52,7 +52,7 @@ double m=1, n=1, m_out=2, m_top=1;
 double rot1, rot2;
 
 
-double guide_start_width = 0.05, guide_start_height = 0.2, source_lambda_min = 6.3, source_lambda_max = 7.7, cold_regime=1;
+double guide_start_width = 0.05, guide_start_height = 0.2, source_lambda_min = 0.1, source_lambda_max = 25, cold_regime=1;
 %}
 
 INITIALIZE
@@ -723,9 +723,13 @@ COMPONENT Guide_straight = Guide_gravity(
     w1 = 0.05, h1 = 0.05, l = 12, mright=m, mleft=m, mtop=m_top, mbottom=m_top, R0=R0, alpha=alpha)
   AT (0, 0, 0.5) RELATIVE PREVIOUS
 
+COMPONENT Monlam_guide = Monitor_nD(
+    xwidth = 0.05, yheight = 0.05, options = "lambda bins = 100 limits = [0 20]", filename = "H3-5D_NSE_guide.lam")
+  AT (0, 0, 12.0001) RELATIVE PREVIOUS
+
 COMPONENT Monlam = Monitor_nD(
     xwidth = 0.01, yheight = 0.01, options = "lambda bins = 100 limits = [0 20]", filename = "H3-5D_NSE.lam")
-  AT (0, 0, 15.0001) RELATIVE PREVIOUS
+  AT (0, 0, 3) RELATIVE PREVIOUS
 
 COMPONENT Mondx = Monitor_nD(
     xwidth = 0.06, yheight = 0.06, options = "dx bins = 100 limits = [-3 3]", filename = "H3-5D_NSE.dx")

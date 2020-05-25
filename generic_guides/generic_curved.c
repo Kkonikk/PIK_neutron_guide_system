@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: ../generic_guides/generic_curved.instr (generic_curved)
- * Date:       Thu Sep 19 16:17:35 2019
+ * Date:       Thu Apr  2 04:12:03 2020
  * File:       ../generic_guides/generic_curved.c
  * Compile:    cc -o generic_curved.out ../generic_guides/generic_curved.c 
  * CFLAGS=
@@ -5310,7 +5310,7 @@ int mctraceenabled = 1;
 #else
 int mctraceenabled = 0;
 #endif
-#define MCSTAS "/usr/share/mcstas/2.5/"
+#define MCSTAS "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/"
 int mcdefaultmain = 1;
 char mcinstrument_name[] = "generic_curved";
 char mcinstrument_source[] = "../generic_guides/generic_curved.instr";
@@ -5323,7 +5323,7 @@ void mcfinally(void);
 void mcdisplay(void);
 
 /* Shared user declarations for all components 'Source_gen'. */
-#line 140 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 140 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -6803,7 +6803,7 @@ char *str_dup_numeric(char *orig)
 #line 6803 "../generic_guides/generic_curved.c"
 
 /* Shared user declarations for all components 'Guide_gravity'. */
-#line 124 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 124 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 /*****************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -7159,7 +7159,7 @@ void TableReflecFunc(double mc_pol_q, t_Table *mc_pol_par, double *mc_pol_r) {
 #line 7159 "../generic_guides/generic_curved.c"
 
 /* Shared user declarations for all components 'Monitor_nD'. */
-#line 214 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 214 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -13927,7 +13927,7 @@ int mccSample_nowritefile;
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 44 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 44 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 #ifndef PROGRESS_BAR
 #define PROGRESS_BAR
 #else
@@ -14002,7 +14002,7 @@ time_t CurrentTime;
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 184 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 184 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 
   double p_in;
   double lambda1;  /* first Maxwellian source */
@@ -14122,7 +14122,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_nu
 #define phase mccGuide_curved_phase
 #define reflect mccGuide_curved_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 14128 "../generic_guides/generic_curved.c"
@@ -14206,7 +14206,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_5_nu
 #define phase mccGuide_curved_5_phase
 #define reflect mccGuide_curved_5_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 14212 "../generic_guides/generic_curved.c"
@@ -14290,7 +14290,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_6_nu
 #define phase mccGuide_curved_6_phase
 #define reflect mccGuide_curved_6_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 14296 "../generic_guides/generic_curved.c"
@@ -14374,7 +14374,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_7_nu
 #define phase mccGuide_curved_7_phase
 #define reflect mccGuide_curved_7_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 14380 "../generic_guides/generic_curved.c"
@@ -14458,7 +14458,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_8_nu
 #define phase mccGuide_curved_8_phase
 #define reflect mccGuide_curved_8_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 14464 "../generic_guides/generic_curved.c"
@@ -14542,7 +14542,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_9_nu
 #define phase mccGuide_curved_9_phase
 #define reflect mccGuide_curved_9_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 14548 "../generic_guides/generic_curved.c"
@@ -14626,7 +14626,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_10_nu
 #define phase mccGuide_curved_10_phase
 #define reflect mccGuide_curved_10_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 14632 "../generic_guides/generic_curved.c"
@@ -14710,7 +14710,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_11_nu
 #define phase mccGuide_curved_11_phase
 #define reflect mccGuide_curved_11_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 14716 "../generic_guides/generic_curved.c"
@@ -14794,7 +14794,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_12_nu
 #define phase mccGuide_curved_12_phase
 #define reflect mccGuide_curved_12_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 14800 "../generic_guides/generic_curved.c"
@@ -14878,7 +14878,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_13_nu
 #define phase mccGuide_curved_13_phase
 #define reflect mccGuide_curved_13_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 14884 "../generic_guides/generic_curved.c"
@@ -14962,7 +14962,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_14_nu
 #define phase mccGuide_curved_14_phase
 #define reflect mccGuide_curved_14_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 14968 "../generic_guides/generic_curved.c"
@@ -15046,7 +15046,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_15_nu
 #define phase mccGuide_curved_15_phase
 #define reflect mccGuide_curved_15_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15052 "../generic_guides/generic_curved.c"
@@ -15130,7 +15130,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_16_nu
 #define phase mccGuide_curved_16_phase
 #define reflect mccGuide_curved_16_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15136 "../generic_guides/generic_curved.c"
@@ -15214,7 +15214,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_17_nu
 #define phase mccGuide_curved_17_phase
 #define reflect mccGuide_curved_17_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15220 "../generic_guides/generic_curved.c"
@@ -15298,7 +15298,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_18_nu
 #define phase mccGuide_curved_18_phase
 #define reflect mccGuide_curved_18_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15304 "../generic_guides/generic_curved.c"
@@ -15382,7 +15382,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_19_nu
 #define phase mccGuide_curved_19_phase
 #define reflect mccGuide_curved_19_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15388 "../generic_guides/generic_curved.c"
@@ -15466,7 +15466,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_20_nu
 #define phase mccGuide_curved_20_phase
 #define reflect mccGuide_curved_20_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15472 "../generic_guides/generic_curved.c"
@@ -15550,7 +15550,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_21_nu
 #define phase mccGuide_curved_21_phase
 #define reflect mccGuide_curved_21_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15556 "../generic_guides/generic_curved.c"
@@ -15634,7 +15634,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_22_nu
 #define phase mccGuide_curved_22_phase
 #define reflect mccGuide_curved_22_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15640 "../generic_guides/generic_curved.c"
@@ -15718,7 +15718,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_23_nu
 #define phase mccGuide_curved_23_phase
 #define reflect mccGuide_curved_23_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15724 "../generic_guides/generic_curved.c"
@@ -15802,7 +15802,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_24_nu
 #define phase mccGuide_curved_24_phase
 #define reflect mccGuide_curved_24_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15808 "../generic_guides/generic_curved.c"
@@ -15886,7 +15886,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_25_nu
 #define phase mccGuide_curved_25_phase
 #define reflect mccGuide_curved_25_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15892 "../generic_guides/generic_curved.c"
@@ -15970,7 +15970,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_26_nu
 #define phase mccGuide_curved_26_phase
 #define reflect mccGuide_curved_26_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 15976 "../generic_guides/generic_curved.c"
@@ -16054,7 +16054,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_27_nu
 #define phase mccGuide_curved_27_phase
 #define reflect mccGuide_curved_27_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16060 "../generic_guides/generic_curved.c"
@@ -16138,7 +16138,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_28_nu
 #define phase mccGuide_curved_28_phase
 #define reflect mccGuide_curved_28_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16144 "../generic_guides/generic_curved.c"
@@ -16222,7 +16222,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_29_nu
 #define phase mccGuide_curved_29_phase
 #define reflect mccGuide_curved_29_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16228 "../generic_guides/generic_curved.c"
@@ -16306,7 +16306,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_30_nu
 #define phase mccGuide_curved_30_phase
 #define reflect mccGuide_curved_30_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16312 "../generic_guides/generic_curved.c"
@@ -16390,7 +16390,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_31_nu
 #define phase mccGuide_curved_31_phase
 #define reflect mccGuide_curved_31_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16396 "../generic_guides/generic_curved.c"
@@ -16474,7 +16474,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_32_nu
 #define phase mccGuide_curved_32_phase
 #define reflect mccGuide_curved_32_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16480 "../generic_guides/generic_curved.c"
@@ -16558,7 +16558,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_33_nu
 #define phase mccGuide_curved_33_phase
 #define reflect mccGuide_curved_33_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16564 "../generic_guides/generic_curved.c"
@@ -16642,7 +16642,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_34_nu
 #define phase mccGuide_curved_34_phase
 #define reflect mccGuide_curved_34_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16648 "../generic_guides/generic_curved.c"
@@ -16726,7 +16726,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_35_nu
 #define phase mccGuide_curved_35_phase
 #define reflect mccGuide_curved_35_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16732 "../generic_guides/generic_curved.c"
@@ -16810,7 +16810,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_36_nu
 #define phase mccGuide_curved_36_phase
 #define reflect mccGuide_curved_36_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16816 "../generic_guides/generic_curved.c"
@@ -16894,7 +16894,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_37_nu
 #define phase mccGuide_curved_37_phase
 #define reflect mccGuide_curved_37_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16900 "../generic_guides/generic_curved.c"
@@ -16978,7 +16978,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_38_nu
 #define phase mccGuide_curved_38_phase
 #define reflect mccGuide_curved_38_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 16984 "../generic_guides/generic_curved.c"
@@ -17062,7 +17062,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_39_nu
 #define phase mccGuide_curved_39_phase
 #define reflect mccGuide_curved_39_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17068 "../generic_guides/generic_curved.c"
@@ -17146,7 +17146,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_40_nu
 #define phase mccGuide_curved_40_phase
 #define reflect mccGuide_curved_40_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17152 "../generic_guides/generic_curved.c"
@@ -17230,7 +17230,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_41_nu
 #define phase mccGuide_curved_41_phase
 #define reflect mccGuide_curved_41_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17236 "../generic_guides/generic_curved.c"
@@ -17314,7 +17314,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_42_nu
 #define phase mccGuide_curved_42_phase
 #define reflect mccGuide_curved_42_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17320 "../generic_guides/generic_curved.c"
@@ -17398,7 +17398,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_43_nu
 #define phase mccGuide_curved_43_phase
 #define reflect mccGuide_curved_43_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17404 "../generic_guides/generic_curved.c"
@@ -17482,7 +17482,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_44_nu
 #define phase mccGuide_curved_44_phase
 #define reflect mccGuide_curved_44_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17488 "../generic_guides/generic_curved.c"
@@ -17566,7 +17566,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_45_nu
 #define phase mccGuide_curved_45_phase
 #define reflect mccGuide_curved_45_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17572 "../generic_guides/generic_curved.c"
@@ -17650,7 +17650,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_46_nu
 #define phase mccGuide_curved_46_phase
 #define reflect mccGuide_curved_46_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17656 "../generic_guides/generic_curved.c"
@@ -17734,7 +17734,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_47_nu
 #define phase mccGuide_curved_47_phase
 #define reflect mccGuide_curved_47_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17740 "../generic_guides/generic_curved.c"
@@ -17818,7 +17818,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_48_nu
 #define phase mccGuide_curved_48_phase
 #define reflect mccGuide_curved_48_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17824 "../generic_guides/generic_curved.c"
@@ -17902,7 +17902,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_49_nu
 #define phase mccGuide_curved_49_phase
 #define reflect mccGuide_curved_49_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17908 "../generic_guides/generic_curved.c"
@@ -17986,7 +17986,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_50_nu
 #define phase mccGuide_curved_50_phase
 #define reflect mccGuide_curved_50_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 17992 "../generic_guides/generic_curved.c"
@@ -18070,7 +18070,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_51_nu
 #define phase mccGuide_curved_51_phase
 #define reflect mccGuide_curved_51_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 18076 "../generic_guides/generic_curved.c"
@@ -18154,7 +18154,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_52_nu
 #define phase mccGuide_curved_52_phase
 #define reflect mccGuide_curved_52_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 18160 "../generic_guides/generic_curved.c"
@@ -18238,7 +18238,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_53_nu
 #define phase mccGuide_curved_53_phase
 #define reflect mccGuide_curved_53_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 18244 "../generic_guides/generic_curved.c"
@@ -18322,7 +18322,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_54_nu
 #define phase mccGuide_curved_54_phase
 #define reflect mccGuide_curved_54_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 18328 "../generic_guides/generic_curved.c"
@@ -18406,7 +18406,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_55_nu
 #define phase mccGuide_curved_55_phase
 #define reflect mccGuide_curved_55_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 18412 "../generic_guides/generic_curved.c"
@@ -18490,7 +18490,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_56_nu
 #define phase mccGuide_curved_56_phase
 #define reflect mccGuide_curved_56_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 18496 "../generic_guides/generic_curved.c"
@@ -18574,7 +18574,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_57_nu
 #define phase mccGuide_curved_57_phase
 #define reflect mccGuide_curved_57_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 18580 "../generic_guides/generic_curved.c"
@@ -18658,7 +18658,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_58_nu
 #define phase mccGuide_curved_58_phase
 #define reflect mccGuide_curved_58_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 18664 "../generic_guides/generic_curved.c"
@@ -18742,7 +18742,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_59_nu
 #define phase mccGuide_curved_59_phase
 #define reflect mccGuide_curved_59_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 18748 "../generic_guides/generic_curved.c"
@@ -18826,7 +18826,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_60_nu
 #define phase mccGuide_curved_60_phase
 #define reflect mccGuide_curved_60_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 18832 "../generic_guides/generic_curved.c"
@@ -18910,7 +18910,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_61_nu
 #define phase mccGuide_curved_61_phase
 #define reflect mccGuide_curved_61_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 18916 "../generic_guides/generic_curved.c"
@@ -18994,7 +18994,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_62_nu
 #define phase mccGuide_curved_62_phase
 #define reflect mccGuide_curved_62_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19000 "../generic_guides/generic_curved.c"
@@ -19078,7 +19078,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_63_nu
 #define phase mccGuide_curved_63_phase
 #define reflect mccGuide_curved_63_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19084 "../generic_guides/generic_curved.c"
@@ -19162,7 +19162,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_64_nu
 #define phase mccGuide_curved_64_phase
 #define reflect mccGuide_curved_64_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19168 "../generic_guides/generic_curved.c"
@@ -19246,7 +19246,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_65_nu
 #define phase mccGuide_curved_65_phase
 #define reflect mccGuide_curved_65_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19252 "../generic_guides/generic_curved.c"
@@ -19330,7 +19330,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_66_nu
 #define phase mccGuide_curved_66_phase
 #define reflect mccGuide_curved_66_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19336 "../generic_guides/generic_curved.c"
@@ -19414,7 +19414,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_67_nu
 #define phase mccGuide_curved_67_phase
 #define reflect mccGuide_curved_67_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19420 "../generic_guides/generic_curved.c"
@@ -19498,7 +19498,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_68_nu
 #define phase mccGuide_curved_68_phase
 #define reflect mccGuide_curved_68_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19504 "../generic_guides/generic_curved.c"
@@ -19582,7 +19582,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_69_nu
 #define phase mccGuide_curved_69_phase
 #define reflect mccGuide_curved_69_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19588 "../generic_guides/generic_curved.c"
@@ -19666,7 +19666,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_70_nu
 #define phase mccGuide_curved_70_phase
 #define reflect mccGuide_curved_70_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19672 "../generic_guides/generic_curved.c"
@@ -19750,7 +19750,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_71_nu
 #define phase mccGuide_curved_71_phase
 #define reflect mccGuide_curved_71_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19756 "../generic_guides/generic_curved.c"
@@ -19834,7 +19834,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_72_nu
 #define phase mccGuide_curved_72_phase
 #define reflect mccGuide_curved_72_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19840 "../generic_guides/generic_curved.c"
@@ -19918,7 +19918,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_73_nu
 #define phase mccGuide_curved_73_phase
 #define reflect mccGuide_curved_73_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 19924 "../generic_guides/generic_curved.c"
@@ -20002,7 +20002,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_74_nu
 #define phase mccGuide_curved_74_phase
 #define reflect mccGuide_curved_74_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20008 "../generic_guides/generic_curved.c"
@@ -20086,7 +20086,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_75_nu
 #define phase mccGuide_curved_75_phase
 #define reflect mccGuide_curved_75_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20092 "../generic_guides/generic_curved.c"
@@ -20170,7 +20170,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_76_nu
 #define phase mccGuide_curved_76_phase
 #define reflect mccGuide_curved_76_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20176 "../generic_guides/generic_curved.c"
@@ -20254,7 +20254,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_77_nu
 #define phase mccGuide_curved_77_phase
 #define reflect mccGuide_curved_77_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20260 "../generic_guides/generic_curved.c"
@@ -20338,7 +20338,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_78_nu
 #define phase mccGuide_curved_78_phase
 #define reflect mccGuide_curved_78_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20344 "../generic_guides/generic_curved.c"
@@ -20422,7 +20422,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_79_nu
 #define phase mccGuide_curved_79_phase
 #define reflect mccGuide_curved_79_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20428 "../generic_guides/generic_curved.c"
@@ -20506,7 +20506,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_80_nu
 #define phase mccGuide_curved_80_phase
 #define reflect mccGuide_curved_80_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20512 "../generic_guides/generic_curved.c"
@@ -20590,7 +20590,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_81_nu
 #define phase mccGuide_curved_81_phase
 #define reflect mccGuide_curved_81_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20596 "../generic_guides/generic_curved.c"
@@ -20674,7 +20674,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_82_nu
 #define phase mccGuide_curved_82_phase
 #define reflect mccGuide_curved_82_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20680 "../generic_guides/generic_curved.c"
@@ -20758,7 +20758,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_83_nu
 #define phase mccGuide_curved_83_phase
 #define reflect mccGuide_curved_83_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20764 "../generic_guides/generic_curved.c"
@@ -20842,7 +20842,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_84_nu
 #define phase mccGuide_curved_84_phase
 #define reflect mccGuide_curved_84_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20848 "../generic_guides/generic_curved.c"
@@ -20926,7 +20926,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_85_nu
 #define phase mccGuide_curved_85_phase
 #define reflect mccGuide_curved_85_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 20932 "../generic_guides/generic_curved.c"
@@ -21010,7 +21010,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_86_nu
 #define phase mccGuide_curved_86_phase
 #define reflect mccGuide_curved_86_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21016 "../generic_guides/generic_curved.c"
@@ -21094,7 +21094,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_87_nu
 #define phase mccGuide_curved_87_phase
 #define reflect mccGuide_curved_87_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21100 "../generic_guides/generic_curved.c"
@@ -21178,7 +21178,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_88_nu
 #define phase mccGuide_curved_88_phase
 #define reflect mccGuide_curved_88_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21184 "../generic_guides/generic_curved.c"
@@ -21262,7 +21262,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_89_nu
 #define phase mccGuide_curved_89_phase
 #define reflect mccGuide_curved_89_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21268 "../generic_guides/generic_curved.c"
@@ -21346,7 +21346,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_90_nu
 #define phase mccGuide_curved_90_phase
 #define reflect mccGuide_curved_90_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21352 "../generic_guides/generic_curved.c"
@@ -21430,7 +21430,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_91_nu
 #define phase mccGuide_curved_91_phase
 #define reflect mccGuide_curved_91_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21436 "../generic_guides/generic_curved.c"
@@ -21514,7 +21514,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_92_nu
 #define phase mccGuide_curved_92_phase
 #define reflect mccGuide_curved_92_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21520 "../generic_guides/generic_curved.c"
@@ -21598,7 +21598,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_93_nu
 #define phase mccGuide_curved_93_phase
 #define reflect mccGuide_curved_93_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21604 "../generic_guides/generic_curved.c"
@@ -21682,7 +21682,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_94_nu
 #define phase mccGuide_curved_94_phase
 #define reflect mccGuide_curved_94_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21688 "../generic_guides/generic_curved.c"
@@ -21766,7 +21766,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_95_nu
 #define phase mccGuide_curved_95_phase
 #define reflect mccGuide_curved_95_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21772 "../generic_guides/generic_curved.c"
@@ -21850,7 +21850,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_96_nu
 #define phase mccGuide_curved_96_phase
 #define reflect mccGuide_curved_96_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21856 "../generic_guides/generic_curved.c"
@@ -21934,7 +21934,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_97_nu
 #define phase mccGuide_curved_97_phase
 #define reflect mccGuide_curved_97_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 21940 "../generic_guides/generic_curved.c"
@@ -22018,7 +22018,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_98_nu
 #define phase mccGuide_curved_98_phase
 #define reflect mccGuide_curved_98_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 22024 "../generic_guides/generic_curved.c"
@@ -22102,7 +22102,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_99_nu
 #define phase mccGuide_curved_99_phase
 #define reflect mccGuide_curved_99_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 22108 "../generic_guides/generic_curved.c"
@@ -22186,7 +22186,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_100_nu
 #define phase mccGuide_curved_100_phase
 #define reflect mccGuide_curved_100_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 22192 "../generic_guides/generic_curved.c"
@@ -22270,7 +22270,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_101_nu
 #define phase mccGuide_curved_101_phase
 #define reflect mccGuide_curved_101_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 22276 "../generic_guides/generic_curved.c"
@@ -22354,7 +22354,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_102_nu
 #define phase mccGuide_curved_102_phase
 #define reflect mccGuide_curved_102_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 22360 "../generic_guides/generic_curved.c"
@@ -22438,7 +22438,7 @@ time_t CurrentTime;
 #define nu mccGuide_curved_103_nu
 #define phase mccGuide_curved_103_phase
 #define reflect mccGuide_curved_103_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 22444 "../generic_guides/generic_curved.c"
@@ -22522,7 +22522,7 @@ time_t CurrentTime;
 #define nu mccGuide_straight_nu
 #define phase mccGuide_straight_phase
 #define reflect mccGuide_straight_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 22528 "../generic_guides/generic_curved.c"
@@ -22598,7 +22598,7 @@ time_t CurrentTime;
 #define username2 mccSample_username2
 #define username3 mccSample_username3
 #define nowritefile mccSample_nowritefile
-#line 222 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 222 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
@@ -33566,7 +33566,7 @@ rot = l_sect/R_curv*RAD2DEG;
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 57 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 57 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 {
 IntermediateCnts=0;
 StartTime=0;
@@ -33643,7 +33643,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 206 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 206 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 {
   pTable_xsum=0;
   pTable_ysum=0;
@@ -34011,7 +34011,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_nu
 #define phase mccGuide_curved_phase
 #define reflect mccGuide_curved_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34145,7 +34145,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_5_nu
 #define phase mccGuide_curved_5_phase
 #define reflect mccGuide_curved_5_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34279,7 +34279,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_6_nu
 #define phase mccGuide_curved_6_phase
 #define reflect mccGuide_curved_6_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34413,7 +34413,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_7_nu
 #define phase mccGuide_curved_7_phase
 #define reflect mccGuide_curved_7_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34547,7 +34547,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_8_nu
 #define phase mccGuide_curved_8_phase
 #define reflect mccGuide_curved_8_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34681,7 +34681,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_9_nu
 #define phase mccGuide_curved_9_phase
 #define reflect mccGuide_curved_9_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34815,7 +34815,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_10_nu
 #define phase mccGuide_curved_10_phase
 #define reflect mccGuide_curved_10_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -34949,7 +34949,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_11_nu
 #define phase mccGuide_curved_11_phase
 #define reflect mccGuide_curved_11_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35083,7 +35083,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_12_nu
 #define phase mccGuide_curved_12_phase
 #define reflect mccGuide_curved_12_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35217,7 +35217,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_13_nu
 #define phase mccGuide_curved_13_phase
 #define reflect mccGuide_curved_13_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35351,7 +35351,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_14_nu
 #define phase mccGuide_curved_14_phase
 #define reflect mccGuide_curved_14_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35485,7 +35485,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_15_nu
 #define phase mccGuide_curved_15_phase
 #define reflect mccGuide_curved_15_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35619,7 +35619,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_16_nu
 #define phase mccGuide_curved_16_phase
 #define reflect mccGuide_curved_16_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35753,7 +35753,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_17_nu
 #define phase mccGuide_curved_17_phase
 #define reflect mccGuide_curved_17_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -35887,7 +35887,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_18_nu
 #define phase mccGuide_curved_18_phase
 #define reflect mccGuide_curved_18_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36021,7 +36021,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_19_nu
 #define phase mccGuide_curved_19_phase
 #define reflect mccGuide_curved_19_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36155,7 +36155,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_20_nu
 #define phase mccGuide_curved_20_phase
 #define reflect mccGuide_curved_20_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36289,7 +36289,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_21_nu
 #define phase mccGuide_curved_21_phase
 #define reflect mccGuide_curved_21_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36423,7 +36423,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_22_nu
 #define phase mccGuide_curved_22_phase
 #define reflect mccGuide_curved_22_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36557,7 +36557,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_23_nu
 #define phase mccGuide_curved_23_phase
 #define reflect mccGuide_curved_23_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36691,7 +36691,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_24_nu
 #define phase mccGuide_curved_24_phase
 #define reflect mccGuide_curved_24_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36825,7 +36825,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_25_nu
 #define phase mccGuide_curved_25_phase
 #define reflect mccGuide_curved_25_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -36959,7 +36959,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_26_nu
 #define phase mccGuide_curved_26_phase
 #define reflect mccGuide_curved_26_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37093,7 +37093,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_27_nu
 #define phase mccGuide_curved_27_phase
 #define reflect mccGuide_curved_27_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37227,7 +37227,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_28_nu
 #define phase mccGuide_curved_28_phase
 #define reflect mccGuide_curved_28_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37361,7 +37361,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_29_nu
 #define phase mccGuide_curved_29_phase
 #define reflect mccGuide_curved_29_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37495,7 +37495,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_30_nu
 #define phase mccGuide_curved_30_phase
 #define reflect mccGuide_curved_30_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37629,7 +37629,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_31_nu
 #define phase mccGuide_curved_31_phase
 #define reflect mccGuide_curved_31_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37763,7 +37763,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_32_nu
 #define phase mccGuide_curved_32_phase
 #define reflect mccGuide_curved_32_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -37897,7 +37897,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_33_nu
 #define phase mccGuide_curved_33_phase
 #define reflect mccGuide_curved_33_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38031,7 +38031,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_34_nu
 #define phase mccGuide_curved_34_phase
 #define reflect mccGuide_curved_34_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38165,7 +38165,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_35_nu
 #define phase mccGuide_curved_35_phase
 #define reflect mccGuide_curved_35_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38299,7 +38299,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_36_nu
 #define phase mccGuide_curved_36_phase
 #define reflect mccGuide_curved_36_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38433,7 +38433,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_37_nu
 #define phase mccGuide_curved_37_phase
 #define reflect mccGuide_curved_37_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38567,7 +38567,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_38_nu
 #define phase mccGuide_curved_38_phase
 #define reflect mccGuide_curved_38_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38701,7 +38701,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_39_nu
 #define phase mccGuide_curved_39_phase
 #define reflect mccGuide_curved_39_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38835,7 +38835,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_40_nu
 #define phase mccGuide_curved_40_phase
 #define reflect mccGuide_curved_40_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -38969,7 +38969,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_41_nu
 #define phase mccGuide_curved_41_phase
 #define reflect mccGuide_curved_41_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39103,7 +39103,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_42_nu
 #define phase mccGuide_curved_42_phase
 #define reflect mccGuide_curved_42_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39237,7 +39237,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_43_nu
 #define phase mccGuide_curved_43_phase
 #define reflect mccGuide_curved_43_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39371,7 +39371,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_44_nu
 #define phase mccGuide_curved_44_phase
 #define reflect mccGuide_curved_44_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39505,7 +39505,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_45_nu
 #define phase mccGuide_curved_45_phase
 #define reflect mccGuide_curved_45_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39639,7 +39639,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_46_nu
 #define phase mccGuide_curved_46_phase
 #define reflect mccGuide_curved_46_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39773,7 +39773,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_47_nu
 #define phase mccGuide_curved_47_phase
 #define reflect mccGuide_curved_47_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -39907,7 +39907,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_48_nu
 #define phase mccGuide_curved_48_phase
 #define reflect mccGuide_curved_48_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40041,7 +40041,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_49_nu
 #define phase mccGuide_curved_49_phase
 #define reflect mccGuide_curved_49_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40175,7 +40175,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_50_nu
 #define phase mccGuide_curved_50_phase
 #define reflect mccGuide_curved_50_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40309,7 +40309,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_51_nu
 #define phase mccGuide_curved_51_phase
 #define reflect mccGuide_curved_51_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40443,7 +40443,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_52_nu
 #define phase mccGuide_curved_52_phase
 #define reflect mccGuide_curved_52_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40577,7 +40577,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_53_nu
 #define phase mccGuide_curved_53_phase
 #define reflect mccGuide_curved_53_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40711,7 +40711,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_54_nu
 #define phase mccGuide_curved_54_phase
 #define reflect mccGuide_curved_54_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40845,7 +40845,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_55_nu
 #define phase mccGuide_curved_55_phase
 #define reflect mccGuide_curved_55_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -40979,7 +40979,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_56_nu
 #define phase mccGuide_curved_56_phase
 #define reflect mccGuide_curved_56_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41113,7 +41113,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_57_nu
 #define phase mccGuide_curved_57_phase
 #define reflect mccGuide_curved_57_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41247,7 +41247,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_58_nu
 #define phase mccGuide_curved_58_phase
 #define reflect mccGuide_curved_58_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41381,7 +41381,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_59_nu
 #define phase mccGuide_curved_59_phase
 #define reflect mccGuide_curved_59_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41515,7 +41515,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_60_nu
 #define phase mccGuide_curved_60_phase
 #define reflect mccGuide_curved_60_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41649,7 +41649,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_61_nu
 #define phase mccGuide_curved_61_phase
 #define reflect mccGuide_curved_61_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41783,7 +41783,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_62_nu
 #define phase mccGuide_curved_62_phase
 #define reflect mccGuide_curved_62_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -41917,7 +41917,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_63_nu
 #define phase mccGuide_curved_63_phase
 #define reflect mccGuide_curved_63_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42051,7 +42051,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_64_nu
 #define phase mccGuide_curved_64_phase
 #define reflect mccGuide_curved_64_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42185,7 +42185,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_65_nu
 #define phase mccGuide_curved_65_phase
 #define reflect mccGuide_curved_65_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42319,7 +42319,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_66_nu
 #define phase mccGuide_curved_66_phase
 #define reflect mccGuide_curved_66_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42453,7 +42453,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_67_nu
 #define phase mccGuide_curved_67_phase
 #define reflect mccGuide_curved_67_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42587,7 +42587,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_68_nu
 #define phase mccGuide_curved_68_phase
 #define reflect mccGuide_curved_68_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42721,7 +42721,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_69_nu
 #define phase mccGuide_curved_69_phase
 #define reflect mccGuide_curved_69_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42855,7 +42855,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_70_nu
 #define phase mccGuide_curved_70_phase
 #define reflect mccGuide_curved_70_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -42989,7 +42989,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_71_nu
 #define phase mccGuide_curved_71_phase
 #define reflect mccGuide_curved_71_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43123,7 +43123,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_72_nu
 #define phase mccGuide_curved_72_phase
 #define reflect mccGuide_curved_72_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43257,7 +43257,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_73_nu
 #define phase mccGuide_curved_73_phase
 #define reflect mccGuide_curved_73_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43391,7 +43391,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_74_nu
 #define phase mccGuide_curved_74_phase
 #define reflect mccGuide_curved_74_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43525,7 +43525,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_75_nu
 #define phase mccGuide_curved_75_phase
 #define reflect mccGuide_curved_75_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43659,7 +43659,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_76_nu
 #define phase mccGuide_curved_76_phase
 #define reflect mccGuide_curved_76_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43793,7 +43793,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_77_nu
 #define phase mccGuide_curved_77_phase
 #define reflect mccGuide_curved_77_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -43927,7 +43927,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_78_nu
 #define phase mccGuide_curved_78_phase
 #define reflect mccGuide_curved_78_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44061,7 +44061,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_79_nu
 #define phase mccGuide_curved_79_phase
 #define reflect mccGuide_curved_79_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44195,7 +44195,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_80_nu
 #define phase mccGuide_curved_80_phase
 #define reflect mccGuide_curved_80_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44329,7 +44329,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_81_nu
 #define phase mccGuide_curved_81_phase
 #define reflect mccGuide_curved_81_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44463,7 +44463,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_82_nu
 #define phase mccGuide_curved_82_phase
 #define reflect mccGuide_curved_82_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44597,7 +44597,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_83_nu
 #define phase mccGuide_curved_83_phase
 #define reflect mccGuide_curved_83_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44731,7 +44731,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_84_nu
 #define phase mccGuide_curved_84_phase
 #define reflect mccGuide_curved_84_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44865,7 +44865,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_85_nu
 #define phase mccGuide_curved_85_phase
 #define reflect mccGuide_curved_85_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -44999,7 +44999,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_86_nu
 #define phase mccGuide_curved_86_phase
 #define reflect mccGuide_curved_86_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45133,7 +45133,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_87_nu
 #define phase mccGuide_curved_87_phase
 #define reflect mccGuide_curved_87_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45267,7 +45267,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_88_nu
 #define phase mccGuide_curved_88_phase
 #define reflect mccGuide_curved_88_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45401,7 +45401,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_89_nu
 #define phase mccGuide_curved_89_phase
 #define reflect mccGuide_curved_89_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45535,7 +45535,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_90_nu
 #define phase mccGuide_curved_90_phase
 #define reflect mccGuide_curved_90_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45669,7 +45669,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_91_nu
 #define phase mccGuide_curved_91_phase
 #define reflect mccGuide_curved_91_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45803,7 +45803,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_92_nu
 #define phase mccGuide_curved_92_phase
 #define reflect mccGuide_curved_92_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -45937,7 +45937,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_93_nu
 #define phase mccGuide_curved_93_phase
 #define reflect mccGuide_curved_93_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46071,7 +46071,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_94_nu
 #define phase mccGuide_curved_94_phase
 #define reflect mccGuide_curved_94_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46205,7 +46205,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_95_nu
 #define phase mccGuide_curved_95_phase
 #define reflect mccGuide_curved_95_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46339,7 +46339,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_96_nu
 #define phase mccGuide_curved_96_phase
 #define reflect mccGuide_curved_96_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46473,7 +46473,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_97_nu
 #define phase mccGuide_curved_97_phase
 #define reflect mccGuide_curved_97_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46607,7 +46607,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_98_nu
 #define phase mccGuide_curved_98_phase
 #define reflect mccGuide_curved_98_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46741,7 +46741,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_99_nu
 #define phase mccGuide_curved_99_phase
 #define reflect mccGuide_curved_99_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -46875,7 +46875,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_100_nu
 #define phase mccGuide_curved_100_phase
 #define reflect mccGuide_curved_100_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -47009,7 +47009,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_101_nu
 #define phase mccGuide_curved_101_phase
 #define reflect mccGuide_curved_101_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -47143,7 +47143,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_102_nu
 #define phase mccGuide_curved_102_phase
 #define reflect mccGuide_curved_102_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -47277,7 +47277,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_curved_103_nu
 #define phase mccGuide_curved_103_phase
 #define reflect mccGuide_curved_103_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -47411,7 +47411,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccGuide_straight_nu
 #define phase mccGuide_straight_phase
 #define reflect mccGuide_straight_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -47537,7 +47537,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define username2 mccSample_username2
 #define username3 mccSample_username3
 #define nowritefile mccSample_nowritefile
-#line 229 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 229 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -47758,7 +47758,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 70 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 70 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 {
   double ncount;
   ncount = mcget_run_num();
@@ -47959,7 +47959,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 479 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 479 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 {
   double dx=0,dy=0,xf,yf,rf,pdir,chi,v,r, lambda;
   double Maxwell;
@@ -48312,7 +48312,7 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -48625,7 +48625,7 @@ MCNUM nelements = mccGuide_curved_5_nelements;
 MCNUM nu = mccGuide_curved_5_nu;
 MCNUM phase = mccGuide_curved_5_phase;
 char* reflect = mccGuide_curved_5_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -48938,7 +48938,7 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -49251,7 +49251,7 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -49564,7 +49564,7 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -49877,7 +49877,7 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -50190,7 +50190,7 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -50503,7 +50503,7 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -50816,7 +50816,7 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -51129,7 +51129,7 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -51442,7 +51442,7 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -51755,7 +51755,7 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -52068,7 +52068,7 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -52381,7 +52381,7 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -52694,7 +52694,7 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -53007,7 +53007,7 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -53320,7 +53320,7 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -53633,7 +53633,7 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -53946,7 +53946,7 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -54259,7 +54259,7 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -54572,7 +54572,7 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -54885,7 +54885,7 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -55198,7 +55198,7 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -55511,7 +55511,7 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -55824,7 +55824,7 @@ MCNUM nelements = mccGuide_curved_28_nelements;
 MCNUM nu = mccGuide_curved_28_nu;
 MCNUM phase = mccGuide_curved_28_phase;
 char* reflect = mccGuide_curved_28_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -56137,7 +56137,7 @@ MCNUM nelements = mccGuide_curved_29_nelements;
 MCNUM nu = mccGuide_curved_29_nu;
 MCNUM phase = mccGuide_curved_29_phase;
 char* reflect = mccGuide_curved_29_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -56450,7 +56450,7 @@ MCNUM nelements = mccGuide_curved_30_nelements;
 MCNUM nu = mccGuide_curved_30_nu;
 MCNUM phase = mccGuide_curved_30_phase;
 char* reflect = mccGuide_curved_30_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -56763,7 +56763,7 @@ MCNUM nelements = mccGuide_curved_31_nelements;
 MCNUM nu = mccGuide_curved_31_nu;
 MCNUM phase = mccGuide_curved_31_phase;
 char* reflect = mccGuide_curved_31_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -57076,7 +57076,7 @@ MCNUM nelements = mccGuide_curved_32_nelements;
 MCNUM nu = mccGuide_curved_32_nu;
 MCNUM phase = mccGuide_curved_32_phase;
 char* reflect = mccGuide_curved_32_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -57389,7 +57389,7 @@ MCNUM nelements = mccGuide_curved_33_nelements;
 MCNUM nu = mccGuide_curved_33_nu;
 MCNUM phase = mccGuide_curved_33_phase;
 char* reflect = mccGuide_curved_33_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -57702,7 +57702,7 @@ MCNUM nelements = mccGuide_curved_34_nelements;
 MCNUM nu = mccGuide_curved_34_nu;
 MCNUM phase = mccGuide_curved_34_phase;
 char* reflect = mccGuide_curved_34_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -58015,7 +58015,7 @@ MCNUM nelements = mccGuide_curved_35_nelements;
 MCNUM nu = mccGuide_curved_35_nu;
 MCNUM phase = mccGuide_curved_35_phase;
 char* reflect = mccGuide_curved_35_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -58328,7 +58328,7 @@ MCNUM nelements = mccGuide_curved_36_nelements;
 MCNUM nu = mccGuide_curved_36_nu;
 MCNUM phase = mccGuide_curved_36_phase;
 char* reflect = mccGuide_curved_36_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -58641,7 +58641,7 @@ MCNUM nelements = mccGuide_curved_37_nelements;
 MCNUM nu = mccGuide_curved_37_nu;
 MCNUM phase = mccGuide_curved_37_phase;
 char* reflect = mccGuide_curved_37_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -58954,7 +58954,7 @@ MCNUM nelements = mccGuide_curved_38_nelements;
 MCNUM nu = mccGuide_curved_38_nu;
 MCNUM phase = mccGuide_curved_38_phase;
 char* reflect = mccGuide_curved_38_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -59267,7 +59267,7 @@ MCNUM nelements = mccGuide_curved_39_nelements;
 MCNUM nu = mccGuide_curved_39_nu;
 MCNUM phase = mccGuide_curved_39_phase;
 char* reflect = mccGuide_curved_39_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -59580,7 +59580,7 @@ MCNUM nelements = mccGuide_curved_40_nelements;
 MCNUM nu = mccGuide_curved_40_nu;
 MCNUM phase = mccGuide_curved_40_phase;
 char* reflect = mccGuide_curved_40_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -59893,7 +59893,7 @@ MCNUM nelements = mccGuide_curved_41_nelements;
 MCNUM nu = mccGuide_curved_41_nu;
 MCNUM phase = mccGuide_curved_41_phase;
 char* reflect = mccGuide_curved_41_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -60206,7 +60206,7 @@ MCNUM nelements = mccGuide_curved_42_nelements;
 MCNUM nu = mccGuide_curved_42_nu;
 MCNUM phase = mccGuide_curved_42_phase;
 char* reflect = mccGuide_curved_42_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -60519,7 +60519,7 @@ MCNUM nelements = mccGuide_curved_43_nelements;
 MCNUM nu = mccGuide_curved_43_nu;
 MCNUM phase = mccGuide_curved_43_phase;
 char* reflect = mccGuide_curved_43_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -60832,7 +60832,7 @@ MCNUM nelements = mccGuide_curved_44_nelements;
 MCNUM nu = mccGuide_curved_44_nu;
 MCNUM phase = mccGuide_curved_44_phase;
 char* reflect = mccGuide_curved_44_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -61145,7 +61145,7 @@ MCNUM nelements = mccGuide_curved_45_nelements;
 MCNUM nu = mccGuide_curved_45_nu;
 MCNUM phase = mccGuide_curved_45_phase;
 char* reflect = mccGuide_curved_45_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -61458,7 +61458,7 @@ MCNUM nelements = mccGuide_curved_46_nelements;
 MCNUM nu = mccGuide_curved_46_nu;
 MCNUM phase = mccGuide_curved_46_phase;
 char* reflect = mccGuide_curved_46_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -61771,7 +61771,7 @@ MCNUM nelements = mccGuide_curved_47_nelements;
 MCNUM nu = mccGuide_curved_47_nu;
 MCNUM phase = mccGuide_curved_47_phase;
 char* reflect = mccGuide_curved_47_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -62084,7 +62084,7 @@ MCNUM nelements = mccGuide_curved_48_nelements;
 MCNUM nu = mccGuide_curved_48_nu;
 MCNUM phase = mccGuide_curved_48_phase;
 char* reflect = mccGuide_curved_48_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -62397,7 +62397,7 @@ MCNUM nelements = mccGuide_curved_49_nelements;
 MCNUM nu = mccGuide_curved_49_nu;
 MCNUM phase = mccGuide_curved_49_phase;
 char* reflect = mccGuide_curved_49_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -62710,7 +62710,7 @@ MCNUM nelements = mccGuide_curved_50_nelements;
 MCNUM nu = mccGuide_curved_50_nu;
 MCNUM phase = mccGuide_curved_50_phase;
 char* reflect = mccGuide_curved_50_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -63023,7 +63023,7 @@ MCNUM nelements = mccGuide_curved_51_nelements;
 MCNUM nu = mccGuide_curved_51_nu;
 MCNUM phase = mccGuide_curved_51_phase;
 char* reflect = mccGuide_curved_51_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -63336,7 +63336,7 @@ MCNUM nelements = mccGuide_curved_52_nelements;
 MCNUM nu = mccGuide_curved_52_nu;
 MCNUM phase = mccGuide_curved_52_phase;
 char* reflect = mccGuide_curved_52_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -63649,7 +63649,7 @@ MCNUM nelements = mccGuide_curved_53_nelements;
 MCNUM nu = mccGuide_curved_53_nu;
 MCNUM phase = mccGuide_curved_53_phase;
 char* reflect = mccGuide_curved_53_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -63962,7 +63962,7 @@ MCNUM nelements = mccGuide_curved_54_nelements;
 MCNUM nu = mccGuide_curved_54_nu;
 MCNUM phase = mccGuide_curved_54_phase;
 char* reflect = mccGuide_curved_54_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -64275,7 +64275,7 @@ MCNUM nelements = mccGuide_curved_55_nelements;
 MCNUM nu = mccGuide_curved_55_nu;
 MCNUM phase = mccGuide_curved_55_phase;
 char* reflect = mccGuide_curved_55_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -64588,7 +64588,7 @@ MCNUM nelements = mccGuide_curved_56_nelements;
 MCNUM nu = mccGuide_curved_56_nu;
 MCNUM phase = mccGuide_curved_56_phase;
 char* reflect = mccGuide_curved_56_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -64901,7 +64901,7 @@ MCNUM nelements = mccGuide_curved_57_nelements;
 MCNUM nu = mccGuide_curved_57_nu;
 MCNUM phase = mccGuide_curved_57_phase;
 char* reflect = mccGuide_curved_57_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -65214,7 +65214,7 @@ MCNUM nelements = mccGuide_curved_58_nelements;
 MCNUM nu = mccGuide_curved_58_nu;
 MCNUM phase = mccGuide_curved_58_phase;
 char* reflect = mccGuide_curved_58_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -65527,7 +65527,7 @@ MCNUM nelements = mccGuide_curved_59_nelements;
 MCNUM nu = mccGuide_curved_59_nu;
 MCNUM phase = mccGuide_curved_59_phase;
 char* reflect = mccGuide_curved_59_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -65840,7 +65840,7 @@ MCNUM nelements = mccGuide_curved_60_nelements;
 MCNUM nu = mccGuide_curved_60_nu;
 MCNUM phase = mccGuide_curved_60_phase;
 char* reflect = mccGuide_curved_60_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -66153,7 +66153,7 @@ MCNUM nelements = mccGuide_curved_61_nelements;
 MCNUM nu = mccGuide_curved_61_nu;
 MCNUM phase = mccGuide_curved_61_phase;
 char* reflect = mccGuide_curved_61_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -66466,7 +66466,7 @@ MCNUM nelements = mccGuide_curved_62_nelements;
 MCNUM nu = mccGuide_curved_62_nu;
 MCNUM phase = mccGuide_curved_62_phase;
 char* reflect = mccGuide_curved_62_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -66779,7 +66779,7 @@ MCNUM nelements = mccGuide_curved_63_nelements;
 MCNUM nu = mccGuide_curved_63_nu;
 MCNUM phase = mccGuide_curved_63_phase;
 char* reflect = mccGuide_curved_63_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -67092,7 +67092,7 @@ MCNUM nelements = mccGuide_curved_64_nelements;
 MCNUM nu = mccGuide_curved_64_nu;
 MCNUM phase = mccGuide_curved_64_phase;
 char* reflect = mccGuide_curved_64_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -67405,7 +67405,7 @@ MCNUM nelements = mccGuide_curved_65_nelements;
 MCNUM nu = mccGuide_curved_65_nu;
 MCNUM phase = mccGuide_curved_65_phase;
 char* reflect = mccGuide_curved_65_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -67718,7 +67718,7 @@ MCNUM nelements = mccGuide_curved_66_nelements;
 MCNUM nu = mccGuide_curved_66_nu;
 MCNUM phase = mccGuide_curved_66_phase;
 char* reflect = mccGuide_curved_66_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -68031,7 +68031,7 @@ MCNUM nelements = mccGuide_curved_67_nelements;
 MCNUM nu = mccGuide_curved_67_nu;
 MCNUM phase = mccGuide_curved_67_phase;
 char* reflect = mccGuide_curved_67_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -68344,7 +68344,7 @@ MCNUM nelements = mccGuide_curved_68_nelements;
 MCNUM nu = mccGuide_curved_68_nu;
 MCNUM phase = mccGuide_curved_68_phase;
 char* reflect = mccGuide_curved_68_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -68657,7 +68657,7 @@ MCNUM nelements = mccGuide_curved_69_nelements;
 MCNUM nu = mccGuide_curved_69_nu;
 MCNUM phase = mccGuide_curved_69_phase;
 char* reflect = mccGuide_curved_69_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -68970,7 +68970,7 @@ MCNUM nelements = mccGuide_curved_70_nelements;
 MCNUM nu = mccGuide_curved_70_nu;
 MCNUM phase = mccGuide_curved_70_phase;
 char* reflect = mccGuide_curved_70_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -69283,7 +69283,7 @@ MCNUM nelements = mccGuide_curved_71_nelements;
 MCNUM nu = mccGuide_curved_71_nu;
 MCNUM phase = mccGuide_curved_71_phase;
 char* reflect = mccGuide_curved_71_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -69596,7 +69596,7 @@ MCNUM nelements = mccGuide_curved_72_nelements;
 MCNUM nu = mccGuide_curved_72_nu;
 MCNUM phase = mccGuide_curved_72_phase;
 char* reflect = mccGuide_curved_72_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -69909,7 +69909,7 @@ MCNUM nelements = mccGuide_curved_73_nelements;
 MCNUM nu = mccGuide_curved_73_nu;
 MCNUM phase = mccGuide_curved_73_phase;
 char* reflect = mccGuide_curved_73_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -70222,7 +70222,7 @@ MCNUM nelements = mccGuide_curved_74_nelements;
 MCNUM nu = mccGuide_curved_74_nu;
 MCNUM phase = mccGuide_curved_74_phase;
 char* reflect = mccGuide_curved_74_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -70535,7 +70535,7 @@ MCNUM nelements = mccGuide_curved_75_nelements;
 MCNUM nu = mccGuide_curved_75_nu;
 MCNUM phase = mccGuide_curved_75_phase;
 char* reflect = mccGuide_curved_75_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -70848,7 +70848,7 @@ MCNUM nelements = mccGuide_curved_76_nelements;
 MCNUM nu = mccGuide_curved_76_nu;
 MCNUM phase = mccGuide_curved_76_phase;
 char* reflect = mccGuide_curved_76_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -71161,7 +71161,7 @@ MCNUM nelements = mccGuide_curved_77_nelements;
 MCNUM nu = mccGuide_curved_77_nu;
 MCNUM phase = mccGuide_curved_77_phase;
 char* reflect = mccGuide_curved_77_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -71474,7 +71474,7 @@ MCNUM nelements = mccGuide_curved_78_nelements;
 MCNUM nu = mccGuide_curved_78_nu;
 MCNUM phase = mccGuide_curved_78_phase;
 char* reflect = mccGuide_curved_78_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -71787,7 +71787,7 @@ MCNUM nelements = mccGuide_curved_79_nelements;
 MCNUM nu = mccGuide_curved_79_nu;
 MCNUM phase = mccGuide_curved_79_phase;
 char* reflect = mccGuide_curved_79_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -72100,7 +72100,7 @@ MCNUM nelements = mccGuide_curved_80_nelements;
 MCNUM nu = mccGuide_curved_80_nu;
 MCNUM phase = mccGuide_curved_80_phase;
 char* reflect = mccGuide_curved_80_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -72413,7 +72413,7 @@ MCNUM nelements = mccGuide_curved_81_nelements;
 MCNUM nu = mccGuide_curved_81_nu;
 MCNUM phase = mccGuide_curved_81_phase;
 char* reflect = mccGuide_curved_81_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -72726,7 +72726,7 @@ MCNUM nelements = mccGuide_curved_82_nelements;
 MCNUM nu = mccGuide_curved_82_nu;
 MCNUM phase = mccGuide_curved_82_phase;
 char* reflect = mccGuide_curved_82_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -73039,7 +73039,7 @@ MCNUM nelements = mccGuide_curved_83_nelements;
 MCNUM nu = mccGuide_curved_83_nu;
 MCNUM phase = mccGuide_curved_83_phase;
 char* reflect = mccGuide_curved_83_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -73352,7 +73352,7 @@ MCNUM nelements = mccGuide_curved_84_nelements;
 MCNUM nu = mccGuide_curved_84_nu;
 MCNUM phase = mccGuide_curved_84_phase;
 char* reflect = mccGuide_curved_84_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -73665,7 +73665,7 @@ MCNUM nelements = mccGuide_curved_85_nelements;
 MCNUM nu = mccGuide_curved_85_nu;
 MCNUM phase = mccGuide_curved_85_phase;
 char* reflect = mccGuide_curved_85_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -73978,7 +73978,7 @@ MCNUM nelements = mccGuide_curved_86_nelements;
 MCNUM nu = mccGuide_curved_86_nu;
 MCNUM phase = mccGuide_curved_86_phase;
 char* reflect = mccGuide_curved_86_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -74291,7 +74291,7 @@ MCNUM nelements = mccGuide_curved_87_nelements;
 MCNUM nu = mccGuide_curved_87_nu;
 MCNUM phase = mccGuide_curved_87_phase;
 char* reflect = mccGuide_curved_87_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -74604,7 +74604,7 @@ MCNUM nelements = mccGuide_curved_88_nelements;
 MCNUM nu = mccGuide_curved_88_nu;
 MCNUM phase = mccGuide_curved_88_phase;
 char* reflect = mccGuide_curved_88_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -74917,7 +74917,7 @@ MCNUM nelements = mccGuide_curved_89_nelements;
 MCNUM nu = mccGuide_curved_89_nu;
 MCNUM phase = mccGuide_curved_89_phase;
 char* reflect = mccGuide_curved_89_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -75230,7 +75230,7 @@ MCNUM nelements = mccGuide_curved_90_nelements;
 MCNUM nu = mccGuide_curved_90_nu;
 MCNUM phase = mccGuide_curved_90_phase;
 char* reflect = mccGuide_curved_90_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -75543,7 +75543,7 @@ MCNUM nelements = mccGuide_curved_91_nelements;
 MCNUM nu = mccGuide_curved_91_nu;
 MCNUM phase = mccGuide_curved_91_phase;
 char* reflect = mccGuide_curved_91_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -75856,7 +75856,7 @@ MCNUM nelements = mccGuide_curved_92_nelements;
 MCNUM nu = mccGuide_curved_92_nu;
 MCNUM phase = mccGuide_curved_92_phase;
 char* reflect = mccGuide_curved_92_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -76169,7 +76169,7 @@ MCNUM nelements = mccGuide_curved_93_nelements;
 MCNUM nu = mccGuide_curved_93_nu;
 MCNUM phase = mccGuide_curved_93_phase;
 char* reflect = mccGuide_curved_93_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -76482,7 +76482,7 @@ MCNUM nelements = mccGuide_curved_94_nelements;
 MCNUM nu = mccGuide_curved_94_nu;
 MCNUM phase = mccGuide_curved_94_phase;
 char* reflect = mccGuide_curved_94_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -76795,7 +76795,7 @@ MCNUM nelements = mccGuide_curved_95_nelements;
 MCNUM nu = mccGuide_curved_95_nu;
 MCNUM phase = mccGuide_curved_95_phase;
 char* reflect = mccGuide_curved_95_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -77108,7 +77108,7 @@ MCNUM nelements = mccGuide_curved_96_nelements;
 MCNUM nu = mccGuide_curved_96_nu;
 MCNUM phase = mccGuide_curved_96_phase;
 char* reflect = mccGuide_curved_96_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -77421,7 +77421,7 @@ MCNUM nelements = mccGuide_curved_97_nelements;
 MCNUM nu = mccGuide_curved_97_nu;
 MCNUM phase = mccGuide_curved_97_phase;
 char* reflect = mccGuide_curved_97_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -77734,7 +77734,7 @@ MCNUM nelements = mccGuide_curved_98_nelements;
 MCNUM nu = mccGuide_curved_98_nu;
 MCNUM phase = mccGuide_curved_98_phase;
 char* reflect = mccGuide_curved_98_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -78047,7 +78047,7 @@ MCNUM nelements = mccGuide_curved_99_nelements;
 MCNUM nu = mccGuide_curved_99_nu;
 MCNUM phase = mccGuide_curved_99_phase;
 char* reflect = mccGuide_curved_99_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -78360,7 +78360,7 @@ MCNUM nelements = mccGuide_curved_100_nelements;
 MCNUM nu = mccGuide_curved_100_nu;
 MCNUM phase = mccGuide_curved_100_phase;
 char* reflect = mccGuide_curved_100_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -78673,7 +78673,7 @@ MCNUM nelements = mccGuide_curved_101_nelements;
 MCNUM nu = mccGuide_curved_101_nu;
 MCNUM phase = mccGuide_curved_101_phase;
 char* reflect = mccGuide_curved_101_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -78986,7 +78986,7 @@ MCNUM nelements = mccGuide_curved_102_nelements;
 MCNUM nu = mccGuide_curved_102_nu;
 MCNUM phase = mccGuide_curved_102_phase;
 char* reflect = mccGuide_curved_102_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -79299,7 +79299,7 @@ MCNUM nelements = mccGuide_curved_103_nelements;
 MCNUM nu = mccGuide_curved_103_nu;
 MCNUM phase = mccGuide_curved_103_phase;
 char* reflect = mccGuide_curved_103_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -79612,7 +79612,7 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -79917,7 +79917,7 @@ char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
 int nowritefile = mccSample_nowritefile;
-#line 309 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 309 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -80185,7 +80185,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 115 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 115 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 {
   MPI_MASTER(fprintf(stdout, "\nSave [%s]\n", mcinstrument_name););
   if (profile && strlen(profile) && strcmp(profile,"NULL") && strcmp(profile,"0")) {
@@ -80246,7 +80246,7 @@ char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
 int nowritefile = mccSample_nowritefile;
-#line 479 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 479 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
@@ -80285,7 +80285,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 133 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 133 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 {
   time_t NowTime;
   time(&NowTime);
@@ -80364,7 +80364,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 571 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 {
   Table_Free(&pTable);
   Table_Free(&pTable_x);
@@ -80441,7 +80441,7 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -80501,7 +80501,7 @@ MCNUM nelements = mccGuide_curved_5_nelements;
 MCNUM nu = mccGuide_curved_5_nu;
 MCNUM phase = mccGuide_curved_5_phase;
 char* reflect = mccGuide_curved_5_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -80561,7 +80561,7 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -80621,7 +80621,7 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -80681,7 +80681,7 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -80741,7 +80741,7 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -80801,7 +80801,7 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -80861,7 +80861,7 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -80921,7 +80921,7 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -80981,7 +80981,7 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81041,7 +81041,7 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81101,7 +81101,7 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81161,7 +81161,7 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81221,7 +81221,7 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81281,7 +81281,7 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81341,7 +81341,7 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81401,7 +81401,7 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81461,7 +81461,7 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81521,7 +81521,7 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81581,7 +81581,7 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81641,7 +81641,7 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81701,7 +81701,7 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81761,7 +81761,7 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81821,7 +81821,7 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81881,7 +81881,7 @@ MCNUM nelements = mccGuide_curved_28_nelements;
 MCNUM nu = mccGuide_curved_28_nu;
 MCNUM phase = mccGuide_curved_28_phase;
 char* reflect = mccGuide_curved_28_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -81941,7 +81941,7 @@ MCNUM nelements = mccGuide_curved_29_nelements;
 MCNUM nu = mccGuide_curved_29_nu;
 MCNUM phase = mccGuide_curved_29_phase;
 char* reflect = mccGuide_curved_29_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82001,7 +82001,7 @@ MCNUM nelements = mccGuide_curved_30_nelements;
 MCNUM nu = mccGuide_curved_30_nu;
 MCNUM phase = mccGuide_curved_30_phase;
 char* reflect = mccGuide_curved_30_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82061,7 +82061,7 @@ MCNUM nelements = mccGuide_curved_31_nelements;
 MCNUM nu = mccGuide_curved_31_nu;
 MCNUM phase = mccGuide_curved_31_phase;
 char* reflect = mccGuide_curved_31_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82121,7 +82121,7 @@ MCNUM nelements = mccGuide_curved_32_nelements;
 MCNUM nu = mccGuide_curved_32_nu;
 MCNUM phase = mccGuide_curved_32_phase;
 char* reflect = mccGuide_curved_32_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82181,7 +82181,7 @@ MCNUM nelements = mccGuide_curved_33_nelements;
 MCNUM nu = mccGuide_curved_33_nu;
 MCNUM phase = mccGuide_curved_33_phase;
 char* reflect = mccGuide_curved_33_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82241,7 +82241,7 @@ MCNUM nelements = mccGuide_curved_34_nelements;
 MCNUM nu = mccGuide_curved_34_nu;
 MCNUM phase = mccGuide_curved_34_phase;
 char* reflect = mccGuide_curved_34_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82301,7 +82301,7 @@ MCNUM nelements = mccGuide_curved_35_nelements;
 MCNUM nu = mccGuide_curved_35_nu;
 MCNUM phase = mccGuide_curved_35_phase;
 char* reflect = mccGuide_curved_35_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82361,7 +82361,7 @@ MCNUM nelements = mccGuide_curved_36_nelements;
 MCNUM nu = mccGuide_curved_36_nu;
 MCNUM phase = mccGuide_curved_36_phase;
 char* reflect = mccGuide_curved_36_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82421,7 +82421,7 @@ MCNUM nelements = mccGuide_curved_37_nelements;
 MCNUM nu = mccGuide_curved_37_nu;
 MCNUM phase = mccGuide_curved_37_phase;
 char* reflect = mccGuide_curved_37_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82481,7 +82481,7 @@ MCNUM nelements = mccGuide_curved_38_nelements;
 MCNUM nu = mccGuide_curved_38_nu;
 MCNUM phase = mccGuide_curved_38_phase;
 char* reflect = mccGuide_curved_38_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82541,7 +82541,7 @@ MCNUM nelements = mccGuide_curved_39_nelements;
 MCNUM nu = mccGuide_curved_39_nu;
 MCNUM phase = mccGuide_curved_39_phase;
 char* reflect = mccGuide_curved_39_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82601,7 +82601,7 @@ MCNUM nelements = mccGuide_curved_40_nelements;
 MCNUM nu = mccGuide_curved_40_nu;
 MCNUM phase = mccGuide_curved_40_phase;
 char* reflect = mccGuide_curved_40_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82661,7 +82661,7 @@ MCNUM nelements = mccGuide_curved_41_nelements;
 MCNUM nu = mccGuide_curved_41_nu;
 MCNUM phase = mccGuide_curved_41_phase;
 char* reflect = mccGuide_curved_41_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82721,7 +82721,7 @@ MCNUM nelements = mccGuide_curved_42_nelements;
 MCNUM nu = mccGuide_curved_42_nu;
 MCNUM phase = mccGuide_curved_42_phase;
 char* reflect = mccGuide_curved_42_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82781,7 +82781,7 @@ MCNUM nelements = mccGuide_curved_43_nelements;
 MCNUM nu = mccGuide_curved_43_nu;
 MCNUM phase = mccGuide_curved_43_phase;
 char* reflect = mccGuide_curved_43_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82841,7 +82841,7 @@ MCNUM nelements = mccGuide_curved_44_nelements;
 MCNUM nu = mccGuide_curved_44_nu;
 MCNUM phase = mccGuide_curved_44_phase;
 char* reflect = mccGuide_curved_44_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82901,7 +82901,7 @@ MCNUM nelements = mccGuide_curved_45_nelements;
 MCNUM nu = mccGuide_curved_45_nu;
 MCNUM phase = mccGuide_curved_45_phase;
 char* reflect = mccGuide_curved_45_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -82961,7 +82961,7 @@ MCNUM nelements = mccGuide_curved_46_nelements;
 MCNUM nu = mccGuide_curved_46_nu;
 MCNUM phase = mccGuide_curved_46_phase;
 char* reflect = mccGuide_curved_46_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83021,7 +83021,7 @@ MCNUM nelements = mccGuide_curved_47_nelements;
 MCNUM nu = mccGuide_curved_47_nu;
 MCNUM phase = mccGuide_curved_47_phase;
 char* reflect = mccGuide_curved_47_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83081,7 +83081,7 @@ MCNUM nelements = mccGuide_curved_48_nelements;
 MCNUM nu = mccGuide_curved_48_nu;
 MCNUM phase = mccGuide_curved_48_phase;
 char* reflect = mccGuide_curved_48_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83141,7 +83141,7 @@ MCNUM nelements = mccGuide_curved_49_nelements;
 MCNUM nu = mccGuide_curved_49_nu;
 MCNUM phase = mccGuide_curved_49_phase;
 char* reflect = mccGuide_curved_49_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83201,7 +83201,7 @@ MCNUM nelements = mccGuide_curved_50_nelements;
 MCNUM nu = mccGuide_curved_50_nu;
 MCNUM phase = mccGuide_curved_50_phase;
 char* reflect = mccGuide_curved_50_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83261,7 +83261,7 @@ MCNUM nelements = mccGuide_curved_51_nelements;
 MCNUM nu = mccGuide_curved_51_nu;
 MCNUM phase = mccGuide_curved_51_phase;
 char* reflect = mccGuide_curved_51_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83321,7 +83321,7 @@ MCNUM nelements = mccGuide_curved_52_nelements;
 MCNUM nu = mccGuide_curved_52_nu;
 MCNUM phase = mccGuide_curved_52_phase;
 char* reflect = mccGuide_curved_52_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83381,7 +83381,7 @@ MCNUM nelements = mccGuide_curved_53_nelements;
 MCNUM nu = mccGuide_curved_53_nu;
 MCNUM phase = mccGuide_curved_53_phase;
 char* reflect = mccGuide_curved_53_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83441,7 +83441,7 @@ MCNUM nelements = mccGuide_curved_54_nelements;
 MCNUM nu = mccGuide_curved_54_nu;
 MCNUM phase = mccGuide_curved_54_phase;
 char* reflect = mccGuide_curved_54_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83501,7 +83501,7 @@ MCNUM nelements = mccGuide_curved_55_nelements;
 MCNUM nu = mccGuide_curved_55_nu;
 MCNUM phase = mccGuide_curved_55_phase;
 char* reflect = mccGuide_curved_55_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83561,7 +83561,7 @@ MCNUM nelements = mccGuide_curved_56_nelements;
 MCNUM nu = mccGuide_curved_56_nu;
 MCNUM phase = mccGuide_curved_56_phase;
 char* reflect = mccGuide_curved_56_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83621,7 +83621,7 @@ MCNUM nelements = mccGuide_curved_57_nelements;
 MCNUM nu = mccGuide_curved_57_nu;
 MCNUM phase = mccGuide_curved_57_phase;
 char* reflect = mccGuide_curved_57_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83681,7 +83681,7 @@ MCNUM nelements = mccGuide_curved_58_nelements;
 MCNUM nu = mccGuide_curved_58_nu;
 MCNUM phase = mccGuide_curved_58_phase;
 char* reflect = mccGuide_curved_58_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83741,7 +83741,7 @@ MCNUM nelements = mccGuide_curved_59_nelements;
 MCNUM nu = mccGuide_curved_59_nu;
 MCNUM phase = mccGuide_curved_59_phase;
 char* reflect = mccGuide_curved_59_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83801,7 +83801,7 @@ MCNUM nelements = mccGuide_curved_60_nelements;
 MCNUM nu = mccGuide_curved_60_nu;
 MCNUM phase = mccGuide_curved_60_phase;
 char* reflect = mccGuide_curved_60_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83861,7 +83861,7 @@ MCNUM nelements = mccGuide_curved_61_nelements;
 MCNUM nu = mccGuide_curved_61_nu;
 MCNUM phase = mccGuide_curved_61_phase;
 char* reflect = mccGuide_curved_61_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83921,7 +83921,7 @@ MCNUM nelements = mccGuide_curved_62_nelements;
 MCNUM nu = mccGuide_curved_62_nu;
 MCNUM phase = mccGuide_curved_62_phase;
 char* reflect = mccGuide_curved_62_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -83981,7 +83981,7 @@ MCNUM nelements = mccGuide_curved_63_nelements;
 MCNUM nu = mccGuide_curved_63_nu;
 MCNUM phase = mccGuide_curved_63_phase;
 char* reflect = mccGuide_curved_63_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84041,7 +84041,7 @@ MCNUM nelements = mccGuide_curved_64_nelements;
 MCNUM nu = mccGuide_curved_64_nu;
 MCNUM phase = mccGuide_curved_64_phase;
 char* reflect = mccGuide_curved_64_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84101,7 +84101,7 @@ MCNUM nelements = mccGuide_curved_65_nelements;
 MCNUM nu = mccGuide_curved_65_nu;
 MCNUM phase = mccGuide_curved_65_phase;
 char* reflect = mccGuide_curved_65_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84161,7 +84161,7 @@ MCNUM nelements = mccGuide_curved_66_nelements;
 MCNUM nu = mccGuide_curved_66_nu;
 MCNUM phase = mccGuide_curved_66_phase;
 char* reflect = mccGuide_curved_66_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84221,7 +84221,7 @@ MCNUM nelements = mccGuide_curved_67_nelements;
 MCNUM nu = mccGuide_curved_67_nu;
 MCNUM phase = mccGuide_curved_67_phase;
 char* reflect = mccGuide_curved_67_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84281,7 +84281,7 @@ MCNUM nelements = mccGuide_curved_68_nelements;
 MCNUM nu = mccGuide_curved_68_nu;
 MCNUM phase = mccGuide_curved_68_phase;
 char* reflect = mccGuide_curved_68_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84341,7 +84341,7 @@ MCNUM nelements = mccGuide_curved_69_nelements;
 MCNUM nu = mccGuide_curved_69_nu;
 MCNUM phase = mccGuide_curved_69_phase;
 char* reflect = mccGuide_curved_69_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84401,7 +84401,7 @@ MCNUM nelements = mccGuide_curved_70_nelements;
 MCNUM nu = mccGuide_curved_70_nu;
 MCNUM phase = mccGuide_curved_70_phase;
 char* reflect = mccGuide_curved_70_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84461,7 +84461,7 @@ MCNUM nelements = mccGuide_curved_71_nelements;
 MCNUM nu = mccGuide_curved_71_nu;
 MCNUM phase = mccGuide_curved_71_phase;
 char* reflect = mccGuide_curved_71_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84521,7 +84521,7 @@ MCNUM nelements = mccGuide_curved_72_nelements;
 MCNUM nu = mccGuide_curved_72_nu;
 MCNUM phase = mccGuide_curved_72_phase;
 char* reflect = mccGuide_curved_72_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84581,7 +84581,7 @@ MCNUM nelements = mccGuide_curved_73_nelements;
 MCNUM nu = mccGuide_curved_73_nu;
 MCNUM phase = mccGuide_curved_73_phase;
 char* reflect = mccGuide_curved_73_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84641,7 +84641,7 @@ MCNUM nelements = mccGuide_curved_74_nelements;
 MCNUM nu = mccGuide_curved_74_nu;
 MCNUM phase = mccGuide_curved_74_phase;
 char* reflect = mccGuide_curved_74_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84701,7 +84701,7 @@ MCNUM nelements = mccGuide_curved_75_nelements;
 MCNUM nu = mccGuide_curved_75_nu;
 MCNUM phase = mccGuide_curved_75_phase;
 char* reflect = mccGuide_curved_75_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84761,7 +84761,7 @@ MCNUM nelements = mccGuide_curved_76_nelements;
 MCNUM nu = mccGuide_curved_76_nu;
 MCNUM phase = mccGuide_curved_76_phase;
 char* reflect = mccGuide_curved_76_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84821,7 +84821,7 @@ MCNUM nelements = mccGuide_curved_77_nelements;
 MCNUM nu = mccGuide_curved_77_nu;
 MCNUM phase = mccGuide_curved_77_phase;
 char* reflect = mccGuide_curved_77_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84881,7 +84881,7 @@ MCNUM nelements = mccGuide_curved_78_nelements;
 MCNUM nu = mccGuide_curved_78_nu;
 MCNUM phase = mccGuide_curved_78_phase;
 char* reflect = mccGuide_curved_78_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -84941,7 +84941,7 @@ MCNUM nelements = mccGuide_curved_79_nelements;
 MCNUM nu = mccGuide_curved_79_nu;
 MCNUM phase = mccGuide_curved_79_phase;
 char* reflect = mccGuide_curved_79_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85001,7 +85001,7 @@ MCNUM nelements = mccGuide_curved_80_nelements;
 MCNUM nu = mccGuide_curved_80_nu;
 MCNUM phase = mccGuide_curved_80_phase;
 char* reflect = mccGuide_curved_80_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85061,7 +85061,7 @@ MCNUM nelements = mccGuide_curved_81_nelements;
 MCNUM nu = mccGuide_curved_81_nu;
 MCNUM phase = mccGuide_curved_81_phase;
 char* reflect = mccGuide_curved_81_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85121,7 +85121,7 @@ MCNUM nelements = mccGuide_curved_82_nelements;
 MCNUM nu = mccGuide_curved_82_nu;
 MCNUM phase = mccGuide_curved_82_phase;
 char* reflect = mccGuide_curved_82_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85181,7 +85181,7 @@ MCNUM nelements = mccGuide_curved_83_nelements;
 MCNUM nu = mccGuide_curved_83_nu;
 MCNUM phase = mccGuide_curved_83_phase;
 char* reflect = mccGuide_curved_83_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85241,7 +85241,7 @@ MCNUM nelements = mccGuide_curved_84_nelements;
 MCNUM nu = mccGuide_curved_84_nu;
 MCNUM phase = mccGuide_curved_84_phase;
 char* reflect = mccGuide_curved_84_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85301,7 +85301,7 @@ MCNUM nelements = mccGuide_curved_85_nelements;
 MCNUM nu = mccGuide_curved_85_nu;
 MCNUM phase = mccGuide_curved_85_phase;
 char* reflect = mccGuide_curved_85_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85361,7 +85361,7 @@ MCNUM nelements = mccGuide_curved_86_nelements;
 MCNUM nu = mccGuide_curved_86_nu;
 MCNUM phase = mccGuide_curved_86_phase;
 char* reflect = mccGuide_curved_86_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85421,7 +85421,7 @@ MCNUM nelements = mccGuide_curved_87_nelements;
 MCNUM nu = mccGuide_curved_87_nu;
 MCNUM phase = mccGuide_curved_87_phase;
 char* reflect = mccGuide_curved_87_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85481,7 +85481,7 @@ MCNUM nelements = mccGuide_curved_88_nelements;
 MCNUM nu = mccGuide_curved_88_nu;
 MCNUM phase = mccGuide_curved_88_phase;
 char* reflect = mccGuide_curved_88_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85541,7 +85541,7 @@ MCNUM nelements = mccGuide_curved_89_nelements;
 MCNUM nu = mccGuide_curved_89_nu;
 MCNUM phase = mccGuide_curved_89_phase;
 char* reflect = mccGuide_curved_89_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85601,7 +85601,7 @@ MCNUM nelements = mccGuide_curved_90_nelements;
 MCNUM nu = mccGuide_curved_90_nu;
 MCNUM phase = mccGuide_curved_90_phase;
 char* reflect = mccGuide_curved_90_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85661,7 +85661,7 @@ MCNUM nelements = mccGuide_curved_91_nelements;
 MCNUM nu = mccGuide_curved_91_nu;
 MCNUM phase = mccGuide_curved_91_phase;
 char* reflect = mccGuide_curved_91_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85721,7 +85721,7 @@ MCNUM nelements = mccGuide_curved_92_nelements;
 MCNUM nu = mccGuide_curved_92_nu;
 MCNUM phase = mccGuide_curved_92_phase;
 char* reflect = mccGuide_curved_92_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85781,7 +85781,7 @@ MCNUM nelements = mccGuide_curved_93_nelements;
 MCNUM nu = mccGuide_curved_93_nu;
 MCNUM phase = mccGuide_curved_93_phase;
 char* reflect = mccGuide_curved_93_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85841,7 +85841,7 @@ MCNUM nelements = mccGuide_curved_94_nelements;
 MCNUM nu = mccGuide_curved_94_nu;
 MCNUM phase = mccGuide_curved_94_phase;
 char* reflect = mccGuide_curved_94_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85901,7 +85901,7 @@ MCNUM nelements = mccGuide_curved_95_nelements;
 MCNUM nu = mccGuide_curved_95_nu;
 MCNUM phase = mccGuide_curved_95_phase;
 char* reflect = mccGuide_curved_95_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -85961,7 +85961,7 @@ MCNUM nelements = mccGuide_curved_96_nelements;
 MCNUM nu = mccGuide_curved_96_nu;
 MCNUM phase = mccGuide_curved_96_phase;
 char* reflect = mccGuide_curved_96_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -86021,7 +86021,7 @@ MCNUM nelements = mccGuide_curved_97_nelements;
 MCNUM nu = mccGuide_curved_97_nu;
 MCNUM phase = mccGuide_curved_97_phase;
 char* reflect = mccGuide_curved_97_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -86081,7 +86081,7 @@ MCNUM nelements = mccGuide_curved_98_nelements;
 MCNUM nu = mccGuide_curved_98_nu;
 MCNUM phase = mccGuide_curved_98_phase;
 char* reflect = mccGuide_curved_98_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -86141,7 +86141,7 @@ MCNUM nelements = mccGuide_curved_99_nelements;
 MCNUM nu = mccGuide_curved_99_nu;
 MCNUM phase = mccGuide_curved_99_phase;
 char* reflect = mccGuide_curved_99_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -86201,7 +86201,7 @@ MCNUM nelements = mccGuide_curved_100_nelements;
 MCNUM nu = mccGuide_curved_100_nu;
 MCNUM phase = mccGuide_curved_100_phase;
 char* reflect = mccGuide_curved_100_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -86261,7 +86261,7 @@ MCNUM nelements = mccGuide_curved_101_nelements;
 MCNUM nu = mccGuide_curved_101_nu;
 MCNUM phase = mccGuide_curved_101_phase;
 char* reflect = mccGuide_curved_101_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -86321,7 +86321,7 @@ MCNUM nelements = mccGuide_curved_102_nelements;
 MCNUM nu = mccGuide_curved_102_nu;
 MCNUM phase = mccGuide_curved_102_phase;
 char* reflect = mccGuide_curved_102_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -86381,7 +86381,7 @@ MCNUM nelements = mccGuide_curved_103_nelements;
 MCNUM nu = mccGuide_curved_103_nu;
 MCNUM phase = mccGuide_curved_103_phase;
 char* reflect = mccGuide_curved_103_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -86441,7 +86441,7 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -86493,7 +86493,7 @@ char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
 int nowritefile = mccSample_nowritefile;
-#line 485 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 485 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 {
   /* free pointers */
   if (!nowritefile) {
@@ -86546,7 +86546,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 147 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 147 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 {
   
 }
@@ -86614,7 +86614,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 578 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 578 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 {
   double xmin;
   double xmax;
@@ -86692,7 +86692,7 @@ int target_index = mccH3_target_index;
 #define mccompcurname  Guide_start_arm
 #define mccompcurtype  Arm
 #define mccompcurindex 3
-#line 40 "/usr/share/mcstas/2.5/optics/Arm.comp"
+#line 40 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Arm.comp"
 {
   /* A bit ugly; hard-coded dimensions. */
   
@@ -86748,7 +86748,7 @@ MCNUM nelements = mccGuide_curved_nelements;
 MCNUM nu = mccGuide_curved_nu;
 MCNUM phase = mccGuide_curved_phase;
 char* reflect = mccGuide_curved_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -86862,7 +86862,7 @@ MCNUM nelements = mccGuide_curved_5_nelements;
 MCNUM nu = mccGuide_curved_5_nu;
 MCNUM phase = mccGuide_curved_5_phase;
 char* reflect = mccGuide_curved_5_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -86976,7 +86976,7 @@ MCNUM nelements = mccGuide_curved_6_nelements;
 MCNUM nu = mccGuide_curved_6_nu;
 MCNUM phase = mccGuide_curved_6_phase;
 char* reflect = mccGuide_curved_6_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87090,7 +87090,7 @@ MCNUM nelements = mccGuide_curved_7_nelements;
 MCNUM nu = mccGuide_curved_7_nu;
 MCNUM phase = mccGuide_curved_7_phase;
 char* reflect = mccGuide_curved_7_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87204,7 +87204,7 @@ MCNUM nelements = mccGuide_curved_8_nelements;
 MCNUM nu = mccGuide_curved_8_nu;
 MCNUM phase = mccGuide_curved_8_phase;
 char* reflect = mccGuide_curved_8_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87318,7 +87318,7 @@ MCNUM nelements = mccGuide_curved_9_nelements;
 MCNUM nu = mccGuide_curved_9_nu;
 MCNUM phase = mccGuide_curved_9_phase;
 char* reflect = mccGuide_curved_9_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87432,7 +87432,7 @@ MCNUM nelements = mccGuide_curved_10_nelements;
 MCNUM nu = mccGuide_curved_10_nu;
 MCNUM phase = mccGuide_curved_10_phase;
 char* reflect = mccGuide_curved_10_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87546,7 +87546,7 @@ MCNUM nelements = mccGuide_curved_11_nelements;
 MCNUM nu = mccGuide_curved_11_nu;
 MCNUM phase = mccGuide_curved_11_phase;
 char* reflect = mccGuide_curved_11_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87660,7 +87660,7 @@ MCNUM nelements = mccGuide_curved_12_nelements;
 MCNUM nu = mccGuide_curved_12_nu;
 MCNUM phase = mccGuide_curved_12_phase;
 char* reflect = mccGuide_curved_12_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87774,7 +87774,7 @@ MCNUM nelements = mccGuide_curved_13_nelements;
 MCNUM nu = mccGuide_curved_13_nu;
 MCNUM phase = mccGuide_curved_13_phase;
 char* reflect = mccGuide_curved_13_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -87888,7 +87888,7 @@ MCNUM nelements = mccGuide_curved_14_nelements;
 MCNUM nu = mccGuide_curved_14_nu;
 MCNUM phase = mccGuide_curved_14_phase;
 char* reflect = mccGuide_curved_14_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88002,7 +88002,7 @@ MCNUM nelements = mccGuide_curved_15_nelements;
 MCNUM nu = mccGuide_curved_15_nu;
 MCNUM phase = mccGuide_curved_15_phase;
 char* reflect = mccGuide_curved_15_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88116,7 +88116,7 @@ MCNUM nelements = mccGuide_curved_16_nelements;
 MCNUM nu = mccGuide_curved_16_nu;
 MCNUM phase = mccGuide_curved_16_phase;
 char* reflect = mccGuide_curved_16_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88230,7 +88230,7 @@ MCNUM nelements = mccGuide_curved_17_nelements;
 MCNUM nu = mccGuide_curved_17_nu;
 MCNUM phase = mccGuide_curved_17_phase;
 char* reflect = mccGuide_curved_17_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88344,7 +88344,7 @@ MCNUM nelements = mccGuide_curved_18_nelements;
 MCNUM nu = mccGuide_curved_18_nu;
 MCNUM phase = mccGuide_curved_18_phase;
 char* reflect = mccGuide_curved_18_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88458,7 +88458,7 @@ MCNUM nelements = mccGuide_curved_19_nelements;
 MCNUM nu = mccGuide_curved_19_nu;
 MCNUM phase = mccGuide_curved_19_phase;
 char* reflect = mccGuide_curved_19_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88572,7 +88572,7 @@ MCNUM nelements = mccGuide_curved_20_nelements;
 MCNUM nu = mccGuide_curved_20_nu;
 MCNUM phase = mccGuide_curved_20_phase;
 char* reflect = mccGuide_curved_20_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88686,7 +88686,7 @@ MCNUM nelements = mccGuide_curved_21_nelements;
 MCNUM nu = mccGuide_curved_21_nu;
 MCNUM phase = mccGuide_curved_21_phase;
 char* reflect = mccGuide_curved_21_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88800,7 +88800,7 @@ MCNUM nelements = mccGuide_curved_22_nelements;
 MCNUM nu = mccGuide_curved_22_nu;
 MCNUM phase = mccGuide_curved_22_phase;
 char* reflect = mccGuide_curved_22_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -88914,7 +88914,7 @@ MCNUM nelements = mccGuide_curved_23_nelements;
 MCNUM nu = mccGuide_curved_23_nu;
 MCNUM phase = mccGuide_curved_23_phase;
 char* reflect = mccGuide_curved_23_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89028,7 +89028,7 @@ MCNUM nelements = mccGuide_curved_24_nelements;
 MCNUM nu = mccGuide_curved_24_nu;
 MCNUM phase = mccGuide_curved_24_phase;
 char* reflect = mccGuide_curved_24_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89142,7 +89142,7 @@ MCNUM nelements = mccGuide_curved_25_nelements;
 MCNUM nu = mccGuide_curved_25_nu;
 MCNUM phase = mccGuide_curved_25_phase;
 char* reflect = mccGuide_curved_25_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89256,7 +89256,7 @@ MCNUM nelements = mccGuide_curved_26_nelements;
 MCNUM nu = mccGuide_curved_26_nu;
 MCNUM phase = mccGuide_curved_26_phase;
 char* reflect = mccGuide_curved_26_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89370,7 +89370,7 @@ MCNUM nelements = mccGuide_curved_27_nelements;
 MCNUM nu = mccGuide_curved_27_nu;
 MCNUM phase = mccGuide_curved_27_phase;
 char* reflect = mccGuide_curved_27_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89484,7 +89484,7 @@ MCNUM nelements = mccGuide_curved_28_nelements;
 MCNUM nu = mccGuide_curved_28_nu;
 MCNUM phase = mccGuide_curved_28_phase;
 char* reflect = mccGuide_curved_28_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89598,7 +89598,7 @@ MCNUM nelements = mccGuide_curved_29_nelements;
 MCNUM nu = mccGuide_curved_29_nu;
 MCNUM phase = mccGuide_curved_29_phase;
 char* reflect = mccGuide_curved_29_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89712,7 +89712,7 @@ MCNUM nelements = mccGuide_curved_30_nelements;
 MCNUM nu = mccGuide_curved_30_nu;
 MCNUM phase = mccGuide_curved_30_phase;
 char* reflect = mccGuide_curved_30_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89826,7 +89826,7 @@ MCNUM nelements = mccGuide_curved_31_nelements;
 MCNUM nu = mccGuide_curved_31_nu;
 MCNUM phase = mccGuide_curved_31_phase;
 char* reflect = mccGuide_curved_31_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -89940,7 +89940,7 @@ MCNUM nelements = mccGuide_curved_32_nelements;
 MCNUM nu = mccGuide_curved_32_nu;
 MCNUM phase = mccGuide_curved_32_phase;
 char* reflect = mccGuide_curved_32_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90054,7 +90054,7 @@ MCNUM nelements = mccGuide_curved_33_nelements;
 MCNUM nu = mccGuide_curved_33_nu;
 MCNUM phase = mccGuide_curved_33_phase;
 char* reflect = mccGuide_curved_33_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90168,7 +90168,7 @@ MCNUM nelements = mccGuide_curved_34_nelements;
 MCNUM nu = mccGuide_curved_34_nu;
 MCNUM phase = mccGuide_curved_34_phase;
 char* reflect = mccGuide_curved_34_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90282,7 +90282,7 @@ MCNUM nelements = mccGuide_curved_35_nelements;
 MCNUM nu = mccGuide_curved_35_nu;
 MCNUM phase = mccGuide_curved_35_phase;
 char* reflect = mccGuide_curved_35_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90396,7 +90396,7 @@ MCNUM nelements = mccGuide_curved_36_nelements;
 MCNUM nu = mccGuide_curved_36_nu;
 MCNUM phase = mccGuide_curved_36_phase;
 char* reflect = mccGuide_curved_36_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90510,7 +90510,7 @@ MCNUM nelements = mccGuide_curved_37_nelements;
 MCNUM nu = mccGuide_curved_37_nu;
 MCNUM phase = mccGuide_curved_37_phase;
 char* reflect = mccGuide_curved_37_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90624,7 +90624,7 @@ MCNUM nelements = mccGuide_curved_38_nelements;
 MCNUM nu = mccGuide_curved_38_nu;
 MCNUM phase = mccGuide_curved_38_phase;
 char* reflect = mccGuide_curved_38_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90738,7 +90738,7 @@ MCNUM nelements = mccGuide_curved_39_nelements;
 MCNUM nu = mccGuide_curved_39_nu;
 MCNUM phase = mccGuide_curved_39_phase;
 char* reflect = mccGuide_curved_39_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90852,7 +90852,7 @@ MCNUM nelements = mccGuide_curved_40_nelements;
 MCNUM nu = mccGuide_curved_40_nu;
 MCNUM phase = mccGuide_curved_40_phase;
 char* reflect = mccGuide_curved_40_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -90966,7 +90966,7 @@ MCNUM nelements = mccGuide_curved_41_nelements;
 MCNUM nu = mccGuide_curved_41_nu;
 MCNUM phase = mccGuide_curved_41_phase;
 char* reflect = mccGuide_curved_41_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91080,7 +91080,7 @@ MCNUM nelements = mccGuide_curved_42_nelements;
 MCNUM nu = mccGuide_curved_42_nu;
 MCNUM phase = mccGuide_curved_42_phase;
 char* reflect = mccGuide_curved_42_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91194,7 +91194,7 @@ MCNUM nelements = mccGuide_curved_43_nelements;
 MCNUM nu = mccGuide_curved_43_nu;
 MCNUM phase = mccGuide_curved_43_phase;
 char* reflect = mccGuide_curved_43_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91308,7 +91308,7 @@ MCNUM nelements = mccGuide_curved_44_nelements;
 MCNUM nu = mccGuide_curved_44_nu;
 MCNUM phase = mccGuide_curved_44_phase;
 char* reflect = mccGuide_curved_44_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91422,7 +91422,7 @@ MCNUM nelements = mccGuide_curved_45_nelements;
 MCNUM nu = mccGuide_curved_45_nu;
 MCNUM phase = mccGuide_curved_45_phase;
 char* reflect = mccGuide_curved_45_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91536,7 +91536,7 @@ MCNUM nelements = mccGuide_curved_46_nelements;
 MCNUM nu = mccGuide_curved_46_nu;
 MCNUM phase = mccGuide_curved_46_phase;
 char* reflect = mccGuide_curved_46_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91650,7 +91650,7 @@ MCNUM nelements = mccGuide_curved_47_nelements;
 MCNUM nu = mccGuide_curved_47_nu;
 MCNUM phase = mccGuide_curved_47_phase;
 char* reflect = mccGuide_curved_47_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91764,7 +91764,7 @@ MCNUM nelements = mccGuide_curved_48_nelements;
 MCNUM nu = mccGuide_curved_48_nu;
 MCNUM phase = mccGuide_curved_48_phase;
 char* reflect = mccGuide_curved_48_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91878,7 +91878,7 @@ MCNUM nelements = mccGuide_curved_49_nelements;
 MCNUM nu = mccGuide_curved_49_nu;
 MCNUM phase = mccGuide_curved_49_phase;
 char* reflect = mccGuide_curved_49_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -91992,7 +91992,7 @@ MCNUM nelements = mccGuide_curved_50_nelements;
 MCNUM nu = mccGuide_curved_50_nu;
 MCNUM phase = mccGuide_curved_50_phase;
 char* reflect = mccGuide_curved_50_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92106,7 +92106,7 @@ MCNUM nelements = mccGuide_curved_51_nelements;
 MCNUM nu = mccGuide_curved_51_nu;
 MCNUM phase = mccGuide_curved_51_phase;
 char* reflect = mccGuide_curved_51_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92220,7 +92220,7 @@ MCNUM nelements = mccGuide_curved_52_nelements;
 MCNUM nu = mccGuide_curved_52_nu;
 MCNUM phase = mccGuide_curved_52_phase;
 char* reflect = mccGuide_curved_52_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92334,7 +92334,7 @@ MCNUM nelements = mccGuide_curved_53_nelements;
 MCNUM nu = mccGuide_curved_53_nu;
 MCNUM phase = mccGuide_curved_53_phase;
 char* reflect = mccGuide_curved_53_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92448,7 +92448,7 @@ MCNUM nelements = mccGuide_curved_54_nelements;
 MCNUM nu = mccGuide_curved_54_nu;
 MCNUM phase = mccGuide_curved_54_phase;
 char* reflect = mccGuide_curved_54_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92562,7 +92562,7 @@ MCNUM nelements = mccGuide_curved_55_nelements;
 MCNUM nu = mccGuide_curved_55_nu;
 MCNUM phase = mccGuide_curved_55_phase;
 char* reflect = mccGuide_curved_55_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92676,7 +92676,7 @@ MCNUM nelements = mccGuide_curved_56_nelements;
 MCNUM nu = mccGuide_curved_56_nu;
 MCNUM phase = mccGuide_curved_56_phase;
 char* reflect = mccGuide_curved_56_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92790,7 +92790,7 @@ MCNUM nelements = mccGuide_curved_57_nelements;
 MCNUM nu = mccGuide_curved_57_nu;
 MCNUM phase = mccGuide_curved_57_phase;
 char* reflect = mccGuide_curved_57_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -92904,7 +92904,7 @@ MCNUM nelements = mccGuide_curved_58_nelements;
 MCNUM nu = mccGuide_curved_58_nu;
 MCNUM phase = mccGuide_curved_58_phase;
 char* reflect = mccGuide_curved_58_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93018,7 +93018,7 @@ MCNUM nelements = mccGuide_curved_59_nelements;
 MCNUM nu = mccGuide_curved_59_nu;
 MCNUM phase = mccGuide_curved_59_phase;
 char* reflect = mccGuide_curved_59_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93132,7 +93132,7 @@ MCNUM nelements = mccGuide_curved_60_nelements;
 MCNUM nu = mccGuide_curved_60_nu;
 MCNUM phase = mccGuide_curved_60_phase;
 char* reflect = mccGuide_curved_60_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93246,7 +93246,7 @@ MCNUM nelements = mccGuide_curved_61_nelements;
 MCNUM nu = mccGuide_curved_61_nu;
 MCNUM phase = mccGuide_curved_61_phase;
 char* reflect = mccGuide_curved_61_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93360,7 +93360,7 @@ MCNUM nelements = mccGuide_curved_62_nelements;
 MCNUM nu = mccGuide_curved_62_nu;
 MCNUM phase = mccGuide_curved_62_phase;
 char* reflect = mccGuide_curved_62_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93474,7 +93474,7 @@ MCNUM nelements = mccGuide_curved_63_nelements;
 MCNUM nu = mccGuide_curved_63_nu;
 MCNUM phase = mccGuide_curved_63_phase;
 char* reflect = mccGuide_curved_63_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93588,7 +93588,7 @@ MCNUM nelements = mccGuide_curved_64_nelements;
 MCNUM nu = mccGuide_curved_64_nu;
 MCNUM phase = mccGuide_curved_64_phase;
 char* reflect = mccGuide_curved_64_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93702,7 +93702,7 @@ MCNUM nelements = mccGuide_curved_65_nelements;
 MCNUM nu = mccGuide_curved_65_nu;
 MCNUM phase = mccGuide_curved_65_phase;
 char* reflect = mccGuide_curved_65_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93816,7 +93816,7 @@ MCNUM nelements = mccGuide_curved_66_nelements;
 MCNUM nu = mccGuide_curved_66_nu;
 MCNUM phase = mccGuide_curved_66_phase;
 char* reflect = mccGuide_curved_66_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -93930,7 +93930,7 @@ MCNUM nelements = mccGuide_curved_67_nelements;
 MCNUM nu = mccGuide_curved_67_nu;
 MCNUM phase = mccGuide_curved_67_phase;
 char* reflect = mccGuide_curved_67_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94044,7 +94044,7 @@ MCNUM nelements = mccGuide_curved_68_nelements;
 MCNUM nu = mccGuide_curved_68_nu;
 MCNUM phase = mccGuide_curved_68_phase;
 char* reflect = mccGuide_curved_68_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94158,7 +94158,7 @@ MCNUM nelements = mccGuide_curved_69_nelements;
 MCNUM nu = mccGuide_curved_69_nu;
 MCNUM phase = mccGuide_curved_69_phase;
 char* reflect = mccGuide_curved_69_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94272,7 +94272,7 @@ MCNUM nelements = mccGuide_curved_70_nelements;
 MCNUM nu = mccGuide_curved_70_nu;
 MCNUM phase = mccGuide_curved_70_phase;
 char* reflect = mccGuide_curved_70_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94386,7 +94386,7 @@ MCNUM nelements = mccGuide_curved_71_nelements;
 MCNUM nu = mccGuide_curved_71_nu;
 MCNUM phase = mccGuide_curved_71_phase;
 char* reflect = mccGuide_curved_71_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94500,7 +94500,7 @@ MCNUM nelements = mccGuide_curved_72_nelements;
 MCNUM nu = mccGuide_curved_72_nu;
 MCNUM phase = mccGuide_curved_72_phase;
 char* reflect = mccGuide_curved_72_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94614,7 +94614,7 @@ MCNUM nelements = mccGuide_curved_73_nelements;
 MCNUM nu = mccGuide_curved_73_nu;
 MCNUM phase = mccGuide_curved_73_phase;
 char* reflect = mccGuide_curved_73_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94728,7 +94728,7 @@ MCNUM nelements = mccGuide_curved_74_nelements;
 MCNUM nu = mccGuide_curved_74_nu;
 MCNUM phase = mccGuide_curved_74_phase;
 char* reflect = mccGuide_curved_74_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94842,7 +94842,7 @@ MCNUM nelements = mccGuide_curved_75_nelements;
 MCNUM nu = mccGuide_curved_75_nu;
 MCNUM phase = mccGuide_curved_75_phase;
 char* reflect = mccGuide_curved_75_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -94956,7 +94956,7 @@ MCNUM nelements = mccGuide_curved_76_nelements;
 MCNUM nu = mccGuide_curved_76_nu;
 MCNUM phase = mccGuide_curved_76_phase;
 char* reflect = mccGuide_curved_76_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95070,7 +95070,7 @@ MCNUM nelements = mccGuide_curved_77_nelements;
 MCNUM nu = mccGuide_curved_77_nu;
 MCNUM phase = mccGuide_curved_77_phase;
 char* reflect = mccGuide_curved_77_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95184,7 +95184,7 @@ MCNUM nelements = mccGuide_curved_78_nelements;
 MCNUM nu = mccGuide_curved_78_nu;
 MCNUM phase = mccGuide_curved_78_phase;
 char* reflect = mccGuide_curved_78_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95298,7 +95298,7 @@ MCNUM nelements = mccGuide_curved_79_nelements;
 MCNUM nu = mccGuide_curved_79_nu;
 MCNUM phase = mccGuide_curved_79_phase;
 char* reflect = mccGuide_curved_79_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95412,7 +95412,7 @@ MCNUM nelements = mccGuide_curved_80_nelements;
 MCNUM nu = mccGuide_curved_80_nu;
 MCNUM phase = mccGuide_curved_80_phase;
 char* reflect = mccGuide_curved_80_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95526,7 +95526,7 @@ MCNUM nelements = mccGuide_curved_81_nelements;
 MCNUM nu = mccGuide_curved_81_nu;
 MCNUM phase = mccGuide_curved_81_phase;
 char* reflect = mccGuide_curved_81_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95640,7 +95640,7 @@ MCNUM nelements = mccGuide_curved_82_nelements;
 MCNUM nu = mccGuide_curved_82_nu;
 MCNUM phase = mccGuide_curved_82_phase;
 char* reflect = mccGuide_curved_82_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95754,7 +95754,7 @@ MCNUM nelements = mccGuide_curved_83_nelements;
 MCNUM nu = mccGuide_curved_83_nu;
 MCNUM phase = mccGuide_curved_83_phase;
 char* reflect = mccGuide_curved_83_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95868,7 +95868,7 @@ MCNUM nelements = mccGuide_curved_84_nelements;
 MCNUM nu = mccGuide_curved_84_nu;
 MCNUM phase = mccGuide_curved_84_phase;
 char* reflect = mccGuide_curved_84_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -95982,7 +95982,7 @@ MCNUM nelements = mccGuide_curved_85_nelements;
 MCNUM nu = mccGuide_curved_85_nu;
 MCNUM phase = mccGuide_curved_85_phase;
 char* reflect = mccGuide_curved_85_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96096,7 +96096,7 @@ MCNUM nelements = mccGuide_curved_86_nelements;
 MCNUM nu = mccGuide_curved_86_nu;
 MCNUM phase = mccGuide_curved_86_phase;
 char* reflect = mccGuide_curved_86_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96210,7 +96210,7 @@ MCNUM nelements = mccGuide_curved_87_nelements;
 MCNUM nu = mccGuide_curved_87_nu;
 MCNUM phase = mccGuide_curved_87_phase;
 char* reflect = mccGuide_curved_87_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96324,7 +96324,7 @@ MCNUM nelements = mccGuide_curved_88_nelements;
 MCNUM nu = mccGuide_curved_88_nu;
 MCNUM phase = mccGuide_curved_88_phase;
 char* reflect = mccGuide_curved_88_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96438,7 +96438,7 @@ MCNUM nelements = mccGuide_curved_89_nelements;
 MCNUM nu = mccGuide_curved_89_nu;
 MCNUM phase = mccGuide_curved_89_phase;
 char* reflect = mccGuide_curved_89_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96552,7 +96552,7 @@ MCNUM nelements = mccGuide_curved_90_nelements;
 MCNUM nu = mccGuide_curved_90_nu;
 MCNUM phase = mccGuide_curved_90_phase;
 char* reflect = mccGuide_curved_90_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96666,7 +96666,7 @@ MCNUM nelements = mccGuide_curved_91_nelements;
 MCNUM nu = mccGuide_curved_91_nu;
 MCNUM phase = mccGuide_curved_91_phase;
 char* reflect = mccGuide_curved_91_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96780,7 +96780,7 @@ MCNUM nelements = mccGuide_curved_92_nelements;
 MCNUM nu = mccGuide_curved_92_nu;
 MCNUM phase = mccGuide_curved_92_phase;
 char* reflect = mccGuide_curved_92_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -96894,7 +96894,7 @@ MCNUM nelements = mccGuide_curved_93_nelements;
 MCNUM nu = mccGuide_curved_93_nu;
 MCNUM phase = mccGuide_curved_93_phase;
 char* reflect = mccGuide_curved_93_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97008,7 +97008,7 @@ MCNUM nelements = mccGuide_curved_94_nelements;
 MCNUM nu = mccGuide_curved_94_nu;
 MCNUM phase = mccGuide_curved_94_phase;
 char* reflect = mccGuide_curved_94_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97122,7 +97122,7 @@ MCNUM nelements = mccGuide_curved_95_nelements;
 MCNUM nu = mccGuide_curved_95_nu;
 MCNUM phase = mccGuide_curved_95_phase;
 char* reflect = mccGuide_curved_95_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97236,7 +97236,7 @@ MCNUM nelements = mccGuide_curved_96_nelements;
 MCNUM nu = mccGuide_curved_96_nu;
 MCNUM phase = mccGuide_curved_96_phase;
 char* reflect = mccGuide_curved_96_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97350,7 +97350,7 @@ MCNUM nelements = mccGuide_curved_97_nelements;
 MCNUM nu = mccGuide_curved_97_nu;
 MCNUM phase = mccGuide_curved_97_phase;
 char* reflect = mccGuide_curved_97_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97464,7 +97464,7 @@ MCNUM nelements = mccGuide_curved_98_nelements;
 MCNUM nu = mccGuide_curved_98_nu;
 MCNUM phase = mccGuide_curved_98_phase;
 char* reflect = mccGuide_curved_98_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97578,7 +97578,7 @@ MCNUM nelements = mccGuide_curved_99_nelements;
 MCNUM nu = mccGuide_curved_99_nu;
 MCNUM phase = mccGuide_curved_99_phase;
 char* reflect = mccGuide_curved_99_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97692,7 +97692,7 @@ MCNUM nelements = mccGuide_curved_100_nelements;
 MCNUM nu = mccGuide_curved_100_nu;
 MCNUM phase = mccGuide_curved_100_phase;
 char* reflect = mccGuide_curved_100_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97806,7 +97806,7 @@ MCNUM nelements = mccGuide_curved_101_nelements;
 MCNUM nu = mccGuide_curved_101_nu;
 MCNUM phase = mccGuide_curved_101_phase;
 char* reflect = mccGuide_curved_101_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -97920,7 +97920,7 @@ MCNUM nelements = mccGuide_curved_102_nelements;
 MCNUM nu = mccGuide_curved_102_nu;
 MCNUM phase = mccGuide_curved_102_phase;
 char* reflect = mccGuide_curved_102_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -98034,7 +98034,7 @@ MCNUM nelements = mccGuide_curved_103_nelements;
 MCNUM nu = mccGuide_curved_103_nu;
 MCNUM phase = mccGuide_curved_103_phase;
 char* reflect = mccGuide_curved_103_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -98148,7 +98148,7 @@ MCNUM nelements = mccGuide_straight_nelements;
 MCNUM nu = mccGuide_straight_nu;
 MCNUM phase = mccGuide_straight_phase;
 char* reflect = mccGuide_straight_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -98254,7 +98254,7 @@ char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
 int nowritefile = mccSample_nowritefile;
-#line 493 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 493 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {

@@ -1,0 +1,84 @@
+McStas simulation description file for H3_5D.
+Date:    Wed Apr 22 14:27:13 2020
+Program: McStas 2.5 - Dec. 12, 2018
+
+begin instrument: H3_5D
+  File: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/instruments/H5-2-1-SEM_20200422_142713/mccode
+  Source: H5-2-1-SEM.instr
+  Parameters: 
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/instruments/H5-2-1-SEM_20200422_142713
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator: McStas 2.5 - Dec. 12, 2018
+  Instrument: H5-2-1-SEM.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1587564327
+  Directory: /Users/peterkonik/JOB/git_repos/PIK_neutron_guide_system/main/instruments/H5-2-1-SEM_20200422_142713
+end simulation
+
+begin data
+  Date: Wed Apr 22 14:27:21 2020 (1587554841)
+  type: array_1d(100)
+  Source: H3_5D (H5-2-1-SEM.instr)
+  component: Monlam
+  position: 5.07967 -0.075 96.6265
+  title: Wavelength [Angs] monitor
+  Ncount: 1000000
+  filename: H3-5D_NSE.lam
+  statistics: X0=5.69489; dX=2.5832;
+  signal: Min=0; Max=1.98262e+08; Mean=2.1203e+07;
+  values: 2.1203e+09 2.41921e+08 294
+  xvar: L
+  yvar: (I,I_err)
+  xlabel: Wavelength [Angs]
+  ylabel: Intensity [n/s/bin]
+  xlimits: 0 20
+  variables: L I I_err N
+end data
+
+begin data
+  Date: Wed Apr 22 14:27:21 2020 (1587554841)
+  type: array_1d(100)
+  Source: H3_5D (H5-2-1-SEM.instr)
+  component: Mondx
+  position: 5.07967 -0.075 96.6265
+  title: Hor. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-5D_NSE.dx
+  statistics: X0=-0.00590197; dX=0.299945;
+  signal: Min=0; Max=3.86478e+09; Mean=4.77179e+08;
+  values: 4.77179e+10 1.04813e+09 12213
+  xvar: hd
+  yvar: (I,I_err)
+  xlabel: Hor. Divergence [deg]
+  ylabel: Intensity [n/s/bin]
+  xlimits: -3 3
+  variables: hd I I_err N
+end data
+
+begin data
+  Date: Wed Apr 22 14:27:21 2020 (1587554841)
+  type: array_1d(100)
+  Source: H3_5D (H5-2-1-SEM.instr)
+  component: Mondy
+  position: 5.07967 -0.075 96.6265
+  title: Vert. Divergence [deg] monitor
+  Ncount: 1000000
+  filename: H3-5D_NSE.dy
+  statistics: X0=0.00649877; dX=0.29943;
+  signal: Min=0; Max=6.20032e+09; Mean=4.77179e+08;
+  values: 4.77179e+10 1.04813e+09 12213
+  xvar: vd
+  yvar: (I,I_err)
+  xlabel: Vert. Divergence [deg]
+  ylabel: Intensity [n/s/bin]
+  xlimits: -5 5
+  variables: vd I I_err N
+end data

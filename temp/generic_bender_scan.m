@@ -1,22 +1,22 @@
 function generic_bender_scan(H,L,N)
-Lb_min = 1; Lb_step = 2.5; Lb_max = 21;
+Lb_min = 1; Lb_step = 5; Lb_max = 51;
 n_chan_min = 1; n_chan_step = 1; n_chan_max = N;
-model = mccode('../generic_guides/generic_curved.instr','ncount=1e6;mpi=4');
+model = mccode('../generic_guides/generic_curved.instr','ncount=1e8;mpi=4');
 
 name = 'H2-1 ARES bender scan lambda 16dop';
 parameters.sample_width=0.06;
 parameters.sample_height=0.02;
 parameters.guide_start_width=0.06;
 parameters.guide_start_height=0.2;
-parameters.source_lambda_min=1.6;
-parameters.source_lambda_max=1.7;
+parameters.source_lambda_min=0.5;
+parameters.source_lambda_max=0.6;
 parameters.cold_regime=1;
 parameters.m_out=6;
 parameters.m_in=6;
 parameters.m_str_side=6;
 parameters.m_top=6;
 
-model_str = mccode('../generic_guides/generic_straight.instr','ncount=1e6;mpi=4');
+model_str = mccode('../generic_guides/generic_straight.instr','ncount=1e8;mpi=4');
 parameters_str.guide_length = L;
 parameters_str.m_str_side=6;
 parameters_str.m_top=6;
@@ -24,8 +24,8 @@ parameters_str.sample_width=0.06;
 parameters_str.sample_height=0.2;
 parameters_str.guide_start_width=0.06;
 parameters_str.guide_start_height=0.2;
-parameters_str.source_lambda_min=1.6;
-parameters_str.source_lambda_max=1.7;
+parameters_str.source_lambda_min=0.5;
+parameters_str.source_lambda_max=0.6;
 results_str = iData(model_str,parameters_str);
 %sum_L_str = sum(results_str, 0);
 sum_L_str = results_str.UserData.monitors.Data.values(1);

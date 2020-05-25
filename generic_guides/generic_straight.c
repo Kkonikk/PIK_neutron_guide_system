@@ -2,7 +2,7 @@
  * Format:     ANSI C source code
  * Creator:    McStas <http://www.mcstas.org>
  * Instrument: ../generic_guides/generic_straight.instr (generic_straight)
- * Date:       Thu Sep 19 16:13:19 2019
+ * Date:       Thu Apr  2 04:12:43 2020
  * File:       ../generic_guides/generic_straight.c
  * Compile:    cc -o generic_straight.out ../generic_guides/generic_straight.c 
  * CFLAGS=
@@ -5310,7 +5310,7 @@ int mctraceenabled = 1;
 #else
 int mctraceenabled = 0;
 #endif
-#define MCSTAS "/usr/share/mcstas/2.5/"
+#define MCSTAS "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/"
 int mcdefaultmain = 1;
 char mcinstrument_name[] = "generic_straight";
 char mcinstrument_source[] = "../generic_guides/generic_straight.instr";
@@ -5323,7 +5323,7 @@ void mcfinally(void);
 void mcdisplay(void);
 
 /* Shared user declarations for all components 'Source_gen'. */
-#line 140 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 140 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -6803,7 +6803,7 @@ char *str_dup_numeric(char *orig)
 #line 6803 "../generic_guides/generic_straight.c"
 
 /* Shared user declarations for all components 'Guide_gravity'. */
-#line 124 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 124 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 /*****************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -7159,7 +7159,7 @@ void TableReflecFunc(double mc_pol_q, t_Table *mc_pol_par, double *mc_pol_r) {
 #line 7159 "../generic_guides/generic_straight.c"
 
 /* Shared user declarations for all components 'Monitor_nD'. */
-#line 214 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 214 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 /*******************************************************************************
 *
 * McStas, neutron ray-tracing package
@@ -10305,7 +10305,7 @@ int mccSample_nowritefile;
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 44 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 44 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 #ifndef PROGRESS_BAR
 #define PROGRESS_BAR
 #else
@@ -10380,7 +10380,7 @@ time_t CurrentTime;
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 184 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 184 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 
   double p_in;
   double lambda1;  /* first Maxwellian source */
@@ -10500,7 +10500,7 @@ time_t CurrentTime;
 #define nu mccMain_guide_nu
 #define phase mccMain_guide_phase
 #define reflect mccMain_guide_reflect
-#line 334 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 334 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
   Gravity_guide_Vars_type GVars;
   t_Table pTable;
 #line 10506 "../generic_guides/generic_straight.c"
@@ -10576,7 +10576,7 @@ time_t CurrentTime;
 #define username2 mccSample_username2
 #define username3 mccSample_username3
 #define nowritefile mccSample_nowritefile
-#line 222 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 222 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
   MonitornD_Defines_type DEFS;
   MonitornD_Variables_type Vars;
   MCDETECTOR detector;
@@ -11031,7 +11031,7 @@ if (cold_regime==-1){
 #define percent mccOrigin_percent
 #define flag_save mccOrigin_flag_save
 #define minutes mccOrigin_minutes
-#line 57 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 57 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 {
 IntermediateCnts=0;
 StartTime=0;
@@ -11108,7 +11108,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define I3 mccH3_I3
 #define zdepth mccH3_zdepth
 #define target_index mccH3_target_index
-#line 206 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 206 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 {
   pTable_xsum=0;
   pTable_ysum=0;
@@ -11476,7 +11476,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define nu mccMain_guide_nu
 #define phase mccMain_guide_phase
 #define reflect mccMain_guide_reflect
-#line 339 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 339 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   double Gx=0, Gy=-GRAVITY, Gz=0;
   Coords mcLocG;
@@ -11602,7 +11602,7 @@ fprintf(stdout, "[%s] Initialize\n", mcinstrument_name);
 #define username2 mccSample_username2
 #define username3 mccSample_username3
 #define nowritefile mccSample_nowritefile
-#line 229 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 229 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 {
   char tmp[CHAR_BUF_LENGTH];
   strcpy(Vars.compcurname, NAME_CURRENT_COMP);
@@ -11823,7 +11823,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 70 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 70 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 {
   double ncount;
   ncount = mcget_run_num();
@@ -12024,7 +12024,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 479 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 479 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 {
   double dx=0,dy=0,xf,yf,rf,pdir,chi,v,r, lambda;
   double Maxwell;
@@ -12377,7 +12377,7 @@ MCNUM nelements = mccMain_guide_nelements;
 MCNUM nu = mccMain_guide_nu;
 MCNUM phase = mccMain_guide_phase;
 char* reflect = mccMain_guide_reflect;
-#line 392 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 392 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
   if (l > 0 && nelements > 0) {
     double B, C, dt;
@@ -12682,7 +12682,7 @@ char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
 int nowritefile = mccSample_nowritefile;
-#line 309 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 309 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 {
   double  XY=0;
   double  t0 = 0;
@@ -12950,7 +12950,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 115 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 115 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 {
   MPI_MASTER(fprintf(stdout, "\nSave [%s]\n", mcinstrument_name););
   if (profile && strlen(profile) && strcmp(profile,"NULL") && strcmp(profile,"0")) {
@@ -13011,7 +13011,7 @@ char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
 int nowritefile = mccSample_nowritefile;
-#line 479 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 479 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 {
   /* save results, but do not free pointers */
   detector = Monitor_nD_Save(&DEFS, &Vars);
@@ -13050,7 +13050,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 133 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 133 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 {
   time_t NowTime;
   time(&NowTime);
@@ -13129,7 +13129,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 571 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 {
   Table_Free(&pTable);
   Table_Free(&pTable_x);
@@ -13206,7 +13206,7 @@ MCNUM nelements = mccMain_guide_nelements;
 MCNUM nu = mccMain_guide_nu;
 MCNUM phase = mccMain_guide_phase;
 char* reflect = mccMain_guide_reflect;
-#line 562 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 562 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 if (GVars.warnings > 100) {
   fprintf(stderr,"%s: warning: neutron has entered guide, but can not exit !\n", GVars.compcurname);
@@ -13258,7 +13258,7 @@ char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
 int nowritefile = mccSample_nowritefile;
-#line 485 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 485 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 {
   /* free pointers */
   if (!nowritefile) {
@@ -13311,7 +13311,7 @@ char* profile = mccOrigin_profile;
 MCNUM percent = mccOrigin_percent;
 MCNUM flag_save = mccOrigin_flag_save;
 MCNUM minutes = mccOrigin_minutes;
-#line 147 "/usr/share/mcstas/2.5/misc/Progress_bar.comp"
+#line 147 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/misc/Progress_bar.comp"
 {
   
 }
@@ -13379,7 +13379,7 @@ MCNUM T3 = mccH3_T3;
 MCNUM I3 = mccH3_I3;
 MCNUM zdepth = mccH3_zdepth;
 int target_index = mccH3_target_index;
-#line 578 "/usr/share/mcstas/2.5/sources/Source_gen.comp"
+#line 578 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/sources/Source_gen.comp"
 {
   double xmin;
   double xmax;
@@ -13457,7 +13457,7 @@ int target_index = mccH3_target_index;
 #define mccompcurname  Guide_start_arm
 #define mccompcurtype  Arm
 #define mccompcurindex 3
-#line 40 "/usr/share/mcstas/2.5/optics/Arm.comp"
+#line 40 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Arm.comp"
 {
   /* A bit ugly; hard-coded dimensions. */
   
@@ -13513,7 +13513,7 @@ MCNUM nelements = mccMain_guide_nelements;
 MCNUM nu = mccMain_guide_nu;
 MCNUM phase = mccMain_guide_phase;
 char* reflect = mccMain_guide_reflect;
-#line 571 "/usr/share/mcstas/2.5/optics/Guide_gravity.comp"
+#line 571 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/optics/Guide_gravity.comp"
 {
 
   if (l > 0 && nelements > 0) {
@@ -13619,7 +13619,7 @@ char* username1 = mccSample_username1;
 char* username2 = mccSample_username2;
 char* username3 = mccSample_username3;
 int nowritefile = mccSample_nowritefile;
-#line 493 "/usr/share/mcstas/2.5/monitors/Monitor_nD.comp"
+#line 493 "/Applications/McStas-2.5.app/Contents/Resources/mcstas/2.5/monitors/Monitor_nD.comp"
 {
   if (geometry && strlen(geometry) && strcmp(geometry,"0") && strcmp(geometry, "NULL"))
   {
